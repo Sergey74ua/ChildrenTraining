@@ -17,10 +17,10 @@ public class Tetris {
 		
 		//Окно программы
 		JFrame jFrame = new JFrame("Tetris");
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.pack();
-        jFrame.setSize(block*10+17, block*20+40);
+		jFrame.setSize(block*10+17, block*20+40);
 		jFrame.setResizable(false);
 		jFrame.setLocationRelativeTo(null);
 		
@@ -29,10 +29,10 @@ public class Tetris {
 		//Отрисовка в окне
 		int rect = block/5;
 		JPanel panel = new JPanel() {
-            @Override
-            public void paint(Graphics ctx) {
+			@Override
+			public void paint(Graphics ctx) {
 				setBackground(Color.black);
-                super.paint(ctx);
+				super.paint(ctx);
 				
 				//Сетка
 				ctx.setColor(Color.gray);
@@ -45,10 +45,10 @@ public class Tetris {
 				ctx.drawRoundRect(block*1+1, block*1+1, block-2, block-2, rect, rect);
 				ctx.drawRoundRect(block*5+1, block*10+1, block-2, block-2, rect, rect);
 				ctx.drawRoundRect(block*9+1, block*19+1, block-2, block-2, rect, rect);
-            }
-        };
+			}
+		};
 		jFrame.add(panel);
 		jFrame.setVisible(true);
-    }
+	}
 }
 
