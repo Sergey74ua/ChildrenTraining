@@ -10,4 +10,4 @@ echo %TIME% - Compilation
 echo %TIME% - Start
 "C:\Program Files\Java\jdk-13.0.1\bin\java.exe" Tetris
 
-pause >nul
+::pause >nul
