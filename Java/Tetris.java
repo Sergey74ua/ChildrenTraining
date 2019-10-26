@@ -5,13 +5,17 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Timer;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Tetris {
 	
-	protected static int block = 40;
+	static byte block = 40, t = 0, y = 0;
 	
 	public static void main(String[] args) {
 		
@@ -25,30 +29,48 @@ public class Tetris {
 		jFrame.setLocationRelativeTo(null);
 		
 		//Отслеживаем нажатия клавиш
+		jFrame.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent event) {
+				switch(event.getKeyCode()) {
+					case 37: y--; break; //влево
+					case 38: y--; break; //вниз
+					case 39: y++; break; //вправо
+					case 40: y++; break; //вверх
+				}
+			}
+		});
 		
 		//Отрисовка в окне
-		int rect = block/5;
-		JPanel panel = new JPanel() {
-			@Override
-			public void paint(Graphics ctx) {
-				setBackground(Color.black);
-				super.paint(ctx);
+		while (true) {
+			
+			t++; //для теста
+			JPanel jPanel = new JPanel() {
 				
-				//Сетка
-				ctx.setColor(Color.gray);
-				for (byte i = 0; i <= 10; i++) ctx.drawLine(block*i, 0, block*i, block*20);
-				for (byte i = 0; i <= 20; i++) ctx.drawLine(0, block*i, block*10, block*i);
-				
-				//Тестовые блоки
-				ctx.setColor(Color.green);
-				ctx.drawRoundRect(block*0+1, block*0+1, block-2, block-2, rect, rect);
-				ctx.drawRoundRect(block*1+1, block*1+1, block-2, block-2, rect, rect);
-				ctx.drawRoundRect(block*5+1, block*10+1, block-2, block-2, rect, rect);
-				ctx.drawRoundRect(block*9+1, block*19+1, block-2, block-2, rect, rect);
-			}
-		};
-		jFrame.add(panel);
-		jFrame.setVisible(true);
+				@Override
+				public void paint(Graphics ctx) {
+					setBackground(Color.black);
+					super.paint(ctx);
+					
+					//Сетка
+					ctx.setColor(Color.gray);
+					for (byte i = 0; i <= 10; i++) ctx.drawLine(block*i, 0, block*i, block*20);
+					for (byte i = 0; i <= 20; i++) ctx.drawLine(0, block*i, block*10, block*i);
+					
+					//Тестовые блоки
+					ctx.setColor(Color.green);
+					ctx.fillRect(block*3+1+y*block, block*(-2)+1+t*block, block-1, block-1);
+					ctx.fillRect(block*4+1+y*block, block*(-2)+1+t*block, block-1, block-1);
+					ctx.fillRect(block*5+1+y*block, block*(-2)+1+t*block, block-1, block-1);
+					ctx.fillRect(block*5+1+y*block, block*(-1)+1+t*block, block-1, block-1);
+				}
+			};
+			jFrame.add(jPanel);
+			jFrame.setVisible(true);
+			
+			//Пауза между кадрами
+			try {
+				Thread.sleep(400);
+			} catch (Exception e){}
+		}
 	}
 }
-
