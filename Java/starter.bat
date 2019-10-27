@@ -1,7 +1,7 @@
 @echo off
 chcp 1251 >nul
 title Компиляция и запуск Java-кода
-mode con cols=64 lines=16
+mode con cols=32 lines=4
 color 0a
 
 echo %TIME% - Compilation
