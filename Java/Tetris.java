@@ -21,17 +21,17 @@ public class Tetris extends JPanel {
     public static void main(String[] args) {
 		
 		//Окно приложения
-        JFrame jFrame = new JFrame("Tetris");
+		JFrame jFrame = new JFrame("Tetris");
 		jFrame.setDefaultLookAndFeelDecorated(true);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.setSize(block*10+17, block*20+40);
 		jFrame.setResizable(false);
 		jFrame.setLocationRelativeTo(null);
-        jFrame.setVisible(true);
+		jFrame.setVisible(true);
 		
 		//Объект игры
 		Tetris tetris = new Tetris();
-        jFrame.add(tetris);
+		jFrame.add(tetris);
 		
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
