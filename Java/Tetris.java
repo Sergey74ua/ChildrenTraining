@@ -15,12 +15,12 @@ import javax.swing.JPanel;
 public class Tetris extends JPanel {
 
 	//Переменные
-	static int block = 40, x = -3, y = 0;
+	static int block = 40, x = 0, y = 0, r;
 	public int form[][][] = {
 		{{0, 0, 0, 0}, { 1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 0, 0}}, // Z red
 		{{0, 1, 0, 0}, { 0, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 165, 0}}, // L orange
 		{{0, 0, 0, 0}, { 0, 1, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 255, 0}}, // O yellow
-		{{0, 0, 0, 0}, { 1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {0, 255, 0}}, // S green
+		{{0, 0, 0, 0}, { 0, 1, 1, 0}, {1, 1, 0, 0}, {0, 0, 0, 0}, {0, 255, 0}}, // S green
 		{{0, 0, 0, 0}, { 1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 255, 255}}, // I aqua
 		{{0, 0, 1, 0}, { 0, 0, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {0, 0, 255}}, // J blue
 		{{0, 0, 0, 0}, { 1, 1, 1, 0}, {0, 1, 0, 0}, {0, 0, 0, 0}, {255, 0, 255}}  // T purple
@@ -45,10 +45,10 @@ public class Tetris extends JPanel {
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				switch(event.getKeyCode()) {
-					case 37: y--; break; //влево
-					case 38: x--; break; //вниз
-					case 39: y++; break; //вправо
-					case 40: x++; break; //вверх
+					case 37: x--; break; //влево
+					case 38: y--; break; //вниз
+					case 39: x++; break; //вправо
+					case 40: y++; break; //вверх
 				}
 			}
 		});
@@ -57,15 +57,18 @@ public class Tetris extends JPanel {
 		while (true) {
 			tetris.game();
 			tetris.repaint();
+			System.out.print(" " + r);
 			try {
-				Thread.sleep(400);
+				Thread.sleep(500);
 			} catch (Exception e){}
 		}
 	}
 
 	//Логика игры
 	private void game() {
-		x++;
+		Random random = new Random();
+		r = random.nextInt(7);
+		//y++;
 	}
 
 	//Отрисовка игры
@@ -82,8 +85,8 @@ public class Tetris extends JPanel {
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
 				ctx.setColor(Color.green);
-				if (form[0][i][j] > 0) {
-					ctx.fillRect(block*3+j*block+1+y*block, block*i+x*block+1, block-1, block-1);
+				if (form[r][i][j] > 0) {
+					ctx.fillRect(block*3+j*block+1+x*block, block*i+y*block+1, block-1, block-1);
 				}
 			}
 		}
