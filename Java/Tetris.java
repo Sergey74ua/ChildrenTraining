@@ -11,12 +11,20 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class Tetris extends JPanel {
 
 	//Переменные
-	static int block = 40, x = 0, y = 0;
+	static int block = 40, x = -3, y = 0;
+	public int form[][][] = {
+		{{0, 0, 0, 0}, { 1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 0, 0}}, // Z red
+		{{0, 1, 0, 0}, { 0, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 165, 0}}, // L orange
+		{{0, 0, 0, 0}, { 0, 1, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 255, 0}}, // O yellow
+		{{0, 0, 0, 0}, { 1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {0, 255, 0}}, // S green
+		{{0, 0, 0, 0}, { 1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 255, 255}}, // I aqua
+		{{0, 0, 1, 0}, { 0, 0, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {0, 0, 255}}, // J blue
+		{{0, 0, 0, 0}, { 1, 1, 1, 0}, {0, 1, 0, 0}, {0, 0, 0, 0}, {255, 0, 255}}  // T purple
+	};
 
 	public static void main(String[] args) {
 
@@ -38,9 +46,9 @@ public class Tetris extends JPanel {
 			public void keyPressed(KeyEvent event) {
 				switch(event.getKeyCode()) {
 					case 37: y--; break; //влево
-					case 38: y--; break; //вниз
+					case 38: x--; break; //вниз
 					case 39: y++; break; //вправо
-					case 40: y++; break; //вверх
+					case 40: x++; break; //вверх
 				}
 			}
 		});
@@ -71,10 +79,13 @@ public class Tetris extends JPanel {
 		for (int i = 0; i <= 20; i++) ctx.drawLine(0, block*i, block*10, block*i);
 
 		//Фигура
-		ctx.setColor(Color.green);
-		ctx.fillRect(block*3+1+y*block, block*(-2)+1+x*block, block-1, block-1);
-		ctx.fillRect(block*4+1+y*block, block*(-2)+1+x*block, block-1, block-1);
-		ctx.fillRect(block*5+1+y*block, block*(-2)+1+x*block, block-1, block-1);
-		ctx.fillRect(block*5+1+y*block, block*(-1)+1+x*block, block-1, block-1);
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 4; i++) {
+				ctx.setColor(Color.green);
+				if (form[0][i][j] > 0) {
+					ctx.fillRect(block*3+j*block+1+y*block, block*i+x*block+1, block-1, block-1);
+				}
+			}
+		}
 	}
 }
