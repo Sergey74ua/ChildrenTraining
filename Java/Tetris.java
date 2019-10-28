@@ -84,7 +84,7 @@ public class Tetris extends JPanel {
 		//Фигура
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 4; i++) {
-				ctx.setColor(Color.green);
+				ctx.setColor(new Color(form[r][4][0], form[r][4][1], form[r][4][2]));
 				if (form[r][i][j] > 0) {
 					ctx.fillRect(block*3+j*block+1+x*block, block*i+y*block+1, block-1, block-1);
 				}
