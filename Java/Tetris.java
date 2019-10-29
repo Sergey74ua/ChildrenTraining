@@ -14,17 +14,18 @@ import javax.swing.JPanel;
 
 public class Tetris extends JPanel {
 
-	//Переменные
-	static int block = 40, x = 0, y = 0, r;
-	public int form[][][] = {
-		{{0, 0, 0, 0}, { 1, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 0, 0}}, // Z red
-		{{0, 1, 0, 0}, { 0, 1, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 165, 0}}, // L orange
-		{{0, 0, 0, 0}, { 0, 1, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {255, 255, 0}}, // O yellow
-		{{0, 0, 0, 0}, { 0, 1, 1, 0}, {1, 1, 0, 0}, {0, 0, 0, 0}, {0, 255, 0}}, // S green
-		{{0, 0, 0, 0}, { 1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 255, 255}}, // I aqua
-		{{0, 0, 1, 0}, { 0, 0, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}, {0, 0, 255}}, // J blue
-		{{0, 0, 0, 0}, { 1, 1, 1, 0}, {0, 1, 0, 0}, {0, 0, 0, 0}, {255, 0, 255}}  // T purple
+	//Переменные, массивы и объекты
+	static int block = 40, xForm, yForm, randForm, temp;
+	public int form[][][] = { // фигурка / блоки / x,y или r,g,b
+		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {255, 0, 0}}, // Z red
+		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {255, 165, 0}}, // L orange
+		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {255, 255, 0}}, // O yellow
+		{{0, 2}, {1, 2}, {1, 1}, {2, 1}, {0, 255, 0}}, // S green
+		{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {0, 255, 255}}, // I aqua
+		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {0, 0, 255}}, // J blue
+		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {255, 0, 255}}  // T purple
 	};
+	Random random = new Random();
 
 	public static void main(String[] args) {
 
@@ -40,35 +41,50 @@ public class Tetris extends JPanel {
 		//Объект игры
 		Tetris tetris = new Tetris();
 		jFrame.add(tetris);
+		tetris.random();
 
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				switch(event.getKeyCode()) {
-					case 37: x--; break; //влево
-					case 38: y--; break; //вниз
-					case 39: x++; break; //вправо
-					case 40: y++; break; //вверх
+					case 37: xForm--; break; //влево
+					case 38: tetris.rotation(); break; //вниз
+					case 39: xForm++; break; //вправо
+					case 40: yForm++; break; //вверх(вращение)
 				}
 			}
 		});
 
 		//Цикл анимации
-		while (true) {
+		while (true) { //вписать проверку на проигрыш
 			tetris.game();
 			tetris.repaint();
-			System.out.print(" " + r);
 			try {
-				Thread.sleep(500);
+				Thread.sleep(200);
 			} catch (Exception e){}
 		}
 	}
 
 	//Логика игры
 	private void game() {
-		Random random = new Random();
-		r = random.nextInt(7);
-		//y++;
+		yForm++;
+		if (yForm == 20) random(); //заменить на сложение с массивом днища
+	}
+
+	//Запуск фигурки
+	private void random() {
+		randForm = random.nextInt(7);
+		xForm = random.nextInt(7);
+		yForm = -2;
+	}
+
+	//Вращение блока
+	private void rotation() {
+		for (int i = 0; i < 4; i++) {
+			temp = form[randForm][i][0];
+			form[randForm][i][0] = form[randForm][i][1];
+			form[randForm][i][1] = -temp+4;
+		}
 	}
 
 	//Отрисовка игры
@@ -76,19 +92,18 @@ public class Tetris extends JPanel {
 		super.paint(ctx);
 		setBackground(Color.black);
 
+		//Фигура
+		for (int i = 0; i < 4; i++) {
+			ctx.setColor(new Color(form[randForm][4][0], form[randForm][4][1], form[randForm][4][2]));
+			ctx.fillRect(block*form[randForm][i][0]+xForm*block, block*form[randForm][i][1]+yForm*block, block, block);
+		}
+
+		//Днище
+
+
 		//Сетка
 		ctx.setColor(Color.gray);
 		for (int i = 0; i <= 10; i++) ctx.drawLine(block*i, 0, block*i, block*20);
 		for (int i = 0; i <= 20; i++) ctx.drawLine(0, block*i, block*10, block*i);
-
-		//Фигура
-		for (int j = 0; j < 4; j++) {
-			for (int i = 0; i < 4; i++) {
-				ctx.setColor(new Color(form[r][4][0], form[r][4][1], form[r][4][2]));
-				if (form[r][i][j] > 0) {
-					ctx.fillRect(block*3+j*block+1+x*block, block*i+y*block+1, block-1, block-1);
-				}
-			}
-		}
 	}
 }
