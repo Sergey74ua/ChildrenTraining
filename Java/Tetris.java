@@ -16,14 +16,14 @@ public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
 	static int block = 40, xForm, yForm, randForm, temp;
-	public int form[][][] = { // фигурка / блоки / x,y или r,g,b
-		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {255, 0, 0}}, // Z red
-		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {255, 165, 0}}, // L orange
-		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {255, 255, 0}}, // O yellow
-		{{0, 2}, {1, 2}, {1, 1}, {2, 1}, {0, 255, 0}}, // S green
-		{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {0, 255, 255}}, // I aqua
-		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {0, 0, 255}}, // J blue
-		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {255, 0, 255}}  // T purple
+	private int form[][][] = { // фигурка / блоки(4) / x,y и r,g,b
+		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {255,   0,   0}}, // Z red
+		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {255, 165,   0}}, // L orange
+		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {255, 255,   0}}, // O yellow
+		{{0, 2}, {1, 2}, {1, 1}, {2, 1}, {  0, 255,   0}}, // S green
+		{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {  0, 255, 255}}, // I aqua
+		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {  0,   0, 255}}, // J blue
+		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {255,   0, 255}}  // T purple
 	};
 	Random random = new Random();
 
@@ -61,14 +61,17 @@ public class Tetris extends JPanel {
 			tetris.repaint();
 			try {
 				Thread.sleep(200);
-			} catch (Exception e){}
+			} catch (Exception error){}
 		}
 	}
 
 	//Логика игры
 	private void game() {
-		yForm++;
-		if (yForm == 20) random(); //заменить на сложение с массивом днища
+		if (yForm < 20) {
+			yForm++;
+		} else {
+			random();
+		}
 	}
 
 	//Запуск фигурки
@@ -83,7 +86,7 @@ public class Tetris extends JPanel {
 		for (int i = 0; i < 4; i++) {
 			temp = form[randForm][i][0];
 			form[randForm][i][0] = form[randForm][i][1];
-			form[randForm][i][1] = -temp+4;
+			form[randForm][i][1] = -temp+3;
 		}
 	}
 
