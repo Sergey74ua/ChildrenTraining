@@ -68,9 +68,15 @@ public class Tetris extends JPanel {
 
 	//Логика игры
 	private void game() {
-		if (yForm < 20) {
+		if (yForm < 17) {
 			yForm++;
 		} else {
+			// Добавляем фигурку в массив
+			for (int i = 0; i < 4; i++) { 
+				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0];
+				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][1] = form[randForm][4][1];
+				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][2] = form[randForm][4][2];
+			}
 			randForm = look;
 			random();
 		}
