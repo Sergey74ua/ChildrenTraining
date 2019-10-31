@@ -15,7 +15,8 @@ import javax.swing.JPanel;
 public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
-	static int block = 40, xForm, yForm, randForm, temp;
+	private static int block = 40, xForm, yForm, randForm, look, temp;
+	private int ground[][][] = new int[20][10][3]; // ряды / колонки / r,g,b
 	private int form[][][] = { // фигурка / блоки(4) / x,y и r,g,b
 		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {255,   0,   0}}, // Z red
 		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {255, 165,   0}}, // L orange
@@ -25,7 +26,7 @@ public class Tetris extends JPanel {
 		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {  0,   0, 255}}, // J blue
 		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {255,   0, 255}}  // T purple
 	};
-	Random random = new Random();
+	private Random random = new Random();
 
 	public static void main(String[] args) {
 
@@ -33,7 +34,7 @@ public class Tetris extends JPanel {
 		JFrame jFrame = new JFrame("Tetris");
 		jFrame.setDefaultLookAndFeelDecorated(true);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jFrame.setSize(block*10+17, block*20+40);
+		jFrame.setSize(block*16+17, block*20+40);
 		jFrame.setResizable(false);
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setVisible(true);
@@ -48,20 +49,20 @@ public class Tetris extends JPanel {
 			public void keyPressed(KeyEvent event) {
 				switch(event.getKeyCode()) {
 					case 37: xForm--; break; //влево
-					case 38: tetris.rotation(); break; //вниз
+					case 38: tetris.rotation(); break; //вверх(вращение)
 					case 39: xForm++; break; //вправо
-					case 40: yForm++; break; //вверх(вращение)
+					case 40: yForm++; break; //вниз
 				}
 			}
 		});
 
 		//Цикл анимации
-		while (true) { //вписать проверку на проигрыш
+		while (true) { // ***** вписать проверку на проигрыш *****
 			tetris.game();
 			tetris.repaint();
 			try {
-				Thread.sleep(200);
-			} catch (Exception error){}
+				Thread.sleep(500);
+			} catch (Exception e){}
 		}
 	}
 
@@ -70,13 +71,14 @@ public class Tetris extends JPanel {
 		if (yForm < 20) {
 			yForm++;
 		} else {
+			randForm = look;
 			random();
 		}
 	}
 
 	//Запуск фигурки
 	private void random() {
-		randForm = random.nextInt(7);
+		look = random.nextInt(7);
 		xForm = random.nextInt(7);
 		yForm = -2;
 	}
@@ -93,16 +95,24 @@ public class Tetris extends JPanel {
 	//Отрисовка игры
 	public void paint (Graphics ctx) {
 		super.paint(ctx);
-		setBackground(Color.black);
-
-		//Фигура
-		for (int i = 0; i < 4; i++) {
-			ctx.setColor(new Color(form[randForm][4][0], form[randForm][4][1], form[randForm][4][2]));
-			ctx.fillRect(block*form[randForm][i][0]+xForm*block, block*form[randForm][i][1]+yForm*block, block, block);
-		}
 
 		//Днище
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 10; j++) {
+				ctx.setColor(new Color(ground[i][j][0], ground[i][j][1], ground[i][j][2]));
+				ctx.fillRect(block*j, block*i, block, block);
+			}
+		}
 
+		//Предпросмотр
+		ctx.setColor(Color.darkGray);
+		ctx.fillRect(block*10+1, 0, block*6, block*20+1);
+		ctx.setColor(new Color(form[look][4][0], form[look][4][1], form[look][4][2]));
+		for (int i = 0; i < 4; i++) ctx.fillRect(block*form[look][i][0]+11*block, block*form[look][i][1]+block, block-1, block-1);
+
+		//Фигура
+		ctx.setColor(new Color(form[randForm][4][0], form[randForm][4][1], form[randForm][4][2]));
+		for (int i = 0; i < 4; i++) ctx.fillRect(block*form[randForm][i][0]+xForm*block, block*form[randForm][i][1]+yForm*block, block, block);
 
 		//Сетка
 		ctx.setColor(Color.gray);
