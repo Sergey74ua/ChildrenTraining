@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
-	private static int block = 40, xForm, yForm, randForm, look, temp;
+	private static int block = 40, speed = 500, xForm, yForm, randForm, look, temp;
 	private int ground[][][] = new int[20][10][3]; // ряды / колонки / r,g,b
 	private int form[][][] = { // фигурка / блоки(4) / x,y и r,g,b
 		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {255,   0,   0}}, // Z red
@@ -61,7 +61,7 @@ public class Tetris extends JPanel {
 			tetris.game();
 			tetris.repaint();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(speed);
 			} catch (Exception e){}
 		}
 	}
@@ -72,10 +72,10 @@ public class Tetris extends JPanel {
 			yForm++;
 		} else {
 			// Добавляем фигурку в массив
-			for (int i = 0; i < 4; i++) { 
-				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0];
-				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][1] = form[randForm][4][1];
-				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][2] = form[randForm][4][2];
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 3; j++) {
+					ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][j] = form[randForm][4][j];
+				}
 			}
 			randForm = look;
 			random();
