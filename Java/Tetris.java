@@ -48,9 +48,9 @@ public class Tetris extends JPanel {
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				switch(event.getKeyCode()) {
-					case 37: xForm--; break; //влево
+					case 37: tetris.move(-1); break; //влево
 					case 38: tetris.rotation(); break; //вверх(вращение)
-					case 39: xForm++; break; //вправо
+					case 39: tetris.move(+1); break; //вправо
 					case 40: yForm++; break; //вниз
 				}
 			}
@@ -88,8 +88,13 @@ public class Tetris extends JPanel {
 		xForm = random.nextInt(7);
 		yForm = -2;
 	}
-
-	//Вращение блока
+	
+	//Смещение фигурки
+	private void move(int m) {
+		if (xForm+m >= 0 && xForm+m <= 10-3) xForm = xForm+m;
+	}
+	
+	//Вращение фигурки
 	private void rotation() {
 		for (int i = 0; i < 4; i++) {
 			temp = form[randForm][i][0];
