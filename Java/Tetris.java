@@ -53,7 +53,7 @@ public class Tetris extends JPanel {
 					case 37: tetris.move(-1); break; //влево
 					case 38: tetris.rotation(); break; //вверх(вращение)
 					case 39: tetris.move(+1); break; //вправо
-					case 40: speed = 100; break; //вниз
+					case 40: speed = speed/4; break; //вниз
 				}
 			}
 		});
@@ -93,7 +93,7 @@ public class Tetris extends JPanel {
 			
 			//Подсчитываем число блоков в ряду
 			testBlock = 0;
-			for (int j = 0; j < 10; j++) if (ground[i][j][0]+ground[i][j][0]+ground[i][j][2] > 0) testBlock++;
+			for (int j = 0; j < 10; j++) if (ground[i][j][0]+ground[i][j][1]+ground[i][j][2] > 0) testBlock++;
 			
 			//Удаляем заполненный ряд
 			if (testBlock >= 10) {
@@ -103,7 +103,7 @@ public class Tetris extends JPanel {
 					}
 				}
 				
-				//Опускаем верхнии ряды
+				//Опускаем верхние ряды
 				for (int j = i; j < 19; j++) {
 					for (int n = 0; n < 10; n++) {
 						for (int k = 0; k < 3; k++) {
