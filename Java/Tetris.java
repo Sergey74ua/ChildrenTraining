@@ -73,7 +73,11 @@ public class Tetris extends JPanel {
 
 		//Проверка падения блока вниз
 		test = 0;
-		for (int i = 0; i < 4; i++) if (form[randForm][i][1]+yForm+1 < 20) test++;
+		for (int i = 0; i < 4; i++)
+			if (form[randForm][i][1]+yForm+1 < 20 &&
+					ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0]+
+					ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][1]+
+					ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][2] == 0) test++;
 		
 		if (test >= 4) {
 			yForm++;
@@ -83,9 +87,9 @@ public class Tetris extends JPanel {
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 3; j++) ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][j] = form[randForm][4][j]*3/4;
 			}
-			randForm = look; //Замена предпросмотра на блок
-			clear(); //Удаляем заполненные ряды
-			random(); //Запускаем новую фигурку
+			randForm = look; //замена предпросмотра на блок
+			clear(); //удаляем заполненные ряды
+			random(); //запускаем новую фигурку
 		}
 	}
 
@@ -94,7 +98,7 @@ public class Tetris extends JPanel {
 		speed = 400;
 		look = random.nextInt(7);
 		xForm = random.nextInt(7);
-		yForm = -2;
+		yForm = -1; //надо -2, но не влазит в проверяемый массив
 		step++;
 	}
 
