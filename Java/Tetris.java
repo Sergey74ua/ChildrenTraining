@@ -17,15 +17,15 @@ public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
 	private static int block = 40, speed = 400, xForm, yForm, randForm, look, step, test;
-	private int ground[][][] = new int[20][10][3]; // ряды / колонки / r,g,b
+	private int ground[][][] = new int[20][10][1]; // ряды / колонки / r,g,b
 	private int form[][][] = { // фигурка / блоки(4) / x,y и r,g,b
-		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {255,   0,   0}}, // Z red
-		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {255, 165,   0}}, // L orange
-		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {255, 255,   0}}, // O yellow
-		{{0, 2}, {1, 2}, {1, 1}, {2, 1}, {  0, 255,   0}}, // S green
-		{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {  0, 255, 255}}, // I aqua
-		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {  0,   0, 255}}, // J blue
-		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {255,   0, 255}}  // T purple
+		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {0xff0000}}, // Z red
+		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {0xffa500}}, // L orange
+		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {0xffff00}}, // O yellow
+		{{0, 2}, {1, 2}, {1, 1}, {2, 1}, {0x00ff00}}, // S green
+		{{0, 2}, {1, 2}, {2, 2}, {3, 2}, {0x00ffff}}, // I aqua
+		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {0x0000ff}}, // J blue
+		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {0xff00ff}}  // T purple
 	};
 	private Random random = new Random();
 
@@ -75,18 +75,15 @@ public class Tetris extends JPanel {
 		test = 0;
 		for (int i = 0; i < 4; i++)
 			if (form[randForm][i][1]+yForm+1 < 20 &&
-					ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0]+
-					ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][1]+
-					ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][2] == 0) test++;
+				ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0] == 0) test++;
 		
 		if (test >= 4) {
 			yForm++;
 		} else {
 			
 			// Добавляем фигурку в массив
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 3; j++) ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][j] = form[randForm][4][j]*3/4;
-			}
+			for (int i = 0; i < 4; i++)
+				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0]*2/3;
 			randForm = look; //замена предпросмотра на блок
 			clear(); //удаляем заполненные ряды
 			random(); //запускаем новую фигурку
@@ -126,19 +123,15 @@ public class Tetris extends JPanel {
 
 			//Подсчитываем число блоков в ряду
 			for (int j = 0; j < 10; j++)
-				if (ground[i][j][0]+ground[i][j][1]+ground[i][j][2] > 0) test++;
+				if (ground[i][j][0] > 0) test++;
 
 			//Удаляем заполненный ряд
 			if (test >= 10) {
-				for (int j = 0; j < 10; j++) {
-					for (int n = 0; n < 3; n++) ground[i][j][n] = 0;
-				}
+				for (int j = 0; j < 10; j++) ground[i][j][0] = 0;
 				
 				//Опускаем верхние ряды ******** перепроверить ********
 				for (int j = i; j < 19; j++) {
-					for (int n = 0; n < 10; n++) {
-						for (int k = 0; k < 3; k++) ground[j][n][k] = ground[j-1][n][k];
-					}
+					for (int n = 0; n < 10; n++) ground[j][n][0] = ground[j-1][n][0];
 				}
 			}
 		}
@@ -153,7 +146,7 @@ public class Tetris extends JPanel {
 		ctx.fillRect(block*10+1, 0, block*5, block*20+1);
 		
 		//Предпросмотр блока
-		ctx.setColor(new Color(form[look][4][0], form[look][4][1], form[look][4][2]));
+		ctx.setColor(new Color(form[look][4][0]));
 		for (int i = 0; i < 4; i++)
 			ctx.fillRect(block*form[look][i][0]+block*10+10, block*form[look][i][1]+block, block-1, block-1);
 		
@@ -167,13 +160,13 @@ public class Tetris extends JPanel {
 		//Днище
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) {
-				ctx.setColor(new Color(ground[i][j][0], ground[i][j][1], ground[i][j][2]));
+				ctx.setColor(new Color(ground[i][j][0]));
 				ctx.fillRect(block*j, block*i, block, block);
 			}
 		}
 		
 		//Фигура
-		ctx.setColor(new Color(form[randForm][4][0], form[randForm][4][1], form[randForm][4][2]));
+		ctx.setColor(new Color(form[randForm][4][0]));
 		for (int i = 0; i < 4; i++)
 			ctx.fillRect(block*form[randForm][i][0]+xForm*block, block*form[randForm][i][1]+yForm*block, block, block);
 
