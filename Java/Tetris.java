@@ -17,8 +17,8 @@ public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
 	private static int block = 40, speed = 400, xForm, yForm, randForm, look, step, test;
-	private int ground[][][] = new int[20][10][1]; // ряды / колонки / r,g,b
-	private int form[][][] = { // фигурка / блоки(4) / x,y и r,g,b
+	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
+	private int form[][][] = { // фигурка / блоки(4) / x,y и rgb
 		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {0xff0000}}, // Z red
 		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {0xffa500}}, // L orange
 		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {0xffff00}}, // O yellow
@@ -84,7 +84,7 @@ public class Tetris extends JPanel {
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
 				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0]*2/3;
-			randForm = look; //замена предпросмотра на блок
+			randForm = look; //замена предпросмотр на блок
 			clear(); //удаляем заполненные ряды
 			random(); //запускаем новую фигурку
 		}
@@ -119,25 +119,38 @@ public class Tetris extends JPanel {
 	//Проверка на заполнение строки
 	private void clear() {
 		for (int i = 0; i < 20; i++) {
-			test = 0;
 
-			//Подсчитываем число блоков в ряду
-			for (int j = 0; j < 10; j++)
-				if (ground[i][j][0] > 0) test++;
+			//Подсчитываем число полных блоков в ряду
+			test = 0;
+			for (int j = 0; j < 10; j++) if (ground[i][j][0] > 0) test++;
 
 			//Удаляем заполненный ряд
 			if (test >= 10) {
 				for (int j = 0; j < 10; j++) ground[i][j][0] = 0;
-				
-				//Опускаем верхние ряды ******** перепроверить ********
-				for (int j = i; j < 19; j++) {
+				clear2();
+			}
+		}
+	}
+	
+	//Опускаем верхние ряды
+	private void clear2() {
+		for (int i = 19; i > 0; i--) {
+
+			//Подсчитываем число пустых блоков в ряду
+			test = 0;
+			for (int j = 0; j < 10; j++) if (ground[i][j][0] == 0) test++;
+			
+			//Смещаем вехние блоки (System.arraycopy(array1, 1, array2, 2, 3);)
+			if (test >= 10) {
+				for (int j = i; j > 0; j--) {
 					for (int n = 0; n < 10; n++) ground[j][n][0] = ground[j-1][n][0];
 				}
 			}
 		}
 	}
-
+	
 	//Отрисовка игры
+	@Override
 	public void paint (Graphics ctx) {
 		super.paint(ctx);
 		
