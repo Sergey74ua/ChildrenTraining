@@ -76,11 +76,11 @@ public class Tetris extends JPanel {
 		for (int i = 0; i < 4; i++)
 			if (form[randForm][i][1]+yForm+1 < 20 &&
 				ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0] == 0) test++;
-		
+
 		if (test >= 4) {
 			yForm++;
 		} else {
-			
+
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
 				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0]*2/3;
@@ -115,7 +115,7 @@ public class Tetris extends JPanel {
 			form[randForm][i][1] = -temp+3;
 		}
 	}
-	
+
 	//Проверка на заполнение строки
 	private void clear() {
 		for (int i = 0; i < 20; i++) {
@@ -127,19 +127,19 @@ public class Tetris extends JPanel {
 			//Удаляем заполненный ряд
 			if (test >= 10) {
 				for (int j = 0; j < 10; j++) ground[i][j][0] = 0;
-				clear2();
+				drop();
 			}
 		}
 	}
-	
+
 	//Опускаем верхние ряды
-	private void clear2() {
+	private void drop() {
 		for (int i = 19; i > 0; i--) {
 
 			//Подсчитываем число пустых блоков в ряду
 			test = 0;
 			for (int j = 0; j < 10; j++) if (ground[i][j][0] == 0) test++;
-			
+
 			//Смещаем вехние блоки (System.arraycopy(array1, 1, array2, 2, 3);)
 			if (test >= 10) {
 				for (int j = i; j > 0; j--) {
@@ -148,28 +148,28 @@ public class Tetris extends JPanel {
 			}
 		}
 	}
-	
+
 	//Отрисовка игры
 	@Override
 	public void paint (Graphics ctx) {
 		super.paint(ctx);
-		
+
 		//Сайдбар
 		ctx.setColor(Color.darkGray);
 		ctx.fillRect(block*10+1, 0, block*5, block*20+1);
-		
+
 		//Предпросмотр блока
 		ctx.setColor(new Color(form[look][4][0]));
 		for (int i = 0; i < 4; i++)
 			ctx.fillRect(block*form[look][i][0]+block*10+10, block*form[look][i][1]+block, block-1, block-1);
-		
+
 		//Панель информации
 		ctx.setFont(new Font("Courier New", Font.BOLD, 24));
 		ctx.setColor(Color.white);
 		ctx.drawString(("Speed: " + speed), block*10+10, block*6);
 		ctx.setColor(Color.yellow);
 		ctx.drawString(("Step: " + step), block*10+10, block*7);
-		
+
 		//Днище
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) {
@@ -177,7 +177,7 @@ public class Tetris extends JPanel {
 				ctx.fillRect(block*j, block*i, block, block);
 			}
 		}
-		
+
 		//Фигура
 		ctx.setColor(new Color(form[randForm][4][0]));
 		for (int i = 0; i < 4; i++)
