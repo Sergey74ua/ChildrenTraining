@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 public class Tetris extends JPanel {
 	
 	//Переменные, массивы и объекты
+	private static boolean gameOver;
 	private static int block = 40, speed = 400, step, look, randForm, xForm, yForm, test;
 	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
 	private int form[][][] = { // фигурка / блоки(4) / x,y и rgb
@@ -60,13 +61,16 @@ public class Tetris extends JPanel {
 		});
 		
 		//Цикл анимации
-		while (true) { // ***** вписать проверку на проигрыш *****
+		do {
 			tetris.game();
 			tetris.repaint();
 			try {
 				Thread.sleep(speed);
 			} catch (Exception e){}
-		}
+		} while (!gameOver);
+		
+		//Конец игры
+		tetris.gameFinish();
 	}
 	
 	//Логика игры
@@ -76,14 +80,19 @@ public class Tetris extends JPanel {
 		test = 0;
 		for (int i = 0; i < 4; i++)
 			if (form[randForm][i][1]+yForm+1 < 20 &&
-				ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0] == 0) test++;
+				ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0] == 0) test++; // тут глюк ********
 		if (test >= 4) {
 			yForm++;
 		} else {
 			
+			//Поверка на конец игры ******** переделать ********
+			for (int i = 0; i < 4; i++)
+				if (form[randForm][i][1]+yForm < 0) gameOver = true;
+			
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
 				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0]*2/3;
+			
 			randForm = look; //замена предпросмотра на блок
 			clear(); //удаляем заполненные ряды
 			random(); //запускаем новую фигурку
@@ -92,10 +101,10 @@ public class Tetris extends JPanel {
 	
 	//Запуск фигурки
 	private void random() {
+		speed = 400;
 		look = random.nextInt(7);
 		xForm = random.nextInt(7);
-		speed = 400;
-		yForm = -1; //надо -2, но не влазит в проверяемый массив (-1)
+		yForm = -1; //надо -2, но не влазит в проверяемый массив по стр.83 (-1)
 		step++;
 	}
 	
@@ -107,7 +116,7 @@ public class Tetris extends JPanel {
 		if (test >= 4) xForm = xForm+move;
 	}
 	
-	//Вращение фигурки ********************************************************
+	//Вращение фигурки
 	private void rotation() {
 		
 		//Копируем фигурку с поворотом
@@ -142,7 +151,7 @@ public class Tetris extends JPanel {
 			
 			//Удаляем заполненный ряд
 			if (test >= 10) {
-				for (int j = 0; j < 10; j++) ground[i][j][0] = 0;
+				for (int j = 0; j < 10; j++) ground[i][j][0] = 0; //надо переделать на отбеливание ряда перед удалением
 			drop();
 			}
 		}
@@ -162,6 +171,13 @@ public class Tetris extends JPanel {
 					for (int n = 0; n < 10; n++) ground[j][n][0] = ground[j-1][n][0];
 				}
 			}
+		}
+	}
+	
+	//Конец игры ******** переделать ********
+	private void gameFinish() {
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 10; j++) ground[i][j][0] = 0xffffff;
 		}
 	}
 	
