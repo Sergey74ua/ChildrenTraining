@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class Tetris extends JPanel {
 	
 	//Переменные, массивы и объекты
-	private static int block = 40, speed = 400, xForm, yForm, randForm, look, step, test;
+	private static int block = 40, speed = 400, step, look, randForm, xForm, yForm, test;
 	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
 	private int form[][][] = { // фигурка / блоки(4) / x,y и rgb
 		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {0xff0000}}, // Z red
@@ -27,10 +27,10 @@ public class Tetris extends JPanel {
 		{{1, 2}, {2, 2}, {2, 1}, {2, 0}, {0x0000ff}}, // J blue
 		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {0xff00ff}}  // T purple
 	};
-	private Random random = new Random();
+	private static Random random = new Random();
 	
 	public static void main(String[] args) {
-
+		
 		//Окно приложения
 		JFrame jFrame = new JFrame("Tetris");
 		jFrame.setDefaultLookAndFeelDecorated(true);
@@ -43,7 +43,8 @@ public class Tetris extends JPanel {
 		//Объект игры
 		Tetris tetris = new Tetris();
 		jFrame.add(tetris);
-		tetris.random();
+		look = random.nextInt(7);
+		randForm = random.nextInt(7);
 		
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
@@ -83,7 +84,7 @@ public class Tetris extends JPanel {
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
 				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0]*2/3;
-			randForm = look; //замена предпросмотр на блок
+			randForm = look; //замена предпросмотра на блок
 			clear(); //удаляем заполненные ряды
 			random(); //запускаем новую фигурку
 		}
@@ -91,10 +92,10 @@ public class Tetris extends JPanel {
 	
 	//Запуск фигурки
 	private void random() {
-		speed = 400;
 		look = random.nextInt(7);
 		xForm = random.nextInt(7);
-		yForm = -1; //надо -2, но не влазит в проверяемый массив
+		speed = 400;
+		yForm = -1; //надо -2, но не влазит в проверяемый массив (-1)
 		step++;
 	}
 	
@@ -106,27 +107,43 @@ public class Tetris extends JPanel {
 		if (test >= 4) xForm = xForm+move;
 	}
 	
-	//Вращение фигурки
+	//Вращение фигурки ********************************************************
 	private void rotation() {
+		
+		//Копируем фигурку с поворотом
+		int tempBlock[][] = new int[4][2];
 		for (int i = 0; i < 4; i++) {
-			int temp = form[randForm][i][0];
-			form[randForm][i][0] = form[randForm][i][1];
-			form[randForm][i][1] = -temp+3;
+			tempBlock[i][0] = form[randForm][i][1];
+			tempBlock[i][1] = -form[randForm][i][0]+3;
+		}
+		
+		//Проверяем на наложение повернутую копию фигурки
+		test = 0;
+		for (int i = 0; i < 4; i++)
+			if (tempBlock[i][0]+xForm >= 0 && tempBlock[i][0]+xForm < 10 && ground[tempBlock[i][1]+yForm][tempBlock[i][0]+xForm][0] == 0) test++;
+		
+		//Поворачиваем фигурку
+		if (test >= 4) {
+			for (int i = 0; i < 4; i++) {
+				int temp = form[randForm][i][0];
+				form[randForm][i][0] = form[randForm][i][1];
+				form[randForm][i][1] = -temp+3;
+			}
 		}
 	}
 	
 	//Проверка на заполнение строки
 	private void clear() {
 		for (int i = 0; i < 20; i++) {
-
+			
 			//Подсчитываем число полных блоков в ряду
 			test = 0;
 			for (int j = 0; j < 10; j++) if (ground[i][j][0] > 0) test++;
-
+			
 			//Удаляем заполненный ряд
 			if (test >= 10) {
 				for (int j = 0; j < 10; j++) ground[i][j][0] = 0;
-				drop();
+			drop();
 			}
 		}
 	}
