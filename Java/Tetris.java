@@ -14,12 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Tetris extends JPanel {
-	
+
 	//Переменные, массивы и объекты
 	private static boolean gameOver;
-	private static int block = 40, speed = 400, step, look, randForm, xForm, yForm, test;
-	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
-	private int form[][][] = { // фигурка / блоки(4) / x,y и rgb
+	private static int block = 40, speed, step, look, color, temp;
+	private int form[][] = new int[4][2];             // блоки / x, y
+	private int ground[][][] = new int[20][10][1];    // ряды / колонки / rgb
+	private int forms[][][] = {                       // фигурка / блоки / x, y и rgb
 		{{1, 2}, {2, 2}, {0, 1}, {1, 1}, {0xff0000}}, // Z red
 		{{1, 2}, {2, 2}, {1, 1}, {1, 0}, {0xffa500}}, // L orange
 		{{1, 2}, {2, 2}, {1, 1}, {2, 1}, {0xffff00}}, // O yellow
@@ -29,9 +30,10 @@ public class Tetris extends JPanel {
 		{{1, 2}, {0, 1}, {1, 1}, {2, 1}, {0xff00ff}}  // T purple
 	};
 	private static Random random = new Random();
-	
+	private static Color colorBlock, colorLook;
+
 	public static void main(String[] args) {
-		
+
 		//Окно приложения
 		JFrame jFrame = new JFrame("Tetris");
 		jFrame.setDefaultLookAndFeelDecorated(true);
@@ -40,26 +42,28 @@ public class Tetris extends JPanel {
 		jFrame.setResizable(false);
 		jFrame.setLocationRelativeTo(null);
 		jFrame.setVisible(true);
-		
+
 		//Объект игры
 		Tetris tetris = new Tetris();
 		jFrame.add(tetris);
+
+		//Начальные значения
 		look = random.nextInt(7);
-		randForm = random.nextInt(7);
-		
+		tetris.newBlock();
+
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				tetris.repaint();
 				switch(event.getKeyCode()) {
-					case 37: tetris.move(-1); break; //влево
+					case 37: tetris.move(-1); break;   //влево
 					case 38: tetris.rotation(); break; //вверх(вращение)
-					case 39: tetris.move(+1); break; //вправо
-					case 40: speed = 40; break; //вниз
+					case 39: tetris.move(+1); break;   //вправо
+					case 40: speed = 40; break;        //вниз (сброс)
 				}
 			}
 		});
-		
+
 		//Цикл анимации
 		do {
 			tetris.game();
@@ -68,155 +72,172 @@ public class Tetris extends JPanel {
 				Thread.sleep(speed);
 			} catch (Exception e){}
 		} while (!gameOver);
-		
+
 		//Конец игры
 		tetris.gameFinish();
 	}
-	
+
 	//Логика игры
 	private void game() {
-		
+
 		//Проверка падения блока вниз
-		test = 0;
+		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (form[randForm][i][1]+yForm+1 < 20 &&
-				ground[form[randForm][i][1]+yForm+1][form[randForm][i][0]+xForm][0] == 0) test++; // тут глюк ********
-		if (test >= 4) {
-			yForm++;
+			if (form[i][1]+1 < 20 &&
+				ground[form[i][1]+1][form[i][0]][0] == 0) temp++; // тут глюк ********
+		if (temp >= 4) {
+			for (int i = 0; i < 4; i++)
+				form[i][1]++;
 		} else {
-			
+
 			//Поверка на конец игры ******** переделать ********
 			for (int i = 0; i < 4; i++)
-				if (form[randForm][i][1]+yForm < 0) gameOver = true;
-			
+				if (form[i][1] < 0) gameOver = true;
+
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
-				ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm][0] = form[randForm][4][0]*2/3;
-			
-			randForm = look; //замена предпросмотра на блок
-			clear(); //удаляем заполненные ряды
-			random(); //запускаем новую фигурку
+				ground[form[i][1]][form[i][0]][0] = color*2/3; //******** переделать ******** *2/3
+
+			newBlock();
 		}
 	}
-	
+
 	//Запуск фигурки
-	private void random() {
+	private void newBlock() {
 		speed = 400;
-		look = random.nextInt(7);
-		xForm = random.nextInt(7);
-		yForm = -1; //надо -2, но не влазит в проверяемый массив по стр.83 (-1)
+		clear();
 		step++;
+
+		//Передаем координаты в блок
+		temp = random.nextInt(7);
+		for (int i = 0; i < 4; i++) {
+			form[i][0] = forms[look][i][0]+temp;
+			form[i][1] = forms[look][i][1]-1; //надо -2, но не влазит в проверяемый массив по стр.83 (-1)
+		}
+
+		color = forms[look][4][0];
+		colorBlock = new Color(color);
+		look = random.nextInt(7);
+		colorLook = new Color(forms[look][4][0]);
 	}
-	
+
 	//Смещение фигурки
 	private void move(int move) {
-		test = 0;
+		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (form[randForm][i][0]+xForm+move >= 0 && form[randForm][i][0]+xForm+move < 10 && ground[form[randForm][i][1]+yForm][form[randForm][i][0]+xForm+move][0] == 0) test++;
-		if (test >= 4) xForm = xForm+move;
+			if (form[i][0]+move >= 0 && form[i][0]+move < 10 && ground[form[i][1]][form[i][0]+move][0] == 0) temp++;
+		if (temp >= 4)
+			for (int i = 0; i < 4; i++)
+				form[i][0]+=move;
 	}
-	
-	//Вращение фигурки
+
+	//Вращение фигурки     ***************** надо как-то переделать на координаты фигурки *****************
 	private void rotation() {
-		
+
 		//Копируем фигурку с поворотом
 		int tempBlock[][] = new int[4][2];
 		for (int i = 0; i < 4; i++) {
-			tempBlock[i][0] = form[randForm][i][1];
-			tempBlock[i][1] = -form[randForm][i][0]+3;
+			tempBlock[i][0] = form[i][1];
+			tempBlock[i][1] = -form[i][0]+3;
 		}
-		
+
 		//Проверяем на наложение повернутую копию фигурки
-		test = 0;
+		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (tempBlock[i][0]+xForm >= 0 && tempBlock[i][0]+xForm < 10 && ground[tempBlock[i][1]+yForm][tempBlock[i][0]+xForm][0] == 0) test++;
-		
+			if (tempBlock[i][0] >= 0 && tempBlock[i][0] < 10 && ground[tempBlock[i][1]][tempBlock[i][0]][0] == 0) temp++;
+
 		//Поворачиваем фигурку
-		if (test >= 4) {
+		if (temp >= 4) {
 			for (int i = 0; i < 4; i++) {
-				int temp = form[randForm][i][0];
-				form[randForm][i][0] = form[randForm][i][1];
-				form[randForm][i][1] = -temp+3;
+				temp = form[i][0];
+				form[i][0] = form[i][1];
+				form[i][1] = -temp+3;
 			}
 		}
 	}
-	
+
 	//Проверка на заполнение строки
 	private void clear() {
 		for (int i = 0; i < 20; i++) {
-			
+
 			//Подсчитываем число полных блоков в ряду
-			test = 0;
-			for (int j = 0; j < 10; j++) if (ground[i][j][0] > 0) test++;
-			
+			temp = 0;
+			for (int j = 0; j < 10; j++) if (ground[i][j][0] > 0) temp++;
+
 			//Удаляем заполненный ряд
-			if (test >= 10) {
+			if (temp >= 10) {
 				for (int j = 0; j < 10; j++) ground[i][j][0] = 0; //надо переделать на отбеливание ряда перед удалением
-			drop();
+				drop();
 			}
 		}
 	}
-	
+
 	//Опускаем верхние ряды
 	private void drop() {
 		for (int i = 19; i > 0; i--) {
-			
+
 			//Подсчитываем число пустых блоков в ряду
-			test = 0;
-			for (int j = 0; j < 10; j++) if (ground[i][j][0] == 0) test++;
-			
+			temp = 0;
+			for (int j = 0; j < 10; j++) if (ground[i][j][0] == 0) temp++;
+
 			//Смещаем вехние блоки
-			if (test >= 10) {
+			if (temp >= 10) {
 				for (int j = i; j > 0; j--) {
 					for (int n = 0; n < 10; n++) ground[j][n][0] = ground[j-1][n][0];
 				}
 			}
 		}
 	}
-	
+
 	//Конец игры ******** переделать ********
 	private void gameFinish() {
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) ground[i][j][0] = 0xffffff;
 		}
 	}
-	
+
 	//Отрисовка игры
 	@Override
 	public void paint (Graphics ctx) {
-		
+
 		//Сайдбар
 		ctx.setColor(Color.darkGray);
-		ctx.fillRect(block*10+1, 0, block*5, block*20+1);
-		
+		ctx.fillRect(10*block+1, 0, 5*block, 20*block+1);
+
 		//Предпросмотр блока
-		ctx.setColor(new Color(form[look][4][0]));
+		ctx.setColor(colorLook);
 		for (int i = 0; i < 4; i++)
-			ctx.fillRect(block*form[look][i][0]+block*10+10, block*form[look][i][1]+block, block-1, block-1);
-		
+			ctx.fillRect(forms[look][i][0]*block+10*block+10, forms[look][i][1]*block+block, block-1, block-1);
+
 		//Панель информации
 		ctx.setFont(new Font("Courier New", Font.BOLD, 24));
 		ctx.setColor(Color.white);
-		ctx.drawString(("Speed: " + speed), block*10+10, block*6);
+		ctx.drawString(("Speed: " + speed), 10*block+10, 6*block);
 		ctx.setColor(Color.yellow);
-		ctx.drawString(("Step: " + step), block*10+10, block*7);
-		
+		ctx.drawString(("Step: " + step), 10*block+10, 7*block);
+
+		//********************** убрать **********************
+		ctx.setFont(new Font("Courier New", Font.BOLD, 20));
+		ctx.setColor(colorBlock);
+		ctx.drawString(("X: " +form[0][0]+" "+form[1][0]+" "+form[2][0]+" "+form[3][0]), 10*block+10, 13*block);
+		ctx.drawString(("Y: " +form[0][1]+" "+form[1][1]+" "+form[2][1]+" "+form[3][1]), 10*block+10, 14*block);
+
 		//Днище
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) {
 				ctx.setColor(new Color(ground[i][j][0]));
-				ctx.fillRect(block*j, block*i, block, block);
+				ctx.fillRect(j*block, i*block, block, block);
 			}
 		}
-		
+
 		//Фигура
-		ctx.setColor(new Color(form[randForm][4][0]));
+		ctx.setColor(colorBlock);
 		for (int i = 0; i < 4; i++)
-			ctx.fillRect(block*form[randForm][i][0]+xForm*block, block*form[randForm][i][1]+yForm*block, block, block);
-		
+			ctx.fillRect(form[i][0]*block, form[i][1]*block, block, block);
+
 		//Сетка
 		ctx.setColor(Color.gray);
-		for (int i = 0; i <= 10; i++) ctx.drawLine(block*i, 0, block*i, block*20);
-		for (int i = 0; i <= 20; i++) ctx.drawLine(0, block*i, block*10, block*i);
+		for (int i = 0; i <= 10; i++) ctx.drawLine(i*block, 0, i*block, 20*block);
+		for (int i = 0; i <= 20; i++) ctx.drawLine(0, block*i, 10*block, i*block);
 	}
 }
