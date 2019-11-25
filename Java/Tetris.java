@@ -1,6 +1,6 @@
 /*
  * Обучаемся языку Java на примере Тетриса
- * Сергей. Октябрь 2019 года.
+ * Сергей. Октябрь-декабрь 2019 года.
  */
 
 import java.awt.Color;
@@ -17,15 +17,15 @@ public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
 	private static boolean gameOver;
-	private static int block = 40, speed, step, look, color, temp;
+	private static int block = 40, speed, step, look, color, pause, temp;
 	private int form[][] = new int[4][2];                     // блоки / x, y
 	private int ground[][][] = new int[20][10][1];            // ряды / колонки / rgb
 	private int forms[][][] = {                               // фигурка / блоки / x, y и rgb
+		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
+		{{ 0,  0}, {-1,  0}, { 1,  0}, { 2,  0}, {0x00ffff}}, // I aqua
 		{{ 0,  0}, {-1,  0}, { 0,  1}, { 1,  1}, {0xff0000}}, // Z red
 		{{ 0,  0}, { 0, -1}, {-1,  1}, { 0,  1}, {0xffa500}}, // L orange
-		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
 		{{ 0,  0}, { 1,  0}, {-1,  1}, { 0,  1}, {0x00ff00}}, // S green
-		{{ 0,  0}, {-1,  0}, { 1,  0}, { 2,  0}, {0x00ffff}}, // I aqua
 		{{ 0,  0}, { 0, -1}, { 0,  1}, { 1,  1}, {0x0000ff}}, // J blue
 		{{ 0,  0}, {-1,  0}, { 1,  0}, { 0,  1}, {0xff00ff}}  // T purple
 	};
@@ -47,15 +47,13 @@ public class Tetris extends JPanel {
 		Tetris tetris = new Tetris();
 		jFrame.add(tetris);
 
-		//Начальные значения
-		look = random.nextInt(7);
-		tetris.newBlock();
-
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				tetris.repaint();
+				pause = 1;
 				switch(event.getKeyCode()) {
+					case 32: pause = 0; break;         //пробел (пауза) ******** добавить снятие паузы пробелом ********
 					case 37: tetris.move(-1); break;   //влево
 					case 38: tetris.rotation(); break; //вверх(вращение)
 					case 39: tetris.move(+1); break;   //вправо
@@ -64,21 +62,33 @@ public class Tetris extends JPanel {
 			}
 		});
 
+		//Поехали!
+		tetris.gameMain();
+	}
+
+	//Основной цикл игры
+	private void gameMain() {
+
+		//Начальные значения
+		look = random.nextInt(7);
+		pause = 1;
+		newBlock();
+
 		//Цикл анимации
-		do {
-			tetris.game();
-			tetris.repaint();
+		while (!gameOver) {
+			gameCycle();
+			repaint();
 			try {
 				Thread.sleep(speed);
 			} catch (Exception e){}
-		} while (!gameOver);
+		};
 
 		//Конец игры
-		tetris.gameFinish();
+		gameFinish();
 	}
 
-	//Логика игры
-	private void game() {
+	//Проверка падения блока вниз
+	private void gameCycle() {
 
 		//Проверка падения блока вниз
 		temp = 0;
@@ -87,18 +97,18 @@ public class Tetris extends JPanel {
 				ground[form[i][1]+1][form[i][0]][0] == 0) temp++; // ******** тут вызывается выход за массив ********
 		if (temp >= 4) {
 			for (int i = 0; i < 4; i++)
-				form[i][1]++;
+				form[i][1]+=1*pause;
 		} else {
 
-			//Поверка на конец игры ******** переделать ********
+			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
-				if (form[i][1] < 1) gameOver = true;
+				if (form[i][1] < 0) gameOver = true;
 
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
 				ground[form[i][1]][form[i][0]][0] = color*2/3;
 
-			newBlock();
+		newBlock();
 		}
 	}
 
@@ -112,7 +122,7 @@ public class Tetris extends JPanel {
 		temp = random.nextInt(7)+1;
 		for (int i = 0; i < 4; i++) {
 			form[i][0] = forms[look][i][0]+temp;
-			form[i][1] = forms[look][i][1]; //надо -1, но не влазит в проверяемый массив по стр.87
+			form[i][1] = forms[look][i][1]; //надо -1, но не влазит в проверяемый массив по стр.97
 		}
 
 		color = forms[look][4][0];
@@ -221,6 +231,7 @@ public class Tetris extends JPanel {
 		ctx.drawString(("X: " +form[0][0]+" "+form[1][0]+" "+form[2][0]+" "+form[3][0]), 10*block+10, 13*block);
 		ctx.drawString(("Y: " +form[0][1]+" "+form[1][1]+" "+form[2][1]+" "+form[3][1]), 10*block+10, 14*block);
 		ctx.drawString(("gameOver: " + gameOver), 10*block+10, 15*block);
+		ctx.drawString(("pause: " + pause), 10*block+10, 16*block);
 
 		//Днище
 		for (int i = 0; i < 20; i++) {
