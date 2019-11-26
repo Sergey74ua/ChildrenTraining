@@ -17,10 +17,11 @@ public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
 	private static boolean gameOver;
-	private static int block = 40, speed, step, look, color, pause, temp;
-	private int form[][] = new int[4][2];                     // блоки / x, y
-	private int ground[][][] = new int[20][10][1];            // ряды / колонки / rgb
-	private int forms[][][] = {                               // фигурка / блоки / x, y и rgb
+	private static int block = 40, pause = 1, speed, score, step, look, color, temp;
+	private int[] scores = {0, 100, 300, 700, 1500};
+	private int form[][] = new int[4][2];          // блоки / x, y
+	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
+	private int forms[][][] = {                    // фигурка / блоки / x, y и rgb
 		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
 		{{ 0,  0}, {-1,  0}, { 1,  0}, { 2,  0}, {0x00ffff}}, // I aqua
 		{{ 0,  0}, {-1,  0}, { 0,  1}, { 1,  1}, {0xff0000}}, // Z red
@@ -51,13 +52,13 @@ public class Tetris extends JPanel {
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
 				tetris.repaint();
-				pause = 1;
+				tetris.gamePause(1);
 				switch(event.getKeyCode()) {
-					case 32: pause = 0; break;         //пробел (пауза) ******** добавить снятие паузы пробелом ********
-					case 37: tetris.move(-1); break;   //влево
-					case 38: tetris.rotation(); break; //вверх(вращение)
-					case 39: tetris.move(+1); break;   //вправо
-					case 40: speed = 40; break;        //вниз (сброс)
+					case 32: tetris.gamePause(0); break; //пробел (пауза)
+					case 37: tetris.move(-1); break;     //влево
+					case 38: tetris.rotation(); break;   //вверх(вращение)
+					case 39: tetris.move(+1); break;     //вправо
+					case 40: speed = 40; break;          //вниз (сброс)
 				}
 			}
 		});
@@ -71,8 +72,16 @@ public class Tetris extends JPanel {
 
 		//Начальные значения
 		look = random.nextInt(7);
-		pause = 1;
 		newBlock();
+		gameOver = false;
+		speed = 400;
+		score = 0;
+		step = 0;
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 10; j++) {
+				ground[i][j][0] = 0;
+			}
+		}
 
 		//Цикл анимации
 		while (!gameOver) {
@@ -87,14 +96,19 @@ public class Tetris extends JPanel {
 		gameFinish();
 	}
 
+	//Пауза ******** добавить снятие паузы пробелом и блокирование сброса ********
+	private void gamePause(int pause) {
+		this.pause = pause;
+	}
+
 	//Проверка падения блока вниз
 	private void gameCycle() {
 
 		//Проверка падения блока вниз
 		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (form[i][1]+1 < 20 &&
-				ground[form[i][1]+1][form[i][0]][0] == 0) temp++; // ******** тут вызывается выход за массив ********
+			if (form[i][1]+1 < 20 && ground[form[i][1]+1][form[i][0]][0] == 0) // ******** выход за массив ********
+				temp++;
 		if (temp >= 4) {
 			for (int i = 0; i < 4; i++)
 				form[i][1]+=1*pause;
@@ -102,7 +116,7 @@ public class Tetris extends JPanel {
 
 			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
-				if (form[i][1] < 0) gameOver = true;
+				if (form[i][1] < 2) gameOver = true; // ******** переделать ********
 
 			// Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
@@ -135,7 +149,8 @@ public class Tetris extends JPanel {
 	private void move(int move) {
 		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (form[i][0]+move >= 0 && form[i][0]+move < 10 && ground[form[i][1]][form[i][0]+move][0] == 0) temp++;
+			if (form[i][0]+move >= 0 && form[i][0]+move < 10 && ground[form[i][1]][form[i][0]+move][0] == 0)
+				temp++;
 		if (temp >= 4)
 			for (int i = 0; i < 4; i++)
 				form[i][0]+=move;
@@ -154,7 +169,8 @@ public class Tetris extends JPanel {
 		//Проверяем на наложение повернутую копию фигурки
 		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (tempBlock[i][0] >= 0 && tempBlock[i][0] < 10 && ground[tempBlock[i][1]][tempBlock[i][0]][0] == 0) temp++;
+			if (tempBlock[i][0] >= 0 && tempBlock[i][0] < 10 && ground[tempBlock[i][1]][tempBlock[i][0]][0] == 0)
+				temp++;
 
 		//Поворачиваем фигурку
 		if (temp >= 4) {
@@ -167,18 +183,28 @@ public class Tetris extends JPanel {
 
 	//Проверка на заполнение строки
 	private void clear() {
+		int tempScore = 0;
 		for (int i = 0; i < 20; i++) {
 
 			//Подсчитываем число полных блоков в ряду
 			temp = 0;
-			for (int j = 0; j < 10; j++) if (ground[i][j][0] > 0) temp++;
+			for (int j = 0; j < 10; j++)
+				if (ground[i][j][0] > 0)
+					temp++;
 
 			//Удаляем заполненный ряд ******** надо переделать на отбеливание ряда перед удалением ********
 			if (temp >= 10) {
-				for (int j = 0; j < 10; j++) ground[i][j][0] = 0;
+				tempScore++;
+				for (int j = 0; j < 10; j++)
+					ground[i][j][0] = 0xffffff;
+				
 				drop();
 			}
 		}
+
+		//Подсчитываем очки
+		score+=scores[tempScore];
+		tempScore = 0;
 	}
 
 	//Опускаем верхние ряды
@@ -187,12 +213,15 @@ public class Tetris extends JPanel {
 
 			//Подсчитываем число пустых блоков в ряду
 			temp = 0;
-			for (int j = 0; j < 10; j++) if (ground[i][j][0] == 0) temp++;
+			for (int j = 0; j < 10; j++)
+				if (ground[i][j][0] == 0xffffff)
+				temp++;
 
 			//Смещаем вехние блоки
 			if (temp >= 10) {
 				for (int j = i; j > 0; j--) {
-					for (int n = 0; n < 10; n++) ground[j][n][0] = ground[j-1][n][0];
+					for (int n = 0; n < 10; n++)
+						ground[j][n][0] = ground[j-1][n][0];
 				}
 			}
 		}
@@ -200,9 +229,8 @@ public class Tetris extends JPanel {
 
 	//Конец игры ******** переделать ********
 	private void gameFinish() {
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 10; j++) ground[i][j][0] = 0xffffff;
-		}
+		gamePause(0);
+		gameMain();
 	}
 
 	//Отрисовка игры
@@ -220,12 +248,14 @@ public class Tetris extends JPanel {
 
 		//Панель информации
 		ctx.setFont(new Font("Courier New", Font.BOLD, 24));
+		ctx.setColor(Color.green);
+		ctx.drawString(("Score: " + score), 10*block+10, 5*block);
 		ctx.setColor(Color.white);
 		ctx.drawString(("Speed: " + speed), 10*block+10, 6*block);
 		ctx.setColor(Color.yellow);
 		ctx.drawString(("Step: " + step), 10*block+10, 7*block);
 
-		//******** убрать или заменить ********
+		// ******** убрать или заменить ********
 		ctx.setFont(new Font("Courier New", Font.BOLD, 20));
 		ctx.setColor(colorBlock);
 		ctx.drawString(("X: " +form[0][0]+" "+form[1][0]+" "+form[2][0]+" "+form[3][0]), 10*block+10, 13*block);
@@ -250,5 +280,27 @@ public class Tetris extends JPanel {
 		ctx.setColor(Color.gray);
 		for (int i = 0; i <= 10; i++) ctx.drawLine(i*block, 0, i*block, 20*block);
 		for (int i = 0; i <= 20; i++) ctx.drawLine(0, block*i, 10*block, i*block);
+
+		//Пауза
+		if (pause == 0) {
+			ctx.setColor(new Color(128, 128, 192, 192));
+			ctx.fillRect(5, 5, block*14+11, block*19+31);
+			ctx.setColor(Color.white);
+			ctx.setFont(new Font("Courier New", Font.BOLD, 48));
+			ctx.drawString(("P A U S E"), 4*block+10, 10*block);
+			ctx.setFont(new Font("Courier New", Font.BOLD, 14));
+			ctx.drawString(("p r e s s   a n y   k e y"), 5*block, 11*block);
+		}
+
+		//Конец игры ******** оптимизировать бы ********
+		if (gameOver) {
+			ctx.setColor(new Color(192, 128, 128, 192));
+			ctx.fillRect(5, 5, block*14+11, block*19+31);
+			ctx.setColor(Color.white);
+			ctx.setFont(new Font("Courier New", Font.BOLD, 48));
+			ctx.drawString(("GAME OVER"), 4*block+10, 10*block);
+			ctx.setFont(new Font("Courier New", Font.BOLD, 14));
+			ctx.drawString(("p r e s s   a n y   k e y"), 5*block, 11*block);
+		}
 	}
 }
