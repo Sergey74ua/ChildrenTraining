@@ -128,9 +128,12 @@ public class Tetris extends JPanel {
 
 	//Запуск фигурки
 	private void newBlock() {
-		speed = 400;
-		clear();
+		
+		//Определяем скорость игры
 		step++;
+		if (step <= 280) speed = 400-step; else speed=120;
+		
+		clear();
 
 		//Передаем координаты в блок
 		temp = random.nextInt(7)+1;
@@ -156,7 +159,7 @@ public class Tetris extends JPanel {
 				form[i][0]+=move;
 	}
 
-	//Вращение фигурки ******** надо как-то переделать вращение "0"(квадрата) ********
+	//Вращение фигурки
 	private void rotation() {
 
 		//Копируем фигурку с поворотом
@@ -173,7 +176,7 @@ public class Tetris extends JPanel {
 				temp++;
 
 		//Поворачиваем фигурку
-		if (temp >= 4) {
+		if (temp >= 4 && color != 0xffff00) { //******** наговнокодил ********
 			for (int i = 0; i < 4; i++) {
 				form[i][0] = tempBlock[i][0];
 				form[i][1] = tempBlock[i][1];
@@ -214,8 +217,8 @@ public class Tetris extends JPanel {
 			//Подсчитываем число пустых блоков в ряду
 			temp = 0;
 			for (int j = 0; j < 10; j++)
-				if (ground[i][j][0] == 0xffffff)
-				temp++;
+				if (ground[i][j][0] == 0xffffff) 
+					temp++;
 
 			//Смещаем вехние блоки
 			if (temp >= 10) {
