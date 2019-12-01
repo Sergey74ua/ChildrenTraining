@@ -18,17 +18,17 @@ public class Tetris extends JPanel {
 	//Переменные, массивы и объекты
 	private static boolean gameOver;
 	private static int block = 40, pause = 1, speed, score, step, look, color, temp;
-	private int[] scores = {0, 100, 300, 700, 1500};
+	private int scores[] = {0, 100, 300, 700, 1500};
 	private int form[][] = new int[4][2];          // блоки / x, y
 	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
 	private int forms[][][] = {                    // фигурка / блоки / x, y и rgb
 		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
 		{{ 0,  0}, {-1,  0}, { 1,  0}, { 2,  0}, {0x00ffff}}, // I aqua
-		{{ 0,  0}, {-1,  0}, { 0,  1}, { 1,  1}, {0xff0000}}, // Z red
+		{{ 0,  0}, {-1,  0}, { 1,  0}, { 0,  1}, {0xff00ff}}, // T purple
 		{{ 0,  0}, { 0, -1}, {-1,  1}, { 0,  1}, {0xffa500}}, // L orange
-		{{ 0,  0}, { 1,  0}, {-1,  1}, { 0,  1}, {0x00ff00}}, // S green
 		{{ 0,  0}, { 0, -1}, { 0,  1}, { 1,  1}, {0x0000ff}}, // J blue
-		{{ 0,  0}, {-1,  0}, { 1,  0}, { 0,  1}, {0xff00ff}}  // T purple
+		{{ 0,  0}, { 1,  0}, {-1,  1}, { 0,  1}, {0x00ff00}}, // S green
+		{{ 0,  0}, {-1,  0}, { 0,  1}, { 1,  1}, {0xff0000}}, // Z red
 	};
 	private static Random random = new Random();
 	private static Color colorBlock, colorLook;
@@ -114,35 +114,40 @@ public class Tetris extends JPanel {
 				form[i][1]+=1*pause;
 		} else {
 
+			//Устанавливаем скорость игры
+			step++;
+			if (step <= 280) speed = 400-step; else speed=120;
+
 			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
 				if (form[i][1] < 2) gameOver = true; // ******** переделать ********
 
-			// Добавляем фигурку в массив
+			//Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
 				ground[form[i][1]][form[i][0]][0] = color*2/3;
 
+			//Удаляем упавшую фигурку ******** что-то не то ********
+			for (int i = 0; i < 4; i++) {
+				form[i][0] = -1;
+				form[i][1] = -1;
+			}
+
+		clear();
 		newBlock();
 		}
 	}
 
 	//Запуск фигурки
 	private void newBlock() {
-		
-		//Определяем скорость игры
-		step++;
-		if (step <= 280) speed = 400-step; else speed=120;
-		
-		clear();
 
 		//Передаем координаты в блок
 		temp = random.nextInt(7)+1;
 		for (int i = 0; i < 4; i++) {
 			form[i][0] = forms[look][i][0]+temp;
-			form[i][1] = forms[look][i][1]; //надо -1, но не влазит в проверяемый массив по стр.97
+			form[i][1] = forms[look][i][1]; //надо -1, но не влазит в проверяемый массив по стр.110
 		}
 
-		color = forms[look][4][0];
+		color = forms[look][4][0]; // ******** цвет новой фигурки сперва наследуется от старой ********
 		colorBlock = new Color(color);
 		look = random.nextInt(7);
 		colorLook = new Color(forms[look][4][0]);
@@ -186,6 +191,8 @@ public class Tetris extends JPanel {
 
 	//Проверка на заполнение строки
 	private void clear() {
+
+		//Проходим по всем рядам и отбеливаем
 		int tempScore = 0;
 		for (int i = 0; i < 20; i++) {
 
@@ -195,36 +202,55 @@ public class Tetris extends JPanel {
 				if (ground[i][j][0] > 0)
 					temp++;
 
-			//Удаляем заполненный ряд ******** надо переделать на отбеливание ряда перед удалением ********
+			//Отбеливаем заполненный ряд
 			if (temp >= 10) {
 				tempScore++;
 				for (int j = 0; j < 10; j++)
 					ground[i][j][0] = 0xffffff;
-				
-				drop();
 			}
 		}
 
 		//Подсчитываем очки
 		score+=scores[tempScore];
-		tempScore = 0;
+
+		//Перерисовка отбеленных рядов перед очисткой
+		repaint();
+		try {
+			Thread.sleep(speed);
+		} catch (Exception e){}
+
+		//Очищаем отбеленные блоки
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 10; j++)
+				if (ground[i][j][0] == 0xffffff)
+					ground[i][j][0] = 0;
+		}
+
+		drop(tempScore);
 	}
 
 	//Опускаем верхние ряды
-	private void drop() {
-		for (int i = 19; i > 0; i--) {
+	private void drop(int tempScore) {
+		for (int t = 0; t < tempScore; t++) {
 
-			//Подсчитываем число пустых блоков в ряду
-			temp = 0;
-			for (int j = 0; j < 10; j++)
-				if (ground[i][j][0] == 0xffffff) 
-					temp++;
+			//Отсчет рядов снизу-вверх
+			for (int iScore = 19; iScore >= 0; iScore--) {
 
-			//Смещаем вехние блоки
-			if (temp >= 10) {
-				for (int j = i; j > 0; j--) {
-					for (int n = 0; n < 10; n++)
-						ground[j][n][0] = ground[j-1][n][0];
+				//Подсчитываем число пустых блоков в ряду
+				temp = 0;
+				for (int j = 0; j < 10; j++)
+					if (ground[iScore][j][0] == 0)
+						temp++;
+
+				//Сбрасываем (копируем) верхние блоки
+				for (int i = iScore; i >= 0; i--) {
+					if (temp >= 10) {
+						for (int j = 0; j < 10; j++)
+							if (i > 0)
+								ground[i][j][0] = ground[i-1][j][0];
+							else
+								ground[i][j][0] = 0;
+					}
 				}
 			}
 		}
