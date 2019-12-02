@@ -86,19 +86,11 @@ public class Tetris extends JPanel {
 		//Цикл анимации
 		while (!gameOver) {
 			gameCycle();
-			repaint();
-			try {
-				Thread.sleep(speed);
-			} catch (Exception e){}
+			timer();
 		};
 
 		//Конец игры
 		gameFinish();
-	}
-
-	//Пауза ******** добавить снятие паузы пробелом и блокирование сброса ********
-	private void gamePause(int pause) {
-		this.pause = pause;
 	}
 
 	//Проверка падения блока вниз
@@ -135,6 +127,19 @@ public class Tetris extends JPanel {
 		clear();
 		newBlock();
 		}
+	}
+
+	//Таймер игры
+	private void timer() {
+		repaint();
+		try {
+			Thread.sleep(speed);
+		} catch (Exception e){}
+	}
+
+	//Пауза ******** добавить снятие паузы пробелом и блокирование сброса ********
+	private void gamePause(int pause) {
+		this.pause = pause;
 	}
 
 	//Запуск фигурки
@@ -212,45 +217,38 @@ public class Tetris extends JPanel {
 
 		//Подсчитываем очки
 		score+=scores[tempScore];
-
-		//Перерисовка отбеленных рядов перед очисткой
-		repaint();
-		try {
-			Thread.sleep(speed);
-		} catch (Exception e){}
+		timer();
 
 		//Очищаем отбеленные блоки
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++)
-				if (ground[i][j][0] == 0xffffff)
+				if (ground[i][j][0] == 0xffffff) {
 					ground[i][j][0] = 0;
+					drop();
+			}
 		}
-
-		drop(tempScore);
 	}
 
 	//Опускаем верхние ряды
-	private void drop(int tempScore) {
-		for (int t = 0; t < tempScore; t++) {
+	private void drop() {
 
-			//Отсчет рядов снизу-вверх
-			for (int iScore = 19; iScore >= 0; iScore--) {
+		//Отсчет рядов снизу-вверх
+		for (int iScore = 19; iScore >= 0; iScore--) {
 
-				//Подсчитываем число пустых блоков в ряду
-				temp = 0;
-				for (int j = 0; j < 10; j++)
-					if (ground[iScore][j][0] == 0)
-						temp++;
+			//Подсчитываем число пустых блоков в ряду
+			temp = 0;
+			for (int j = 0; j < 10; j++)
+				if (ground[iScore][j][0] == 0)
+					temp++;
 
-				//Сбрасываем (копируем) верхние блоки
-				for (int i = iScore; i >= 0; i--) {
-					if (temp >= 10) {
-						for (int j = 0; j < 10; j++)
-							if (i > 0)
-								ground[i][j][0] = ground[i-1][j][0];
-							else
-								ground[i][j][0] = 0;
-					}
+			//Сбрасываем (копируем) верхние блоки
+			for (int i = iScore; i >= 0; i--) {
+				if (temp >= 10) {
+					for (int j = 0; j < 10; j++)
+						if (i > 0)
+							ground[i][j][0] = ground[i-1][j][0];
+						else
+							ground[i][j][0] = 0;
 				}
 			}
 		}
