@@ -51,15 +51,15 @@ public class Tetris extends JPanel {
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
-				tetris.repaint();
-				tetris.gamePause(1);
+				pause = 1;
 				switch(event.getKeyCode()) {
-					case 32: tetris.gamePause(0); break; //пробел (пауза)
-					case 37: tetris.move(-1); break;     //влево
-					case 38: tetris.rotation(); break;   //вверх(вращение)
-					case 39: tetris.move(+1); break;     //вправо
-					case 40: speed = 40; break;          //вниз (сброс)
+					case 32: pause = 0; break;         //пробел (пауза)
+					case 37: tetris.move(-1); break;   //влево
+					case 38: tetris.rotation(); break; //вверх(вращение)
+					case 39: tetris.move(+1); break;   //вправо
+					case 40: speed = 40; break;        //вниз (сброс)
 				}
+				tetris.repaint();
 			}
 		});
 
@@ -71,9 +71,9 @@ public class Tetris extends JPanel {
 	private void gameMain() {
 
 		//Начальные значения
+		gameOver = false;
 		look = random.nextInt(7);
 		newBlock();
-		gameOver = false;
 		speed = 400;
 		score = 0;
 		step = 0;
@@ -89,8 +89,9 @@ public class Tetris extends JPanel {
 			timer();
 		};
 
-		//Конец игры
-		gameFinish();
+		//Конец игры ******** нужно как-то зафиксировать надпись конца игры ********
+		pause = 0;
+		gameMain();
 	}
 
 	//Проверка падения блока вниз
@@ -131,15 +132,10 @@ public class Tetris extends JPanel {
 
 	//Таймер игры
 	private void timer() {
-		repaint();
 		try {
 			Thread.sleep(speed);
 		} catch (Exception e){}
-	}
-
-	//Пауза ******** добавить снятие паузы пробелом и блокирование сброса ********
-	private void gamePause(int pause) {
-		this.pause = pause;
+		repaint();
 	}
 
 	//Запуск фигурки
@@ -238,13 +234,7 @@ public class Tetris extends JPanel {
 							ground[iClear][j][0] = 0;
 		}
 	}
-
-	//Конец игры ******** переделать ********
-	private void gameFinish() {
-		gamePause(0);
-		gameMain();
-	}
-
+	
 	//Отрисовка игры
 	@Override
 	public void paint (Graphics ctx) {
