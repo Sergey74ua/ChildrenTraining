@@ -20,7 +20,7 @@ public class Tetris extends JPanel {
 	private static int block = 40, pause = 1, speed, score, step, look, color, temp;
 	private int scores[] = {0, 100, 300, 700, 1500};
 	private int form[][] = new int[4][2];          // блоки / x, y
-	private int ground[][][] = new int[20][10][1]; // ряды / колонки / rgb
+	private int ground[][][] = new int[24][10][1]; // ряды / колонки / rgb
 	private int forms[][][] = {                    // фигурка / блоки / x, y и rgb
 		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
 		{{ 0,  0}, {-1,  0}, { 1,  0}, { 2,  0}, {0x00ffff}}, // I aqua
@@ -77,7 +77,7 @@ public class Tetris extends JPanel {
 		speed = 400;
 		score = 0;
 		step = 0;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 24; i++) {
 			for (int j = 0; j < 10; j++) {
 				ground[i][j][0] = 0;
 			}
@@ -99,7 +99,7 @@ public class Tetris extends JPanel {
 		//Проверка падения блока вниз
 		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (form[i][1]+1 < 20 && ground[form[i][1]+1][form[i][0]][0] == 0) // ******** выход за массив ********
+			if (form[i][1]+1 < 20 && ground[form[i][1]+5][form[i][0]][0] == 0)
 				temp++;
 		if (temp >= 4) {
 			for (int i = 0; i < 4; i++)
@@ -112,13 +112,13 @@ public class Tetris extends JPanel {
 
 			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
-				if (form[i][1] < 2) gameOver = true; // ******** переделать ********
+				if (form[i][1] < 0) gameOver = true;
 
 			//Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
-				ground[form[i][1]][form[i][0]][0] = color*2/3;
+				ground[form[i][1]+4][form[i][0]][0] = color*2/3;
 
-			//Удаляем упавшую фигурку ******** что-то не то ********
+			//Удаляем упавшую фигурку ******** излишний говнокод из-за кривой последовательности ********
 			for (int i = 0; i < 4; i++) {
 				form[i][0] = -1;
 				form[i][1] = -1;
@@ -149,7 +149,7 @@ public class Tetris extends JPanel {
 		temp = random.nextInt(7)+1;
 		for (int i = 0; i < 4; i++) {
 			form[i][0] = forms[look][i][0]+temp;
-			form[i][1] = forms[look][i][1]; //надо -1, но не влазит в проверяемый массив по стр.110
+			form[i][1] = forms[look][i][1]-2;
 		}
 
 		color = forms[look][4][0]; // ******** цвет новой фигурки сперва наследуется от старой ********
@@ -162,7 +162,7 @@ public class Tetris extends JPanel {
 	private void move(int move) {
 		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (form[i][0]+move >= 0 && form[i][0]+move < 10 && ground[form[i][1]][form[i][0]+move][0] == 0)
+			if (form[i][0]+move >= 0 && form[i][0]+move < 10 && ground[form[i][1]+4][form[i][0]+move][0] == 0)
 				temp++;
 		if (temp >= 4)
 			for (int i = 0; i < 4; i++)
@@ -182,7 +182,7 @@ public class Tetris extends JPanel {
 		//Проверяем на наложение повернутую копию фигурки
 		temp = 0;
 		for (int i = 0; i < 4; i++)
-			if (tempBlock[i][0] >= 0 && tempBlock[i][0] < 10 && ground[tempBlock[i][1]][tempBlock[i][0]][0] == 0)
+			if (tempBlock[i][0] >= 0 && tempBlock[i][0] < 10 && ground[tempBlock[i][1]+4][tempBlock[i][0]][0] == 0)
 				temp++;
 
 		//Поворачиваем фигурку
@@ -199,7 +199,7 @@ public class Tetris extends JPanel {
 
 		//Проходим по всем рядам и отбеливаем
 		int tempScore = 0;
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 24; i++) {
 
 			//Подсчитываем число полных блоков в ряду
 			temp = 0;
@@ -219,38 +219,23 @@ public class Tetris extends JPanel {
 		score+=scores[tempScore];
 		timer();
 
-		//Очищаем отбеленные блоки
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 10; j++)
-				if (ground[i][j][0] == 0xffffff) {
-					ground[i][j][0] = 0;
-					drop();
-			}
-		}
-	}
+		//Проходим по всем рядам и смещаем их вниз
+		for (int i = 0; i < 24; i++) {
 
-	//Опускаем верхние ряды
-	private void drop() {
-
-		//Отсчет рядов снизу-вверх
-		for (int iScore = 19; iScore >= 0; iScore--) {
-
-			//Подсчитываем число пустых блоков в ряду
+			//Подсчитываем число отбеленых блоков в ряду и очищаем
 			temp = 0;
 			for (int j = 0; j < 10; j++)
-				if (ground[iScore][j][0] == 0)
+				if (ground[i][j][0] == 0xffffff)
 					temp++;
 
 			//Сбрасываем (копируем) верхние блоки
-			for (int i = iScore; i >= 0; i--) {
-				if (temp >= 10) {
+			if (temp >= 10)
+				for (int iClear = i; iClear >= 0; iClear--)
 					for (int j = 0; j < 10; j++)
-						if (i > 0)
-							ground[i][j][0] = ground[i-1][j][0];
+						if (iClear > 0)
+							ground[iClear][j][0] = ground[iClear-1][j][0];
 						else
-							ground[i][j][0] = 0;
-				}
-			}
+							ground[iClear][j][0] = 0;
 		}
 	}
 
@@ -293,7 +278,7 @@ public class Tetris extends JPanel {
 		//Днище
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) {
-				ctx.setColor(new Color(ground[i][j][0]));
+				ctx.setColor(new Color(ground[i+4][j][0]));
 				ctx.fillRect(j*block, i*block, block, block);
 			}
 		}
