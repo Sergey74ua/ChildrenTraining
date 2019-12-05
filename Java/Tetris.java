@@ -17,7 +17,7 @@ public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
 	private static boolean gameOver;
-	private static int block = 40, pause = 1, speed, score, step, look, color, temp;
+	private static int block = 40, pause = 1, speed, score, record, line, step, game, look, color, temp;
 	private int scores[] = {0, 100, 300, 700, 1500};
 	private int form[][] = new int[4][2];          // блоки / x, y
 	private int ground[][][] = new int[24][10][1]; // ряды / колонки / rgb
@@ -72,6 +72,7 @@ public class Tetris extends JPanel {
 
 		//Начальные значения
 		gameOver = false;
+		game++;
 		look = random.nextInt(7);
 		newBlock();
 		speed = 400;
@@ -206,6 +207,7 @@ public class Tetris extends JPanel {
 			//Отбеливаем заполненный ряд
 			if (temp >= 10) {
 				tempScore++;
+				line++;
 				for (int j = 0; j < 10; j++)
 					ground[i][j][0] = 0xffffff;
 			}
@@ -213,6 +215,7 @@ public class Tetris extends JPanel {
 
 		//Подсчитываем очки
 		score+=scores[tempScore];
+		if (record < score) record = score;
 		timer();
 
 		//Проходим по всем рядам и смещаем их вниз
@@ -234,7 +237,7 @@ public class Tetris extends JPanel {
 							ground[iClear][j][0] = 0;
 		}
 	}
-	
+
 	//Отрисовка игры
 	@Override
 	public void paint (Graphics ctx) {
@@ -250,12 +253,18 @@ public class Tetris extends JPanel {
 
 		//Панель информации
 		ctx.setFont(new Font("Courier New", Font.BOLD, 24));
-		ctx.setColor(Color.green);
-		ctx.drawString(("Score: " + score), 10*block+10, 5*block);
 		ctx.setColor(Color.white);
-		ctx.drawString(("Speed: " + speed), 10*block+10, 6*block);
+		ctx.drawString(("Speed: " + speed), 10*block+10, 5*block);
+		ctx.setColor(Color.orange);
+		ctx.drawString(("Record: " + record), 10*block+10, 6*block);
+		ctx.setColor(Color.green);
+		ctx.drawString(("Score: " + score), 10*block+10, 7*block);
 		ctx.setColor(Color.yellow);
-		ctx.drawString(("Step: " + step), 10*block+10, 7*block);
+		ctx.drawString(("Line: " + line), 10*block+10, 8*block);
+		ctx.setColor(Color.gray);
+		ctx.drawString(("Step: " + step), 10*block+10, 9*block);
+		ctx.setColor(Color.cyan);
+		ctx.drawString(("Game: " + game), 10*block+10, 10*block);
 
 		// ******** убрать или заменить ********
 		ctx.setFont(new Font("Courier New", Font.BOLD, 20));
