@@ -247,9 +247,13 @@ public class Tetris extends JPanel {
 		ctx.fillRect(10*block+1, 0, 5*block, 20*block+1);
 
 		//Предпросмотр блока
-		ctx.setColor(colorLook);
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
+			ctx.setColor(colorLook);
 			ctx.fillRect(forms[look][i][0]*block+11*block+10, forms[look][i][1]*block+2*block, block-1, block-1);
+			ctx.setColor(Color.white);
+			ctx.drawLine(forms[look][i][0]*block+11*block+10+3, forms[look][i][1]*block+2*block+3, forms[look][i][0]*block+11*block+10+10, forms[look][i][1]*block+2*block+3);
+			ctx.drawLine(forms[look][i][0]*block+11*block+10+3, forms[look][i][1]*block+2*block+4, forms[look][i][0]*block+11*block+10+3, forms[look][i][1]*block+2*block+10);
+		}
 
 		//Панель информации
 		ctx.setFont(new Font("Courier New", Font.BOLD, 24));
@@ -284,8 +288,13 @@ public class Tetris extends JPanel {
 
 		//Фигура
 		ctx.setColor(colorBlock);
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
+			ctx.setColor(colorBlock);
 			ctx.fillRect(form[i][0]*block, form[i][1]*block, block, block);
+			ctx.setColor(Color.white);
+			ctx.drawLine(form[i][0]*block+3, form[i][1]*block+3, form[i][0]*block+10, form[i][1]*block+3);
+			ctx.drawLine(form[i][0]*block+3, form[i][1]*block+4, form[i][0]*block+3, form[i][1]*block+10);
+		}
 
 		//Сетка
 		ctx.setColor(Color.gray);
