@@ -16,14 +16,14 @@ import javax.swing.JPanel;
 public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
-	private static boolean gameOver;
-	private static int block = 40, pause = 1, speed, score, record, line, step, game, look, color, temp;
+	private static boolean gameOver, gamePause;
+	private static int block = 40, pause = 1, speed, score, record, line, trt, tempTRT, noTRT, step, game, look, color, temp;
 	private int scores[] = {0, 100, 300, 700, 1500};
 	private int form[][] = new int[4][2];          // блоки / x, y
 	private int ground[][][] = new int[24][10][1]; // ряды / колонки / rgb
 	private int forms[][][] = {                    // фигурка / блоки / x, y и rgb
-		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
 		{{ 0,  0}, {-1,  0}, { 1,  0}, { 2,  0}, {0x00ffff}}, // I aqua
+		{{ 0,  0}, { 1,  0}, { 0,  1}, { 1,  1}, {0xffff00}}, // O yellow
 		{{ 0,  0}, {-1,  0}, { 1,  0}, { 0,  1}, {0xff00ff}}, // T purple
 		{{ 0,  0}, { 0, -1}, {-1,  1}, { 0,  1}, {0xffa500}}, // L orange
 		{{ 0,  0}, { 0, -1}, { 0,  1}, { 1,  1}, {0x0000ff}}, // J blue
@@ -78,6 +78,10 @@ public class Tetris extends JPanel {
 		speed = 400;
 		score = 0;
 		step = 0;
+		line = 0;
+		trt = 0;
+		tempTRT = 0;
+		noTRT = 0;
 		for (int i = 0; i < 24; i++) {
 			for (int j = 0; j < 10; j++) {
 				ground[i][j][0] = 0;
@@ -110,7 +114,7 @@ public class Tetris extends JPanel {
 
 			//Устанавливаем скорость игры
 			step++;
-			if (step <= 280) speed = 400-step; else speed=120;
+			if (step <= 280) speed = 400-step; else speed = 120;
 
 			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
@@ -120,13 +124,6 @@ public class Tetris extends JPanel {
 			for (int i = 0; i < 4; i++)
 				ground[form[i][1]+4][form[i][0]][0] = color*2/3;
 
-			//Удаляем упавшую фигурку ******** излишний говнокод из-за кривой последовательности ********
-			for (int i = 0; i < 4; i++) {
-				form[i][0] = -1;
-				form[i][1] = -1;
-			}
-
-		clear();
 		newBlock();
 		}
 	}
@@ -142,15 +139,23 @@ public class Tetris extends JPanel {
 	//Запуск фигурки
 	private void newBlock() {
 
-		//Передаем координаты в блок
+		//Передаем цвет из предпросмотра
+		color = forms[look][4][0];
+		colorBlock = new Color(color);
+
+		if (look != 0) noTRT++;
+		else noTRT = 0;
+
+		//Передаем координаты из предпросмотра в фигурку
 		temp = random.nextInt(7)+1;
 		for (int i = 0; i < 4; i++) {
 			form[i][0] = forms[look][i][0]+temp;
 			form[i][1] = forms[look][i][1]-2;
 		}
 
-		color = forms[look][4][0]; // ******** цвет новой фигурки сперва наследуется от старой ********
-		colorBlock = new Color(color);
+		clear();
+
+		//Новая игурка в предпосмотр
 		look = random.nextInt(7);
 		colorLook = new Color(forms[look][4][0]);
 	}
@@ -183,7 +188,7 @@ public class Tetris extends JPanel {
 				temp++;
 
 		//Поворачиваем фигурку
-		if (temp >= 4 && color != 0xffff00) { //******** наговнокодил ********
+		if (temp >= 4 && color != 0xffff00) { //******** наговнокодил с квадратом ********
 			for (int i = 0; i < 4; i++) {
 				form[i][0] = tempBlock[i][0];
 				form[i][1] = tempBlock[i][1];
@@ -208,6 +213,11 @@ public class Tetris extends JPanel {
 			if (temp >= 10) {
 				tempScore++;
 				line++;
+
+				///Подсчитываем число процент тетриса
+				if (tempScore >= 4) tempTRT++;
+				trt = Math.round(tempTRT*400/line);
+
 				for (int j = 0; j < 10; j++)
 					ground[i][j][0] = 0xffffff;
 			}
@@ -251,12 +261,12 @@ public class Tetris extends JPanel {
 			ctx.setColor(colorLook);
 			ctx.fillRect(forms[look][i][0]*block+11*block+10, forms[look][i][1]*block+2*block, block-1, block-1);
 			ctx.setColor(Color.white);
-			ctx.drawLine(forms[look][i][0]*block+11*block+10+3, forms[look][i][1]*block+2*block+3, forms[look][i][0]*block+11*block+10+10, forms[look][i][1]*block+2*block+3);
-			ctx.drawLine(forms[look][i][0]*block+11*block+10+3, forms[look][i][1]*block+2*block+4, forms[look][i][0]*block+11*block+10+3, forms[look][i][1]*block+2*block+10);
+			ctx.fillRect(forms[look][i][0]*block+11*block+10+4, forms[look][i][1]*block+2*block+4, 12, 3);
+			ctx.fillRect(forms[look][i][0]*block+11*block+10+4, forms[look][i][1]*block+2*block+7, 3, 10);
 		}
 
 		//Панель информации
-		ctx.setFont(new Font("Courier New", Font.BOLD, 24));
+		ctx.setFont(new Font("Courier New", Font.BOLD, 20));
 		ctx.setColor(Color.white);
 		ctx.drawString(("Speed: " + speed), 10*block+10, 5*block);
 		ctx.setColor(Color.orange);
@@ -265,35 +275,44 @@ public class Tetris extends JPanel {
 		ctx.drawString(("Score: " + score), 10*block+10, 7*block);
 		ctx.setColor(Color.yellow);
 		ctx.drawString(("Line: " + line), 10*block+10, 8*block);
+		ctx.setColor(Color.blue);
+		ctx.drawString(("TRT: " + trt + "%"), 10*block+10, 9*block);
+		ctx.setColor(Color.red);
+		ctx.drawString(("no plank: " + noTRT), 10*block+10, 10*block);
 		ctx.setColor(Color.gray);
-		ctx.drawString(("Step: " + step), 10*block+10, 9*block);
+		ctx.drawString(("Step: " + step), 10*block+10, 11*block);
 		ctx.setColor(Color.cyan);
-		ctx.drawString(("Game: " + game), 10*block+10, 10*block);
+		ctx.drawString(("Game: " + game), 10*block+10, 12*block);
 
-		// ******** убрать или заменить ********
+		// ******** убрать ********
 		ctx.setFont(new Font("Courier New", Font.BOLD, 20));
 		ctx.setColor(colorBlock);
-		ctx.drawString(("X: " +form[0][0]+" "+form[1][0]+" "+form[2][0]+" "+form[3][0]), 10*block+10, 13*block);
-		ctx.drawString(("Y: " +form[0][1]+" "+form[1][1]+" "+form[2][1]+" "+form[3][1]), 10*block+10, 14*block);
-		ctx.drawString(("gameOver: " + gameOver), 10*block+10, 15*block);
-		ctx.drawString(("pause: " + pause), 10*block+10, 16*block);
+		ctx.drawString(("X: " +form[0][0]+" "+form[1][0]+" "+form[2][0]+" "+form[3][0]), 10*block+10, 15*block);
+		ctx.drawString(("Y: " +form[0][1]+" "+form[1][1]+" "+form[2][1]+" "+form[3][1]), 10*block+10, 16*block);
+		ctx.drawString(("gameOver: " + gameOver), 10*block+10, 17*block);
+		ctx.drawString(("gamePause: " + gamePause), 10*block+10, 18*block);
+		ctx.drawString(("pause: " + pause), 10*block+10, 19*block);
 
 		//Днище
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 10; j++) {
 				ctx.setColor(new Color(ground[i+4][j][0]));
 				ctx.fillRect(j*block, i*block, block, block);
+				if (ground[i+4][j][0] > 0 && ground[i+4][j][0] < 0xffffff) {
+					ctx.setColor(Color.gray);
+					ctx.fillRect(j*block+4, i*block+4, 12, 3);
+					ctx.fillRect(j*block+4, i*block+7, 3, 10);
+				}
 			}
 		}
 
 		//Фигура
-		ctx.setColor(colorBlock);
 		for (int i = 0; i < 4; i++) {
 			ctx.setColor(colorBlock);
 			ctx.fillRect(form[i][0]*block, form[i][1]*block, block, block);
 			ctx.setColor(Color.white);
-			ctx.drawLine(form[i][0]*block+3, form[i][1]*block+3, form[i][0]*block+10, form[i][1]*block+3);
-			ctx.drawLine(form[i][0]*block+3, form[i][1]*block+4, form[i][0]*block+3, form[i][1]*block+10);
+			ctx.fillRect(form[i][0]*block+4, form[i][1]*block+4, 12, 3);
+			ctx.fillRect(form[i][0]*block+4, form[i][1]*block+7, 3, 10);
 		}
 
 		//Сетка
