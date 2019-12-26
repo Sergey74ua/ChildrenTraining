@@ -13,6 +13,9 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 public class Tetris extends JPanel {
 
 	//Переменные, массивы и объекты
@@ -32,6 +35,7 @@ public class Tetris extends JPanel {
 	};
 	private static Random random = new Random();
 	private static Color colorBlock, colorLook;
+	private Image image;
 
 	public static void main(String[] args) {
 
@@ -51,13 +55,13 @@ public class Tetris extends JPanel {
 		//Отслеживаем нажатия клавиш
 		jFrame.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent event) {
-				pause = 1;
+				tetris.anyKey(1);
 				switch(event.getKeyCode()) {
-					case 32: pause = 0; break;         //пробел (пауза)
-					case 37: tetris.move(-1); break;   //влево
-					case 38: tetris.rotation(); break; //вверх(вращение)
-					case 39: tetris.move(+1); break;   //вправо
-					case 40: speed = 40; break;        //вниз (сброс)
+					case 32: tetris.anyKey(0);	break; //пробел (пауза)
+					case 37: tetris.move(-1);	break; //влево
+					case 38: tetris.rotation();	break; //вверх(вращение)
+					case 39: tetris.move(+1);	break; //вправо
+					case 40: speed = 40;		break; //вниз (сброс)
 				}
 				tetris.repaint();
 			}
@@ -71,32 +75,43 @@ public class Tetris extends JPanel {
 	private void gameMain() {
 
 		//Начальные значения
-		gameOver = false;
-		game++;
 		look = random.nextInt(7);
 		newBlock();
-		speed = 400;
-		score = 0;
-		step = 0;
-		line = 0;
-		trt = 0;
-		tempTRT = 0;
-		noTRT = 0;
+		speed = 400; score = 0; step = 0; line = 0; trt = 0; tempTRT = 0; noTRT = 0;
+		gameOver = false;
+		game++;
 		for (int i = 0; i < 24; i++) {
 			for (int j = 0; j < 10; j++) {
 				ground[i][j][0] = 0;
 			}
 		}
+		
+		image = new ImageIcon("earth.png").getImage();
 
 		//Цикл анимации
 		while (!gameOver) {
 			gameCycle();
 			timer();
-		};
+		}
 
 		//Конец игры ******** нужно как-то зафиксировать надпись конца игры ********
 		pause = 0;
 		gameMain();
+	}
+
+	//Таймер игры
+	private void timer() {
+		try {
+			Thread.sleep(speed);
+		} catch (Exception e){}
+		repaint();
+	}
+	
+	//Пауза
+	private void anyKey(int pause) {
+		this.pause = pause;
+		if (pause == 1) gamePause = false;
+		else gamePause = true;
 	}
 
 	//Проверка падения блока вниз
@@ -113,12 +128,13 @@ public class Tetris extends JPanel {
 		} else {
 
 			//Устанавливаем скорость игры
-			step++;
 			if (step <= 280) speed = 400-step; else speed = 120;
 
 			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
 				if (form[i][1] < 0) gameOver = true;
+			
+			step++;
 
 			//Добавляем фигурку в массив
 			for (int i = 0; i < 4; i++)
@@ -126,14 +142,6 @@ public class Tetris extends JPanel {
 
 		newBlock();
 		}
-	}
-
-	//Таймер игры
-	private void timer() {
-		try {
-			Thread.sleep(speed);
-		} catch (Exception e){}
-		repaint();
 	}
 
 	//Запуск фигурки
@@ -305,6 +313,8 @@ public class Tetris extends JPanel {
 				}
 			}
 		}
+		
+		ctx.drawImage(image, block*2, block*2, null);
 
 		//Фигура
 		for (int i = 0; i < 4; i++) {
@@ -321,7 +331,7 @@ public class Tetris extends JPanel {
 		for (int i = 0; i <= 20; i++) ctx.drawLine(0, block*i, 10*block, i*block);
 
 		//Пауза
-		if (pause == 0) {
+		if (gamePause) {
 			ctx.setColor(new Color(128, 128, 192, 192));
 			ctx.fillRect(5, 5, block*14+11, block*19+31);
 			ctx.setColor(Color.white);
