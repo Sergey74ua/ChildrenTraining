@@ -6,15 +6,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 public class Tetris extends JPanel {
 
@@ -35,7 +34,7 @@ public class Tetris extends JPanel {
 	};
 	private static Random random = new Random();
 	private static Color colorBlock, colorLook;
-	private Image image;
+	private static Image image = new ImageIcon("earth.png").getImage();
 
 	public static void main(String[] args) {
 
@@ -85,8 +84,6 @@ public class Tetris extends JPanel {
 				ground[i][j][0] = 0;
 			}
 		}
-		
-		image = new ImageIcon("earth.png").getImage();
 
 		//Цикл анимации
 		while (!gameOver) {
@@ -106,7 +103,7 @@ public class Tetris extends JPanel {
 		} catch (Exception e){}
 		repaint();
 	}
-	
+
 	//Пауза
 	private void anyKey(int pause) {
 		this.pause = pause;
@@ -133,7 +130,7 @@ public class Tetris extends JPanel {
 			//Поверка на конец игры
 			for (int i = 0; i < 4; i++)
 				if (form[i][1] < 0) gameOver = true;
-			
+
 			step++;
 
 			//Добавляем фигурку в массив
@@ -313,7 +310,7 @@ public class Tetris extends JPanel {
 				}
 			}
 		}
-		
+
 		ctx.drawImage(image, block*2, block*2, null);
 
 		//Фигура
