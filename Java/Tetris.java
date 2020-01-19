@@ -1,6 +1,6 @@
 /*
  * Обучаемся языку Java на примере Тетриса
- * Сергей. Октябрь-декабрь 2019 года.
+ * Сергей. Октябрь 2019 - январь 2020 года.
  */
 
 import java.awt.Color;
@@ -288,15 +288,6 @@ public class Tetris extends JPanel {
 		ctx.drawString(("Step: " + step), 10*block+10, 11*block);
 		ctx.setColor(Color.cyan);
 		ctx.drawString(("Game: " + game), 10*block+10, 12*block);
-
-		// ******** убрать ********
-		ctx.setFont(new Font("Courier New", Font.BOLD, 20));
-		ctx.setColor(colorBlock);
-		ctx.drawString(("X: " +form[0][0]+" "+form[1][0]+" "+form[2][0]+" "+form[3][0]), 10*block+10, 15*block);
-		ctx.drawString(("Y: " +form[0][1]+" "+form[1][1]+" "+form[2][1]+" "+form[3][1]), 10*block+10, 16*block);
-		ctx.drawString(("gameOver: " + gameOver), 10*block+10, 17*block);
-		ctx.drawString(("gamePause: " + gamePause), 10*block+10, 18*block);
-		ctx.drawString(("pause: " + pause), 10*block+10, 19*block);
 
 		//Днище
 		for (int i = 0; i < 20; i++) {
