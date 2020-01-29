@@ -11,8 +11,8 @@ namespace HelloWorld
 	{
 		public static void Main(String[] args)
 		{
-			Console.WriteLine(DateTime.Now);
 			Console.WriteLine("Hello World!");
+			Console.WriteLine(DateTime.Now);
 			Console.ReadKey();
 		}
 	}
