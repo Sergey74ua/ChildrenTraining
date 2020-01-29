@@ -1,6 +1,6 @@
 @echo off
 chcp 1251 >nul
-title РљРѕРјРїРёР»СЏС†РёСЏ Рё Р·Р°РїСѓСЃРє Java-РєРѕРґР°
+title Компиляция и запуск Java-кода
 mode con cols=32 lines=4
 color 0a
 
