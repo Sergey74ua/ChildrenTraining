@@ -63,9 +63,9 @@ namespace MyOSU {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap circle {
+        internal static System.Drawing.Bitmap aim {
             get {
-                object obj = ResourceManager.GetObject("circle", resourceCulture);
+                object obj = ResourceManager.GetObject("aim", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,20 +73,20 @@ namespace MyOSU {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap maiak {
+        internal static System.Drawing.Bitmap fon {
             get {
-                object obj = ResourceManager.GetObject("maiak", resourceCulture);
+                object obj = ResourceManager.GetObject("fon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        ///   Поиск локализованного ресурса типа System.Drawing.Icon, аналогичного (Значок).
         /// </summary>
-        internal static System.Drawing.Bitmap tigr {
+        internal static System.Drawing.Icon sphere {
             get {
-                object obj = ResourceManager.GetObject("tigr", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("sphere", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }
