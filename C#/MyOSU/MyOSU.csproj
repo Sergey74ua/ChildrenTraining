@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{97400434-DE00-498F-BB70-200A323DB73F}</ProjectGuid>
+    <ProjectGuid>{0996E982-15A0-4832-83BE-DA3B4B67F9A9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>MyOSU</RootNamespace>
     <AssemblyName>MyOSU</AssemblyName>
@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyOsu.cs">
+    <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyOsu.Designer.cs">
-      <DependentUpon>MyOsu.cs</DependentUpon>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,8 +59,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MyOsu.resx">
-      <DependentUpon>MyOsu.cs</DependentUpon>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,16 +90,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\circle.png" />
+    <None Include="Resources\aim.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\maiak.jpg" />
+    <None Include="Resources\fon.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tigr.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\maiak1.jpg" />
+    <None Include="Resources\sphere.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
