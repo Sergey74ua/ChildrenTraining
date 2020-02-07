@@ -16,7 +16,7 @@ namespace MyOSU
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MyOsu());
+            Application.Run(new Form1());
         }
     }
 }
