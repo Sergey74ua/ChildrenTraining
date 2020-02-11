@@ -98,5 +98,6 @@
   <ItemGroup>
     <None Include="Resources\sphere.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
