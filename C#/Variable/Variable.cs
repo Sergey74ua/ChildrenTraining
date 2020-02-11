@@ -6,22 +6,11 @@ namespace Обучение2
     {
         public void сравнение()
         {
-            Console.Write("Проверка 2 > 3 : ");
-            Console.WriteLine(2 > 3);
-            Console.WriteLine();
-
-            Console.Write("Проверка 2 = 3 : ");
-            Console.WriteLine(2 == 3);
-            Console.WriteLine();
-
-            Console.Write("Проверка 2 < 3 : ");
-            Console.WriteLine(2 < 3);
-            Console.WriteLine();
-
-            Console.Write("Проверка X = 2 == 3 : ");
+            Console.WriteLine($"Проверка 2 > 3 : {2 > 3}\n");
+            Console.WriteLine($"Проверка 2 = 3 : {2 == 3}\n");
+            Console.WriteLine($"Проверка 2 < 3 : {2 < 3}\n");
             bool x = 2 == 3;
-            Console.WriteLine(x);
-            Console.WriteLine();
+            Console.WriteLine($"Проверка X = 2 == 3 : { x }\n");
         }
 
         public void циклы()
