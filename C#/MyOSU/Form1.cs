@@ -18,8 +18,9 @@ namespace MyOSU
         private Bitmap aim = Resource1.aim;
         private Point target = Point.Empty;
         private Random random = new Random();
-        private int score;
+        private Pen pen = new Pen(Color.Black, 2);
         private double gipotenuza;
+        private int score;
 
         //Запуск окна
         public Form1()
@@ -47,7 +48,7 @@ namespace MyOSU
             Rectangle targetPosition = new Rectangle(target.X - 50, target.Y - 50, 100, 100);
 
             ctx.DrawImage(aim, aimPosition);
-            ctx.DrawEllipse(new Pen(Color.Black, 2), targetPosition);
+            ctx.DrawEllipse(pen, targetPosition);
 
             int katetX = aimPosition.X - targetPosition.X;
             int katetY = aimPosition.Y - targetPosition.Y;
