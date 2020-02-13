@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MyOSU
@@ -20,7 +13,7 @@ namespace MyOSU
         private Random random = new Random();
         private Pen pen = new Pen(Color.Black, 2);
         private double gipotenuza;
-        private int score;
+        private int step, score;
 
         //Запуск окна
         public Form1()
@@ -78,7 +71,9 @@ namespace MyOSU
         private void StepGame()
         {
             //Подсчет очков
-            score = (int)gipotenuza;
+            step++;
+            label2.Text = step.ToString();
+            score += (int)gipotenuza/step;
             label1.Text = score.ToString();
 
             randomTarget();
