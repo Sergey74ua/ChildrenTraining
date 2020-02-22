@@ -35,7 +35,6 @@ namespace MyOSU
         //Отрисовка окна
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            //
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
@@ -47,8 +46,8 @@ namespace MyOSU
             g.DrawEllipse(pen, targetPosition);
 
             //Считаем точность попадания
-            int katetX = aimPosition.X - targetPosition.X;
-            int katetY = aimPosition.Y - targetPosition.Y;
+            int katetX = aimPosition.X - targetPosition.X,
+                katetY = aimPosition.Y - targetPosition.Y;
             gipotenuza = (int) Math.Sqrt(katetX * katetX + katetY * katetY);
         }
 
@@ -73,10 +72,9 @@ namespace MyOSU
         //Ход игры
         private void StepGame()
         {
-            //Счетчики ходов и таймер
+            //Счетчик ходов и таймер
             step++;
             time = (int) stopwatch.Elapsed.TotalMilliseconds;
-            stopwatch.Restart();
             soundPlayer.Play();
 
             //Информационная панель
@@ -90,15 +88,16 @@ namespace MyOSU
 
             randomTarget();
             Refresh();
+            stopwatch.Restart();
         }
 
-        //Перемещение цели
+        //Перемещение цели (реурсия)
         private void randomTarget()
         {
             Point _target = target;
-            target.X = 600 + random.Next(-4, 4) * 100;
-            target.Y = 400 + random.Next(-3, 3) * 100;
-            if (target.X == _target.X && target.Y == _target.Y) randomTarget();
+            target.X = Width/2 + random.Next(-4, 4) * 100;
+            target.Y = Height/2 + random.Next(-3, 3) * 100;
+            if (target == _target) randomTarget();
         }
     }
 }
