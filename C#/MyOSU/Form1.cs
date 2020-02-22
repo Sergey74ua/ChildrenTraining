@@ -17,40 +17,39 @@ namespace MyOSU
         private Pen pen = new Pen(Color.Black, 2);
         private SoundPlayer soundPlayer = new SoundPlayer(Resource1.click);
         private double gipotenuza;
-        private int step, score, timer;
+        private int step, time, score, totalScore;
 
         //Запуск окна
         public Form1()
         {
             InitializeComponent();
-
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
-                     ControlStyles.AllPaintingInWmPaint |
+                     ControlStyles.AllPaintingInWmPaint  |
                      ControlStyles.UserPaint, true);
-
             UpdateStyles();
-
+            Cursor.Hide();
             randomTarget();
+            stopwatch.Start();
         }
 
         //Отрисовка окна
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            Graphics ctx = e.Graphics;
-            ctx.SmoothingMode = SmoothingMode.AntiAlias; // AntiAlias / HighQuality
+            //
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
 
+            //Отрисовка прицела и цели
             Point cursor = PointToClient(Cursor.Position);
-
             Rectangle aimPosition = new Rectangle(cursor.X - 50, cursor.Y - 50, 100, 100);
             Rectangle targetPosition = new Rectangle(target.X - 50, target.Y - 50, 100, 100);
+            g.DrawImage(aim, aimPosition);
+            g.DrawEllipse(pen, targetPosition);
 
-            ctx.DrawImage(aim, aimPosition);
-            ctx.DrawEllipse(pen, targetPosition);
-
+            //Считаем точность попадания
             int katetX = aimPosition.X - targetPosition.X;
             int katetY = aimPosition.Y - targetPosition.Y;
             gipotenuza = (int) Math.Sqrt(katetX * katetX + katetY * katetY);
-
         }
 
         //Анимация графики
@@ -76,31 +75,30 @@ namespace MyOSU
         {
             //Счетчики ходов и таймер
             step++;
-            stopwatch.Stop();
-            timer = stopwatch.Elapsed.Milliseconds;
+            time = (int) stopwatch.Elapsed.TotalMilliseconds;
+            stopwatch.Restart();
             soundPlayer.Play();
 
-            //Подсчет очков
-            score += (int) (1000 / gipotenuza * (timer / 600)); //*************** ИСПРАВИТЬ ПОДСЧЕТ ОЧКОВ ***************
-
             //Информационная панель
-            txtScore.Text = ("Score:\n" + score.ToString());
+            score = (int) (1 / gipotenuza * time);
+            totalScore += score;
+            txtTotalScore.Text = ("Score:\n" + totalScore.ToString());
+            txtScore.Text = (score.ToString());
             txtLevel.Text = ("step:  " + step.ToString());
-            txtTimer.Text = ("timer: " + timer.ToString());
+            txtTimer.Text = ("timer: " + time.ToString());
             txtPixel.Text = ("pixel:  " + gipotenuza.ToString());
 
             randomTarget();
-
             Refresh();
-
-            stopwatch.Start();
         }
 
         //Перемещение цели
         private void randomTarget()
         {
+            Point _target = target;
             target.X = 600 + random.Next(-4, 4) * 100;
             target.Y = 400 + random.Next(-3, 3) * 100;
+            if (target.X == _target.X && target.Y == _target.Y) randomTarget();
         }
     }
 }
