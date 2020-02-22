@@ -1,10 +1,10 @@
 D:\Documents\Program\C#\MyOSU\bin\Debug\MyOSU.exe.config
 D:\Documents\Program\C#\MyOSU\bin\Debug\MyOSU.exe
 D:\Documents\Program\C#\MyOSU\bin\Debug\MyOSU.pdb
-D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.csprojAssemblyReference.cache
 D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.Form1.resources
 D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.Properties.Resources.resources
 D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.Resource1.resources
 D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.csproj.GenerateResource.cache
 D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.exe
 D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.pdb
+D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.csprojAssemblyReference.cache
