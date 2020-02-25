@@ -60,6 +60,7 @@
             // 
             // txtLevel
             // 
+            this.txtLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLevel.AutoSize = true;
             this.txtLevel.BackColor = System.Drawing.Color.Transparent;
             this.txtLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -72,6 +73,7 @@
             // 
             // txtTimer
             // 
+            this.txtTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTimer.AutoSize = true;
             this.txtTimer.BackColor = System.Drawing.Color.Transparent;
             this.txtTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -84,6 +86,7 @@
             // 
             // txtPixel
             // 
+            this.txtPixel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPixel.AutoSize = true;
             this.txtPixel.BackColor = System.Drawing.Color.Transparent;
             this.txtPixel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -95,6 +98,7 @@
             // 
             // txtScore
             // 
+            this.txtScore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtScore.AutoSize = true;
             this.txtScore.BackColor = System.Drawing.Color.Transparent;
             this.txtScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
