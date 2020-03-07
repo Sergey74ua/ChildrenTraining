@@ -1,0 +1,10 @@
+D:\Documents\Program\C#\MyOSU\bin\Release\MyOSU.exe.config
+D:\Documents\Program\C#\MyOSU\bin\Release\MyOSU.exe
+D:\Documents\Program\C#\MyOSU\bin\Release\MyOSU.pdb
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.csprojAssemblyReference.cache
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.Properties.Resources.resources
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.Resource1.resources
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.csproj.GenerateResource.cache
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.exe
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.pdb
+D:\Documents\Program\C#\MyOSU\obj\Release\MyOSU.FormMyOsu.resources
