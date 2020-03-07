@@ -67,10 +67,10 @@ namespace MyOSU
             //Точность попадания
             katetX = aimPosition.X - targetPosition.X;
             katetY = aimPosition.Y - targetPosition.Y;
-            gipotenuza = (int)Math.Sqrt(katetX * katetX + katetY * katetY);
+            gipotenuza = (int) Math.Sqrt(katetX * katetX + katetY * katetY);
 
             //Информационная панель
-            score = (int) (1 / gipotenuza * time);
+            score = (int) (3000 * 1 / (gipotenuza + 10) + 60000 * 1 / (time + 300));
             totalScore += score;
             txtTotalScore.Text = ("Score:\n" + totalScore.ToString());
             txtScore.Text = (score.ToString());
