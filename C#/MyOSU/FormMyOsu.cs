@@ -70,7 +70,7 @@ namespace MyOSU
             gipotenuza = (int) Math.Sqrt(katetX * katetX + katetY * katetY);
 
             //Информационная панель
-            score = (int) (3000 * 1 / (gipotenuza + 10) + 60000 * 1 / (time + 300));
+            score = (int) (750 / gipotenuza + 37500 / time);
             totalScore += score;
             txtTotalScore.Text = ("Score:\n" + totalScore.ToString());
             txtScore.Text = (score.ToString());
