@@ -4,3 +4,4 @@ D:\Documents\Program\C#\Variable\bin\Debug\Console1.pdb
 D:\Documents\Program\C#\Variable\obj\Debug\Variable.csprojAssemblyReference.cache
 D:\Documents\Program\C#\Variable\obj\Debug\Console1.exe
 D:\Documents\Program\C#\Variable\obj\Debug\Console1.pdb
+D:\Documents\Program\C#\Variable\obj\Debug\Variable.csproj.CoreCompileInputs.cache
