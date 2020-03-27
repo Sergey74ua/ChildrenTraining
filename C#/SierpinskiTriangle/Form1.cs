@@ -12,6 +12,7 @@ namespace SierpinskiTriangle
         private Point[] angle;
         private Random random;
         private int number, rand;
+        private byte count = 4;
 
         //Запуск окна
         public Form1()
@@ -22,13 +23,14 @@ namespace SierpinskiTriangle
             random = new Random();
 
             //Рисуем углы треугольника
-            angle = new Point[3];
-            angle[0] = new Point(pictureForm.Width / 2, pictureForm.Height / 20);
-            angle[1] = new Point(pictureForm.Height / 20, pictureForm.Width / 20 * 18);
-            angle[2] = new Point(pictureForm.Height / 20 * 19, pictureForm.Width / 20 * 18);
-            for (int i = 0; i < 3; i++)
+            angle = new Point[count];
+            angle[0] = new Point(795, 5);
+            angle[1] = new Point(795, 795);
+            angle[2] = new Point(5, 795);
+            angle[3] = new Point(5, 5);
+
+            for (int i = 0; i < count; i++)
                 bitmap.SetPixel(angle[i].X, angle[i].Y, Color.Red);
-            pictureForm.Image = bitmap;
         }
 
         //Старт работы
@@ -38,14 +40,20 @@ namespace SierpinskiTriangle
             point = PointToClient(Cursor.Position);
         }
 
-        //Переисовка окна
+        //Перерисовка окна
         private void timerForm_Tick(object sender, EventArgs e)
         {
-            rand = random.Next(3);
-            point.X = (point.X + angle[rand].X) / 2;
-            point.Y = (point.Y + angle[rand].Y) / 2;
-            bitmap.SetPixel(point.X, point.Y, Color.Black);
-            label.Text = ("Всего точек:\n" + (number++).ToString());
+            for (byte i = 0; i < byte.MaxValue; i++)
+            {
+                rand = random.Next(count);
+                point.X = (point.X + angle[rand].X) / 2;
+                point.Y = (point.Y + angle[rand].Y) / 2;
+
+                bitmap.SetPixel(point.X, point.Y, Color.Black);
+
+                label.Text = (number++.ToString());
+            }
+
             pictureForm.Image = bitmap;
         }
     }
