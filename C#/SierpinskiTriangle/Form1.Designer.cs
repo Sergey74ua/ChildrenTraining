@@ -57,11 +57,13 @@
             this.label.AutoSize = true;
             this.label.BackColor = System.Drawing.SystemColors.Info;
             this.label.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label.Location = new System.Drawing.Point(611, 9);
+            this.label.Location = new System.Drawing.Point(0, 0);
             this.label.Name = "label";
+            this.label.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label.Size = new System.Drawing.Size(177, 25);
             this.label.TabIndex = 1;
             this.label.Text = "Поставьте точку";
+            this.label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
