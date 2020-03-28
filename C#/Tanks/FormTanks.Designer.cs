@@ -35,7 +35,6 @@
             // 
             // timer
             // 
-            this.timer.Enabled = true;
             this.timer.Interval = 16;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
@@ -43,13 +42,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1280, 720);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tanks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tanks";
             this.Load += new System.EventHandler(this.Tanks_Load);
+            this.Click += new System.EventHandler(this.Tanks_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Tanks_Paint);
             this.ResumeLayout(false);
 
