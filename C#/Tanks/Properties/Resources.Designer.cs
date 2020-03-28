@@ -63,9 +63,9 @@ namespace Tanks.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap spriteTank {
+        internal static System.Drawing.Bitmap fon {
             get {
-                object obj = ResourceManager.GetObject("spriteTank", resourceCulture);
+                object obj = ResourceManager.GetObject("fon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -77,6 +77,16 @@ namespace Tanks.Properties {
             get {
                 object obj = ResourceManager.GetObject("tank", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tank4 {
+            get {
+                object obj = ResourceManager.GetObject("tank4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
