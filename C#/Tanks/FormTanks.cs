@@ -6,8 +6,8 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        Party party;
-        Graphics g;
+        private Party PartyRed, PartyBlue;
+        private Graphics g;
 
         public Tanks()
         {
@@ -21,20 +21,31 @@ namespace Tanks
         //Загрузка окна
         private void Tanks_Load(object sender, EventArgs e)
         {
-            party = new Party();
+            PartyRed = new Party();
+            PartyBlue = new Party();
+            PartyRed.CreatePartyTank(PartyRed.count, Color.DarkRed);
+            PartyBlue.CreatePartyTank(PartyBlue.count, Color.DarkBlue);
         }
 
-        //Отрисовка кадра
-        private void Tanks_Paint(object sender, PaintEventArgs e)
+        //Запуск таймера
+        private void Tanks_Click(object sender, EventArgs e)
         {
-            g = e.Graphics;
-            party.DrawPartyTank(g);
+            if (timer.Enabled == false) timer.Enabled = true;
+            else timer.Enabled = false;
         }
 
         //Таймер обновления кадра
         private void timer_Tick(object sender, EventArgs e)
         {
             Refresh();
+        }
+
+        //Отрисовка кадра
+        private void Tanks_Paint(object sender, PaintEventArgs e)
+        {
+            g = e.Graphics;
+            PartyRed.DrawPartyTank(g);
+            PartyBlue.DrawPartyTank(g);
         }
     }
 }
