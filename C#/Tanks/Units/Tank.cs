@@ -17,6 +17,8 @@ namespace Tanks
 
         private float vectorTower;
         private byte shadow = 8; //******** УБРАТЬ КУДА-ТО В ГЛОБАЛЬНЫЕ ПОЛЯ ********
+        
+        private Random random = new Random();
 
         //МАССИВ БЫ   DrawImage(Image image, Point point);
 
@@ -24,7 +26,7 @@ namespace Tanks
         public void DrawTank(Graphics g, Color party)
         {
             vector = Vector();
-            vectorTower = 10.0f;
+            vectorTower = VectorTower();
             solidBrush = new SolidBrush(party);
 
             //Тень корпуса
@@ -47,23 +49,33 @@ namespace Tanks
 
             //Тень башни
             g.TranslateTransform(position.X + shadow, position.Y + shadow);
-            g.RotateTransform(vector + vectorTower);
+            g.RotateTransform(vectorTower);
             g.DrawImage(bitmap, -64, -98, towerShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
 
             //Башня
             g.TranslateTransform(position.X, position.Y);
-            g.RotateTransform(vector + vectorTower);
+            g.RotateTransform(vectorTower);
             g.DrawImage(bitmap, -64, -98, tower, GraphicsUnit.Pixel);
             g.ResetTransform();
+
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // *** У Д А Л И Т Ь ***
+            g.DrawEllipse(new Pen(Color.Red, 3), target.X-10, target.Y-10, 20, 20); // *** У Д А Л И Т Ь ***
         }
 
         //Направление танка
         private float Vector()
         {
-            float angle = (target.Y - position.Y) / (target.X - position.X + 1);
-            vector = (float)Math.Atan(angle) * 180 / (float)Math.PI + 90;
+            //vector = (float)Math.Atan2((target.Y - position.Y), (target.X - position.X)) * 180 / (float)Math.PI + 90;
+            vector += vectorTower / random.Next(90, 360);
             return vector;
+        }
+
+        //Направление башни
+        private float VectorTower()
+        {
+            vectorTower = (float)Math.Atan2((target.Y - position.Y), (target.X - position.X)) * 180 / (float)Math.PI + 90;
+            return vectorTower;
         }
     }
 }
