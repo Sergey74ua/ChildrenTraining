@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace Tanks
 {
-    class Party
+    class Party : List<Tank> //не понятна эксплуатация класса-контейнера (и как же машины и солдаты ???)
     {
-        public byte count = 20;
+        public byte count = 10;
         private List<Tank> PartyTank = new List<Tank>();
-        private Random random = new Random();
+        private Game game = new Game();
 
         //Заполняем список танками
         public List<Tank> CreatePartyTank(byte count, Color party)
@@ -18,32 +17,20 @@ namespace Tanks
                 PartyTank.Add(new Tank()
                 {
                     party = party,
-                    position = PointRandom(party),
-                    target = new Point(640, 720)
+                    position = game.Start(party)
                 });
             }
             return PartyTank;
         }
 
         //Отрисовываем танки по списку
-        public void DrawPartyTank(Graphics g)
+        public void DrawPartyTank(Graphics g, Point cursor)
         {
             foreach (Tank tank in PartyTank)
-            {                    
+            {
+                game.Step(tank, cursor);
                 tank.DrawTank(g, tank.party);
             }
-        }
-
-        //Случайная позиция
-        private Point PointRandom(Color party)
-        {
-            Point point = Point.Empty;
-            if (party == Color.DarkBlue)
-                point.X = random.Next(50, 320);
-            if (party == Color.DarkRed)
-                point.X = random.Next(960, 1230);
-            point.Y = random.Next(50, 670);
-            return point;
         }
     }
 }
