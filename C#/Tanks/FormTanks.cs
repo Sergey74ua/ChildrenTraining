@@ -8,6 +8,7 @@ namespace Tanks
     {
         private Party PartyRed, PartyBlue;
         private Graphics g;
+        public Point cursor;
 
         public Tanks()
         {
@@ -44,8 +45,9 @@ namespace Tanks
         private void Tanks_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
-            PartyRed.DrawPartyTank(g);
-            PartyBlue.DrawPartyTank(g);
+            cursor = PointToClient(Cursor.Position); //********************************************
+            PartyRed.DrawPartyTank(g, cursor);
+            PartyBlue.DrawPartyTank(g, cursor);
         }
     }
 }
