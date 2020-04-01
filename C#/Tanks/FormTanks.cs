@@ -6,9 +6,11 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
+        public const byte shadow = 8;
+
         private Party PartyRed, PartyBlue;
         private Graphics g;
-        public Point cursor;
+        private Point cursor;
 
         public Tanks()
         {
