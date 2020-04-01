@@ -5,17 +5,18 @@ namespace Tanks
 {
     class Party : List<Tank> //не понятна эксплуатация класса-контейнера (и как же машины и солдаты ???)
     {
-        public byte count = 10;
+        public byte count = 3;
         private List<Tank> PartyTank = new List<Tank>();
         private Game game = new Game();
 
         //Заполняем список танками
         public List<Tank> CreatePartyTank(byte count, Color party)
         {
-            while (PartyTank.Count < count)
+            for (byte i = 1; i <= count; i++)
             {
                 PartyTank.Add(new Tank()
                 {
+                    id = i,
                     party = party,
                     position = game.Start(party)
                 });
