@@ -5,8 +5,6 @@ namespace Tanks
 {
     sealed class Tank : AUnits
     {
-        public Color party;
-
         //Изображение танка
         private Bitmap bitmap = new Bitmap(Properties.Resources.tank4);
         private Rectangle body = new Rectangle(new Point(0, 0), new Size(128, 128));
@@ -14,18 +12,14 @@ namespace Tanks
         private Rectangle bodyShadow = new Rectangle(new Point(0, 128), new Size(128, 128));
         private Rectangle towerShadow = new Rectangle(new Point(128, 128), new Size(128, 128));
         private SolidBrush solidBrush;
-
+        private byte shadow = Tanks.shadow;
         private float vectorTower;
-        private byte shadow = 8; //******** УБРАТЬ КУДА-ТО В ГЛОБАЛЬНЫЕ ПОЛЯ ********
-        
-        private Random random = new Random();
-
-        //МАССИВ БЫ   DrawImage(Image image, Point point);
 
         //Отрисовка танка
         public void DrawTank(Graphics g, Color party)
         {
-            vector = Vector();
+            position = Position();
+            vector = Vector(position, target);
             vectorTower = VectorTower();
             solidBrush = new SolidBrush(party);
 
@@ -59,22 +53,15 @@ namespace Tanks
             g.DrawImage(bitmap, -64, -98, tower, GraphicsUnit.Pixel);
             g.ResetTransform();
 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias; // *** У Д А Л И Т Ь ***
-            g.DrawEllipse(new Pen(Color.Red, 3), target.X-10, target.Y-10, 20, 20); // *** У Д А Л И Т Ь ***
-        }
-
-        //Направление танка
-        private float Vector()
-        {
-            //vector = (float)Math.Atan2((target.Y - position.Y), (target.X - position.X)) * 180 / (float)Math.PI + 90;
-            vector += vectorTower / random.Next(90, 360);
-            return vector;
+            DrawInfo(g);
         }
 
         //Направление башни
         private float VectorTower()
         {
-            vectorTower = (float)Math.Atan2((target.Y - position.Y), (target.X - position.X)) * 180 / (float)Math.PI + 90;
+            float catetX = target.X - position.X;
+            float catetY = target.Y - position.Y;
+            vectorTower = (float)Math.Atan2(catetY, catetX) * 180 / (float)Math.PI + 90;
             return vectorTower;
         }
     }
