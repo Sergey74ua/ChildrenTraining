@@ -52,6 +52,7 @@
             this.Load += new System.EventHandler(this.Tanks_Load);
             this.Click += new System.EventHandler(this.Tanks_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Tanks_Paint);
+            this.DoubleClick += new System.EventHandler(this.Tanks_Load);
             this.ResumeLayout(false);
 
         }
