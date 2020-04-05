@@ -6,12 +6,13 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        public const byte shadow = 8;
+        public const byte shadow = 8; //размер тени
 
-        private Party PartyRed, PartyBlue;
         private Graphics g;
-        private Point cursor;
+        private Party PartyRed, PartyBlue;
+        private Point cursor; //************************* В Р Е М Е Н Н О *************************
 
+        //Запуск окна
         public Tanks()
         {
             InitializeComponent();
@@ -21,7 +22,7 @@ namespace Tanks
             UpdateStyles();
         }
 
-        //Загрузка окна
+        //Загрузка содержимого окна
         private void Tanks_Load(object sender, EventArgs e)
         {
             PartyRed = new Party();
@@ -47,7 +48,7 @@ namespace Tanks
         private void Tanks_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
-            cursor = PointToClient(Cursor.Position); //********************************************
+            cursor = PointToClient(Cursor.Position); //************** В Р Е М Е Н Н О *************
             PartyRed.DrawPartyTank(g, cursor);
             PartyBlue.DrawPartyTank(g, cursor);
         }
