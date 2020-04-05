@@ -11,18 +11,21 @@ namespace Tanks
         public PointF position; //позиция
         public PointF target;   //цель
         public float vector;    //вектор
+        public float life;      //жизнь
 
         //Данные для отисовки
         private SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
         private Font font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point);
         private Pen pen = new Pen(Color.Green, 2);
+        private float catetX, catetY;
+        private float speed;
 
         //Отрисовка имени и жизни
         public void DrawInfo(Graphics g)
         {
             //Наименование
             g.TranslateTransform(position.X, position.Y);
-            g.DrawString("= " + vector.ToString() + " - " + angle.ToString() + " =", font, solidBrushFont, -18, -42);
+            g.DrawString("- = " + id.ToString() + " = -", font, solidBrushFont, -18, -42);
             g.ResetTransform();
 
             //Жизнь
@@ -30,28 +33,29 @@ namespace Tanks
             g.DrawLine(pen, -32, -26, 32, -26);
             g.ResetTransform();
         }
-        float angle;
+
         //Направление юнита
-        public float Vector(PointF position, PointF target) //******** Д О Р А Б О Т А Т Ь ********
+        public float Vector() //******** сделать универсально для всех частей ********
         {
-            const byte MAX_ROTATE_SPEED = 1*0; //********
-            float speed = MAX_ROTATE_SPEED *0.5f;
+            speed = life / 100;
+            float angle;
 
-            float catetX = target.X - position.X;
-            float catetY = target.Y - position.Y;
-             angle = (float)Math.Atan2(catetY, catetX) * 180 / (float)Math.PI + 90; //********
+            //Определяем угол на цель
+            catetX = target.X - position.X;
+            catetY = target.Y - position.Y;
+            angle = (float)(Math.Atan2(catetY, catetX) * 180 / Math.PI + 90);
+            if (angle < 0) angle += 360;
 
-            if (angle < 180)
-                speed *= -1;
+            //Текущий угол поворота к цели
+            if (Math.Abs(vector - angle) > speed)
+            {
+                if ((vector < angle && (angle - vector) < 180) ^ (angle - vector) > -180)
+                    vector = (vector - speed + 360) % 360;
+                else
+                    vector = (vector + speed) % 360;
+            }
             else
-                speed *= 1;
-
-            if (Math.Round(vector * 0.2f) != Math.Round(angle * 0.2f))
-                vector += speed;
-            else
-                vector = angle % 180;
-
-                vector = (float)Math.Atan2(catetY, catetX) * 180 / (float)Math.PI + 90; //********
+                vector = angle;
 
             return vector;
         }
@@ -59,10 +63,9 @@ namespace Tanks
         //Перемещение юнита
         public PointF Position()
         {
-            const byte MAX_SPEED = 1;
-            float speed = MAX_SPEED;
-
-            if (position != target)
+            speed = life / 200;
+            double gipotenuza = Math.Sqrt(catetX * catetX + catetY * catetY);
+            if (gipotenuza > 128)
             {
                 position.X += speed * (float)Math.Cos(vector);
                 position.Y += speed * (float)Math.Sin(vector);
