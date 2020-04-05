@@ -18,9 +18,9 @@ namespace Tanks
         //Отрисовка танка
         public void DrawTank(Graphics g, Color party)
         {
-            position = Position();
-            vector = Vector(position, target);
+            vector = Vector();
             vectorTower = VectorTower();
+            position = Position();
             solidBrush = new SolidBrush(party);
 
             //Тень корпуса
@@ -59,9 +59,8 @@ namespace Tanks
         //Направление башни
         private float VectorTower()
         {
-            float catetX = target.X - position.X;
-            float catetY = target.Y - position.Y;
-            vectorTower = (float)Math.Atan2(catetY, catetX) * 180 / (float)Math.PI + 90;
+            vectorTower = vector; //*** ! * ! * ! ***
+
             return vectorTower;
         }
     }
