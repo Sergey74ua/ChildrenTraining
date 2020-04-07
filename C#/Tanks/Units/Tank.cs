@@ -59,7 +59,18 @@ namespace Tanks
         //Направление башни
         private float VectorTower()
         {
-            vectorTower = vector; //*** ! * ! * ! ***
+            speed = life / 50;
+
+            //Текущий угол поворота башни на цель
+            if (Math.Abs(vectorTower - angle) > speed)
+            {
+                if ((vectorTower < angle && (angle - vectorTower) < 180) ^ (angle - vectorTower) > -180)
+                    vectorTower = (vectorTower - speed + 360) % 360;
+                else
+                    vectorTower = (vectorTower + speed) % 360;
+            }
+            else
+                vectorTower = angle;
 
             return vectorTower;
         }
