@@ -6,7 +6,7 @@ namespace Tanks
 {
     class Party : List<Tank> //не понятна эксплуатация класса-контейнера (и как же машины и солдаты ???)
     {
-        public byte count = 2;
+        public byte count = 10;
 
         private List<Tank> PartyTank = new List<Tank>();
         private Random random = new Random();
@@ -20,9 +20,8 @@ namespace Tanks
                 {
                     id = i,
                     party = party,
-                    life = 100,
                     position = Start(party),
-                    target = new PointF(640, 320) //******** ??? ********
+                    life = 100
                 });
             }
             return PartyTank;
@@ -39,14 +38,14 @@ namespace Tanks
         }
 
         //Случайная позиция
-        public Point Start(Color party)
+        private Point Start(Color party)
         {
             Point point = Point.Empty;
             if (party == Color.DarkBlue)
-                point.X = random.Next(50, 540);
+                point.X = random.Next(50, 960);
             if (party == Color.DarkRed)
-                point.X = random.Next(740, 1230);
-            point.Y = random.Next(50, 670);
+                point.X = random.Next(1060, 1870);
+            point.Y = random.Next(50, 980);
 
             return point;
         }
