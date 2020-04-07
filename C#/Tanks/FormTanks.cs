@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Tanks
@@ -8,8 +9,8 @@ namespace Tanks
     {
         public const byte shadow = 8; //размер тени
 
+        private Game game;
         private Graphics g;
-        private Party PartyRed, PartyBlue;
         private Point cursor; //************************* В Р Е М Е Н Н О *************************
 
         //Запуск окна
@@ -25,10 +26,8 @@ namespace Tanks
         //Загрузка содержимого окна
         private void Tanks_Load(object sender, EventArgs e)
         {
-            PartyRed = new Party();
-            PartyBlue = new Party();
-            PartyRed.CreatePartyTank(PartyRed.count, Color.DarkRed);
-            PartyBlue.CreatePartyTank(PartyBlue.count, Color.DarkBlue);
+            game = new Game();
+            game.StartGame();
         }
 
         //Запуск таймера
@@ -48,9 +47,9 @@ namespace Tanks
         private void Tanks_Paint(object sender, PaintEventArgs e)
         {
             g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
             cursor = PointToClient(Cursor.Position); //************** В Р Е М Е Н Н О *************
-            PartyRed.DrawPartyTank(g, cursor);
-            PartyBlue.DrawPartyTank(g, cursor);
+            game.StepGame(g, cursor);
         }
     }
 }
