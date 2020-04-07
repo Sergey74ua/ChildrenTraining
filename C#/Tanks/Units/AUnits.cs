@@ -3,29 +3,25 @@ using System.Drawing;
 
 namespace Tanks
 {
-    abstract class AUnits
+    abstract class AUnits : AObject
     {
         //Общие поля юнитов
-        public int id;          //имя
-        public Color party;     //команда
-        public PointF position; //позиция
-        public PointF target;   //цель
-        public float vector;    //вектор
-        public float life;      //жизнь
+        public int id;      //имя
+        public float life;  //жизнь
 
         //Данные для отисовки
         private SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
         private Font font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point);
         private Pen pen = new Pen(Color.Green, 2);
-        private float catetX, catetY;
-        private float speed;
+
+        protected float angle, catetX, catetY;  //*** П Е Р Е Д Е Л А Т Ь ***
 
         //Отрисовка имени и жизни
         public void DrawInfo(Graphics g)
         {
             //Наименование
             g.TranslateTransform(position.X, position.Y);
-            g.DrawString("- = " + id.ToString() + " = -", font, solidBrushFont, -18, -42);
+            g.DrawString("- = " + id.ToString() + " = -", font, solidBrushFont, -28, -42);
             g.ResetTransform();
 
             //Жизнь
@@ -38,7 +34,6 @@ namespace Tanks
         public float Vector() //******** сделать универсально для всех частей ********
         {
             speed = life / 100;
-            float angle;
 
             //Определяем угол на цель
             catetX = target.X - position.X;
@@ -55,7 +50,9 @@ namespace Tanks
                     vector = (vector + speed) % 360;
             }
             else
+            {
                 vector = angle;
+            }
 
             return vector;
         }
@@ -65,7 +62,7 @@ namespace Tanks
         {
             speed = life / 200;
             double gipotenuza = Math.Sqrt(catetX * catetX + catetY * catetY);
-            if (gipotenuza > 128)
+            if (gipotenuza > 128 && vector == angle)
             {
                 position.X += speed * (float)Math.Cos(vector);
                 position.Y += speed * (float)Math.Sin(vector);
