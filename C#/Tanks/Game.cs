@@ -1,32 +1,26 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Tanks
 {
     class Game
     {
-        private Random random = new Random();
+        private Party PartyRed, PartyBlue;
+        Shot shot = new Shot(); //************************ В Р Е М Е Н Н О ************************
 
-        //Случайная позиция
-        public Point Start(Color party)
+        public void StartGame()
         {
-            Point point = Point.Empty;
-            if (party == Color.DarkBlue)
-                point.X = random.Next(50, 540);
-            if (party == Color.DarkRed)
-                point.X = random.Next(740, 1230);
-            point.Y = random.Next(50, 670);
-
-            return point;
+            PartyRed = new Party();
+            PartyBlue = new Party();
+            PartyRed.CreatePartyTank(PartyRed.count, Color.DarkRed);
+            PartyBlue.CreatePartyTank(PartyBlue.count, Color.DarkBlue);
         }
 
-        //Перемещение танков
-        public Tank Step(Tank tank, Point cursor)
+        public void StepGame(Graphics g, Point cursor)
         {
-            tank.target.X = cursor.X;
-            tank.target.Y = cursor.Y;
+            PartyRed.DrawPartyTank(g, cursor);
+            PartyBlue.DrawPartyTank(g, cursor);
 
-            return tank;
+            shot.DrawShot(g, Color.DarkOrange); //**************** В Р Е М Е Н Н О ****************
         }
     }
 }
