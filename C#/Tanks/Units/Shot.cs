@@ -9,11 +9,18 @@ namespace Tanks
         private PointF position0;
         protected float angle, catetX, catetY;
 
+        //Создаем выстрел
+        public void NewShot(PointF position, PointF target, Color party)
+        {
+            //Создаем выстрел ****************************
+        }
+
+        //Отрисовка полета снаряда
         public void DrawShot(Graphics g, Color color)
         {
             position = Position();
             position0.X = position.X + 16;
-            position0.Y = position.Y + 10;
+            position0.Y = position.Y + 8;
             target = new Point(1000, 600);
             pen = new Pen(color, 3);
 
