@@ -16,13 +16,14 @@ namespace Tanks
         private float vectorTower;
 
         //Отрисовка танка
-        public void DrawTank(Graphics g, Color party)
+        public void DrawUnit(Graphics g, Color party)
         {
             vector = Vector();
             vectorTower = VectorTower();
             position = Position();
             solidBrush = new SolidBrush(party);
 
+            #region ** Этапы отрисовки танка **
             //Тень корпуса
             g.TranslateTransform(position.X + shadow, position.Y + shadow);
             g.RotateTransform(vector);
@@ -52,6 +53,7 @@ namespace Tanks
             g.RotateTransform(vectorTower);
             g.DrawImage(bitmap, -64, -98, tower, GraphicsUnit.Pixel);
             g.ResetTransform();
+            #endregion
 
             DrawInfo(g);
         }
