@@ -8,20 +8,19 @@ namespace Tanks
         //Общие поля юнитов
         public int id;      //имя
         public float life;  //жизнь
+        protected float angle, catetX, catetY;  //*** П Е Р Е Д Е Л А Т Ь ***
 
         //Данные для отисовки
         private SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
         private Font font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point);
         private Pen pen = new Pen(Color.Green, 2);
 
-        protected float angle, catetX, catetY;  //*** П Е Р Е Д Е Л А Т Ь ***
-
         //Отрисовка имени и жизни
         public void DrawInfo(Graphics g)
         {
             //Наименование
             g.TranslateTransform(position.X, position.Y);
-            g.DrawString("- = " + id.ToString() + " = -", font, solidBrushFont, -28, -42);
+            g.DrawString("= " + id.ToString() + " =", font, solidBrushFont, -20, -42);
             g.ResetTransform();
 
             //Жизнь
@@ -67,6 +66,7 @@ namespace Tanks
                 position.X += speed * (float)Math.Cos(vector);
                 position.Y += speed * (float)Math.Sin(vector);
             }
+
             return position;
         }
     }
