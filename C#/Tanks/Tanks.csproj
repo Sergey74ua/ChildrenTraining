@@ -60,6 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Units\AObject.cs" />
     <Compile Include="Units\AUnits.cs" />
+    <Compile Include="Units\Car.cs" />
     <Compile Include="Units\Party.cs" />
     <Compile Include="Units\Shot.cs" />
     <Compile Include="Units\Tank.cs" />
@@ -100,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tank4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btr.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
