@@ -6,33 +6,12 @@ namespace Tanks
     class Shot : AObject
     {
         private Pen pen;
-        private PointF position0;
-        protected float angle, catetX, catetY;
-
-        //Создаем выстрел
-        public void NewShot(PointF position, PointF target, Color party)
-        {
-            //Создаем выстрел ****************************
-        }
-
-        //Отрисовка полета снаряда
-        public void DrawShot(Graphics g, Color color)
-        {
-            position = Position();
-            position0.X = position.X + 16;
-            position0.Y = position.Y + 8;
-            target = new Point(1000, 600);
-            pen = new Pen(color, 3);
-
-            g.TranslateTransform(position.X, position.Y);
-            g.DrawLine(pen, position0, position);
-            g.ResetTransform();
-        }
+        private float angle, catetX, catetY;
 
         //Полет снаряда
         public PointF Position()
         {
-            speed = 8;
+            speed = 16.0f;
 
             //Определяем угол на цель
             catetX = target.X - position.X;
@@ -44,6 +23,16 @@ namespace Tanks
             position.Y += speed * (float)Math.Sin(angle);
 
             return position;
+        }
+
+        //Отрисовка полета снаряда
+        public void DrawShot(Graphics g)
+        {
+            PointF _position = position;
+            position = Position();
+            pen = new Pen(party, 2);
+
+            g.DrawLine(pen, position, _position);
         }
     }
 }
