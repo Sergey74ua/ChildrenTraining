@@ -6,9 +6,12 @@ namespace Tanks
     abstract class AUnits : AObject
     {
         //Общие поля юнитов
-        public int id;      //имя
-        public float life;  //жизнь
-        protected float angle, catetX, catetY;  //*** П Е Р Е Д Е Л А Т Ь ***
+        public int id;                  //имя
+        public A action;                //действие
+        public float life;              //жизнь
+        protected float vector;         //вектор
+        protected float vectorTower;    //вектор башни
+        private float angle, catetX, catetY;  //*** П Е Р Е Д Е Л А Т Ь ***
 
         //Данные для отисовки
         private SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
@@ -30,10 +33,8 @@ namespace Tanks
         }
 
         //Направление юнита
-        public float Vector() //******** сделать универсально для всех частей ********
+        public float Vector(float vector, float speed)
         {
-            speed = life / 100;
-
             //Определяем угол на цель
             catetX = target.X - position.X;
             catetY = target.Y - position.Y;
@@ -57,16 +58,15 @@ namespace Tanks
         }
 
         //Перемещение юнита
-        public PointF Position()
+        public PointF Position(float speed)
         {
-            speed = life / 200;
             double gipotenuza = Math.Sqrt(catetX * catetX + catetY * catetY);
             if (gipotenuza > 128 && vector == angle)
             {
                 position.X += speed * (float)Math.Cos(vector);
                 position.Y += speed * (float)Math.Sin(vector);
             }
-
+            
             return position;
         }
     }
