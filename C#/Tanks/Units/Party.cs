@@ -9,6 +9,7 @@ namespace Tanks
         public byte count = 5;
 
         private List<object> ListUnits = new List<object>();
+        private Actions action = new Actions();
         private Random random = new Random();
 
         //Заполняем список юнитами
@@ -21,7 +22,8 @@ namespace Tanks
                     id = i + 1,
                     party = party,
                     position = Start(party),
-                    life = 100
+                    speed = 0.5f,
+                    life = 40
                 });
 
                 ListUnits.Add(new Car
@@ -29,21 +31,12 @@ namespace Tanks
                     id = i + 11,
                     party = party,
                     position = Start(party),
-                    life = 200
+                    speed = 1.0f,
+                    life = 10
                 });
             }
-
+            
             return ListUnits;
-        }
-
-        //Отрисовываем юнитов по списку
-        public void DrawListUnits(Graphics g, Point cursor)
-        {
-            foreach (dynamic unit in ListUnits)
-            {
-                unit.target = cursor;
-                unit.DrawUnit(g, unit.party);
-            }
         }
 
         //Случайная позиция
@@ -57,6 +50,17 @@ namespace Tanks
             point.Y = random.Next(50, 670);
 
             return point;
+        }
+
+        //Отрисовываем юнитов по списку
+        public void DrawListUnits(Graphics g, Point cursor)
+        {
+            foreach (dynamic unit in ListUnits)
+            {
+                unit.target = cursor; //должна быть ссылка на функцию определения таргета
+                unit.action = action.ChoiseActions(unit);
+                unit.DrawUnit(g, unit.party);
+            }
         }
     }
 }
