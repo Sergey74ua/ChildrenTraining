@@ -58,9 +58,11 @@
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Units\Actions.cs" />
     <Compile Include="Units\AObject.cs" />
     <Compile Include="Units\AUnits.cs" />
     <Compile Include="Units\Car.cs" />
+    <Compile Include="Units\Shots.cs" />
     <Compile Include="Units\Party.cs" />
     <Compile Include="Units\Shot.cs" />
     <Compile Include="Units\Tank.cs" />
