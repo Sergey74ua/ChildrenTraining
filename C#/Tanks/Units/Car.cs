@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Tanks
 {
@@ -13,14 +12,13 @@ namespace Tanks
         private Rectangle towerShadow = new Rectangle(new Point(64, 64), new Size(64, 64));
         private SolidBrush solidBrush;
         private byte shadow = Tanks.shadow;
-        private float vectorTower;
 
         //Отрисовка танка
         public void DrawUnit(Graphics g, Color party)
         {
-            vector = Vector();
-            vectorTower = VectorTower();
-            position = Position();
+            vector = Vector(vector, 1.5f);
+            vectorTower = Vector(vectorTower, 3.0f);
+            position = Position(speed);
             solidBrush = new SolidBrush(party);
 
             #region ** Этапы отрисовки машины **
@@ -56,25 +54,6 @@ namespace Tanks
             #endregion
 
             DrawInfo(g);
-        }
-
-        //Направление башни
-        private float VectorTower()
-        {
-            speed = life / 50;
-
-            //Текущий угол поворота башни на цель
-            if (Math.Abs(vectorTower - angle) > speed)
-            {
-                if ((vectorTower < angle && (angle - vectorTower) < 180) ^ (angle - vectorTower) > -180)
-                    vectorTower = (vectorTower - speed + 360) % 360;
-                else
-                    vectorTower = (vectorTower + speed) % 360;
-            }
-            else
-                vectorTower = angle;
-
-            return vectorTower;
         }
     }
 }
