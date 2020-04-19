@@ -19,6 +19,7 @@ namespace Tanks
             angle = (float)(Math.Atan2(catetY, catetX) * 180 / Math.PI + 90);
             if (angle < 0) angle += 360;
 
+            //Полет снаряда
             position.X += speed * (float)Math.Cos(angle);
             position.Y += speed * (float)Math.Sin(angle);
 
