@@ -62,9 +62,10 @@
     <Compile Include="Units\AObject.cs" />
     <Compile Include="Units\AUnits.cs" />
     <Compile Include="Units\Car.cs" />
-    <Compile Include="Units\Shots.cs" />
+    <Compile Include="Units\IDrawn.cs" />
     <Compile Include="Units\Party.cs" />
     <Compile Include="Units\Shot.cs" />
+    <Compile Include="Units\Shots.cs" />
     <Compile Include="Units\Tank.cs" />
     <EmbeddedResource Include="FormTanks.resx">
       <DependentUpon>FormTanks.cs</DependentUpon>
