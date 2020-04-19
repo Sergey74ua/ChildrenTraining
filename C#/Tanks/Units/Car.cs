@@ -2,41 +2,38 @@
 
 namespace Tanks
 {
-    class Car : AUnits
+    class Car : AUnits, IDrawn
     {
         //Изображение танка
-        private Bitmap bitmap = new Bitmap(Properties.Resources.btr);
-        private Rectangle body = new Rectangle(new Point(0, 0), new Size(64, 64));
-        private Rectangle tower = new Rectangle(new Point(64, 0), new Size(64, 64));
-        private Rectangle bodyShadow = new Rectangle(new Point(0, 64), new Size(64, 64));
-        private Rectangle towerShadow = new Rectangle(new Point(64, 64), new Size(64, 64));
+        private readonly Bitmap bitmap = new Bitmap(Properties.Resources.btr);
+        private readonly Rectangle body = new Rectangle(new Point(0, 0), new Size(64, 64));
+        private readonly Rectangle tower = new Rectangle(new Point(64, 0), new Size(64, 64));
+        private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 64), new Size(64, 64));
+        private readonly Rectangle towerShadow = new Rectangle(new Point(64, 64), new Size(64, 64));
+        private readonly byte shadow = Tanks.shadow;
         private SolidBrush solidBrush;
-        private byte shadow = Tanks.shadow;
 
         //Отрисовка танка
         public void DrawUnit(Graphics g, Color party)
         {
-            vector = Vector(vector, 1.5f);
-            vectorTower = Vector(vectorTower, 3.0f);
-            position = Position(speed);
             solidBrush = new SolidBrush(party);
 
             #region ** Этапы отрисовки машины **
             //Тень корпуса
             g.TranslateTransform(position.X + shadow / 2, position.Y + shadow / 2);
-            g.RotateTransform(vector);
+            g.RotateTransform(vectorBody);
             g.DrawImage(bitmap, -32, -26, bodyShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
 
             //Цвет команды
             g.TranslateTransform(position.X, position.Y);
-            g.RotateTransform(vector);
+            g.RotateTransform(vectorBody);
             g.FillRectangle(solidBrush, -12, -18, 23, 50);
             g.ResetTransform();
 
             //Корпус
             g.TranslateTransform(position.X, position.Y);
-            g.RotateTransform(vector);
+            g.RotateTransform(vectorBody);
             g.DrawImage(bitmap, -32, -26, body, GraphicsUnit.Pixel);
             g.ResetTransform();
 
