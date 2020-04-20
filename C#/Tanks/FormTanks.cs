@@ -7,6 +7,7 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
+        public Size Window; //размер окна
         public const byte shadow = 8; //размер тени
 
         private Game game;
@@ -26,15 +27,18 @@ namespace Tanks
         //Загрузка содержимого окна
         private void Tanks_Load(object sender, EventArgs e)
         {
+            Window = ClientSize;
             game = new Game();
-            game.StartGame();
+            game.StartGame(Window);
         }
 
         //Запуск таймера
         private void Tanks_Click(object sender, EventArgs e)
         {
-            if (timer.Enabled == false) timer.Enabled = true;
-            else timer.Enabled = false;
+            if (timer.Enabled == false)
+                timer.Enabled = true;
+            else
+                timer.Enabled = false;
         }
 
         //Таймер обновления кадра
