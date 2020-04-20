@@ -79,5 +79,17 @@ namespace Tanks
 
             return position;
         }
+
+        /*//Добавляем выстрел + залп
+        public void NewShot(PointF position, PointF target, Color party) //********
+        {
+            // ... прописать залп
+            ListShot.Add(new Shot
+            {
+                party = party,
+                position = position,
+                target = target
+            });
+        }*/
     }
 }
