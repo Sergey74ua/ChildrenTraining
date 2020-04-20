@@ -4,32 +4,58 @@ namespace Tanks
 {
     sealed class Game
     {
-        private Party PartyRed, PartyBlue;
-        private Shots ListShot;
+        private byte count = 3;
 
-        public void StartGame()
+        private Party PartyRed, PartyBlue;
+        private Shots PartyShots;
+        private Actions Action;
+
+        public void StartGame(Size Window) // *** преобразовать размеры в позицию
         {
             //Комманды
             PartyRed = new Party();
             PartyBlue = new Party();
 
             //Стрельба
-            ListShot = new Shots();
+            PartyShots = new Shots();
 
-            PartyRed.CreateListUnits(PartyRed.count, Color.DarkRed);
-            PartyBlue.CreateListUnits(PartyBlue.count, Color.DarkBlue);
+            //Действия
+            Action = new Actions();
 
-            //******** отсюда надо как-то вызвать функцию создания выстрелов ... ********
-            ListShot.NewShot(new PointF(10, 10), new PointF(1000, 600), Color.DarkOrange); //******** В Р Е М Е Н Н О ********
-            ListShot.NewShot(new PointF(20, 600), new PointF(1100, 30), Color.LimeGreen); //******** В Р Е М Е Н Н О ********
+            PartyRed.CreateListUnits(Color.DarkRed, count, Window);
+            PartyBlue.CreateListUnits(Color.DarkBlue, count, Window);
+
+            PartyShots.NewShot(new PointF(0, 0), new PointF(1980, 1000), Color.DarkOrange); //******** В Р Е М Е Н Н О ********
+            PartyShots.NewShot(new PointF(0, 1000), new PointF(1980, 0), Color.LimeGreen); //******** В Р Е М Е Н Н О ********
         }
 
         public void StepGame(Graphics g, Point cursor)
         {
-            PartyRed.DrawListUnits(g, cursor);
-            PartyBlue.DrawListUnits(g, cursor);
+            DrawListUnits(g, PartyRed.ListUnits , cursor);
+            DrawListUnits(g, PartyBlue.ListUnits, cursor);
 
-            ListShot.DrawListShot(g);
+            PartyShots.DrawListShot(g);
+        }
+
+        //Отрисовываем юнитов по списку
+        public void DrawListUnits(Graphics g, dynamic ListUnits, Point cursor)
+        {
+            foreach (dynamic unit in ListUnits)
+            {
+                unit.target = cursor; //должна быть ссылка на функцию определения таргета
+                Action.SwitchAct(unit); //******** Д О Д Е Л А Т Ь ********
+
+                //***************************** В Р Е М Е Н Н О *****************************
+                if (unit.timeShot <= 0)
+                {
+                    PartyShots.NewShot(unit.position, unit.target, unit.party);
+                    unit.timeShot = 180;
+                }
+                unit.timeShot--;
+                //***************************** В Р Е М Е Н Н О *****************************
+
+                unit.DrawUnit(g, unit.party);
+            }
         }
     }
 }
