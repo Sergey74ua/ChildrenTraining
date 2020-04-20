@@ -12,6 +12,7 @@ namespace Tanks
         public float life;              //жизнь
         public float vectorBody;        //вектор корпуса
         public float vectorTower;       //вектор башни
+        public uint timeShot = 0; //***************************** В Р Е М Е Н Н О *****************************
 
         //Данные для отисовки
         private readonly SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
@@ -21,13 +22,9 @@ namespace Tanks
         //Отрисовка имени и жизни
         protected void DrawInfo(Graphics g)
         {
-            //Наименование
+            //Наименование и полоса жизни
             g.TranslateTransform(position.X, position.Y);
             g.DrawString("= " + id.ToString() + " =", font, solidBrushFont, -20, -42);
-            g.ResetTransform();
-
-            //Жизнь
-            g.TranslateTransform(position.X, position.Y);
             g.DrawLine(pen, -32, -26, 32, -26);
             g.ResetTransform();
         }
