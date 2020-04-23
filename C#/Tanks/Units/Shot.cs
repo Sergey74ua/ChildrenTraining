@@ -11,8 +11,6 @@ namespace Tanks
         //Полет снаряда
         public PointF Position()
         {
-            speed = 16.0f; //******** нужно затухание скорости ********
-
             //Определяем угол на цель
             catetX = target.X - position.X;
             catetY = target.Y - position.Y;
