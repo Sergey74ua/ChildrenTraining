@@ -8,32 +8,17 @@ namespace Tanks
     {
         public List<Shot> ListShot = new List<Shot>();
 
-        //Добавляем выстрел + залп
-        public void NewShot(PointF position, PointF target, Color party)
-        {
-            // ... прописать залп
-            ListShot.Add(new Shot
-            {
-                party = party,
-                position = position,
-                target = target
-            });
-        }
-
-        //Удаляем выстрел + взрыв        
-        public void RemoveShot(Shot shot) //******** проба ********
-        {
-            if (Math.Abs(shot.position.X - shot.target.X) < 100 && Math.Abs(shot.position.Y - shot.target.Y) < 100) 
-                ListShot.Remove(shot);
-            // ... прописать взрыв
-        }
-
         //Отрисовываем выстрелы по списку
         public void DrawListShot(Graphics g)
         {
-            foreach (dynamic shot in ListShot)
+            for (int i = 0; i < ListShot.Count; i++)
             {
-                shot.DrawShot(g);
+                ListShot[i].DrawShot(g);
+
+                //Удаляем снаряды на финише
+                if (Math.Abs(ListShot[i].position.X - ListShot[i].target.X) < 100 &&
+                    Math.Abs(ListShot[i].position.Y - ListShot[i].target.Y) < 100)
+                    ListShot.Remove(ListShot[i]);
             }
         }
     }
