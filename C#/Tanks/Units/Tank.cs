@@ -4,14 +4,19 @@ namespace Tanks
 {
     class Tank : AUnits, IDrawn
     {
+        private static Size size = new Size(128, 128);
+
         //Изображение танка
         private readonly Bitmap bitmap = new Bitmap(Properties.Resources.tank4);
-        private readonly Rectangle body = new Rectangle(new Point(0, 0), new Size(128, 128));
-        private readonly Rectangle tower = new Rectangle(new Point(128, 0), new Size(128, 128));
-        private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 128), new Size(128, 128));
-        private readonly Rectangle towerShadow = new Rectangle(new Point(128, 128), new Size(128, 128));
+        private readonly Rectangle body = new Rectangle(new Point(0, 0), size);
+        private readonly Rectangle tower = new Rectangle(new Point(128, 0), size);
+        private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 128), size);
+        private readonly Rectangle towerShadow = new Rectangle(new Point(128, 128), size);
         private readonly byte shadow = Tanks.shadow;
         private SolidBrush solidBrush;
+
+        //Снаряд танка
+        public Shot shot = new Shot();
 
         //Отрисовка танка
         public void DrawUnit(Graphics g, Color party)
