@@ -27,8 +27,8 @@ namespace Tanks
             unit.position = Position(unit.position, unit.speed);
         }
 
-        /*//Поиск цели **************************************************************************************************
-        public PointF Find()
+        //Поиск цели **************************************************************************************************
+        /*public PointF Find()
         {
             foreach (dynamic unit in ListUnits)
             {
@@ -75,21 +75,26 @@ namespace Tanks
             {
                 position.X += speed * (float)Math.Cos(unit.vectorBody);
                 position.Y += speed * (float)Math.Sin(unit.vectorBody);
+
+                //******** П Е Р Е Д Е Л А Т Ь ********
+                if (unit.timeShot <= 0)
+                {
+                    NewShot(unit.position, unit.target, unit.party);
+                    unit.timeShot = 180;
+                }
+                unit.timeShot--;
             }
 
             return position;
         }
 
-        /*//Добавляем выстрел + залп
+        //Добавляем выстрел + залп
         public void NewShot(PointF position, PointF target, Color party) //********
         {
-            // ... прописать залп
-            ListShot.Add(new Shot
-            {
-                party = party,
-                position = position,
-                target = target
-            });
-        }*/
+            unit.shot.speed = 16.0f; //******** желательно затухание скорости ********
+            unit.shot.party = party;
+            unit.shot.position = position;
+            unit.shot.target = target;
+        }
     }
 }
