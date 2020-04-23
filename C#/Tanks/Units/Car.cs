@@ -4,14 +4,19 @@ namespace Tanks
 {
     class Car : AUnits, IDrawn
     {
+        private static Size size = new Size(64, 64);
+
         //Изображение танка
         private readonly Bitmap bitmap = new Bitmap(Properties.Resources.btr);
-        private readonly Rectangle body = new Rectangle(new Point(0, 0), new Size(64, 64));
-        private readonly Rectangle tower = new Rectangle(new Point(64, 0), new Size(64, 64));
-        private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 64), new Size(64, 64));
-        private readonly Rectangle towerShadow = new Rectangle(new Point(64, 64), new Size(64, 64));
-        private readonly byte shadow = Tanks.shadow;
+        private readonly Rectangle body = new Rectangle(new Point(0, 0), size);
+        private readonly Rectangle tower = new Rectangle(new Point(64, 0), size);
+        private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 64), size);
+        private readonly Rectangle towerShadow = new Rectangle(new Point(64, 64), size);
+        private readonly byte shadow = Tanks.shadow / 2;
         private SolidBrush solidBrush;
+
+        //Снаряд танка ******** заменить на пулеметную очередь ********
+        public Shot shot = new Shot();
 
         //Отрисовка танка
         public void DrawUnit(Graphics g, Color party)
@@ -20,7 +25,7 @@ namespace Tanks
 
             #region ** Этапы отрисовки машины **
             //Тень корпуса
-            g.TranslateTransform(position.X + shadow / 2, position.Y + shadow / 2);
+            g.TranslateTransform(position.X + shadow, position.Y + shadow);
             g.RotateTransform(vectorBody);
             g.DrawImage(bitmap, -32, -26, bodyShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
@@ -38,7 +43,7 @@ namespace Tanks
             g.ResetTransform();
 
             //Тень башни
-            g.TranslateTransform(position.X + shadow / 3, position.Y + shadow / 3);
+            g.TranslateTransform(position.X + shadow / 2, position.Y + shadow / 2);
             g.RotateTransform(vectorTower);
             g.DrawImage(bitmap, -32, -26, towerShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
