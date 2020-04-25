@@ -8,7 +8,6 @@ namespace Tanks
 
         private Party PartyRed, PartyBlue;
         private Shots AllShots;
-        private Actions Action;
 
         public void StartGame(Size Window) // *** преобразовать размеры в позицию
         {
@@ -16,33 +15,19 @@ namespace Tanks
             PartyRed = new Party();
             PartyBlue = new Party();
             AllShots = new Shots();
-            Action = new Actions();
 
             PartyRed.CreateListUnits(Color.DarkRed, count, Window);
             PartyBlue.CreateListUnits(Color.DarkBlue, count, Window);
+
+            //AllShots.NewShot(new PointF(0, 0), new PointF(1280, 720), Color.DarkOrange); //******** пробно ********
         }
 
         public void StepGame(Graphics g, Point cursor)
         {
-            DrawListUnits(g, PartyRed.ListUnits , cursor);
-            DrawListUnits(g, PartyBlue.ListUnits, cursor);
+            PartyRed.DrawListUnits(g, AllShots, cursor);
+            PartyBlue.DrawListUnits(g, AllShots, cursor);
 
             AllShots.DrawListShot(g);
-        }
-
-        //Отрисовываем юнитов по списку
-        public void DrawListUnits(Graphics g, dynamic ListUnits, Point cursor)
-        {
-            foreach (dynamic unit in ListUnits)
-            {
-                unit.target = cursor; //должна быть ссылка на функцию определения таргета
-                Action.SwitchAct(unit); //******** Д О Д Е Л А Т Ь ********
-
-                //Добавляем выстрел в список
-                AllShots.ListShot.Add(unit.shot);
-
-                unit.DrawUnit(g, unit.party);
-            }
         }
     }
 }
