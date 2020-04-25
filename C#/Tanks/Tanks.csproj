@@ -58,7 +58,6 @@
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Units\Actions.cs" />
     <Compile Include="Units\AObject.cs" />
     <Compile Include="Units\AUnits.cs" />
     <Compile Include="Units\Car.cs" />
