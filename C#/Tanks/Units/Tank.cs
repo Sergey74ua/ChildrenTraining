@@ -16,29 +16,32 @@ namespace Tanks
         private SolidBrush solidBrush;
 
         //Снаряд танка
-        public Shot shot = new Shot();
+        public Shot shot;
 
         //Отрисовка танка
         public void DrawUnit(Graphics g, Color party)
         {
             solidBrush = new SolidBrush(party);
+            position = Position(position, speed);
+            vector = Vector(vector, speed);
+            vectorTower = Vector(vectorTower, speed*2);
 
             #region ** Этапы отрисовки танка **
             //Тень корпуса
             g.TranslateTransform(position.X + shadow, position.Y + shadow);
-            g.RotateTransform(vectorBody);
+            g.RotateTransform(vector);
             g.DrawImage(bitmap, -64, -64, bodyShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
 
             //Цвет команды
             g.TranslateTransform(position.X, position.Y);
-            g.RotateTransform(vectorBody);
+            g.RotateTransform(vector);
             g.FillRectangle(solidBrush, -26, -52, 52, 100);
             g.ResetTransform();
 
             //Корпус
             g.TranslateTransform(position.X, position.Y);
-            g.RotateTransform(vectorBody);
+            g.RotateTransform(vector);
             g.DrawImage(bitmap, -64, -64, body, GraphicsUnit.Pixel);
             g.ResetTransform();
 
