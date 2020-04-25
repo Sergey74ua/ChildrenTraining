@@ -6,20 +6,13 @@ namespace Tanks
     class Shot : AObject
     {
         private Pen pen;
-        private float angle, catetX, catetY;
 
         //Полет снаряда
-        public PointF Position()
+        public PointF Position(float vector)
         {
-            //Определяем угол на цель
-            catetX = target.X - position.X;
-            catetY = target.Y - position.Y;
-            angle = (float)(Math.Atan2(catetY, catetX) * 180 / Math.PI + 90);
-            if (angle < 0) angle += 360;
-
-            //Полет снаряда
-            position.X += speed * (float)Math.Cos(angle);
-            position.Y += speed * (float)Math.Sin(angle);
+            position.X += speed*(float)Math.Cos(vector);
+            position.Y += speed*(float)Math.Sin(vector);
+            speed *= 0.98f; //затухание скорости
 
             return position;
         }
@@ -28,8 +21,8 @@ namespace Tanks
         public void DrawShot(Graphics g) //зафиксировать старт и цель надо
         {
             PointF _position = position;
-            position = Position();
-            pen = new Pen(party, 2);
+            position = Position(vector);
+            pen = new Pen(party, 3);
 
             g.DrawLine(pen, position, _position);
         }
