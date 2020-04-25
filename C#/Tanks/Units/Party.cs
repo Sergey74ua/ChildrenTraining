@@ -23,8 +23,8 @@ namespace Tanks
                 {
                     party = party,
                     position = position,
-                    vectorBody = vector,
-                    vectorTower = vector + 5,
+                    vector = vector,
+                    vectorTower = vector+5,
                     speed = 0.5f,
                     life = 40
                 });
@@ -35,8 +35,8 @@ namespace Tanks
                 {
                     party = party,
                     position = position,
-                    vectorBody = vector,
-                    vectorTower = vector - 5,
+                    vector = vector,
+                    vectorTower = vector-5,
                     speed = 1.0f,
                     life = 10
                 });
@@ -50,10 +50,10 @@ namespace Tanks
         {
             PointF point = PointF.Empty;
             if (party == Color.DarkBlue)
-                point.X = random.Next(50, Window.Width / 2 - 200);
+                point.X = random.Next(50, Window.Width/2-200);
             if (party == Color.DarkRed)
-                point.X = random.Next(Window.Width / 2 + 200, Window.Width - 50);
-            point.Y = random.Next(50, Window.Height - 50);
+                point.X = random.Next(Window.Width/2+200, Window.Width-50);
+            point.Y = random.Next(50, Window.Height-50);
 
             return point;
         }
@@ -61,10 +61,26 @@ namespace Tanks
         //Начальный угол на центр (можно заменить на 90°/270°)
         private float Vector(PointF position, Size Window)
         {
-            float vector = (float)(Math.Atan2(Window.Height / 2 - position.Y, Window.Width / 2 - position.X) * 180 / Math.PI + 90);
+            float vector = (float)(Math.Atan2(Window.Height/2 - position.Y, Window.Width/2 - position.X)*180/Math.PI+90);
             if (vector < 0) vector += 360;
 
             return vector;
+        }
+
+        //Отрисовываем юнитов по списку
+        public void DrawListUnits(Graphics g, Shots AllShots, Point cursor)
+        {
+            foreach (dynamic unit in ListUnits)
+            {
+                if (unit.timeShot <= 0)
+                {
+                    AllShots.NewShot(unit.position, unit.target, unit.party); //******** пробно ********
+                    unit.timeShot = 120; //******** пробно ********
+                }
+                unit.timeShot--;
+                unit.target = cursor; //должна быть ссылка на функцию определения таргета
+                unit.DrawUnit(g, unit.party);
+            }
         }
     }
 }
