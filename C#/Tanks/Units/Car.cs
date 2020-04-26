@@ -12,7 +12,7 @@ namespace Tanks
         private readonly Rectangle tower = new Rectangle(new Point(64, 0), size);
         private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 64), size);
         private readonly Rectangle towerShadow = new Rectangle(new Point(64, 64), size);
-        private readonly byte shadow = Tanks.shadow/2;
+        private readonly byte shadow = Tanks.Shadow/2;
         private SolidBrush solidBrush;
 
         //Снаряд танка ******** заменить на пулеметную очередь ********
