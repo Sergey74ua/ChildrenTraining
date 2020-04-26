@@ -9,17 +9,15 @@ namespace Tanks
         private Party PartyRed, PartyBlue;
         private Shots AllShots;
 
-        public void StartGame(Size Window) // *** преобразовать размеры в позицию
+        public void StartGame() //******** преобразовать размеры в позицию ********
         {
             //Комманды и снаряды
             PartyRed = new Party();
             PartyBlue = new Party();
             AllShots = new Shots();
 
-            PartyRed.CreateListUnits(Color.DarkRed, count, Window);
-            PartyBlue.CreateListUnits(Color.DarkBlue, count, Window);
-
-            //AllShots.NewShot(new PointF(0, 0), new PointF(1280, 720), Color.DarkOrange); //******** пробно ********
+            PartyRed.CreateListUnits(Color.DarkRed, count);
+            PartyBlue.CreateListUnits(Color.DarkBlue, count);
         }
 
         public void StepGame(Graphics g, Point cursor)
