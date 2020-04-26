@@ -7,8 +7,8 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        public Size Window; //размер окна
-        public const byte shadow = 8; //размер тени
+        public static Size Window; //размер окна
+        public const byte Shadow = 8; //размер тени
 
         private Game game;
         private Graphics g;
@@ -29,7 +29,7 @@ namespace Tanks
         {
             Window = ClientSize;
             game = new Game();
-            game.StartGame(Window);
+            game.StartGame();
         }
 
         //Запуск таймера
