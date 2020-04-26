@@ -4,7 +4,6 @@ namespace Tanks
 {
     interface IDrawn
     {
-        //Метод отрисовки
-        void DrawUnit(Graphics g, Color party);
+        void DrawUnit(Graphics g, Color party); //Метод отрисовки
     }
 }
