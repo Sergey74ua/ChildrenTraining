@@ -35,16 +35,11 @@ namespace Tanks
         //Запуск таймера
         private void Tanks_Click(object sender, EventArgs e)
         {
+            Console.Beep(440, 64);
             if (timer.Enabled == false)
                 timer.Enabled = true;
             else
                 timer.Enabled = false;
-        }
-
-        //Таймер обновления кадра
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            Refresh();
         }
 
         //Отрисовка кадра
@@ -54,6 +49,12 @@ namespace Tanks
             g.SmoothingMode = SmoothingMode.AntiAlias;
             cursor = PointToClient(Cursor.Position); //************** В Р Е М Е Н Н О *************
             game.StepGame(g, cursor);
+        }
+
+        //Таймер обновления кадра
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            Refresh();
         }
     }
 }
