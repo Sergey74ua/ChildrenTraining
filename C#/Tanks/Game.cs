@@ -4,22 +4,24 @@ namespace Tanks
 {
     sealed class Game
     {
-        private byte count = 3;
+        private byte count = 3; //число машин
 
         private Party PartyRed, PartyBlue;
         private Shots AllShots;
 
-        public void StartGame() //******** преобразовать размеры в позицию ********
+        //Комманды и снаряды
+        public void StartGame()
         {
-            //Комманды и снаряды
             PartyRed = new Party();
             PartyBlue = new Party();
             AllShots = new Shots();
 
+            //Стартовые позиции
             PartyRed.CreateListUnits(Color.DarkRed, count);
             PartyBlue.CreateListUnits(Color.DarkBlue, count);
         }
 
+        //Шаг(кадр) игры
         public void StepGame(Graphics g, Point cursor)
         {
             PartyRed.DrawListUnits(g, AllShots, cursor);
