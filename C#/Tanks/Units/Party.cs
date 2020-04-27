@@ -74,12 +74,13 @@ namespace Tanks
         {
             foreach (dynamic unit in ListUnits)
             {
-                if (unit.timeShot >= 180)
+                if (unit.Atack)
                 {
-                    AllShots.NewShot(unit.position, unit.target, unit.party); //******** пробно ********
+                    AllShots.NewShot(unit); //******** пробно ********
                     unit.timeShot = 0; //******** пробно ********
+                    unit.Atack = false; //******** пробно ********
                 }
-                unit.timeShot++;
+                unit.timeShot++; //******** пробно ********
 
                 unit.target = cursor; //должна быть ссылка на функцию определения таргета
 
