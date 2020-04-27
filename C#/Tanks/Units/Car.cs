@@ -18,7 +18,7 @@ namespace Tanks
         //Снаряд танка ******** заменить на пулеметную очередь ********
         public Shot shot;
 
-        //Отрисовка танка
+        //Отрисовка машины
         public void DrawUnit(Graphics g, Color party)
         {
             solidBrush = new SolidBrush(party);
