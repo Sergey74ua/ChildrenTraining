@@ -22,7 +22,6 @@ namespace Tanks
         {
             PointF _position = position;
             position = Position(vector);
-            //party = Color.DarkOrange; //************** В Р Е М Е Н Н О *************
             pen = new Pen(party, 3);
 
             g.DrawLine(pen, position, _position);
