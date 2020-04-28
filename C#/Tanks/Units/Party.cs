@@ -63,7 +63,8 @@ namespace Tanks
         //Начальный угол на центр (можно заменить на 90°/270°)
         private float Vector(PointF position)
         {
-            float vector = (float)(Math.Atan2(window.Height/2 - position.Y, window.Width/2 - position.X)*180/Math.PI+90);
+            float vector = (float)(Math.Atan2(window.Height/2 - position.Y,
+                window.Width/2 - position.X)*180/Math.PI+90);
             if (vector < 0) vector += 360;
 
             return vector;
@@ -74,16 +75,14 @@ namespace Tanks
         {
             foreach (dynamic unit in ListUnits)
             {
-                if (unit.Atack)
-                {
-                    AllShots.NewShot(unit); //******** пробно ********
-                    unit.timeShot = 0; //******** пробно ********
-                    unit.Atack = false; //******** пробно ********
-                }
                 unit.timeShot++; //******** пробно ********
-
+                if (unit.Atack) //******** пробно ********
+                {
+                    AllShots.NewShot(unit);
+                    unit.timeShot = 0;
+                    unit.Atack = false;
+                }
                 unit.target = cursor; //должна быть ссылка на функцию определения таргета
-
                 unit.DrawUnit(g, unit.party);
             }
         }
