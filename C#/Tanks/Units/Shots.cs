@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Tanks
 {
@@ -25,7 +26,7 @@ namespace Tanks
         }
 
         //Удаляем выстрел
-        public void RemoveShot(Shot shot, Graphics g)
+        async public void RemoveShot(Shot shot, Graphics g)
         {
             if (shot.speed < 1 || 
                 (Math.Abs(shot.position.X - shot.target.X) < shot.speed &&
@@ -46,7 +47,8 @@ namespace Tanks
                 {
                     bang = 0;
                     ListShot.Remove(shot);
-                    Console.Beep(128, 32); //************** В Р Е М Е Н Н О *************
+
+                    await Task.Run(() => Console.Beep(100, 100));
                 }
             }
         }
