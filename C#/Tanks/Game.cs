@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Tanks
 {
@@ -19,6 +21,8 @@ namespace Tanks
             //Стартовые позиции
             PartyRed.CreateListUnits(Color.DarkRed, count);
             PartyBlue.CreateListUnits(Color.DarkBlue, count);
+
+            StarWars();
         }
 
         //Шаг(кадр) игры
@@ -28,6 +32,34 @@ namespace Tanks
             PartyBlue.DrawListUnits(g, AllShots, cursor);
 
             AllShots.DrawListShot(g);
+            AllShots.Damage(PartyRed);
+            AllShots.Damage(PartyBlue);
+        }
+
+        //Музыкальная заставка
+        async private void StarWars()
+        {
+            await Task.Run(() =>
+            {
+                Console.Beep(440, 500);
+                Console.Beep(440, 500);
+                Console.Beep(440, 500);
+                Console.Beep(349, 350);
+                Console.Beep(523, 150);
+                Console.Beep(440, 500);
+                Console.Beep(349, 350);
+                Console.Beep(523, 150);
+                Console.Beep(440, 1000);
+                Console.Beep(659, 500);
+                Console.Beep(659, 500);
+                Console.Beep(659, 500);
+                Console.Beep(698, 350);
+                Console.Beep(523, 150);
+                Console.Beep(415, 500);
+                Console.Beep(349, 350);
+                Console.Beep(523, 150);
+                Console.Beep(440, 1000);
+            });
         }
     }
 }
