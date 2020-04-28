@@ -14,12 +14,14 @@ namespace Tanks
         public uint timeShot;       //******** перезарядка (проба)
         public bool Atack;          //********
 
-        private float angle, catetX, catetY, gipotenuza;
+        private float angle, gipotenuza;
 
         //Данные для отисовки
         private readonly SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
         private readonly Font font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point);
-        private readonly Pen pen = new Pen(Color.Green, 2);
+        private readonly Pen penGrren = new Pen(Color.Green, 2);
+        private readonly Pen penRed = new Pen(Color.Red, 2);
+        public float lifeLine, line = 64.0f; //********
 
         //Отрисовка имени и жизни
         protected void DrawInfo(Graphics g)
@@ -27,16 +29,18 @@ namespace Tanks
             //Наименование и полоса жизни
             g.TranslateTransform(position.X, position.Y);
             g.DrawString("= " + id.ToString() + " =", font, solidBrushFont, -20, -42);
-            g.DrawLine(pen, -32, -26, 32, -26);
+            g.DrawLine(penGrren, -line/2, -26, lifeLine, -26);
+            g.DrawLine(penRed, lifeLine, -26, line/2, -26);
             g.ResetTransform();
         }
 
         //Направление юнита
         public float Vector(float vector, float speed)
         {
+            float catetX = target.X - position.X;
+            float catetY = target.Y - position.Y;
+
             //Расстояние и угол к цели
-            catetX = target.X - position.X;
-            catetY = target.Y - position.Y;
             gipotenuza = (float)Math.Sqrt(catetX*catetX + catetY*catetY);
             angle = (float)(Math.Atan2(catetY, catetX) * 180/Math.PI+90);
             if (angle < 0) angle += 360;
