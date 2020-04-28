@@ -35,7 +35,7 @@ namespace Tanks
         //Запуск таймера
         private void Tanks_Click(object sender, EventArgs e)
         {
-            Console.Beep(440, 64);
+            Console.Beep(5000, 50);
             if (timer.Enabled == false)
                 timer.Enabled = true;
             else
