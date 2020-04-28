@@ -8,14 +8,17 @@ namespace Tanks
     class Shots
     {
         public List<Shot> ListShot = new List<Shot>();
-        private byte bang; //взрыв
+        public List<PointF> ListBang = new List<PointF>();
+        private byte timeBang; //взрыв
+        private Color color;
 
         //Добавляем выстрел
-        public void NewShot(dynamic unit)
+        async public void NewShot(dynamic unit)
         {
+            await Task.Run(() => Console.Beep(400, 50));
             ListShot.Add(new Shot
             {
-                party = unit.party,
+                party = ColorShot(unit.party),
                 position = unit.position,
                 target = unit.target,
                 vector = (float)Math.Atan2
@@ -23,6 +26,19 @@ namespace Tanks
                     unit.target.X - unit.position.X),
                 speed = 16.0f
             });
+        }
+
+        //Цвет выстрела
+        private Color ColorShot(Color party)
+        {
+            color = Color.FromArgb
+            (
+                party.R + (255 - party.R) / 4,
+                party.G + (255 - party.G) / 8,
+                party.B + (255 - party.B) / 4
+            );
+
+            return color;
         }
 
         //Удаляем выстрел
@@ -34,22 +50,49 @@ namespace Tanks
             {
 
                 //Отрисовка взрыва
-                if (bang < 96)
+                if (timeBang < 96)
                 {
                     shot.speed = 0;
-                    bang += 8;
+                    timeBang += 8;
                     g.TranslateTransform(shot.position.X, shot.position.Y);
-                    g.FillEllipse(new SolidBrush(Color.FromArgb(192 - bang, bang+128, bang, 0)),
-                        new RectangleF(-bang / 2, -bang / 2, bang, bang));
+                    g.FillEllipse(new SolidBrush(Color.FromArgb(192 - timeBang, timeBang + 128, timeBang, 0)),
+                        new RectangleF(-timeBang / 2, -timeBang / 2, timeBang, timeBang));
                     g.ResetTransform();
                 }
                 else
                 {
-                    bang = 0;
-                    ListShot.Remove(shot);
-
                     await Task.Run(() => Console.Beep(100, 100));
+                    ListBang.Add(shot.position);
+                    ListShot.Remove(shot);
+                    timeBang = 0;
                 }
+            }
+        }
+
+        //Нанесение урона
+        public void Damage(Party party)
+        {
+            for (int i = 0; i < ListBang.Count; i++)
+            {
+                foreach (dynamic unit in party.ListUnits)
+                {
+                    float catetX = ListBang[i].X - unit.position.X;
+                    float catetY = ListBang[i].Y - unit.position.Y;
+                    float gipotenuza = (float)Math.Sqrt(catetX * catetX + catetY * catetY);
+
+                    if (gipotenuza < 50)
+                    {
+                        unit.life -= 10 / gipotenuza;
+                        if (unit.life <= 0)
+                        {
+                            unit.life = 0;
+                            unit.speed = 0;
+                            unit.Atack = false;
+                            unit.party = Color.Black;
+                        }
+                    }
+                }
+                ListBang.Remove(ListBang[i]);
             }
         }
 
@@ -59,9 +102,7 @@ namespace Tanks
             for (int i = 0; i < ListShot.Count; i++)
             {
                 ListShot[i].DrawShot(g);
-
-                //Удаляем снаряды на финише
-                RemoveShot(ListShot[i], g);
+                RemoveShot(ListShot[i], g); //Удаляем снаряды на финише
             }
         }
     }
