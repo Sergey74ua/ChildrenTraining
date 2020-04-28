@@ -58,6 +58,7 @@ namespace Tanks
             g.ResetTransform();
             #endregion
 
+            lifeLine = life * 64 / 10 - 32;
             DrawInfo(g);
         }
     }
