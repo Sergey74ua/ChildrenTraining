@@ -9,8 +9,8 @@ namespace Tanks
     {
         public List<Shot> ListShot = new List<Shot>();
         public List<PointF> ListBang = new List<PointF>();
-        private byte timeBang; //взрыв
-        private Color color;
+        private byte timeBang; //таймер взрыва
+        private Color color; //цвет снаряда
 
         //Добавляем выстрел
         async public void NewShot(dynamic unit)
@@ -96,7 +96,7 @@ namespace Tanks
             }
         }
 
-        //Отрисовываем выстрелы по списку
+        //Отрисовываем и удаляем выстрелы по списку
         public void DrawListShot(Graphics g)
         {
             for (int i = 0; i < ListShot.Count; i++)
