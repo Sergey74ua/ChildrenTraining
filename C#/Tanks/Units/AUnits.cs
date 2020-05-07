@@ -64,8 +64,7 @@ namespace Tanks
         {
             if (gipotenuza > 128 && vector == angle)
             {
-                position.X += speed * (float)Math.Cos(vector);
-                position.Y += speed * (float)Math.Sin(vector);
+                position = Position();
                 if (gipotenuza < 512 && timeShot >= 180)
                     Atack = true;
             }
