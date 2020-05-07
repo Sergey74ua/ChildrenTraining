@@ -6,7 +6,7 @@ namespace Tanks
 {
     sealed class Game
     {
-        private byte count = 3; //число машин
+        private byte count = 5; //число машин
 
         private Party PartyRed, PartyBlue;
         private Shots AllShots;
@@ -22,7 +22,7 @@ namespace Tanks
             PartyRed.CreateListUnits(Color.DarkRed, count);
             PartyBlue.CreateListUnits(Color.DarkBlue, count);
 
-            StarWars();
+            StarWars(); //************************* В Р Е М Е Н Н О *************************
         }
 
         //Шаг(кадр) игры
@@ -37,7 +37,7 @@ namespace Tanks
         }
 
         //Музыкальная заставка
-        async private void StarWars()
+        async private void StarWars() //************************* В Р Е М Е Н Н О *************************
         {
             await Task.Run(() =>
             {
