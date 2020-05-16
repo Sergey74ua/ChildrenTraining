@@ -6,51 +6,54 @@ namespace Tanks
 {
     class Party
     {
-        private readonly Size window = Tanks.Window;
-        private Random random = new Random();
-
         public List<object> ListUnits = new List<object>();
+        private readonly Size window = Tanks.Window;
+        private readonly Random random = new Random();
 
-        //Заполняем список юнитами
-        public List<object> CreateListUnits(Color party, Point point, byte count)
+        /// <summary>
+        /// Команда: цвет флага, стартовая позиция(X,Y) в %, число танков, число машин.
+        /// </summary>
+        public Party(Color party, Point start, byte tank, byte car)
         {
-            PointF position; //случайная позиция
-            float vector; //поворот на центр
+            for (byte i = 0; i < tank; i++)
+                NewUnit(party, start, new Tank());
 
-            for (byte i = 0; i < count; i++)
+            for (byte i = 0; i < car; i++)
+                NewUnit(party, start, new Car());
+        }
+
+        //Отрисовываем юнитов по списку
+        public void DrawListUnits(Graphics g, Shots ListShots, Point cursor)
+        {
+            foreach (dynamic unit in ListUnits)
             {
-                position = Start(point);
-                vector = Vector(position);
-                ListUnits.Add(new Tank
+                unit.timeShot++; //******** пробно ********
+                if (unit.Atack) //******** пробно ********
                 {
-                    party = party,
-                    position = position,
-                    vector = vector,
-                    vectorTower = vector+5,
-                    speed = 0.5f,
-                    life = 40
-                });
+                    ListShots.NewShot(unit);
+                    unit.timeShot = 0;
+                    unit.Atack = false;
+                }
+                //unit.target = cursor; //должна быть ссылка на функцию определения таргета (см. выше или у Game)
 
-                position = Start(point);
-                vector = Vector(position);
-                ListUnits.Add(new Car
-                {
-                    party = party,
-                    position = position,
-                    vector = vector,
-                    vectorTower = vector-5,
-                    speed = 1.0f,
-                    life = 10
-                });
+                unit.DrawUnit(g, unit.party);
             }
-            
-            return ListUnits;
+        }
+
+        //Добавляем юнита в список
+        private void NewUnit(Color party, Point start, dynamic unit)
+        {
+            ListUnits.Add(unit);
+            unit.party = party;
+            unit.position = Start(start);
+            unit.vector = Vector(unit.position);
+            unit.vectorTower = unit.vector - 5;
         }
 
         //Начальная случайная позиция
         private PointF Start(Point point)
         {
-            point.X = window.Width * point.X / 100 + random.Next(-300, 300);
+            point.X = window.Width * point.X / 100 + random.Next(-300, 200);
             point.Y = window.Height * point.Y / 100 + random.Next(-300, 300);
 
             return point;
@@ -64,41 +67,6 @@ namespace Tanks
             if (vector < 0) vector += 360;
 
             return vector;
-        }
-
-        //Отрисовываем юнитов по списку
-        public void DrawListUnits(Graphics g, Shots AllShots, Point cursor)
-        {
-            foreach (dynamic unit in ListUnits)
-            {
-                //Поиск цели ******** НЕ РАБОТАЕТ ПОКА ЧТО И НЕ ТУТ ЕМУ МЕСТО ********
-                /*foreach (dynamic targetUnit in ListUnits)
-                {
-                    if (unit.party != targetUnit.party &&
-                        Math.Abs(unit.position.X - targetUnit.position.X) < 1024 &&
-                        Math.Abs(unit.position.Y - targetUnit.position.Y) < 1024)
-                    {
-                        unit.Atack = true;
-                        unit.target = targetUnit.position;
-                    }
-                    else
-                    {
-                        unit.Atack = false;
-                        unit.target = new Point(window.Width / 2, window.Height / 2);
-                    }
-                }*/
-
-                unit.timeShot++; //******** пробно ********
-                if (unit.Atack) //******** пробно ********
-                {
-                    AllShots.NewShot(unit);
-                    unit.timeShot = 0;
-                    unit.Atack = false;
-                }
-                unit.target = cursor; //должна быть ссылка на функцию определения таргета
-
-                unit.DrawUnit(g, unit.party);
-            }
         }
     }
 }
