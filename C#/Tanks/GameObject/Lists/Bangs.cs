@@ -5,12 +5,17 @@ namespace Tanks
 {
     class Bangs
     {
-        public List<Bang> listBang = new List<Bang>();
+        public List<Sphere> ListBang = new List<Sphere>();
 
         //Добавляем взрыв в список
-        public void NewBang()
+        public void NewBang(Shot shot)
         {
-            //********
+            ListBang.Add(new Sphere()
+            {
+                position = shot.position,
+                color = shot.party,
+                timeAction = 0
+            });
         }
 
         //Удаляем взрыв из списка
@@ -19,12 +24,12 @@ namespace Tanks
             //********
         }
 
-        //Отрисовывка сиска взрывов
+        //Отрисовывка списка взрывов
         public void DrawListBangs(Graphics g)
         {
-            foreach (Bang bang in listBang)
+            foreach (Sphere bang in ListBang)
             {
-                bang.DrawBang(g);
+                bang.DrawSphere(g);
             }
         }
     }
