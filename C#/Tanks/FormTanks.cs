@@ -7,8 +7,8 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        public static Size Window; //размер окна
-        public const byte Shadow = 8; //размер тени
+        public static Size Window;      //размер окна
+        public const byte Shadow = 8;   //размер тени
 
         private Game game;
         private Graphics g;
@@ -36,10 +36,11 @@ namespace Tanks
         private void Tanks_Click(object sender, EventArgs e)
         {
             Console.Beep(5000, 50);
-            if (timer.Enabled == false)
-                timer.Enabled = true;
-            else
-                timer.Enabled = false;
+            /*if (timer.Enabled == false)*/ //************** временно *************
+            timer.Enabled = true;
+            /*else
+                timer.Enabled = false;*/
+            game.SelectUnit(cursor); //************** П Р О Б Н О *************
         }
 
         //Отрисовка кадра
