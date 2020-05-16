@@ -29,7 +29,7 @@ namespace Tanks
         {
             //Наименование и полоса жизни
             g.TranslateTransform(position.X, position.Y);
-            g.DrawString("= " + target.ToString() + " =", font, solidBrushFont, -20, -42);
+            g.DrawString("= " + id.ToString() + " =", font, solidBrushFont, -20, -42);
             g.DrawLine(penGrren, -line/2, -26, lifeLine, -26);
             g.DrawLine(penRed, lifeLine, -26, line/2, -26);
             g.ResetTransform();
