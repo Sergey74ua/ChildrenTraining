@@ -9,24 +9,22 @@ namespace Tanks
     {
         public List<Shot> ListShot = new List<Shot>();
         public List<PointF> ListBang = new List<PointF>();
-        public uint timeShot; //перезарядка
         private byte timeBang; //таймер взрыва
         private Color color; //цвет снаряда
 
         //Добавляем выстрел
         async public void NewShot(dynamic unit)
         {
-            await Task.Run(() => Console.Beep(400, 50));
-            ListShot.Add(new Shot
+            ListShot.Add(new Shot()
             {
                 party = ColorShot(unit.party),
                 position = unit.position,
                 target = unit.target,
                 vector = (float)Math.Atan2
                     (unit.target.Y - unit.position.Y,
-                    unit.target.X - unit.position.X),
-                speed = 16.0f
+                    unit.target.X - unit.position.X)
             });
+            await Task.Run(() => Console.Beep(400, 50));
         }
 
         //Цвет выстрела
@@ -43,7 +41,7 @@ namespace Tanks
         }
 
         //Удаляем выстрел
-        async public void RemoveShot(Shot shot, Graphics g)
+        async private void RemoveShot(Shot shot, Graphics g)
         {
             if (shot.speed < 1 ||
                 (Math.Abs(shot.position.X - shot.target.X) < shot.speed &&
