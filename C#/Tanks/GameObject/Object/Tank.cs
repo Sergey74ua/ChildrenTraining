@@ -15,6 +15,13 @@ namespace Tanks
         private readonly byte shadow = Tanks.Shadow;
         private SolidBrush solidBrush;
 
+        //Конструктор
+        public Tank()
+        {
+            speed = 0.5f;
+            life = 40;
+        }
+
         //Отрисовка танка
         public void DrawUnit(Graphics g, Color party)
         {
