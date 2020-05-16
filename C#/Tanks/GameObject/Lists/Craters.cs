@@ -5,10 +5,7 @@ namespace Tanks
 {
     class Craters
     {
-        public List<PointF> listCraters = new List<PointF>();
-
-        public PointF position; //позиция
-        private byte timeCraters; //таймер взрыва
+        public List<Sphere> ListCraters = new List<Sphere>();
 
         //Добавляем воронку в список
         public void NewCrater()
@@ -22,16 +19,12 @@ namespace Tanks
             //********
         }
 
+        //Отрисовывка списка воронок
         public void DrawListCraters(Graphics g)
         {
-            //Отрисовка взрыва
-            if (timeCraters < 96)
+            foreach (Sphere crater in ListCraters)
             {
-                timeCraters += 8;
-                g.TranslateTransform(position.X, position.Y);
-                g.FillEllipse(new SolidBrush(Color.FromArgb(192 - timeCraters, timeCraters + 128, timeCraters, 0)),
-                    new RectangleF(-timeCraters / 2, -timeCraters / 2, timeCraters, timeCraters));
-                g.ResetTransform();
+                crater.DrawSphere(g);
             }
         }
     }
