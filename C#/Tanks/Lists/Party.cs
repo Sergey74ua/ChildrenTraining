@@ -7,7 +7,8 @@ namespace Tanks
     class Party
     {
         public List<object> ListUnits = new List<object>();
-        private readonly Size window = Tanks.Window;
+        private readonly int width = Tanks.Window.Width;
+        private readonly int height = Tanks.Window.Height;
         private readonly Random random = new Random();
 
         /// <summary>
@@ -16,10 +17,10 @@ namespace Tanks
         public Party(Color party, Point start, byte tank, byte car)
         {
             for (byte i = 0; i < tank; i++)
-                NewUnit(party, start, new Tank());
+                NewUnit(new Tank(party), start);
 
             for (byte i = 0; i < car; i++)
-                NewUnit(party, start, new Car());
+                NewUnit(new Car(party), start);
         }
 
         //Отрисовываем юнитов по списку
@@ -27,34 +28,35 @@ namespace Tanks
         {
             foreach (dynamic unit in ListUnits)
             {
-                unit.timeShot++; //******** пробно ********
+                unit.timeAction++; //******** пробно ********
                 if (unit.Atack) //******** пробно ********
                 {
                     ListShots.NewShot(unit);
-                    unit.timeShot = 0;
+                    unit.timeAction = 0;
                     unit.Atack = false;
                 }
-                //unit.target = cursor; //должна быть ссылка на функцию определения таргета (см. выше или у Game)
+                unit.target = cursor; //должна быть ссылка на функцию определения таргета (см. выше или у Game)
 
                 unit.DrawUnit(g, unit.party);
             }
         }
 
         //Добавляем юнита в список
-        private void NewUnit(Color party, Point start, dynamic unit)
+        private void NewUnit(dynamic unit, Point start)
         {
+            byte delta = 16;
             ListUnits.Add(unit);
-            unit.party = party;
             unit.position = Start(start);
-            unit.vector = Vector(unit.position);
-            unit.vectorTower = unit.vector - 5;
+            unit.vector = Vector(unit.position) + random.Next(-delta, delta);
+            unit.vectorTower = unit.vector + random.Next(-delta, delta);
         }
 
         //Начальная случайная позиция
         private PointF Start(Point point)
         {
-            point.X = window.Width * point.X / 100 + random.Next(-300, 200);
-            point.Y = window.Height * point.Y / 100 + random.Next(-300, 300);
+            ushort delta = 128;
+            point.X = width * point.X / 100 + random.Next(-delta, delta);
+            point.Y = height * point.Y / 100 + random.Next(-delta, delta);
 
             return point;
         }
@@ -62,8 +64,8 @@ namespace Tanks
         //Начальный угол на центр (можно заменить на 90°/270°)
         private float Vector(PointF position)
         {
-            float vector = (float)(Math.Atan2(window.Height/2 - position.Y,
-                window.Width/2 - position.X)*180/Math.PI+90);
+            float vector = (float)(Math.Atan2(height/2 - position.Y,
+                width/2 - position.X)*180/Math.PI+90);
             if (vector < 0) vector += 360;
 
             return vector;
