@@ -15,9 +15,13 @@ namespace Tanks
         private readonly byte shadow = Tanks.Shadow;
         private SolidBrush solidBrush;
 
-        //Конструктор
-        public Tank()
+        /// <summary>
+        /// Конструктор танка: цвет команды
+        /// </summary>
+        public Tank(Color color)
         {
+            party = color;
+            act = Act.WAIT;
             speed = 0.5f;
             life = 40;
         }
@@ -26,7 +30,7 @@ namespace Tanks
         public void DrawUnit(Graphics g, Color party)
         {
             solidBrush = new SolidBrush(party);
-            position = Position(position, speed);
+            position = Position(position);
             vector = Vector(vector, speed);
             vectorTower = Vector(vectorTower, speed*2);
 
