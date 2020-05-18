@@ -4,13 +4,14 @@ using System.Drawing;
 
 namespace Tanks
 {
-    sealed class Game
+    class Game
     {
-        private byte count = 5;         //число машин ********
-        private List<Party> ListParty;   //комманды
-        private Shots ListShots;         //выстреы
-        private Bangs ListBangs;         //взрывы
-        private Craters ListCraters;     //воронки
+        private List<Party> ListParty;  //комманды
+        private Craters ListCraters;    //воронки
+        private Shots ListShots;        //выстреы
+        private Bangs ListBangs;        //взрывы
+        private Actions Actions;        //действия
+        private byte count = 3;         //число машин ********
 
         //Комманды и снаряды
         public void StartGame()
@@ -19,6 +20,7 @@ namespace Tanks
             ListCraters = new Craters();
             ListShots = new Shots();
             ListBangs = new Bangs();
+            Actions = new Actions();
 
             //Добавляем команды в список
             ListParty.Add(new Party(Color.DarkRed, new Point(20, 20), count, count));
@@ -29,20 +31,24 @@ namespace Tanks
             //Sound.StarWars();
         }
 
-        //Шаг(кадр) игры
+        //Шаг/кадр игры
         public void StepGame(Graphics g, Point cursor)
         {
+            Actions.Step(ListParty);
+
             ListCraters.DrawListCraters(g);
+
             foreach (Party party in ListParty)
             {
                 party.DrawListUnits(g, ListShots, cursor); //******** переделать параметры ********
-                ListShots.Damage(party); //******** убрать отсюда как-то ********
+                ListShots.Damage(party); //******** У Б Р А Т Ь  отсюда как-то ********
             }
+
             ListShots.DrawListShot(g);
             ListBangs.DrawListBangs(g);
         }
 
-        //Выделяем юнита ******** П Р О Б Н О ********
+        //Выделяем юнита ******** ******** ******** ******** П Р О Б Н О ******** ******** ******** ********
         public void SelectUnit(Point cursor)
         {
             PointF _target = cursor;
