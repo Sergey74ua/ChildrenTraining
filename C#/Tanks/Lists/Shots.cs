@@ -10,34 +10,12 @@ namespace Tanks
         public List<Shot> ListShot = new List<Shot>();
         public List<PointF> ListBang = new List<PointF>();
         private byte timeBang; //таймер взрыва
-        private Color color; //цвет снаряда
 
         //Добавляем выстрел
         async public void NewShot(dynamic unit)
         {
-            ListShot.Add(new Shot()
-            {
-                party = ColorShot(unit.party),
-                position = unit.position,
-                target = unit.target,
-                vector = (float)Math.Atan2
-                    (unit.target.Y - unit.position.Y,
-                    unit.target.X - unit.position.X)
-            });
+            ListShot.Add(new Shot(unit));
             await Task.Run(() => Console.Beep(400, 50));
-        }
-
-        //Цвет выстрела
-        private Color ColorShot(Color party)
-        {
-            color = Color.FromArgb
-            (
-                party.R + (255 - party.R) / 4,
-                party.G + (255 - party.G) / 8,
-                party.B + (255 - party.B) / 4
-            );
-
-            return color;
         }
 
         //Удаляем выстрел
