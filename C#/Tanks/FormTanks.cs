@@ -12,7 +12,7 @@ namespace Tanks
 
         private Game game;
         private Graphics g;
-        private Point cursor; //************************* В Р Е М Е Н Н О *************************
+        private Point cursor;
 
         //Запуск окна
         public Tanks()
@@ -36,11 +36,11 @@ namespace Tanks
         private void Tanks_Click(object sender, EventArgs e)
         {
             Console.Beep(5000, 50);
-            /*if (timer.Enabled == false)*/ //************** временно *************
+            if (timer.Enabled == false) //************** временно *************
             timer.Enabled = true;
-            /*else
-                timer.Enabled = false;*/
-            game.SelectUnit(cursor); //************** П Р О Б Н О *************
+            else
+                timer.Enabled = false;
+            //game.SelectUnit(cursor); //************** П Р О Б Н О *************
         }
 
         //Отрисовка кадра
@@ -48,7 +48,7 @@ namespace Tanks
         {
             g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            cursor = PointToClient(Cursor.Position); //************** В Р Е М Е Н Н О *************
+            cursor = PointToClient(Cursor.Position);
             game.StepGame(g, cursor);
         }
 
