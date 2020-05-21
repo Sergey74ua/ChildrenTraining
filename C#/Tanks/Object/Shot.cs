@@ -1,50 +1,47 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Tanks
 {
     class Shot : AObject
     {
-        public byte timeShot;       //перезарядка
+        public PointF _position;    //хвост снаряда
+        private readonly Pen pen;   //перо для снаряда (для пулеметов можно сделать другой)
 
-        private PointF _position;   //хвост снаряда
-        private Color color;        //цвет снаряда
-        private Pen pen;            //перо для снаряда (для пулеметов можно сделать другой)
-
-        /// <summary>
-        /// Выстрел: рассчитывается из объекта.
-        /// </summary>
+        /// <summary> Выстрел : рассчитывается из объекта. </summary>
         public Shot(dynamic unit)
         {
-            party = ColorShot(unit.party);
+            color = unit.color;
+            pen = new Pen(ColorShot(color), 3);
             position = unit.position;
             target = unit.target;
-            vector = (float)Math.Atan2(target.Y - position.Y, target.X - position.X);
+            vector = Vector();
             speed = 16.0f;
         }
 
         //Цвет выстрела
-        private Color ColorShot(Color party)
+        private Color ColorShot(Color color)
         {
             color = Color.FromArgb
             (
-                party.R + (255 - party.R) / 4,
-                party.G + (255 - party.G) / 8,
-                party.B + (255 - party.B) / 4
+                color.R + (255 - color.R) / 4,
+                color.G + (255 - color.G) / 8,
+                color.B + (255 - color.B) / 4
             );
 
             return color;
         }
 
+        //Отрисовка полета снаряда
+        public void Move()
+        {
+            _position = position;
+            position = Position();
+            speed *= 0.98f;
+        }
 
         //Отрисовка полета снаряда
         public void DrawShot(Graphics g)
         {
-            _position = position;
-            position = Position();
-            speed *= 0.98f; //затухание скорости
-            pen = new Pen(party, 3);
-
             g.DrawLine(pen, position, _position);
         }
     }
