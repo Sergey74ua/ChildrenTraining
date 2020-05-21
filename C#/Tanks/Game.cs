@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace Tanks
@@ -7,48 +6,41 @@ namespace Tanks
     class Game
     {
         private List<Party> ListParty;  //комманды
-        private Craters ListCraters;    //воронки
-        private Shots ListShots;        //выстреы
-        private Bangs ListBangs;        //взрывы
+        private Shots ListShots;        //выстрелы
         private Actions Actions;        //действия
-        private byte count = 3;         //число машин ********
+
+        private readonly byte count = 3;//число машин ********
 
         //Комманды и снаряды
         public void StartGame()
         {
             ListParty = new List<Party>();
-            ListCraters = new Craters();
             ListShots = new Shots();
-            ListBangs = new Bangs();
             Actions = new Actions();
 
             //Добавляем команды в список
-            ListParty.Add(new Party(Color.DarkRed, new Point(20, 20), count, count));
-            ListParty.Add(new Party(Color.DarkBlue, new Point(20, 80), count, count));
-            ListParty.Add(new Party(Color.Yellow, new Point(80, 20), count, count));
-            ListParty.Add(new Party(Color.Purple, new Point(80, 80), count, count));
+            ListParty.Add(new Party(Color.DarkRed, new Point(25, 15), count, count));
+            ListParty.Add(new Party(Color.DarkBlue, new Point(25, 85), count, count));
+            ListParty.Add(new Party(Color.Yellow, new Point(75, 15), count, count));
+            ListParty.Add(new Party(Color.Purple, new Point(75, 85), count, count));
 
-            //Sound.StarWars();
+            Sound.StarWars();
         }
 
         //Шаг/кадр игры
         public void StepGame(Graphics g, Point cursor)
         {
-            Actions.Step(ListParty);
+            Actions.ActObject(ListParty, ListShots);
 
-            ListCraters.DrawListCraters(g);
+            ListShots.DrawListCrater(g);
 
             foreach (Party party in ListParty)
-            {
-                party.DrawListUnits(g, ListShots, cursor); //******** переделать параметры ********
-                ListShots.Damage(party); //******** У Б Р А Т Ь  отсюда как-то ********
-            }
+                party.DrawListUnits(g);
 
             ListShots.DrawListShot(g);
-            ListBangs.DrawListBangs(g);
         }
 
-        //Выделяем юнита ******** ******** ******** ******** П Р О Б Н О ******** ******** ******** ********
+        //Выделяем юнита ******** ******** ******** П Р О Б Н О ******** ******** ********
         public void SelectUnit(Point cursor)
         {
             PointF _target = cursor;
@@ -57,17 +49,16 @@ namespace Tanks
             foreach (Party party in ListParty)
                 foreach (dynamic unit in party.ListUnits)
                 {
-                    if (Math.Abs(unit.position.X - cursor.X) < 16 &&
-                        Math.Abs(unit.position.Y - cursor.Y) < 16)
+                    unit.delta = unit.Delta(cursor);
+                    if (unit.delta < 16)
                     {
-                        unit.party = Color.White;
+                        unit.color = Color.White;
                         _target = unit.position;
                     }
                     else
                     {
                         _target = cursor;
                     }
-
                 }
 
             //Определяем юнита как цель
