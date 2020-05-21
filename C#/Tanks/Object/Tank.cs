@@ -15,12 +15,10 @@ namespace Tanks
         private readonly byte shadow = Tanks.Shadow;
         private SolidBrush solidBrush;
 
-        /// <summary>
-        /// Конструктор танка: цвет команды
-        /// </summary>
+        /// <summary> Конструктор танка : цвет команды </summary>
         public Tank(Color color)
         {
-            party = color;
+            this.color = color;
             act = Act.WAIT;
             speed = 0.5f;
             life = 40;
@@ -30,9 +28,6 @@ namespace Tanks
         public void DrawUnit(Graphics g, Color party)
         {
             solidBrush = new SolidBrush(party);
-            position = Position(position);
-            vector = Vector(vector, speed);
-            vectorTower = Vector(vectorTower, speed*2);
 
             #region ** Этапы отрисовки танка **
             //Тень корпуса
@@ -40,25 +35,18 @@ namespace Tanks
             g.RotateTransform(vector);
             g.DrawImage(bitmap, -64, -64, bodyShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
-
             //Цвет команды
             g.TranslateTransform(position.X, position.Y);
             g.RotateTransform(vector);
             g.FillRectangle(solidBrush, -26, -52, 52, 100);
-            g.ResetTransform();
-
             //Корпус
-            g.TranslateTransform(position.X, position.Y);
-            g.RotateTransform(vector);
             g.DrawImage(bitmap, -64, -64, body, GraphicsUnit.Pixel);
             g.ResetTransform();
-
             //Тень башни
             g.TranslateTransform(position.X + shadow, position.Y + shadow);
             g.RotateTransform(vectorTower);
             g.DrawImage(bitmap, -64, -98, towerShadow, GraphicsUnit.Pixel);
             g.ResetTransform();
-
             //Башня
             g.TranslateTransform(position.X, position.Y);
             g.RotateTransform(vectorTower);
