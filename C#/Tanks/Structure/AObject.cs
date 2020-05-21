@@ -5,12 +5,15 @@ namespace Tanks
 {
     abstract class AObject
     {
-        public Color party;     //команда
+        public Color color;     //команда
         public PointF position; //позиция
         public PointF target;   //цель
         public float vector;    //вектор
         public float speed;     //скорость
+        public float delta;     //дальность
+        public uint timeAction; //******** перезарядка (проба) ********
 
+        private float catetX, catetY;
 
         //Рассчет координат при перемещении
         public PointF Position()
@@ -21,33 +24,22 @@ namespace Tanks
             return position;
         }
 
-        /*
-        //Рассчет угла на цель
+        //Рассчет координат при перемещении
         public float Vector()
         {
-            vector = (float)Math.Atan2(target.Y - position.Y, target.X - position.X);
+            float vector = (float)Math.Atan2(target.Y - position.Y, target.X - position.X);
 
             return vector;
         }
 
-        
-        //из нев Шот
-        vector = (float) Math.Atan2
-                    (unit.target.Y - unit.position.Y,
-                    unit.target.X - unit.position.X),
+        //Рассчет расстояния до цели
+        public float Delta(PointF target)
+        {
+            catetX = target.X - position.X;
+            catetY = target.Y - position.Y;
+            delta = (float)Math.Sqrt(catetX * catetX + catetY * catetY);
 
-        //из СтартГейм
-        float vector = (float)(Math.Atan2(window.Height / 2 - position.Y,
-        window.Width / 2 - position.X) * 180 / Math.PI + 90);
-        if (vector< 0) vector += 360;
-
-        //из АЮнитс
-        float catetX = target.X - position.X;
-        float catetY = target.Y - position.Y;
-
-        gipotenuza = (float) Math.Sqrt(catetX* catetX + catetY* catetY);
-        angle = (float) (Math.Atan2(catetY, catetX) * 180/Math.PI+90);
-        if (angle< 0) angle += 360;
-        */
+            return delta;
+        }
     }
 }
