@@ -9,10 +9,10 @@ namespace Tanks
     {
         public static Size Window;      //размер окна
         public const byte Shadow = 8;   //размер тени
+        public Point cursor;
 
         private Game game;
         private Graphics g;
-        private Point cursor;
 
         //Запуск окна
         public Tanks()
@@ -36,10 +36,7 @@ namespace Tanks
         private void Tanks_Click(object sender, EventArgs e)
         {
             Console.Beep(5000, 50);
-            if (timer.Enabled == false) //************** временно *************
-            timer.Enabled = true;
-            else
-                timer.Enabled = false;
+            timer.Enabled = !timer.Enabled;
             //game.SelectUnit(cursor); //************** П Р О Б Н О *************
         }
 
