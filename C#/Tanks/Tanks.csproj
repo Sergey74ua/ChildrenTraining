@@ -57,15 +57,14 @@
       <DependentUpon>FormTanks.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
-    <Compile Include="Structure\Sphere.cs" />
+    <Compile Include="Object\Bang.cs" />
+    <Compile Include="Object\Crater.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Sound.cs" />
     <Compile Include="Structure\AObject.cs" />
     <Compile Include="Structure\AUnits.cs" />
-    <Compile Include="Lists\Bangs.cs" />
     <Compile Include="Object\Car.cs" />
-    <Compile Include="Lists\Craters.cs" />
     <Compile Include="Structure\IDrawn.cs" />
     <Compile Include="Lists\Party.cs" />
     <Compile Include="Object\Shot.cs" />
