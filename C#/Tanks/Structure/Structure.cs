@@ -1,10 +1,10 @@
 ﻿namespace Tanks
 {
+    //Действия юнита
     public enum Act
     {
-        BURN,   //смерть
+        DEAD,   //смерть
         WAIT,   //ожидание
-        BACK,   //отъезд
         FIRE,   //выстрел
         FIND    //разветка
     }
