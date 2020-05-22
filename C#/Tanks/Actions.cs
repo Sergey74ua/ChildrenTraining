@@ -11,7 +11,7 @@ namespace Tanks
         private readonly byte range = 64;
         private float delta, _delta;
 
-        //Перебор списков всех юнитов
+        //Перебор всех объектов игры
         public void ActObject(List<Party> ListParty, Shots ListShots)
         {
             this.ListParty = ListParty;
@@ -135,11 +135,11 @@ namespace Tanks
         //Процесс атаки танка
         private void ActFire(dynamic unit)
         {
-            if (unit.Delta(unit.targetID.position) < 256 && unit.timeAction > 60)
+            if (unit.Delta(unit.targetID.position) < 256 && unit.timeAction > 180)
             {
                 ListShots.NewShot(unit);
                 unit.targetID = null;
-                unit.timeAction = 0;
+                unit.timeAction = (uint)random.Next(64);
                 unit.act = Act.WAIT;
             }
             else
@@ -155,7 +155,7 @@ namespace Tanks
             if (unit.Delta(unit.target) < 128 && unit.timeAction < 60) //******** тут все нормально? ********
             {
                 unit.timeAction++;
-                unit.Move(); Console.WriteLine(unit.Delta(unit.target).ToString()); //****
+                unit.Move();
             }
             else
             {
