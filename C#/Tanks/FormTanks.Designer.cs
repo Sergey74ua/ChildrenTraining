@@ -45,6 +45,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Tanks";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -53,6 +54,7 @@
             this.Load += new System.EventHandler(this.Tanks_Load);
             this.Click += new System.EventHandler(this.Tanks_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Tanks_Paint);
+            this.DoubleClick += new System.EventHandler(this.Tanks_DoubleClick);
             this.ResumeLayout(false);
 
         }
