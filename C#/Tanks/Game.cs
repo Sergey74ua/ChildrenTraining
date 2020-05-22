@@ -9,7 +9,7 @@ namespace Tanks
         private Shots ListShots;        //выстрелы
         private Actions Actions;        //действия
 
-        private readonly byte count = 3;//число машин ********
+        private readonly byte count = 5;//число машин ********
 
         //Комманды и снаряды
         public void StartGame()
@@ -19,12 +19,12 @@ namespace Tanks
             Actions = new Actions();
 
             //Добавляем команды в список
-            ListParty.Add(new Party(Color.DarkRed, new Point(25, 15), count, count));
-            ListParty.Add(new Party(Color.DarkBlue, new Point(25, 85), count, count));
-            ListParty.Add(new Party(Color.Yellow, new Point(75, 15), count, count));
-            ListParty.Add(new Party(Color.Purple, new Point(75, 85), count, count));
+            ListParty.Add(new Party(Color.DarkRed, new Point(35, 30), count, 3));
+            ListParty.Add(new Party(Color.DarkBlue, new Point(65, 70), count));
+            ListParty.Add(new Party(Color.Yellow, count));
+            ListParty.Add(new Party());
 
-            Sound.StarWars();
+            //Sound.StarWars();
         }
 
         //Шаг/кадр игры
