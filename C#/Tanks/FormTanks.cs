@@ -40,6 +40,21 @@ namespace Tanks
             //game.SelectUnit(cursor); //************** П Р О Б Н О *************
         }
 
+        //Таймер обновления кадра
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            Refresh();
+        }
+
+        //Смена оконного режима
+        private void Tanks_DoubleClick(object sender, EventArgs e)
+        {
+            if (FormBorderStyle == FormBorderStyle.None)
+                FormBorderStyle = FormBorderStyle.Sizable;
+            else
+                FormBorderStyle = FormBorderStyle.None;
+        }
+
         //Отрисовка кадра
         private void Tanks_Paint(object sender, PaintEventArgs e)
         {
@@ -47,12 +62,6 @@ namespace Tanks
             g.SmoothingMode = SmoothingMode.AntiAlias;
             cursor = PointToClient(Cursor.Position);
             game.StepGame(g, cursor);
-        }
-
-        //Таймер обновления кадра
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            Refresh();
         }
     }
 }
