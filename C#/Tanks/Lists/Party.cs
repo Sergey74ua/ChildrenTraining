@@ -33,14 +33,14 @@ namespace Tanks
         /// <summary> Команда : цвет флага, стартовая позиция(X,Y) в %, число танков/машин. </summary>
         public Party(Color color, Point start, byte unit)
         {
-            range = 128;
+            range = 256;
             NewParty(color, start, unit, unit);
         }
 
         /// <summary> Команда : цвет флага, стартовая позиция(X,Y) в %, число танков, число машин. </summary>
         public Party(Color color, Point start, byte tank, byte car)
         {
-            range = 128;
+            range = 256;
             NewParty(color, start, tank, car);
         }
 
