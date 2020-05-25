@@ -13,7 +13,6 @@ namespace Tanks
         private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 128), size);
         private readonly Rectangle towerShadow = new Rectangle(new Point(128, 128), size);
         private readonly byte shadow = Tanks.Shadow;
-        private SolidBrush solidBrush;
 
         /// <summary> Конструктор танка : цвет команды </summary>
         public Tank(Color color)
@@ -22,6 +21,7 @@ namespace Tanks
             act = Act.WAIT;
             speed = 0.5f;
             life = 40;
+            ai = 0;
         }
 
         //Отрисовка танка
