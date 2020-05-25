@@ -34,6 +34,7 @@ namespace Tanks
         //Отрисовка полета снаряда
         public void Move()
         {
+            timeAction++;
             _position = position;
             position = Position();
             speed *= 0.98f;
