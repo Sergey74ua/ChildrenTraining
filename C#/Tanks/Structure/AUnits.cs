@@ -7,14 +7,16 @@ namespace Tanks
     {
         private static uint ID;
 
-        //Общие поля юнитов
         public uint id = ++ID;      //имя
         public Act act;             //действие
-        public float life, lifeLine;//жизнь
+        public byte ai;             //******** шаг поиска (проба) ********
+        public float life;          //жизнь
         public float vectorTower;   //вектор башни
         public object targetID;     //******** атакуемая цель (проба) ********
 
-        //Данные для отисовки
+        protected SolidBrush solidBrush;
+        protected float lifeLine;
+
         private readonly SolidBrush solidBrushFont = new SolidBrush(Color.LightGreen);
         private readonly Font font = new Font("Arial", 10, FontStyle.Bold, GraphicsUnit.Point);
         private readonly Pen penGrn = new Pen(Color.Green, 2);
@@ -26,7 +28,7 @@ namespace Tanks
         {
             //Наименование и полоса жизни
             g.TranslateTransform(position.X, position.Y);
-            g.DrawString("= " + id.ToString() + " =", font, solidBrushFont, -20, -42);
+            g.DrawString("= " + act.ToString() + " - " + (targetID ?? "null").ToString() + " =", font, solidBrushFont, -20, -42);
             g.DrawLine(penGrn, -line / 2, -26, lifeLine, -26);
             g.DrawLine(penRed, lifeLine, -26, line / 2, -26);
             g.ResetTransform();
