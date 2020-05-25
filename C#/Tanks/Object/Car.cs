@@ -13,7 +13,6 @@ namespace Tanks
         private readonly Rectangle bodyShadow = new Rectangle(new Point(0, 64), size);
         private readonly Rectangle towerShadow = new Rectangle(new Point(64, 64), size);
         private readonly byte shadow = Tanks.Shadow/2;
-        private SolidBrush solidBrush;
 
         /// <summary> Конструктор машины : цвет команды </summary>
         public Car(Color color)
