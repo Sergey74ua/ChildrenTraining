@@ -21,7 +21,6 @@ namespace Tanks
             act = Act.WAIT;
             speed = 0.5f;
             life = 40;
-            ai = 0;
         }
 
         //Отрисовка танка
