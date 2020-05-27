@@ -18,7 +18,7 @@ namespace Tanks
             Color color = Color.FromArgb(255, Color.FromArgb(random.Next(0xFFFFFF + 1)));
             Point start = new Point(random.Next(80) + 10, random.Next(80) + 10);
             byte unit = (byte)random.Next(8);
-            range = 128;
+            range = 256;
             NewParty(color, start, unit, unit);
         }
 
@@ -33,14 +33,14 @@ namespace Tanks
         /// <summary> Команда : цвет флага, стартовая позиция(X,Y) в %, число танков/машин. </summary>
         public Party(Color color, Point start, byte unit)
         {
-            range = 256;
+            range = 128;
             NewParty(color, start, unit, unit);
         }
 
         /// <summary> Команда : цвет флага, стартовая позиция(X,Y) в %, число танков, число машин. </summary>
         public Party(Color color, Point start, byte tank, byte car)
         {
-            range = 256;
+            range = 128;
             NewParty(color, start, tank, car);
         }
 
@@ -77,7 +77,7 @@ namespace Tanks
         private PointF Start(Point point)
         {
             if (range <= 0)
-                range = 128;
+                range = 256;
             point.X = width * point.X / 100 + random.Next(-range, range);
             point.Y = height * point.Y / 100 + random.Next(-range, range);
 
