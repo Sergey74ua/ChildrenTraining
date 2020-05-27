@@ -62,7 +62,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Sound.cs" />
-    <Compile Include="Script\AI.cs" />
+    <Compile Include="Script\Shooting.cs" />
     <Compile Include="Structure\AObject.cs" />
     <Compile Include="Structure\AUnits.cs" />
     <Compile Include="Object\Car.cs" />
