@@ -17,9 +17,7 @@
                 resGame = "НИЧЬЯ";
                 draw++;
             }
-            else if ((playerHand == 0 && compHand == 1) ||
-                (playerHand == 1 && compHand == 2) ||
-                (playerHand == 2 && compHand == 0))
+            else if ((playerHand == 0 && compHand == 1) || (playerHand == 1 && compHand == 2) || (playerHand == 2 && compHand == 0))
             {
                 resGame = "ПОБЕДА";
                 win++;
