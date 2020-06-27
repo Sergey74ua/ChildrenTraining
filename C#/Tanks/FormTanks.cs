@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace Tanks
 {
@@ -61,7 +61,7 @@ namespace Tanks
             g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             cursor = PointToClient(Cursor.Position);
-            game.StepGame(g, cursor);
+            game.StepGame(g);
         }
     }
 }
