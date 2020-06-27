@@ -7,14 +7,16 @@ namespace Tanks
 {
     public partial class Tanks : Form
     {
-        public static Size Window;      //размер окна
-        public const byte Shadow = 8;   //размер тени
+        public static Size window;      //размер окна
+        public const byte shadow = 8;   //размер тени
         public Point cursor;
 
-        private Game game;
         private Graphics g;
+        private Game game;
 
-        //Запуск окна
+        /// <summary>
+        /// Окно формы игры
+        /// </summary>
         public Tanks()
         {
             InitializeComponent();
@@ -24,12 +26,11 @@ namespace Tanks
             UpdateStyles();
         }
 
-        //Загрузка содержимого окна
+        //Запуск содержимого окна
         private void Tanks_Load(object sender, EventArgs e)
         {
-            Window = ClientSize;
+            window = ClientSize;
             game = new Game();
-            game.StartGame();
         }
 
         //Запуск таймера
