@@ -7,11 +7,13 @@ namespace Tanks
         public PointF position;    //позиция
         public byte timeAction;    //время действия
 
-        /// <summary> Взрыв : рассчитывается из выстрела. </summary>
-        public Bang(PointF position) //********
+        /// <summary>
+        /// Взрыв : рассчитывается из выстрела
+        /// </summary>
+        public Bang(PointF position)
         {
-            Sound.Bang();
             this.position = position;
+            Sound.Bang();
         }
 
         //Отрисовывка взрыва
