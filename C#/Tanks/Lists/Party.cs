@@ -7,8 +7,8 @@ namespace Tanks
     class Party
     {
         public List<object> ListUnits = new List<object>();
-        private readonly int height = Tanks.Window.Height;
-        private readonly int width = Tanks.Window.Width;
+        private readonly int height = Tanks.window.Height;
+        private readonly int width = Tanks.window.Width;
         private readonly Random random = new Random();
         private ushort range; //разброс на старте
 
@@ -65,19 +65,17 @@ namespace Tanks
         private void NewUnit(dynamic unit, Point start)
         {
             ListUnits.Add(unit);
-            unit.target = new Point(width / 2, height / 2);
             unit.position = Start(start);
+            unit.target = new Point(width / 2, height / 2);
             unit.vector = (float)(unit.Vector() * 180 / Math.PI + 90) + random.Next(-16, 16);
-            if (unit.vector < 0)
-                unit.vector += 360;
+            if (unit.vector < 0) unit.vector += 360;
             unit.vectorTower = unit.vector + random.Next(-16, 16);
         }
 
         //Начальная случайная позиция
         private PointF Start(Point point)
         {
-            if (range <= 0)
-                range = 256;
+            if (range <= 0) range = 256;
             point.X = width * point.X / 100 + random.Next(-range, range);
             point.Y = height * point.Y / 100 + random.Next(-range, range);
 
