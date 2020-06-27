@@ -1,21 +1,20 @@
 ﻿using System.Collections.Generic;
+using Game2D;
 
 namespace Tanks
 {
     class Shooting
     {
-        private Shots ListShots;
-
+        //Рассчет выстрелов
         public void ActShot(List<Party> ListParty, Shots ListShots)
         {
-            this.ListShots = ListShots;
-
             //Перерасчет выстрелов
-            foreach (Shot shot in ListShots.ListShot)
+            for (int i = 0; i < ListShots.ListShot.Count; i++)
             {
-                shot.Move();
-                if (shot.speed < 2 || shot.Delta(shot.target) < shot.speed)
-                    ListShots.RemoveShot(shot);
+                ListShots.ListShot[i].Move();
+                if (ListShots.ListShot[i].speed < 2 ||
+                    Func2D.Delta(ListShots.ListShot[i].position, ListShots.ListShot[i].target) < ListShots.ListShot[i].speed)
+                    ListShots.RemoveShot(ListShots.ListShot[i]);
             }
 
             //Перерасчет взрывов
@@ -26,8 +25,8 @@ namespace Tanks
                 {
                     foreach (Party party in ListParty)
                         foreach (dynamic unit in party.ListUnits)
-                            if (unit.Delta(ListShots.ListBang[i].position) < 48 && unit.life > 0)
-                                unit.life -= 10 / unit.Delta(unit.target);
+                            if (Func2D.Delta(unit.position, ListShots.ListBang[i].position) < 48 && unit.life > 0)
+                                unit.life -= 10 / Func2D.Delta(unit.position, unit.target);
 
                     //удаляем взрыв
                     ListShots.RemoveBang(ListShots.ListBang[i]);
