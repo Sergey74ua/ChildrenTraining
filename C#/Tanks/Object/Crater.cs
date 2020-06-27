@@ -4,11 +4,13 @@ namespace Tanks
 {
     class Crater
     {
-        public PointF position;    //позиция
-        public ushort timeAction;    //время действия
+        public PointF position;     //позиция
+        public ushort timeAction;   //время действия
 
-        /// <summary> Воронка : рассчитывается из взрыва. </summary>
-        public Crater(PointF position) //********
+        /// <summary>
+        /// Воронка : рассчитывается из взрыва
+        /// </summary>
+        public Crater(PointF position)
         {
             this.position = position;
         }
