@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
 
 namespace Tanks
 {
@@ -12,16 +10,14 @@ namespace Tanks
         public List<Crater> ListCrater = new List<Crater>();
 
         //Добавляем выстрел
-        async public void NewShot(dynamic unit)
+        public void NewShot(dynamic unit)
         {
             ListShot.Add(new Shot(unit));
-            await Task.Run(() => Console.Beep(400, 50));
         }
 
         //Удаляем выстрел / добавляем взрыв ******** д о в е с т и   д о   у м а ********
-        async public void RemoveShot(Shot shot)
+        public void RemoveShot(Shot shot)
         {
-            await Task.Run(() => Console.Beep(100, 100));
             ListBang.Add(new Bang(shot.position));
             ListShot.Remove(shot);
         }
