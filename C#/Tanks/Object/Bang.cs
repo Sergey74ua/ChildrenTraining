@@ -10,6 +10,7 @@ namespace Tanks
         /// <summary> Взрыв : рассчитывается из выстрела. </summary>
         public Bang(PointF position) //********
         {
+            Sound.Bang();
             this.position = position;
         }
 
