@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game2D;
 
 namespace Tanks
 {
@@ -59,13 +58,13 @@ namespace Tanks
             else
             {
                 unit.delta = unit.vision * 2;
-                
-                //Поиск ближайшего чужого живого танка
+
+                //Поиск ближайшего чужого живого танка ******** НЕ ВЕРНО СРАБАТЫВАЕТ ПОИСК ********
                 foreach (Party party in ListParty)
                     foreach (dynamic findUnit in party.ListUnits)
                         if (unit.color != findUnit.color && findUnit.act != Act.DEAD)
                         {
-                            findDelta = Func2D.Delta(findUnit.position, unit.target);
+                            findDelta = unit.Delta(findUnit.position, unit.target);
                             if (findDelta < unit.delta)
                             {
                                 unit.delta = findDelta;
@@ -119,7 +118,7 @@ namespace Tanks
         //Процесс атаки танка *********************************************************************
         private void ActFire(dynamic unit)
         {
-            if (Func2D.Delta(unit.position, unit.target) < unit.vision && unit.timeAction > 120)
+            if (unit.Delta(unit.position, unit.target) < unit.vision && unit.timeAction > 120)
             {
                 ListShots.NewShot(unit);
                 unit.act = Act.WAIT;
