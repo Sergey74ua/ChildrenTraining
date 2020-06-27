@@ -7,16 +7,18 @@ namespace Tanks
         public PointF _position;    //хвост снаряда
         private readonly Pen pen;   //перо для снаряда (для пулеметов можно сделать другой)
 
-        /// <summary> Выстрел : рассчитывается из объекта. </summary>
+        /// <summary>
+        /// Выстрел : рассчитывается из объекта.
+        /// </summary>
         public Shot(dynamic unit)
         {
-            Sound.Shot();
             color = unit.color;
             pen = new Pen(ColorShot(color), 3);
             position = unit.position;
             target = unit.target;
             vector = Vector();
             speed = 16.0f;
+            Sound.Shot();
         }
 
         //Цвет выстрела
@@ -32,7 +34,7 @@ namespace Tanks
             return color;
         }
 
-        //Отрисовка полета снаряда
+        //Рассчет полета снаряда
         public void Move()
         {
             timeAction++;
@@ -41,7 +43,7 @@ namespace Tanks
             speed *= 0.98f;
         }
 
-        //Отрисовка полета снаряда
+        //Отрисовка снаряда
         public void DrawShot(Graphics g)
         {
             g.DrawLine(pen, position, _position);
