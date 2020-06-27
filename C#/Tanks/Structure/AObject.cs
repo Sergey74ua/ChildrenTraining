@@ -13,8 +13,6 @@ namespace Tanks
         public float delta;     //дальность
         public uint timeAction; //******** перезарядка (проба) ********
 
-        private float catetX, catetY;
-
         //Рассчет координат при перемещении
         public PointF Position()
         {
@@ -24,22 +22,12 @@ namespace Tanks
             return position;
         }
 
-        //Рассчет координат при перемещении
+        //Рассчет угла на цель
         public float Vector()
         {
             float vector = (float)Math.Atan2(target.Y - position.Y, target.X - position.X);
 
             return vector;
-        }
-
-        //Рассчет расстояния до цели
-        public float Delta(PointF target)
-        {
-            catetX = target.X - position.X;
-            catetY = target.Y - position.Y;
-            delta = (float)Math.Sqrt(catetX * catetX + catetY * catetY);
-
-            return delta;
         }
     }
 }
