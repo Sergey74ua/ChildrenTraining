@@ -15,14 +15,14 @@ namespace Tanks
             ListShot.Add(new Shot(unit));
         }
 
-        //Удаляем выстрел / добавляем взрыв ******** д о в е с т и   д о   у м а ********
+        //Удаляем выстрел / добавляем взрыв
         public void RemoveShot(Shot shot)
         {
             ListBang.Add(new Bang(shot.position));
             ListShot.Remove(shot);
         }
 
-        //Удаляем взрыв ******** д о в е с т и   д о   у м а ********
+        //Удаляем взрыв / добавляем кратер
         public void RemoveBang(Bang bang)
         {
             ListCrater.Add(new Crater(bang.position));
