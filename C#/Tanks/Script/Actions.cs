@@ -64,7 +64,7 @@ namespace Tanks
                     foreach (dynamic findUnit in party.ListUnits)
                         if (unit.color != findUnit.color && findUnit.act != Act.DEAD)
                         {
-                            findDelta = unit.Delta(findUnit.position, unit.target);
+                            findDelta = unit.Delta(unit.position, findUnit.position);
                             if (findDelta < unit.delta)
                             {
                                 unit.delta = findDelta;
