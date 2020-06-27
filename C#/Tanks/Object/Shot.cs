@@ -10,6 +10,7 @@ namespace Tanks
         /// <summary> Выстрел : рассчитывается из объекта. </summary>
         public Shot(dynamic unit)
         {
+            Sound.Shot();
             color = unit.color;
             pen = new Pen(ColorShot(color), 3);
             position = unit.position;
