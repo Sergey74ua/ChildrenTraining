@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Collections.Generic;
-using Game2D;
 
 namespace Tanks
 {
@@ -12,8 +11,10 @@ namespace Tanks
         private Shooting Shooting;      //стрельба
         private const byte count = 3;   //число машин
 
-        //Комманды и снаряды
-        public void StartGame()
+        /// <summary>
+        /// Комманды и снаряды
+        /// </summary>
+        public Game()
         {
             ListParty = new List<Party>();
             ListShots = new Shots();
@@ -29,7 +30,7 @@ namespace Tanks
             //Sound.StarWars();
         }
 
-        //Шаг/кадр игры
+        //Шаг-кадр игры
         public void StepGame(Graphics g)
         {
             Actions.ActUnit(ListParty, ListShots);
@@ -41,7 +42,7 @@ namespace Tanks
             ListShots.DrawListShot(g);
         }
 
-        //Выделяем юнита ******** ******** ******** П Р О Б Н О ******** ******** ********
+        //Выделяем юнита ******** П Р О Б Н О ********
         public void SelectUnit(Point cursor)
         {
             PointF _target = cursor;
@@ -50,7 +51,7 @@ namespace Tanks
             foreach (Party party in ListParty)
                 foreach (dynamic unit in party.ListUnits)
                 {
-                    unit.delta = Func2D.Delta(unit.position, cursor);
+                    unit.delta = unit.Delta(unit.position, cursor);
                     if (unit.delta < 16)
                     {
                         unit.color = Color.White;
