@@ -6,11 +6,6 @@ public class MoveCube : MonoBehaviour
     public GameObject MyCube;
     float delta;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         delta = Input.GetAxis("Horizontal") * 50;
@@ -38,5 +33,15 @@ public class MoveCube : MonoBehaviour
         //Куб - удаляем
         if (Input.GetKeyUp(KeyCode.Escape))
             Destroy(MyCube);
+
+        //Куб - вращяем стрелочками
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+            MyCube.transform.Translate(Vector3.forward * 50 * Time.deltaTime);
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+            MyCube.transform.Translate(-Vector3.forward * 50 * Time.deltaTime);
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+            MyCube.transform.Rotate(Vector3.up, -50 * Time.deltaTime);
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+            MyCube.transform.Rotate(Vector3.up, 50 * Time.deltaTime);
     }
 }
