@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class MoveCube : MonoBehaviour
+public class MoveCube : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     public GameObject MyCube;
@@ -43,5 +44,11 @@ public class MoveCube : MonoBehaviour
             MyCube.transform.Rotate(Vector3.up, -50 * Time.deltaTime);
         if (Input.GetKeyUp(KeyCode.RightArrow))
             MyCube.transform.Rotate(Vector3.up, 50 * Time.deltaTime);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Color color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+        gameObject.GetComponent<Renderer>().material.color = color;
     }
 }
