@@ -21,7 +21,7 @@ namespace Tanks
             act = Act.WAIT;
             speed = 0.5f;
             vision = 512;
-            delta = vision;
+            timeAction = 60;
             life = 40;
         }
 
