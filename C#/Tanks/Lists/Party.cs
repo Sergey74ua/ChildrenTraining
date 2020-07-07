@@ -6,10 +6,10 @@ namespace Tanks
 {
     class Party
     {
-        public List<object> ListUnits = new List<object>();
-        private readonly int height = Tanks.window.Height;
-        private readonly int width = Tanks.window.Width;
         private readonly Random random = new Random();
+        private readonly int width = Tanks.window.Width;
+        private readonly int height = Tanks.window.Height;
+        public List<object> ListUnits = new List<object>();
         private ushort range; //разброс на старте
 
         /// <summary> Команда : без параметров (случайно). </summary>
