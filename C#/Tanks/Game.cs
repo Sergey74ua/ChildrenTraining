@@ -22,10 +22,10 @@ namespace Tanks
             Shooting = new Shooting();
 
             //Добавляем команды в список
-            ListParty.Add(new Party(Color.DarkRed, new Point(30, 20), count));
-            ListParty.Add(new Party(Color.DarkBlue, new Point(70, 20), count));
-            ListParty.Add(new Party(Color.Yellow, new Point(70, 80), count));
-            ListParty.Add(new Party(Color.Purple, new Point(30, 80), count));
+            ListParty.Add(new Party(Color.DarkRed, new Point(50, 10), count));
+            ListParty.Add(new Party(Color.DarkBlue, new Point(80, 50), count));
+            ListParty.Add(new Party(Color.Yellow, new Point(50, 90), count));
+            ListParty.Add(new Party(Color.Purple, new Point(20, 50), count));
 
             //Sound.StarWars();
         }
