@@ -10,8 +10,7 @@ namespace Tanks
         public PointF target;   //цель
         public float vector;    //вектор
         public float speed;     //скорость
-        public float delta;     //дальность
-        public uint timeAction; //длительность
+        public uint timeAction; //таймер
 
         private float catetX, catetY;
 
