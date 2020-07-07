@@ -13,6 +13,7 @@ namespace Tanks
         public Crater(PointF position)
         {
             this.position = position;
+            timeAction = 0;
         }
 
         //Отрисовывка взрыва
