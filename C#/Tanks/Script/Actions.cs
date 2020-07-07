@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Tanks
 {
@@ -25,7 +26,6 @@ namespace Tanks
         //Переключатель действий
         private void SelectAct(dynamic unit)
         {
-            unit.timeAction++;
             switch (unit.act)
             {
                 case Act.WAIT:  //ожидание
@@ -49,64 +49,60 @@ namespace Tanks
         //Определяем действие танка
         private void ActWait(dynamic unit)
         {
-            unit.timeAction = 0;
-            float findDelta;
-
             //DEAD - если танк убит
             if (unit.life <= 0.0f)
                 unit.RemoveUnit(unit);
+
             else
             {
-                unit.delta = unit.vision * 2;
-
-                //Поиск ближайшего чужого живого танка ******** НЕ ВЕРНО СРАБАТЫВАЕТ ПОИСК ********
+                //Поиск ближайшего чужого живого танка
+                float findDelta, minDelta = unit.vision * 2;
+                
                 foreach (Party party in ListParty)
                     foreach (dynamic findUnit in party.ListUnits)
                         if (unit.color != findUnit.color && findUnit.act != Act.DEAD)
                         {
                             findDelta = unit.Delta(unit.position, findUnit.position);
-                            if (findDelta < unit.delta)
+                            if (findDelta < minDelta)
                             {
-                                unit.delta = findDelta;
+                                minDelta = findDelta;
                                 unit.target = findUnit.position;
                             }
                         }
 
-                //FIND - поиск цели и случайный перекат если ее нет
-                if (unit.delta > unit.vision)
-                {
-                    unit.target.X = unit.position.X + random.Next(-64, 64);
-                    unit.target.Y = unit.position.Y + random.Next(-64, 64);
-                    unit.act = Act.FIND;
-                }
-
-                //MOVE - движемся в направлении цели **********************************************
-                else if (unit.delta > unit.vision / 2 && unit.timeAction < 60)
-                    unit.act = Act.MOVE;
-
-                //FIRE - атака живой цели в зоне поражения ****************************************
-                else if (unit.delta < unit.vision / 2 && unit.timeAction < 60)
+                //FIRE - атака живой цели в зоне поражения
+                if (minDelta < unit.vision)
                     unit.act = Act.FIRE;
 
-                //WAIT - повторяем в случае сбоя
+                //MOVE - движемся в направлении цели
+                else if (minDelta < unit.vision * 2)
+                    unit.act = Act.MOVE;
+
+                //FIND - поиск цели и случайный перекат если ее нет
                 else
-                    unit.act = Act.WAIT;
+                {
+                    unit.target = new PointF(
+                        unit.position.X + random.Next(-128, 128),
+                        unit.position.Y + random.Next(-128, 128));
+
+                    unit.act = Act.FIND;
+                }
             }
         }
 
-        //Процесс движения в случаную точку при отсутствии цели ***********************************
+        //Процесс движения в случаную точку при отсутствии цели
         private void ActFind(dynamic unit)
         {
-            if (unit.delta > unit.speed)
+            if (unit.Delta(unit.position, unit.target) > unit.speed * 16)
                 unit.Move();
             else
                 unit.act = Act.WAIT;
         }
 
-        //Процесс сближения с целью ***************************************************************
+        //Процесс сближения с целью
         private void ActMove(dynamic unit)
         {
-            if (unit.delta > 256 && unit.timeAction < 60)
+            if (unit.Delta(unit.position, unit.target) > unit.vision)
             {
                 unit.vectorTower = unit.Angle(unit.vectorTower, unit.speed * 2);
                 unit.Move();
@@ -115,18 +111,19 @@ namespace Tanks
                 unit.act = Act.WAIT;
         }
 
-        //Процесс атаки танка *********************************************************************
+        //Процесс атаки танка
         private void ActFire(dynamic unit)
         {
-            if (unit.Delta(unit.position, unit.target) < unit.vision && unit.timeAction > 120)
+            if (unit.timeAction < 120)
             {
-                ListShots.NewShot(unit);
-                unit.act = Act.WAIT;
+                unit.timeAction++;
+                unit.vectorTower = unit.Angle(unit.vectorTower, unit.speed * 2);
             }
             else
             {
-                unit.vectorTower = unit.Angle(unit.vectorTower, unit.speed * 2);
-                unit.Move();
+                unit.timeAction = 0;
+                ListShots.NewShot(unit);
+                unit.act = Act.WAIT;
             }
         }
     }
