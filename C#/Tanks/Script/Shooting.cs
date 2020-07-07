@@ -17,9 +17,18 @@ namespace Tanks
                 shot = Shots.ListShot[i];
 
                 shot.Move();
-                if (shot.speed < 2 ||
-                    shot.Delta(shot.position, shot.target) < shot.speed)
+                if (shot.speed < 2 || shot.Delta(shot.position, shot.target) < shot.speed)
+                {
+                    float damageDelta;
+                    foreach (Party party in ListParty)
+                        foreach (dynamic unit in party.ListUnits)
+                        {
+                            damageDelta = unit.Delta(shot.position, unit.position);
+                            if (damageDelta < 64 && unit.life > 0)
+                                unit.life -= 10 / damageDelta;
+                        }
                     Shots.RemoveShot(shot);
+                }
             }
 
             //Перерасчет взрывов
@@ -27,17 +36,9 @@ namespace Tanks
             {
                 bang = Shots.ListBang[i];
 
-                //рассчет дамажа ******** НЕ ВЕРНО РАССЧИТЫВАЕТСЯ ДАМАЖ ********
+                //рассчет дамажа
                 if (bang.timeAction > 96)
-                {
-                    foreach (Party party in ListParty)
-                        foreach (dynamic unit in party.ListUnits)
-                            if (unit.Delta(unit.position, bang.position) < 48 && unit.life > 0)
-                                unit.life -= 10 / unit.Delta(unit.position, unit.target);
-
-                    //удаляем взрыв
                     Shots.RemoveBang(bang);
-                }
                 else
                     //процесс взрыва
                     bang.timeAction += 8;
