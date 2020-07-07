@@ -13,6 +13,7 @@ namespace Tanks
         public Bang(PointF position)
         {
             this.position = position;
+            timeAction = 0;
             Sound.Bang();
         }
 
