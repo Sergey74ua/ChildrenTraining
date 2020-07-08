@@ -28,7 +28,7 @@ namespace Tanks
         {
             //Наименование и полоса жизни ******** в классе Graphics взять метод замера строки ********
             g.TranslateTransform(position.X, position.Y);
-            g.DrawString("= " + act.ToString()  + " - " + target.ToString() + " =", font, solidBrushFont, -20, -42);
+            g.DrawString("= " + id.ToString()  + " - " + act.ToString() + " =", font, solidBrushFont, -20, -42);
             g.DrawLine(penGrn, -line / 2, -26, lifeLine, -26);
             g.DrawLine(penRed, lifeLine, -26, line / 2, -26);
             g.ResetTransform();
