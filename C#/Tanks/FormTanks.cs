@@ -64,5 +64,11 @@ namespace Tanks
             cursor = PointToClient(Cursor.Position);
             game.StepGame(g);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            game = new Game();
+            Refresh();
+        }
     }
 }
