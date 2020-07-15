@@ -27,7 +27,26 @@ namespace Aquarium
         //Рассчет движения
         public PointF Position()
         {
-            deltaX = target.X - position.X;
+			
+			МАТВЕЙ, СПИСЫВАТЬ НИЗЯ!
+
+
+            return position;
+        }
+
+        public Bitmap Rotate()
+        {
+            if (position.X > target.X)
+                bitmap.RotateFlip(RotateFlipType.Rotate180FlipY);
+            else
+                bitmap = bitmap2;
+
+            return bitmap;
+			
+			
+			
+			
+			            deltaX = target.X - position.X;
             deltaY = target.Y - position.Y;
 
             if (Math.Abs(deltaX) > speed && Math.Abs(deltaY) > speed)
@@ -41,18 +60,6 @@ namespace Aquarium
                 target = RandomPosition();
                 bitmap = Rotate();
             }
-
-            return position;
-        }
-
-        public Bitmap Rotate()
-        {
-            if (position.X > target.X)
-                bitmap.RotateFlip(RotateFlipType.Rotate180FlipY);
-            else
-                bitmap = bitmap2;
-
-            return bitmap;
         }
     }
 }
