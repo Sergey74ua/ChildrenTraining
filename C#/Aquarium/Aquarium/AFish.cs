@@ -5,7 +5,7 @@ namespace Aquarium
 {
     abstract class AFish
     {
-        public Bitmap bitmap, bitmap2;
+        public Bitmap bitmap;
         public PointF position;
         public PointF target;
         public float speed;
@@ -14,39 +14,18 @@ namespace Aquarium
         private float deltaX, deltaY, vector;
 
         //Рассчет случайной позиции
-        public PointF RandomPosition()
+        public PointF Target()
         {
-            PointF point = new PointF();
+            target.X = random.Next(50, 1770);
+            target.Y = random.Next(50, 930);
 
-            point.X = random.Next(50, 1770);
-            point.Y = random.Next(50, 930);
-
-            return point;
+            return target;
         }
 
         //Рассчет движения
         public PointF Position()
         {
-			
-			МАТВЕЙ, СПИСЫВАТЬ НИЗЯ!
-
-
-            return position;
-        }
-
-        public Bitmap Rotate()
-        {
-            if (position.X > target.X)
-                bitmap.RotateFlip(RotateFlipType.Rotate180FlipY);
-            else
-                bitmap = bitmap2;
-
-            return bitmap;
-			
-			
-			
-			
-			            deltaX = target.X - position.X;
+            deltaX = target.X - position.X;
             deltaY = target.Y - position.Y;
 
             if (Math.Abs(deltaX) > speed && Math.Abs(deltaY) > speed)
@@ -57,9 +36,21 @@ namespace Aquarium
             }
             else
             {
-                target = RandomPosition();
+                target = Target();
                 bitmap = Rotate();
             }
+
+            return position;
+        }
+
+        //Поворот рыбки в сторону движения
+        public Bitmap Rotate()
+        {
+            bitmap.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+            if (position.X > target.X)
+                bitmap.RotateFlip(RotateFlipType.Rotate180FlipY);
+
+            return bitmap;
         }
     }
 }
