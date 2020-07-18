@@ -9,8 +9,7 @@ namespace Aquarium
         /// </summary>
         public FishBlue()
         {
-            bitmap = bitmap2 = Properties.Resources.FishBlue;
-            bitmap = Rotate();
+            bitmap = Properties.Resources.FishBlue;
             speed = 1.5f;
         }
 
