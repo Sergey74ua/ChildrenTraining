@@ -27,20 +27,30 @@ namespace Aquarium
         private void NewUnit(dynamic fish)
         {
             ListFish.Add(fish);
-            fish.position = RandomPosition();
-            fish.target = RandomPosition();
-            fish.bitmap = fish.Rotate();
+            fish.position = StartPosition();
+            fish.target = fish.Target();
+            fish.bitmap = Rotate(fish);
+        }
+
+        //Поворот рыбки в сторону движения
+        public Bitmap Rotate(dynamic fish)
+        {
+            fish.bitmap.RotateFlip(RotateFlipType.RotateNoneFlipNone);
+            if (fish.position.X > fish.target.X)
+                fish.bitmap.RotateFlip(RotateFlipType.Rotate180FlipY);
+
+            return fish.bitmap;
         }
 
         //Рассчет случайной позиции
-        public PointF RandomPosition()
+        public PointF StartPosition()
         {
-            PointF point = new PointF();
+            PointF position = new PointF();
 
-            point.X = random.Next(50, 1770);
-            point.Y = random.Next(50, 930);
+            position.X = random.Next(50, 1770);
+            position.Y = random.Next(50, 930);
 
-            return point;
+            return position;
         }
 
         //Отрисовка списка рыбок
