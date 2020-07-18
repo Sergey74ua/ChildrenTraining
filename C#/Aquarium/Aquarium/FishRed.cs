@@ -9,8 +9,7 @@ namespace Aquarium
         /// </summary>
         public FishRed()
         {
-            bitmap = bitmap2 = Properties.Resources.horse;
-            bitmap = Rotate();
+            bitmap = Properties.Resources.horse;
             speed = 0.5f;
         }
 
