@@ -9,8 +9,7 @@ namespace Aquarium
         /// </summary>
         public FishGold()
         {
-            bitmap = bitmap2 = Properties.Resources.FishGold;
-            bitmap = Rotate();
+            bitmap = Properties.Resources.FishGold;
             speed = 1.0f;
         }
 
