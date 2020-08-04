@@ -14,6 +14,10 @@ for i in range(10):
     print(i, end=" ")
 print("\n")
 
+for i in "цикл":
+    print(i, end=" ")
+print("\n")
+
 for i in range(100, 111):
     print(i, end=" ")
 print("\n")
