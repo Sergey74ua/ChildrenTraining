@@ -41,4 +41,7 @@ if 15 < x < 25:
     print("сравнение двойного условия", str(x))
 print("")
 
+print(all([True, 123, "abc", ""]))
+print(any([False, 123, "", 0]))
+
 input()
