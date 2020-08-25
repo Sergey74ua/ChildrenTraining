@@ -9,3 +9,6 @@ def plus(x, y):
 
 def minus(x, y):
     return print(x, "минус", y, "равно", x - y)
+    
+# if __name__ == "__main__":
+#     ??????????
