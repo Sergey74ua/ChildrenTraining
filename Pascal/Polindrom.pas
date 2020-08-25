@@ -10,8 +10,7 @@ start:
     a := a+1;
     aZerk := 0;
     temp := a;
-    while temp > 0 do
-    begin
+    while temp > 0 do begin
       aZerk := aZerk*10 + temp mod 10;
       temp := temp div 10;
     end;
