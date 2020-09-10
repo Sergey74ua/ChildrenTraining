@@ -2,17 +2,19 @@ N = input("Введите диапазон номеров: ") # текст дл�
 M = int(input("Сколько всего номеров в списке: ")) # текст для локального запуска
 arr = input("Введите список через пробел: ") # текст для локального запуска
 
-arr = list(map(int, arr.split()))
+arr = list(map(int, arr.split())) #или генератором arr = [int(i) for i in arr.split()]
+
+setArr = set(arr)
 sumN = 0
 maxN = 0
 
-for i in range(M):
-    temp = arr.count(arr[i])
+for i in setArr:
+    temp = arr.count(i)
     if temp > sumN:
         sumN = temp
-        maxN = arr[i]
-    elif temp == sumN and maxN > arr[i]:
-        maxN = arr[i]
+        maxN = i
+    elif temp == sumN and maxN > i:
+        maxN = i
 
 print(maxN, sumN)
 
