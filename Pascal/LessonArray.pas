@@ -1,7 +1,7 @@
 ﻿Program Urok;
 
 var StatArr : array [0..5] of integer;
-    DynArr  : array of integer;
+    DynArr, DynArr2 : array of integer;
 
 Begin
   SetLength(DynArr, 10);
@@ -17,8 +17,13 @@ Begin
   write(StatArr);
   writeln();
   
-  for var i := 0 to DynArr.Length-1 do
+  for var i := 0 to Length(DynArr)-1 do
     DynArr[i] := i*i;
   
   write(DynArr);
+  writeln();
+  
+  DynArr2 := Copy(DynArr);
+  DynArr2[0] := 555;
+  write(DynArr2);
 end.
