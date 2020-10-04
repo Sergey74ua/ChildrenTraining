@@ -25,5 +25,18 @@ Begin
   
   DynArr2 := Copy(DynArr);
   DynArr2[0] := 555;
-  write(DynArr2);
+  writeln(DynArr2);
+  
+  writeln(5.525);
+  writeln(trunc(5.525));
+  
+  writeln(5.525);
+  writeln(round(5.525));
+  
+  writeln(5);
+  writeln(intToStr(5));
+  writeln(floatToStr(5.525));
+  
+  writeln(strToInt('5'));
+  writeln(strToFloat('5'));
 end.
