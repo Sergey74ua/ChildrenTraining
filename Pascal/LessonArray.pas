@@ -31,6 +31,10 @@ Begin
   writeln(trunc(5.525));
   
   writeln(5.525);
+  writeln(frac(5.525)); //дробная часть
+  
+  writeln(5.525);
+  writeln(5.525:0:2); //срез
   writeln(round(5.525));
   
   writeln(5);
