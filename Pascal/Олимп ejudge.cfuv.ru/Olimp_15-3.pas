@@ -1,37 +1,27 @@
 ﻿program p;
-
-var
-    T, N, i, j, max, test : integer;
+var T, N, i, j, max, test : integer;
     arr : array of integer;
-    arrS : array of string;
-
+    msg : string;
 begin
-    readln(T);
-    setLength(arr, T);
-    setLength(arrS, T);
-    
-    for i:=0 to T-1 do
+  readln(T);
+  setLength(arr, T);
+  
+  for i:=0 to T-1 do
+    readln(arr[i]);
+  
+  for i:=0 to T-1 do
+  begin
+    msg := 'NO';
+    max:=trunc(sqrt(arr[i]));
+    for j:=1 to max do
     begin
-      readln(N);
-      arr[i]:=N;
+      test:=arr[i]-j*j;
+      if (test>0) and (frac(sqrt(test))=0) then
+      begin
+        msg := 'YES';
+        break;
+      end;
     end;
-    
-    for i:=0 to T-1 do
-    begin
-        max:=trunc(sqrt(arr[i]));
-        for j:=1 to max do
-        begin
-          test:=arr[i]-j*j;
-          if (test>0) and (frac(sqrt(test))=0) then
-            begin
-              arrS[i] := 'YES';
-              break;
-            end
-          else
-            arrS[i]:='NO';
-        end;
-    end;
-    
-    for i:=0 to T-1 do
-      writeln(arrS[i]);
+    writeln(msg);
+  end;
 end.
