@@ -11,14 +11,13 @@ begin
   
   for i:=0 to T-1 do
   begin
-    msg := 'NO';
-    max:=trunc(sqrt(arr[i]));
-    for j:=1 to max do
+    msg:='NO';
+    for j:=1 to trunc(sqrt(arr[i])) do
     begin
       test:=arr[i]-j*j;
       if (test>0) and (frac(sqrt(test))=0) then
       begin
-        msg := 'YES';
+        msg:='YES';
         break;
       end;
     end;
