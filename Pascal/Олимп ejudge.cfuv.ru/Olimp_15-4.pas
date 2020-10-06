@@ -7,7 +7,7 @@ var N, S, i, j : integer;
 begin
   readln(N);
   setLength(arr1, N+2);
-  for i := 0 to N do
+  for i := 0 to N+1 do
     setLength(arr1[i], N+2);
   setLength(arr2, N);
   for i := 0 to N-1 do
@@ -20,8 +20,8 @@ begin
     readln();
   end;
   
-  for i := 1 to N do
-    for j := 1 to N do
+  for i := 1 to N-1 do
+    for j := 1 to N-1 do
     begin
       S := 0;
       if arr1[i - 1, j - 1] = 'o' then S := S + 1;
@@ -36,9 +36,11 @@ begin
       if (arr1[i, j] = '.') and (S = 3) then
         arr2[i-1, j-1] := 'o'
       else if (arr1[i, j] = 'o') and (S < 2) and (S > 3) then
+        arr2[i-1, j-1] := '.'
+      else
         arr2[i-1, j-1] := '.';
     end;
-  
+    
   for i := 0 to N-1 do
   begin
     for j := 0 to N-1 do
