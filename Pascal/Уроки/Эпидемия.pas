@@ -5,7 +5,7 @@ begin
   boln := 1;
   x := 0;
   
-  while nas > 100 do
+  while nas > 0 do
   begin
     boln := boln * 2;
     dead := boln * 4 div 100;
