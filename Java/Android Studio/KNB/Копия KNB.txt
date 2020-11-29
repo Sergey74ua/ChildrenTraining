@@ -1,0 +1,165 @@
+package com.example.spacezombie;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.Random;
+
+
+public class KNB extends AppCompatActivity {
+
+    // 1 - Объявляем элементы XML (для доступа из всего документа)
+    ImageView imageKam, imageNoj, imageBum, imageViewUser, imageViewComp;
+    TextView textViewKNB, textViewGame, textViewWin, textViewLose, textViewDraw;
+
+    // 2 - Переменные и счетчики
+    int userKNB, randKNB, scoreGame, scoreWin, scoreLose, scoreDraw;
+
+    // 3 - Создание рандомного числа
+    final Random random = new Random();
+
+    // 4 - Звук кнопки
+    final SoundPool soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+
+    // 5 - Основной метод при загрузке экрана
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_knb);
+
+        // 6 - Присваиваем значения объектам кнопок
+        imageKam = findViewById(R.id.imageKam);
+        imageNoj = findViewById(R.id.imageNoj);
+        imageBum = findViewById(R.id.imageBum);
+
+        // 7 - Присваиваем значения объектам картинок выбора и результата
+        imageViewUser = findViewById(R.id.imageViewUser);
+        imageViewComp = findViewById(R.id.imageViewComp);
+        textViewKNB = findViewById(R.id.textViewKNB);
+
+        // 8 - Присваиваем значения объектам счетчиков
+        textViewGame = findViewById(R.id.textViewGame);
+        textViewWin = findViewById(R.id.textViewWin);
+        textViewLose = findViewById(R.id.textViewLose);
+        textViewDraw = findViewById(R.id.textViewDraw);
+
+        // 9 - Загружаем файл звука
+        soundPool.load(this, R.raw.sound, 1);
+
+        // 10 - Оператор выбора действия при нажатой кнопке
+        View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // 11 - Воспроизводим звук
+                soundPool.play(1,1,1,1,0,1);
+
+                // 12 - Обновляем рандомное число
+                randKNB = random.nextInt(3);
+
+                // 13 - Картинка при выборе игрока и эффект нажатия картинки
+                switch (view.getId()){
+                    case R.id.imageKam:
+                        userKNB = 0;
+                        imageKam.setImageResource(R.drawable.kamen_click);
+                        imageNoj.setImageResource(R.drawable.nojnici);
+                        imageBum.setImageResource(R.drawable.bumaga);
+                        imageViewUser.setImageResource(R.drawable.kamen);
+                        break;
+                    case R.id.imageNoj:
+                        userKNB = 1;
+                        imageKam.setImageResource(R.drawable.kamen);
+                        imageNoj.setImageResource(R.drawable.nojnici_click);
+                        imageBum.setImageResource(R.drawable.bumaga);
+                        imageViewUser.setImageResource(R.drawable.nojnici);
+                        break;
+                    case R.id.imageBum:
+                        userKNB = 2;
+                        imageKam.setImageResource(R.drawable.kamen);
+                        imageNoj.setImageResource(R.drawable.nojnici);
+                        imageBum.setImageResource(R.drawable.bumaga_click);
+                        imageViewUser.setImageResource(R.drawable.bumaga);
+                        break;
+                }
+
+                // 14 - Картинка выбора компьютера
+                switch (randKNB){
+                    case 0:
+                        imageViewComp.setImageResource(R.drawable.kamen);
+                        break;
+                    case 1:
+                        imageViewComp.setImageResource(R.drawable.nojnici);
+                        break;
+                    case 2:
+                        imageViewComp.setImageResource(R.drawable.bumaga);
+                        break;
+                }
+
+                // 15 - Определение победителя
+                if (userKNB == randKNB) {
+                    drawKNB();
+                } else if ((userKNB == 0 && randKNB == 1) ||
+                        (userKNB == 1 && randKNB == 2) ||
+                        (userKNB == 2 && randKNB == 0)) {
+                    winKNB();
+                } else {
+                    loseKNB();
+                }
+
+                // 16 - Обновление счетчиков
+                scoreGame++;
+                textViewGame.setText(String.valueOf(scoreGame));
+                textViewWin.setText(String.valueOf(scoreWin));
+                textViewLose.setText(String.valueOf(scoreLose));
+                textViewDraw.setText(String.valueOf(scoreDraw));
+            }
+        };
+
+        // 17 - Назначаем обработчик (слушатель) картинок-кнопок
+        imageKam.setOnClickListener(onClickListener);
+        imageNoj.setOnClickListener(onClickListener);
+        imageBum.setOnClickListener(onClickListener);
+    }
+
+    // 18 - Метод в случае победы
+    public void winKNB() {
+        scoreWin++;
+        textViewKNB.setText(getString(R.string.win));
+        textViewKNB.setTextColor(Color.GREEN);
+    }
+
+    // 19 - Метод в случае поражения
+    public void loseKNB() {
+        scoreLose++;
+        textViewKNB.setText(getString(R.string.lose));
+        textViewKNB.setTextColor(Color.RED);
+    }
+
+    // 20 - Метод в случае ничьи
+    public void drawKNB() {
+        scoreDraw++;
+        textViewKNB.setText(getString(R.string.draw));
+        textViewKNB.setTextColor(Color.BLUE);
+    }
+
+    // 21 - Нажатие кнопки возврат в меню
+    public void Click_2(View view) {
+        Intent intent = new Intent(KNB.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
+
+    // 22 - Кнопка выхода
+    public void Click_Exit(View view) {
+        finish();
+        System.exit(0);
+    }
+}
