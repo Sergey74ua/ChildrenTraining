@@ -1,0 +1,25 @@
+Скрипты:
+    main
+    game
+    menu
+
+Списки:
+    control
+    image
+    sound
+    map
+    ground
+    element
+    unit
+
+Классы:
+    ground
+    element
+    unit
+
+
+События
+Состояния
+Сеть
+Настройки
+Результаты
