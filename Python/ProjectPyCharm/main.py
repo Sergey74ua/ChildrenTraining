@@ -1,4 +1,4 @@
-#
+# pip freeze > requirements.txt
 
 from modules import game
 
