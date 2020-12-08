@@ -1,14 +1,4 @@
-# Установка библиотек:
-# pip install pygame
-# pip install pyside2
-# designer.exe в папках библиотек
-# pyside2-uic in.ui -o out.py
-
-# В gitignore добавляем папку venv
-# Сохраняем список библиотек:
-# pip freeze > requirements.txt
-# Установка библиотек по списку:
-# pip install -r requirements.txt
+# Пример запуска
 
 from modules import game
 
