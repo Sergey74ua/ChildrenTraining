@@ -1,24 +1,33 @@
-#Запуск программ на Python
+# ЗАПУСК КОДА Python:
+# Можно запускать в браузере на сайте https://ideone.com/ и др.
+# Запуск с Visual Studio и других IDE при добавлении компонента Python
+# Запуск с консоли с патчем:
+#   D:\Documents\Program\Python>python HW.py
+# Запуск с консоли без патча:
+#   D:\Documents\Program\Python>"C:\Program Files (x86)\Python38-32\python.exe" HW.py
 
-print("Hello world\n" + "новая строка")
-print(1+2+3+4+5)
+# КОМПИЛЯЦИЯ В EXE
+# Установка компилятора с консоли:
+#   pip install pyinstaller
+# Апгрейд pip если надо:
+#   C:\Users\Администратор>python -m pip install --upgrade pip
+# Компиляция в exe (-f в один файл, -w для графики, -i "путь к иконке" с иконкой):
+#   D:\Documents\Program\Python>pyinstaller -f HWplus.py
 
-summ = 20.0
-if summ > 0:
-    print("сумма = " + str(summ))
-elif summ == 0:
-    print("сумма равна 0")
-else:
-    print("сумма меньше 0")
-print("тест отступа")
+# Установка библиотек:
+#   pip install pygame
+#   pip install pyside2
 
+# Бесплатный дизайн от Qt:
+#   designer.exe в папках библиотек
+# Конвертация файла *.ui в *.py (-x тоже надо):
+#   pyside2-uic in.ui -o out.py
+
+# Чтоб не заливать библиотеки витуальной среды, в .gitignore добавляем папку "venv" (должна быть там по шаблону)
+# Сохраняем список библиотек (для гитхабовцев):
+#   pip freeze > requirements.txt
+# Установка библиотек по списку (создание виртуальной среды для проектов с гитахаба):
+#   pip install -r requirements.txt
+
+print("см. комментарии в редакторе")
 input()
-
-# Запуск с консоли без патча: D:\Documents\Program\Python>"C:\Program Files (x86)\Python38-32\python.exe" HW.py
-# Запуск с консоли с патчем: D:\Documents\Program\Python>python HW.py
-# Запуск в браузере на сайте https://ideone.com/
-# Запуск с Visual Studio при добавлении компонента Python
-
-# Установка компилятора с консоли: pip install pyinstaller
-# Апгрейд pip если надо: C:\Users\Администратор>python -m pip install --upgrade pip
-# Компиляция D:\Documents\Program\Python>pyinstaller -f HWplus.py (-f в один файл, -w для графики, -i "путь к иконке" с иконкой)
