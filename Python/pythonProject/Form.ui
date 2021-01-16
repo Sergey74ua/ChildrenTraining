@@ -68,6 +68,9 @@ QPushButton {
            <bold>true</bold>
           </font>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>POSITION</string>
          </property>
@@ -97,6 +100,13 @@ QPushButton {
             </widget>
            </item>
            <item>
+            <widget class="Line" name="line_x">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLabel" name="pos_X">
              <property name="font">
               <font>
@@ -108,7 +118,7 @@ QPushButton {
               </font>
              </property>
              <property name="text">
-              <string>800</string>
+              <string>x</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -130,6 +140,13 @@ QPushButton {
             </widget>
            </item>
            <item>
+            <widget class="Line" name="line_y">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QLabel" name="pos_Y">
              <property name="font">
               <font>
@@ -141,7 +158,7 @@ QPushButton {
               </font>
              </property>
              <property name="text">
-              <string>500</string>
+              <string>y</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -211,7 +228,7 @@ QPushButton {
             </font>
            </property>
            <property name="text">
-            <string>800</string>
+            <string>...</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -243,6 +260,9 @@ QPushButton {
              <italic>false</italic>
              <bold>true</bold>
             </font>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
             <string> Click</string>
