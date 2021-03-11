@@ -11,8 +11,8 @@
 #   pip install pyinstaller
 # Апгрейд pip если надо:
 #   C:\Users\Администратор>python -m pip install --upgrade pip
-# Компиляция в exe (-f в один файл, -w для графики, -i "путь к иконке" с иконкой):
-#   D:\Documents\Program\Python>pyinstaller -F HWplus.py
+# Компиляция в exe (-F в один файл, -w без консоли, -i "путь к иконке" с иконкой):
+#   D:\Documents\Program\Python>pyinstaller Main.py -F -w -i=icon.ico
 
 # Установка библиотек https://pypi.org/:
 #   pip install pyside2
