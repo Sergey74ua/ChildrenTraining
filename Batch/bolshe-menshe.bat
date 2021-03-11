@@ -2,7 +2,7 @@
 @echo off
 chcp 1251
 title Больше - меньше!
-mode con cols=80 lines=25
+mode con cols=48 lines=16
 color 0a
 set T=Удачи в игре
 :01
