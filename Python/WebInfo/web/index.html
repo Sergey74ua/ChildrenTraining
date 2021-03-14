@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информер</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="eel.js"></script>
+</head>
+<body>
+    <div class="top">
+        <div class="top-left">
+            <img src="img/netscape.png" alt="альтернативный текст" width="70" height="70">
+        </div>
+        <div class="top-left">
+            <h1>Hello world!</h1>
+        </div>
+        <div class="top-right">
+            <p>00:00:00</p>
+        </div>
+    </div>
+    <div class="row">
+        <a onclick="call('np')" class="glow-button">Notepad++</a>
+        <a onclick="call('opera')" class="glow-button">Opera</a>
+        <a onclick="call('exp')" class="glow-button">Проводник</a>
+        <a onclick="call('tc')" class="glow-button">TotalComm</a>
+    </div>
+    <div class="cont">
+        <div class="col-left">
+            <a onclick="call('notepad')" class="glow-button">Блокнот</a>
+            <a onclick="call('calk')" class="glow-button">Калькулятор</a>
+        </div>
+        <div class="col-centre">
+            <input id="input_text" type="text" size="36" placeholder="введите число">
+            <p id="text_out">Hello world!!!</p>
+            <hr>
+            <p id="text_in">Hello world!!!</p>
+        </div>
+        <div class="col-right">
+            <a onclick="input_7()" class="glow-button">Квадрат</a>
+            <a onclick="input_8()" class="glow-button">Корень!</a>
+        </div>
+    </div>
+    <div class="row">
+        <a onclick="call('paint')" class="glow-button">MS Paint</a>
+        <a onclick="call('random')" class="glow-button">Рандом</a>
+        <a onclick="call('time')" class="glow-button">Время</a>
+        <a onclick="call('quit')" class="glow-button">Выход</a>
+    </div>
+</body>
+    <script>
+        //Отправка сообщения по пути: html - JavaScript - Python
+        async function call(msg) {
+            await eel.call_in_js(msg);
+            document.getElementById('text_out').innerHTML = msg;
+        }
+
+        //Прием сообщения по пути: Python - JavaScript - html
+        eel.expose(call_in_python);
+        function call_in_python(msg) {
+            document.getElementById('text_in').innerHTML = msg;
+        }
+
+        //Данные из строки input
+        function input_7() {
+            msg = document.getElementById("input_text").value;
+            call(msg);
+        }
+
+        //Данные из строки input без Python
+        function input_8() {
+            msg = document.getElementById("input_text").value;
+            document.getElementById('text_in').innerHTML = String(Math.sqrt(msg));
+        }
+    </script>
+</html>

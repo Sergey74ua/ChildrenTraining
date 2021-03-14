@@ -1,0 +1,96 @@
+body {
+  background-image: url(img/background.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+hr {
+    border-top: 1px solid red;
+}
+
+input {
+    font-family: Arial Narrow, sans-serif;
+    font-style: italic;
+}
+
+#text_out {
+    font-family: Arial Narrow, sans-serif;
+    color: lightgreen;
+}
+
+#text_in {
+    font-family: Arial Narrow, sans-serif;
+    color: yellow;
+}
+
+/* БЛОКИ */
+.top {
+  height: 20%;
+}
+
+.top-left {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 20px 0px;
+}
+
+.top-right {
+    display: inline-block;
+    padding-right: 26px;
+    float: right;
+    color: MidnightBlue;
+}
+
+.row {
+  text-align: center;
+  height: 20%;
+}
+
+.cont {
+  display: flex;
+  height: 50%;
+}
+
+.col-left {
+  text-align: center;
+  width: 27%;
+}
+
+.col-centre {
+  color: white;
+  padding: 5px;
+  width: 46%;
+}
+
+.col-right {
+  text-align: center;
+  width: 27%;
+}
+
+/* КНОПКИ */
+.glow-button {
+  text-decoration: none;
+  display: inline-block;
+  width: 88px;
+  padding: 15px 30px;
+  margin: 10px 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 40px 40px MidnightBlue inset, 0 0 0 0 MediumBlue;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: white;
+  transition: .15s ease-in-out;
+}
+.glow-button:hover {
+  box-shadow: 0 0 10px 0 MediumBlue inset, 0 0 10px 4px MidnightBlue;
+  color: DeepSkyBlue;
+}
