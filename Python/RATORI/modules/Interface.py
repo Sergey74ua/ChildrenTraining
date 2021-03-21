@@ -11,9 +11,9 @@ class Interface(object):
         # табло очков
         # кнопки управления
 
-    def update(self, e, size):
+    def update(self, hero, size):
         """ Обновление интерфейса """
-        self.minimap.update(e, size)
+        self.minimap.update(hero, size)
 
     def draw(self, g):
         """ Отрисовка интерфейса """

@@ -57,7 +57,7 @@ class Game(object):
 
         self.ground.update(self.size, self.turn, self.speed)
         self.hero.update(self.turn, self.speed)
-        self.interface.update(e, self.size)
+        self.interface.update((self.ground.tile_x, self.ground.tile_y), self.size)
 
     def draw(self, g):
         """ Отрисовка игры """
