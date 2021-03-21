@@ -55,10 +55,11 @@ class Main(object):
                     self.menu.menu_state = not self.menu.menu_state
 
             # Трансляция событий в Меню / Игру
+            size = pg.display.get_window_size()
             if self.menu.menu_state == True:
-                self.menu.update(e)
+                self.menu.update(e, size)
             else:
-                self.game.update(e)
+                self.game.update(e, size)
 
             # Отрисовка Меню / Игры
             if self.menu.menu_state:

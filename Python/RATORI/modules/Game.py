@@ -1,6 +1,7 @@
 import pygame as pg
 from modules.Ground import Ground
 from modules.Hero import Hero
+from modules.Interface import Interface
 
 
 class Game(object):
@@ -12,12 +13,14 @@ class Game(object):
         self.speed = speed
         self.ground = Ground(size)
         self.hero = Hero()
+        self.interface = Interface(size)
         self.hero.rect.center = self.position(size)
         self.turn = 'stop'
 
-    def update(self, e):
+    def update(self, e, size):
         """ Обновление игры """
-        size = pg.display.get_window_size()  # Переразмещаем элементы в окне
+
+        # Переразмещаем элементы в окне
         if self.size != size:
             self.size = size
             self.hero.rect.center = self.position(size)
@@ -52,16 +55,18 @@ class Game(object):
                 #print("Нажата кнопка № ", e.button, " в позиции ", pg.mouse.get_pos())
                 pass
 
-        self.ground.update(self.turn, self.speed)
+        self.ground.update(self.size, self.turn, self.speed)
         self.hero.update(self.turn, self.speed)
+        self.interface.update(e, self.size)
 
     def draw(self, g):
         """ Отрисовка игры """
         g.fill('Grey')
         self.ground.draw(g)
         self.hero.draw(g)
+        self.interface.draw(g)
 
-    def position(self, size):  # РАСШИРИТЬ ДЛЯ ЭЛЕМЕНТОВ УПРАВЛЕНИЯ
+    def position(self, size):  # РАСШИРИТЬ ДЛЯ ПРОЧИХ ПЕРСОНАЖЕЙ
         """ Перерассчет позиций """
         pos_x = size[0] // 2
         pos_y = size[1] // 2

@@ -15,8 +15,14 @@ class Ground(object):
         self.max_y = len(self.terrain.tile_map) * self.rate
         self.tile_x, self.tile_y = self.terrain.start_point
 
-    def update(self, turn, speed):
+    def update(self, size, turn, speed):
         """ Обновление позиции на карте """
+
+        # Перерасчитываем центр
+        if self.size != size:
+            self.size = size
+
+        # Прокрутка карты
         scroll = round(speed/(100/(6-1)))+1  # ДОРАБОТАТЬ
         if turn == 'right_down':
             self.tile_x += scroll
@@ -52,11 +58,7 @@ class Ground(object):
 
     def draw(self, g):
         """ Отрисовка карты """
-        size = pg.display.get_window_size()
-
-        # Переразмещаем центр
-        if self.size != size:
-            self.size = size
+        g.fill('Grey')  # Фон для выхода за предел карты
         g.blit(self.surface, self.rect)
 
     def select(self):
@@ -69,7 +71,7 @@ class Ground(object):
         # Заполняем окно тайлами (желательно обрезать крайние тайлы)
         for y in range(y_top//self.rate, y_bottom//self.rate+1):
             for x in range(x_left//self.rate, x_right//self.rate+1):
-                key = self.terrain.tile_map[y][x]
+                key = self.terrain.tile_map[y][x]  # ОШИБКА за краями карты при расширении экрана
                 tile = self.terrain.tile_atlas[key]
                 self.surface.blit(tile, (x*self.rate-x_left, y*self.rate-y_top, self.rate, self.rate))
                 """

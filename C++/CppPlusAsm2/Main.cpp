@@ -22,6 +22,7 @@ int main()
 
 		mov factorial, eax
 	}
+
 	cout << "факториал: " << factorial << endl;
 	system("pause");
 
