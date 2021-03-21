@@ -52,8 +52,7 @@ class Minimap(object):
         hero_y = self.size[1] - self.rect.height + hero[1] * self.rate // self.terrain.rate
         return hero_x, hero_y
 
-
-    def filling(self):  # ДОДЕЛАТЬ
+    def filling(self):
         """ Заполнение миникарты """
         self.surface.set_alpha(207)
         self.surface.fill('Grey')  # Фон за краями карты
