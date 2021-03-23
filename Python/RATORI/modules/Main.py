@@ -1,5 +1,5 @@
 import pygame as pg
-from modules.Menu import Menu
+from modules.menu.Menu import Menu
 from modules.Game import Game
 
 
