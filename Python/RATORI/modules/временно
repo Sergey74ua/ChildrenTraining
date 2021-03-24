@@ -3,122 +3,36 @@ import json
 from modules.Save import Save
 from modules.Settings import Settings
 
-        self.save = Save()
-        self.s = Settings()
+    self.save = Save()
+    self.s = Settings()
 
-        self.game_version = self.s.options['game_version']
-        self.width = self.s.options['window_width']
-        self.height = self.s.options['window_height']
-        self.fps = self.s.options['window_frequency']
+    self.game_version = self.s.options['game_version']
+    self.width = self.s.options['window_width']
+    self.height = self.s.options['window_height']
+    self.fps = self.s.options['window_frequency']
 
-        self.save.save_game("один", "два", "три")
+    self.save.save_game("один", "два", "три")
 
-        self.save.load_game()
-
-#########################################################
-
-        for e in pg.event.get():
-            if e.type == pg.QUIT:
-                quit()
-            if e.type == pg.MOUSEBUTTONUP and e.button == 1:
-                pg.mixer.music.unpause()
-                #pygame.menu_state = not menu_state
-        """
-            if menu_state:
-            display.set_mode((800, 640), RESIZABLE)
-            game_menu.draw_menu(g)
-        else:
-            display.set_mode((0, 0), FULLSCREEN)
-            obj_OOP.draw(g)
-        """
+    self.save.load_game()
 
 #########################################################
 
-list_ground = sprite.Group()
-for y in range(8):
-    for x in range(8):
-        frame = Ground(room_01[y][x], x, y)
-        list_ground.add(frame)
-
-list_unit = sprite.Group()
-for i in range(5):
-    unit = Unit((i*200, i*100))
-    list_unit.add(unit)
-
-#########################################################
-
-    cat = pygame.image.load("images/cat.gif")
-    pygame.mixer.music.load("sounds/music.mp3")
-    pygame.mixer.music.set_volume(0.2)
-    x = 20
-
-    def draw(self, g):
-        g.fill((31, 31, 63))
-
-        pygame.mixer.music.play(-1)
-        pygame.mixer.music.pause()
-
-        pygame.draw.line(g, 'yellow', (20, 50), (700, 400), 2)
-        pygame.draw.aaline(g, 'white', (30, 80), (750, 280))
-        pygame.draw.aalines(g, 'white', True, [(30, 70), (750, 270), (600, 50), (800, 300)])
-
-        pygame.draw.polygon(g, (240, 127, 15), ((200, 200), (250, 180), (230, 250), (200, 150), (350, 350)), 3)
-        pygame.draw.polygon(g, 'orange', ((500, 500), (550, 480), (530, 550), (500, 450), (650, 650)), 0)
-
-        pygame.draw.circle(g, 'red', (600, 200), 50)
-        pygame.draw.circle(g, 'purple', (620, 280), 50, 2)
-
-        pygame.draw.ellipse(g, 'blue', (410, 350, 280, 100), 1)
-        pygame.draw.arc(g, 'black', (50, 400, 200, 150), 3.14, 6.28, 16)
-
-        g.blit(self.cat, (250, 250))
-
-        font = pygame.font.Font(None, 32)
-        msg = 'Hello world!'
-        text = font.render(msg, True, pygame.Color('gray'))
-        g.blit(text, (350, 50))
-
-        font = pygame.font.SysFont('serif', 48)
-        msg = 'Привет мир'
-        text = font.render(msg, True, pygame.Color('white'))
-        g.blit(text, (350, 80))
-
-        if self.x < 350:
-            self.x += 1
-        pygame.draw.rect(g, 'green', (self.x, self.x, 100, 75))
+    for e in pg.event.get():
+        if e.type == pg.QUIT:
+            quit()
+        if e.type == pg.MOUSEBUTTONUP and e.button == 1:
+            pg.mixer.music.unpause()
+            #pygame.menu_state = not menu_state
+    """
+        if menu_state:
+        display.set_mode((800, 640), RESIZABLE)
+        game_menu.draw_menu(g)
+    else:
+        display.set_mode((0, 0), FULLSCREEN)
+        obj_OOP.draw(g)
+    """
 
 #########################################################
-
-    def TEST(self, pos):
-        """ УЧЕБНАЯ функция проверки наложения курсора и кнопки """
-        if ((pos[0] > self.rect.x) and (pos[0] < self.rect.x+self.rect.width)
-                and (pos[1] > self.rect.y) and (pos[1] < self.rect.y+self.rect.height)):
-            print(pos)
-            print(self.rect)
-            return True  # 1 или что угодно
-        else:
-            return False  # 0
-        """ или проще
-        return ((pos[0] > self.rect.x) and (pos[0] < self.rect.x+self.rect.width)
-                and (pos[1] > self.rect.y) and (pos[1] < self.rect.y+self.rect.height))
-        """
-
-#########################################################
-
-import pygame as pg
-from modules.Ground import Ground
-from modules.Unit import Unit
-
-
-class Game(object):
-
-    def __init__(self):
-        """ Игра """
-        self.game_state = True
-        self.ground = Ground()
-        self.unit = Unit()
-        self.unit.rect.x = 500
-        self.unit.rect.y = 300
 
     def update(self, e):
         """ Обновление игры """
@@ -132,7 +46,7 @@ class Game(object):
 
         if e.type == pg.KEYDOWN and e.key == pg.K_BACKSPACE:  # Клики кнопок клавиатуры (события)
             self.unit.rect.x -= 50
-        '''
+
         if e.type == pg.KEYDOWN:  # Клики кнопок клавиатуры (события) (СБРАСЫВАЮТСЯ ОТ МЫШКИ)
             if e.key == pg.K_RIGHT:
                 self.turn = 'right'
@@ -144,7 +58,6 @@ class Game(object):
                 self.turn = 'down'
         else:
             self.turn = 'stop'
-        '''
 
         keys = pg.key.get_pressed()  # Клики кнопок клавиатуры (список)
         if keys[pg.K_LEFT]:
@@ -161,109 +74,15 @@ class Game(object):
         self.ground.update(e)  # Передача события дочернему объекту
         self.unit.update(e)
 
-    def draw(self, g):
-        """ Отрисовка игры """
-        g.fill('grey')
-        self.ground.draw(g)
-        self.unit.draw(g)
-
 #########################################################
 
-import pygame as pg
+    list_ground = sprite.Group()
+    for y in range(8):
+        for x in range(8):
+            frame = Ground(room_01[y][x], x, y)
+            list_ground.add(frame)
 
-class Unit(pg.sprite.Sprite):
-
-    pg.init()
-
-    _image_ = pg.image.load('images/cat.gif')  # .convert_alpha()  или  .convert()
-    _image_ = pg.transform.scale(_image_, (_image_.get_width() // 2, _image_.get_height() // 2))
-    _image2_ = pg.transform.flip(_image_, True, False)
-    _image_ = pg.transform.rotate(_image_, -30)
-    _sound_ = pg.mixer.Sound('sounds/zombie.mp3')
-
-    # ГЕРОЙ
-    def __init__(self):
-        pg.sprite.Sprite.__init__(self)
-        self.image = self._image_
-        self.rect = self.image.get_rect()
-        self.rect.center = (0, 600)
-        self.sound = self._sound_
-        self.turn = 'right'
-
-    # Обновление героя
-    def update(self, e):
-
-        # Клики кнопок клавиатуры (события)
-        if e.type == pg.KEYDOWN and e.key == pg.K_DELETE:
-            self.rect.y -= 30
-
-        # Независимое обновление объекта
-        if self.rect.x > 1280:
-            self.rect.x = 0
-            pg.mixer.Sound.play(self.sound)
-        else:
-            self.rect.x += 1
-
-        # Лево / право
-        if self.turn == 'right':
-            self.image = self._image_
-        else:
-            self.image = self._image2_
-
-    # Отрисовка героя
-    def draw(self, g):
-        g.blit(self.image, self.rect)
-
-#########################################################
-
-import pygame as pg
-
-class Hero(pg.sprite.Sprite):
-    pg.init()
-
-    _base_image_ = pygame.image.load('images/sprite.gif')
-    _actions_ = ['face', 'right', 'right_down', 'down', 'down_left', 'left', 'left_up', 'up', 'up_right']
-    _rate_ = 36
-
-    list_ground = {}
-    for row in range(8):
-        for col in range(9):
-            rect = (_rate_ * col, _rate_ * row)
-            size = (_rate_, _rate_)
-            image = _base_image_.subsurface(rect, size)
-            key = str(f'{row:0{2}}') + str(f'{col:0{2}}')
-            list_ground[key] = image
-
-    # КАРТА
-    def __init__(self, key, x, y):
-        Sprite.__init__(self)
-        self.rect = (_rate_ * x, _rate_ * y)
-        self.size = (_rate_, _rate_)
-        self.image = list_ground[key]
-
-    def update(self, e):
-        """ Обновление карты """
-        keys = pg.key.get_pressed()  # Клики кнопок клавиатуры (список)
-        if e.type == pg.KEYUP:
-            self.unit.turn = 'face'
-        elif keys[pg.K_RIGHT]:
-            self.unit.turn = 'right'
-        elif keys[pg.K_RIGHT] and keys[pg.K_DOWN]:
-            self.unit.turn = 'right_down'
-        elif keys[pg.K_DOWN]:
-            self.unit.turn = 'down'
-        elif keys[pg.K_DOWN] and keys[pg.K_LEFT]:
-            self.unit.turn = 'down_left'
-        elif keys[pg.K_LEFT]:
-            self.unit.turn = 'left'
-        elif keys[pg.K_LEFT] and keys[pg.K_UP]:
-            self.unit.turn = 'left_up'
-        elif keys[pg.K_UP]:
-            self.unit.turn = 'up'
-        elif keys[pg.K_UP] and keys[pg.K_RIGHT]:
-            self.unit.turn = 'up_right'
-        else:
-            pass
-
-    def draw(self, g):
-        pass
+    list_unit = sprite.Group()
+    for i in range(5):
+        unit = Unit((i*200, i*100))
+        list_unit.add(unit)
