@@ -1,5 +1,5 @@
 import pygame as pg
-from modules.menu.Menu import Menu
+from modules.Menu import Menu
 from modules.Game import Game
 
 
@@ -25,7 +25,14 @@ class Main(object):
 
     def game_cycle(self):
         """ Цикл обновления кадров """
+
+        # ВРЕМЕННО (ДЛЯ УРОКА)
+        #x = self.menu.list_button[6].rect.center[1]
+        x = self.game.ground.terrain.rate
+        print('ТЕСТИРОВАНИЕ: ', x, type(x))
+
         g = pg.display.get_surface()
+
         while self.game.game_state:
 
             # Проверка событий
@@ -78,4 +85,4 @@ class Main(object):
 
     def __del__(self):  # (ДОПИСАТЬ ЗАПРОС НА СОХРАНЕНИЕ ИГРЫ)
         """ Выход из программы """
-        print('выход')
+        pass

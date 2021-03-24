@@ -1,4 +1,4 @@
-from modules.Minimap import Minimap
+from modules.interface.Minimap import Minimap
 
 
 class Interface(object):

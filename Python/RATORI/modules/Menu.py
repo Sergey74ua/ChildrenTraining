@@ -73,7 +73,6 @@ class Menu(object):
         if self.button_action != button_name:
             self.button_action = button_name
             if self.button_action == self.button_name[0]:
-                print('Нажата кнопка: ', self.button_action)
                 self.menu_state = False
             if self.button_action == self.button_name[1]:
                 print('Нажата кнопка: ', self.button_action)
@@ -88,6 +87,5 @@ class Menu(object):
             if self.button_action == self.button_name[6]:
                 print('Нажата кнопка: ', self.button_action)
             if self.button_action == self.button_name[7]:
-                print('Нажата кнопка: ', self.button_action)
                 pg.quit()
                 quit()

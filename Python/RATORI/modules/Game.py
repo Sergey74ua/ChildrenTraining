@@ -1,7 +1,7 @@
 import pygame as pg
-from modules.Ground import Ground
-from modules.Hero import Hero
-from modules.Interface import Interface
+from modules.ground.Ground import Ground
+from modules.unit.Hero import Hero
+from modules.interface.Interface import Interface
 
 
 class Game(object):

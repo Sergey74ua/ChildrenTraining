@@ -1,8 +1,9 @@
 import pygame as pg
-from modules.Terrain import Terrain
+from modules.ground.Terrain import Terrain
 
 
 class Ground(object):
+    """ Участок карты в окне игры """
 
     def __init__(self, size):
         """ Карта """
@@ -11,8 +12,8 @@ class Ground(object):
         self.rect = self.surface.get_rect()
         self.terrain = Terrain()
         self.rate = self.terrain.rate
-        self.max_x = len(self.terrain.tile_map[0]) * self.rate
-        self.max_y = len(self.terrain.tile_map) * self.rate
+        self.max_x = len(self.terrain.map[0]) * self.rate
+        self.max_y = len(self.terrain.map) * self.rate
         self.tile_x, self.tile_y = self.terrain.start_point
 
     def update(self, size, turn, speed):
@@ -71,7 +72,7 @@ class Ground(object):
         # Заполняем окно тайлами (желательно обрезать крайние тайлы)
         for y in range(y_top//self.rate, y_bottom//self.rate+1):
             for x in range(x_left//self.rate, x_right//self.rate+1):
-                key = self.terrain.tile_map[y][x]  # ОШИБКА за краями карты при расширении экрана
+                key = self.terrain.map[y][x]  # ОШИБКА за краями карты при расширении экрана
                 tile = self.terrain.tile_atlas[key]
                 self.surface.blit(tile, (x*self.rate-x_left, y*self.rate-y_top, self.rate, self.rate))
                 """

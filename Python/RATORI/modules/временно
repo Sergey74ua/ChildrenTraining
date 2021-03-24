@@ -15,9 +15,8 @@ from modules.Settings import Settings
 
         self.save.load_game()
 
-
-
 #########################################################
+
         for e in pg.event.get():
             if e.type == pg.QUIT:
                 quit()
@@ -33,18 +32,7 @@ from modules.Settings import Settings
             obj_OOP.draw(g)
         """
 
-
-
 #########################################################
-room_01 = [
-    ['0000', '0000', '0000', '0000', '0000', '0000', '0000', '0000'],
-    ['0101', '0111', '0101', '0101', '0201', '0201', '0208', '0000'],
-    ['0000', '0102', '0100', '0100', '0200', '0200', '0202', '0000'],
-    ['0000', '0102', '0100', '0100', '0200', '0200', '0202', '0000'],
-    ['0000', '0102', '0100', '0100', '0200', '0200', '0202', '0000'],
-    ['0000', '0102', '0100', '0100', '0200', '0200', '0202', '0000'],
-    ['0000', '0110', '0101', '0101', '0201', '0201', '0213', '0201'],
-    ['0000', '0000', '0000', '0000', '0000', '0000', '0000', '0000']]
 
 list_ground = sprite.Group()
 for y in range(8):
@@ -57,9 +45,8 @@ for i in range(5):
     unit = Unit((i*200, i*100))
     list_unit.add(unit)
 
-
-
 #########################################################
+
     cat = pygame.image.load("images/cat.gif")
     pygame.mixer.music.load("sounds/music.mp3")
     pygame.mixer.music.set_volume(0.2)
@@ -100,9 +87,8 @@ for i in range(5):
             self.x += 1
         pygame.draw.rect(g, 'green', (self.x, self.x, 100, 75))
 
-
-
 #########################################################
+
     def TEST(self, pos):
         """ УЧЕБНАЯ функция проверки наложения курсора и кнопки """
         if ((pos[0] > self.rect.x) and (pos[0] < self.rect.x+self.rect.width)
@@ -117,9 +103,8 @@ for i in range(5):
                 and (pos[1] > self.rect.y) and (pos[1] < self.rect.y+self.rect.height))
         """
 
-
-
 #########################################################
+
 import pygame as pg
 from modules.Ground import Ground
 from modules.Unit import Unit
@@ -182,9 +167,8 @@ class Game(object):
         self.ground.draw(g)
         self.unit.draw(g)
 
-
-
 #########################################################
+
 import pygame as pg
 
 class Unit(pg.sprite.Sprite):
@@ -230,9 +214,8 @@ class Unit(pg.sprite.Sprite):
     def draw(self, g):
         g.blit(self.image, self.rect)
 
-
-
 #########################################################
+
 import pygame as pg
 
 class Hero(pg.sprite.Sprite):

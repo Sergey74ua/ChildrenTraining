@@ -1,15 +1,16 @@
 import pygame as pg
-from modules.Terrain import Terrain
+from modules.ground.Terrain import Terrain
 
 
 class Minimap(object):
+    """ Миникарта в игровом окне """
 
     def __init__(self, size):
         """ Миникарта """
         self.size = size
         self.terrain = Terrain()
-        self.count_x = len(self.terrain.tile_map[0])
-        self.count_y = len(self.terrain.tile_map)
+        self.count_x = len(self.terrain.map[0])
+        self.count_y = len(self.terrain.map)
         self.rate = self.terrain.rate
         self.rect = self.calculation()
         self.surface = pg.Surface((self.rect.width, self.rect.height))
@@ -59,6 +60,6 @@ class Minimap(object):
         # Заполняем миникарту минитайлами
         for y in range(self.count_y):
             for x in range(self.count_x):
-                key = self.terrain.tile_map[y][x]
+                key = self.terrain.map[y][x]
                 tile = self.terrain.tile_atlas[key]
                 self.surface.blit(tile, (x * self.rate, y * self.rate, self.rate, self.rate))

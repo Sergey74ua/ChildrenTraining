@@ -1,27 +1,29 @@
 import pygame as pg
-from modules.map import map
+from modules.ground.map import map as _map_
 
 
 class Terrain(object):
-
+    """ Карта игры """
     _atlas_ = pg.image.load('images/sprite.bmp')
     _atlas_.set_colorkey((255, 255, 255))
+    _rate_ = 48
 
     def __init__(self):
         """ Графический атлас (graphic atlas / tile) """
-        self.rate = 48
-        self.tile_map = map
-        self.tile_atlas = self.filling(self.rate)
-        self.start_point = 1536, 768  # ЕСЛИ УЧЕСТЬ СМЕЩЕНИЕ НА СЕРЕДИНУ БЛОКА (1511, 743)
+        self.map = _map_
+        self.rate = self._rate_
+        self.tile_atlas = {}
+        self.tile_atlas = self.filling()
+        self.start_point = 1536, 768  # С учетом смещения на центр блока (1511, 743)
 
-    def filling(self, rate):
+    def filling(self):
         """ Заполняем набор тайлов """
-        tile_atlas = {}
+        rate = self.rate
         for row in range(16):
             for col in range(16):
                 rect = (rate * col, rate * row)
                 size = (rate, rate)
                 image = self._atlas_.subsurface(rect, size)
                 key = str(f'{row:0{2}}') + str(f'{col:0{2}}')
-                tile_atlas[key] = image
-        return tile_atlas
+                self.tile_atlas[key] = image
+        return self.tile_atlas
