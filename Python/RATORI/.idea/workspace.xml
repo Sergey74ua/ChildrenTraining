@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b07b8e-5681-448f-b5bd-ddacbbf86d5c" name="Default Changelist" comment="refactor from PyCharm">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Ground.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ground/Ground.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Hero.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/unit/Hero.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/interface/Interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Minimap.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/interface/Minimap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/Terrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ground/Terrain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ground/map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/menu/Menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Menu.py" afterDir="false" />
+    <list default="true" id="76b07b8e-5681-448f-b5bd-ddacbbf86d5c" name="Default Changelist" comment="by folders">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/временно" beforeDir="false" afterPath="$PROJECT_DIR$/modules/временно" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +78,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616525653994</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="by folders">
+      <created>1616584736273</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616584736273</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,6 +102,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="refactor from PyCharm" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor from PyCharm" />
+    <MESSAGE value="by folders" />
+    <option name="LAST_COMMIT_MESSAGE" value="by folders" />
   </component>
 </project>
