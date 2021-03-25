@@ -18,10 +18,11 @@ class Menu(object):
             self.list_button.append(button)
         self.list_button[6].active = False  # ВРЕМЕННО
 
-    def update(self, e, size):
+    def update(self, e):
         """ Обновление пунктов меню """
 
-        # Переразмещаем кнопки по центру
+        # Переразмещаем кнопки по центру (МОЖНО С  if e.type == pg.VIDEOEXPOSE:)
+        size = pg.display.get_window_size()
         if self.size != size:
             self.size = size
             for i in range(8):

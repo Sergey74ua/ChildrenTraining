@@ -17,10 +17,11 @@ class Game(object):
         self.hero.rect.center = self.position(size)
         self.turn = 'stop'
 
-    def update(self, e, size):
+    def update(self, e):
         """ Обновление игры """
 
         # Переразмещаем элементы в окне
+        size = pg.display.get_window_size()
         if self.size != size:
             self.size = size
             self.hero.rect.center = self.position(size)
@@ -45,16 +46,15 @@ class Game(object):
             self.turn = 'up'
         else:
             self.turn = 'stop'
-
+        """
         # Клики кнопок мышки (события)
         if e.type == pg.MOUSEBUTTONUP:
+            pos = pg.mouse.get_pos()
             if e.button == 1:
-                #print("Нажата кнопка № ", e.button, " в позиции ", pg.mouse.get_pos())
-                pass
-            elif e.button == 2:
-                #print("Нажата кнопка № ", e.button, " в позиции ", pg.mouse.get_pos())
-                pass
-
+                print("Нажата кнопка № ", e.button, " в позиции ", pos)
+            elif e.button == 3:
+                print("Нажата кнопка № ", e.button, " в позиции ", pos)
+        """
         self.ground.update(self.size, self.turn, self.speed)
         self.hero.update(self.turn, self.speed)
         self.interface.update((self.ground.tile_x, self.ground.tile_y), self.size)
