@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b07b8e-5681-448f-b5bd-ddacbbf86d5c" name="Default Changelist" comment="refactor Main">
+    <list default="true" id="76b07b8e-5681-448f-b5bd-ddacbbf86d5c" name="Default Changelist" comment="range atlas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/ground/Ground.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ground/Ground.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/ground/Terrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/ground/Terrain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/interface/Minimap.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/interface/Minimap.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +98,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616665067679</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="range atlas">
+      <created>1616691333772</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1616691333772</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +124,7 @@
     <MESSAGE value="refactor from PyCharm" />
     <MESSAGE value="by folders" />
     <MESSAGE value="refactor Main" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor Main" />
+    <MESSAGE value="range atlas" />
+    <option name="LAST_COMMIT_MESSAGE" value="range atlas" />
   </component>
 </project>

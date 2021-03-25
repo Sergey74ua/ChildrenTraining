@@ -15,6 +15,7 @@ class Minimap(object):
         self.rect = self.calculation()
         self.surface = pg.Surface((self.rect.width, self.rect.height))
         self.hero = self.position(self.terrain.start_point)
+        self.visio = pg.Rect(self.visibility())
         self.filling()
 
     def update(self, hero, size):
@@ -29,11 +30,13 @@ class Minimap(object):
 
         # Обновления позиции персонажа на миникарте
         self.hero = self.position(hero)
+        self.visio = self.visibility()
 
     def draw(self, g):
         """ Отрисовка """
         g.blit(self.surface, self.rect)
         pg.draw.circle(g, 'Blue', self.hero, 5)
+        pg.draw.rect(g, 'Green', self.visio, 1)
         pg.draw.rect(g, 'Black', self.rect, 3)
 
     def calculation(self):
@@ -52,6 +55,15 @@ class Minimap(object):
         hero_x = hero[0] * self.rate // self.terrain.rate
         hero_y = self.size[1] - self.rect.height + hero[1] * self.rate // self.terrain.rate
         return hero_x, hero_y
+
+    def visibility(self):
+        """ Перерасчет зоны видимости на миникарте """
+        width = self.size[0] * self.rate // self.terrain.rate
+        height = self.size[1] * self.rate // self.terrain.rate
+        pos_x = self.hero[0] - width // 2
+        pos_y = self.hero[1] - height // 2
+        return pos_x, pos_y, width, height
+
 
     def filling(self):
         """ Заполнение миникарты """
