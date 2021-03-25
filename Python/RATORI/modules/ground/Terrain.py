@@ -18,12 +18,13 @@ class Terrain(object):
 
     def filling(self):
         """ Заполняем набор тайлов """
+        atlas = self._atlas_
         rate = self.rate
-        for row in range(16):
-            for col in range(16):
+        for row in range(atlas.get_height() // rate):
+            for col in range(atlas.get_width() // rate):
                 rect = (rate * col, rate * row)
                 size = (rate, rate)
-                image = self._atlas_.subsurface(rect, size)
+                image = atlas.subsurface(rect, size)
                 key = str(f'{row:0{2}}') + str(f'{col:0{2}}')
                 self.tile_atlas[key] = image
         return self.tile_atlas

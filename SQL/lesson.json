@@ -1,0 +1,47 @@
+[
+{"type":"header","version":"5.0.4","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"lesson"},
+{"type":"table","name":"orders","database":"lesson","data":
+[
+{"id":"1","order_number":"1","discount":"5","shop_id":"1","person_id":"1","date_time":"2021-03-25 16:08:59"},
+{"id":"2","order_number":"2","discount":"5","shop_id":"2","person_id":"2","date_time":"2021-03-25 16:08:59"},
+{"id":"3","order_number":"3","discount":"5","shop_id":"3","person_id":"3","date_time":"2021-03-25 16:08:59"},
+{"id":"4","order_number":"4","discount":"5","shop_id":"4","person_id":"4","date_time":"2021-03-25 16:08:59"},
+{"id":"5","order_number":"5","discount":"5","shop_id":"5","person_id":"5","date_time":"2021-03-25 16:08:59"},
+{"id":"6","order_number":"6","discount":"5","shop_id":"6","person_id":"6","date_time":"2021-03-25 16:08:59"},
+{"id":"7","order_number":"7","discount":"5","shop_id":"5","person_id":"7","date_time":"2021-03-25 16:08:59"},
+{"id":"8","order_number":"8","discount":"5","shop_id":"4","person_id":"8","date_time":"2021-03-25 16:08:59"},
+{"id":"9","order_number":"9","discount":"5","shop_id":"3","person_id":"9","date_time":"2021-03-25 16:08:59"},
+{"id":"10","order_number":"10","discount":"5","shop_id":"2","person_id":"10","date_time":"2021-03-25 16:08:59"}
+]
+}
+,{"type":"table","name":"people","database":"lesson","data":
+[
+{"id":"1","name":"Сергей","day":"1974-06-05","context":"Тест ввода строки в таблицу"},
+{"id":"2","name":"Тыченахерущенко","day":"2000-01-02","context":null},
+{"id":"3","name":"Тыченахерущенко","day":"1990-02-03","context":null},
+{"id":"4","name":"Вася","day":"1980-06-15","context":"пока ничего"},
+{"id":"5","name":"Туранчекс Таврический","day":"1980-07-15","context":"и тут пока ничего"},
+{"id":"6","name":"Маша","day":"1980-08-15","context":"все еще пока ничего"},
+{"id":"7","name":"Вова","day":"1980-09-15","context":"опять пока ничего"},
+{"id":"8","name":"Агрипина Конесшибченко-Перелюйхатученко","day":"1900-12-31","context":"и опять пока ничего"},
+{"id":"9","name":"Коля","day":"1980-11-15","context":"снова пока ничего"},
+{"id":"10","name":"Архип","day":"1980-12-15","context":"и снова пока ничего"},
+{"id":"11","name":"Прокопий","day":"1980-06-16","context":"и снова опять пока ничего"},
+{"id":"12","name":"Иннокентий","day":"1980-06-17","context":"все еще опять пока ничего"}
+]
+}
+,{"type":"table","name":"shop","database":"lesson","data":
+[
+{"id":"1","title":"iPhone-3","price":"300.000","units":"10"},
+{"id":"2","title":"iPhone-4","price":"300.000","units":"10"},
+{"id":"3","title":"iPhone-5","price":"300.000","units":"10"},
+{"id":"4","title":"iPhone-6","price":"300.000","units":"5"},
+{"id":"5","title":"iPhone-7","price":"300.000","units":"5"},
+{"id":"6","title":"iPhone-8","price":"300.000","units":"5"},
+{"id":"7","title":"iPhone-9","price":"300.000","units":"5"},
+{"id":"8","title":"iPhone-10","price":"300.000","units":"0"},
+{"id":"9","title":"iPhone-11","price":"300.000","units":"0"}
+]
+}
+]

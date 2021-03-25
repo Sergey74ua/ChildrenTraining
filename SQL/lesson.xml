@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.0.4
+- https://www.phpmyadmin.net
+-
+- Хост: 127.0.0.1:3306
+- Время создания: Мар 25 2021 г., 17:42
+- Версия сервера: 10.3.22-MariaDB
+- Версия PHP: 7.3.26
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="lesson" collation="utf8mb4_unicode_ci" charset="utf8mb4">
+            <pma:table name="orders">
+                CREATE TABLE `orders` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `order_number` int(11) DEFAULT NULL,
+                  `discount` int(11) DEFAULT NULL,
+                  `shop_id` int(11) DEFAULT NULL,
+                  `person_id` int(11) DEFAULT NULL,
+                  `date_time` datetime DEFAULT current_timestamp(),
+                  PRIMARY KEY (`id`),
+                  KEY `shop_id` (`shop_id`),
+                  KEY `person_id` (`person_id`),
+                  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `shop` (`id`),
+                  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="people">
+                CREATE TABLE `people` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `name` varchar(48) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                  `day` date NOT NULL,
+                  `context` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="shop">
+                CREATE TABLE `shop` (
+                  `id` int(11) NOT NULL AUTO_INCREMENT,
+                  `title` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                  `price` decimal(20,3) DEFAULT NULL,
+                  `units` varchar(8) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - База данных: 'lesson'
+    -->
+    <database name="lesson">
+        <!-- Таблица orders -->
+        <table name="orders">
+            <column name="id">1</column>
+            <column name="order_number">1</column>
+            <column name="discount">5</column>
+            <column name="shop_id">1</column>
+            <column name="person_id">1</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">2</column>
+            <column name="order_number">2</column>
+            <column name="discount">5</column>
+            <column name="shop_id">2</column>
+            <column name="person_id">2</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">3</column>
+            <column name="order_number">3</column>
+            <column name="discount">5</column>
+            <column name="shop_id">3</column>
+            <column name="person_id">3</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">4</column>
+            <column name="order_number">4</column>
+            <column name="discount">5</column>
+            <column name="shop_id">4</column>
+            <column name="person_id">4</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">5</column>
+            <column name="order_number">5</column>
+            <column name="discount">5</column>
+            <column name="shop_id">5</column>
+            <column name="person_id">5</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">6</column>
+            <column name="order_number">6</column>
+            <column name="discount">5</column>
+            <column name="shop_id">6</column>
+            <column name="person_id">6</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">7</column>
+            <column name="order_number">7</column>
+            <column name="discount">5</column>
+            <column name="shop_id">5</column>
+            <column name="person_id">7</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">8</column>
+            <column name="order_number">8</column>
+            <column name="discount">5</column>
+            <column name="shop_id">4</column>
+            <column name="person_id">8</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">9</column>
+            <column name="order_number">9</column>
+            <column name="discount">5</column>
+            <column name="shop_id">3</column>
+            <column name="person_id">9</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <table name="orders">
+            <column name="id">10</column>
+            <column name="order_number">10</column>
+            <column name="discount">5</column>
+            <column name="shop_id">2</column>
+            <column name="person_id">10</column>
+            <column name="date_time">2021-03-25 16:08:59</column>
+        </table>
+        <!-- Таблица people -->
+        <table name="people">
+            <column name="id">1</column>
+            <column name="name">Сергей</column>
+            <column name="day">1974-06-05</column>
+            <column name="context">Тест ввода строки в таблицу</column>
+        </table>
+        <table name="people">
+            <column name="id">2</column>
+            <column name="name">Тыченахерущенко</column>
+            <column name="day">2000-01-02</column>
+            <column name="context">NULL</column>
+        </table>
+        <table name="people">
+            <column name="id">3</column>
+            <column name="name">Тыченахерущенко</column>
+            <column name="day">1990-02-03</column>
+            <column name="context">NULL</column>
+        </table>
+        <table name="people">
+            <column name="id">4</column>
+            <column name="name">Вася</column>
+            <column name="day">1980-06-15</column>
+            <column name="context">пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">5</column>
+            <column name="name">Туранчекс Таврический</column>
+            <column name="day">1980-07-15</column>
+            <column name="context">и тут пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">6</column>
+            <column name="name">Маша</column>
+            <column name="day">1980-08-15</column>
+            <column name="context">все еще пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">7</column>
+            <column name="name">Вова</column>
+            <column name="day">1980-09-15</column>
+            <column name="context">опять пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">8</column>
+            <column name="name">Агрипина Конесшибченко-Перелюйхатученко</column>
+            <column name="day">1900-12-31</column>
+            <column name="context">и опять пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">9</column>
+            <column name="name">Коля</column>
+            <column name="day">1980-11-15</column>
+            <column name="context">снова пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">10</column>
+            <column name="name">Архип</column>
+            <column name="day">1980-12-15</column>
+            <column name="context">и снова пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">11</column>
+            <column name="name">Прокопий</column>
+            <column name="day">1980-06-16</column>
+            <column name="context">и снова опять пока ничего</column>
+        </table>
+        <table name="people">
+            <column name="id">12</column>
+            <column name="name">Иннокентий</column>
+            <column name="day">1980-06-17</column>
+            <column name="context">все еще опять пока ничего</column>
+        </table>
+        <!-- Таблица shop -->
+        <table name="shop">
+            <column name="id">1</column>
+            <column name="title">iPhone-3</column>
+            <column name="price">300.000</column>
+            <column name="units">10</column>
+        </table>
+        <table name="shop">
+            <column name="id">2</column>
+            <column name="title">iPhone-4</column>
+            <column name="price">300.000</column>
+            <column name="units">10</column>
+        </table>
+        <table name="shop">
+            <column name="id">3</column>
+            <column name="title">iPhone-5</column>
+            <column name="price">300.000</column>
+            <column name="units">10</column>
+        </table>
+        <table name="shop">
+            <column name="id">4</column>
+            <column name="title">iPhone-6</column>
+            <column name="price">300.000</column>
+            <column name="units">5</column>
+        </table>
+        <table name="shop">
+            <column name="id">5</column>
+            <column name="title">iPhone-7</column>
+            <column name="price">300.000</column>
+            <column name="units">5</column>
+        </table>
+        <table name="shop">
+            <column name="id">6</column>
+            <column name="title">iPhone-8</column>
+            <column name="price">300.000</column>
+            <column name="units">5</column>
+        </table>
+        <table name="shop">
+            <column name="id">7</column>
+            <column name="title">iPhone-9</column>
+            <column name="price">300.000</column>
+            <column name="units">5</column>
+        </table>
+        <table name="shop">
+            <column name="id">8</column>
+            <column name="title">iPhone-10</column>
+            <column name="price">300.000</column>
+            <column name="units">0</column>
+        </table>
+        <table name="shop">
+            <column name="id">9</column>
+            <column name="title">iPhone-11</column>
+            <column name="price">300.000</column>
+            <column name="units">0</column>
+        </table>
+    </database>
+</pma_xml_export>
