@@ -9,19 +9,13 @@ class Hero(object):
 
     def __init__(self):
         """ Игровой персонаж (графический атлас) """
-        self.tile_atlas = []
         self.rate = 35 * 2
-        self.step = 0
         self.sound = self._sound_
-        for row in range(8):
-            self.tile_atlas.append([])
-            for col in range(9):
-                rect = (self.rate * col, self.rate * row)
-                size = self.rate, self.rate
-                image = self._atlas_.subsurface(rect, size)
-                self.tile_atlas[row].append(image)
+        self.tile_atlas = []
+        self.tile_atlas = self.filling()
         self.row = 0
         self.col = 0
+        self.step = 0
         self.image = self.tile_atlas[self.row][self.col]
         self.rect = self.image.get_rect()
 
@@ -66,3 +60,14 @@ class Hero(object):
         else:
             self.step += step
         return self.tile_atlas[self.row][self.col]
+
+    def filling(self):
+        """ Заполняем набор тайлов """
+        for row in range(8):
+            self.tile_atlas.append([])
+            for col in range(9):
+                rect = (self.rate * col, self.rate * row)
+                size = self.rate, self.rate
+                image = self._atlas_.subsurface(rect, size)
+                self.tile_atlas[row].append(image)
+        return self.tile_atlas
