@@ -9,7 +9,7 @@ class Hero(object):
 
     def __init__(self):
         """ Игровой персонаж (графический атлас) """
-        self.rate = 35 * 2
+        self.rate = 35 * 2   # ТОЖЕ ВРЕМЕННО
         self.sound = self._sound_
         self.tile_atlas = []
         self.tile_atlas = self.filling()
