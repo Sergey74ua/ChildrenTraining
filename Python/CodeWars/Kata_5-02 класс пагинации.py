@@ -48,6 +48,3 @@ input()
 # helper.page_count() - 3, 'page_count is returning incorrect value.'
 # helper.page_index(23) - 2, 'page_index returned incorrect value'
 # helper.item_count() - 24, 'item_count returned incorrect value'
-
-# более короткий вариант
-# ...
