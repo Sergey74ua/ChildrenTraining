@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b07b8e-5681-448f-b5bd-ddacbbf86d5c" name="Default Changelist" comment="refactor hero">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/unit/Hero.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/unit/Hero.py" afterDir="false" />
-    </list>
+    <list default="true" id="76b07b8e-5681-448f-b5bd-ddacbbf86d5c" name="Default Changelist" comment="refactor hero" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
