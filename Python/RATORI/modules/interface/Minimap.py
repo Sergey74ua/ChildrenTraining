@@ -20,14 +20,12 @@ class Minimap(object):
 
     def update(self, hero, size):
         """ Обновление миникарты """
-
         # Перерасчет размера миникарты
         if self.size != size:
             self.size = size
             self.rect = self.calculation()
             self.surface = pg.Surface((self.rect.width, self.rect.height))
             self.filling()
-
         # Обновления позиции персонажа на миникарте
         self.hero = self.position(hero)
         self.visio = self.visibility()
@@ -64,7 +62,6 @@ class Minimap(object):
         pos_y = self.hero[1] - height // 2
         return pos_x, pos_y, width, height
 
-
     def filling(self):
         """ Заполнение миникарты """
         self.surface.set_alpha(207)
@@ -74,4 +71,5 @@ class Minimap(object):
             for x in range(self.count_x):
                 key = self.terrain.map[y][x]
                 tile = self.terrain.tile_atlas[key]
+                tile = pg.transform.scale(tile, (self.rate, self.rate))
                 self.surface.blit(tile, (x * self.rate, y * self.rate, self.rate, self.rate))
