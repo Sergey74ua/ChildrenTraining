@@ -8,13 +8,15 @@ class Ground(object):
     def __init__(self, size):
         """ Карта """
         self.size = size
-        self.surface = pg.Surface(self.size)  # КАЖЕТСЯ ЛИЧШНИЕ SURFACE
+        self.surface = pg.Surface(self.size)
         self.rect = self.surface.get_rect()
         self.terrain = Terrain()
-        self.rate = self.terrain.rate
-        self.max_x = len(self.terrain.map[0]) * self.rate
-        self.max_y = len(self.terrain.map) * self.rate
+        self.max_x = len(self.terrain.map[0]) * self.terrain.rate
+        self.max_y = len(self.terrain.map) * self.terrain.rate
         self.point_x, self.point_y = self.terrain.start_point
+        # Шрифт кодов тайлов (для редактирования)
+        #pg.font.init()
+        #self.font = pg.font.SysFont('arial', 12, True)
 
     def update(self, size, turn, speed):
         """ Обновление позиции на карте """
@@ -67,7 +69,7 @@ class Ground(object):
 
     def select(self):  # ОШИБКА за краями карты при расширении экрана
         """ Отрисовка фрейма """
-        rate = self.rate
+        rate = self.terrain.rate
 
         # Определяем границы окна
         x_left = self.point_x - self.size[0] // 2
@@ -81,11 +83,8 @@ class Ground(object):
                 key = self.terrain.map[y][x]
                 tile = self.terrain.tile_atlas[key]
                 self.surface.blit(tile, (x * rate - x_left, y * rate - y_top, rate, rate))
-                """
-                # НОМЕРА ТАЙЛОВ (тормозят fps)
-                pg.font.init()
-                font = pg.font.SysFont(None, 14, True)
-                text_button = font.render(str(y)+'-'+str(x), True, 'DarkBlue')
-                text_rect = text_button.get_rect()
-                self.surface.blit(text_button, (x*self.rate-x_left+4, y*self.rate-y_top+16), text_rect)
-                """
+                # Коды тайлов (для редактирования)
+                #text_button = self.font.render(str(y)+'-'+str(x), True, 'DarkBlue')
+                #text_rect = text_button.get_rect()
+                #self.surface.blit(text_button, (x*self.rate-x_left+4, y*self.rate-y_top+16), text_rect)
+

@@ -12,6 +12,7 @@ class Minimap(object):
         self.count_x = len(self.terrain.map[0])
         self.count_y = len(self.terrain.map)
         self.rate = self.terrain.rate
+        self.scale = self.rate
         self.rect = self.calculation()
         self.surface = pg.Surface((self.rect.width, self.rect.height))
         self.hero = self.position(self.terrain.start_point)
@@ -46,18 +47,19 @@ class Minimap(object):
         width = self.count_x * self.rate
         height = self.count_y * self.rate
         rect = pg.Rect(1, self.size[1] - height - 1, width, height)
+        self.scale = self.terrain.rate // self.rate
         return rect
 
     def position(self, hero):
         """ Перерасчет позиции героя """
-        hero_x = hero[0] * self.rate // self.terrain.rate
-        hero_y = self.size[1] - self.rect.height + hero[1] * self.rate // self.terrain.rate
+        hero_x = hero[0] // self.scale
+        hero_y = self.rect[1] + hero[1] // self.scale
         return hero_x, hero_y
 
     def visibility(self):
         """ Перерасчет зоны видимости на миникарте """
-        width = self.size[0] * self.rate // self.terrain.rate
-        height = self.size[1] * self.rate // self.terrain.rate
+        width = self.size[0] // self.scale
+        height = self.size[1] // self.scale
         pos_x = self.hero[0] - width // 2
         pos_y = self.hero[1] - height // 2
         return pos_x, pos_y, width, height
