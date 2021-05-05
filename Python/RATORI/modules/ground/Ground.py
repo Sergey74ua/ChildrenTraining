@@ -29,18 +29,19 @@ class Ground(object):
 
         # Прокрутка карты
         scroll = round(speed/(100/(6-1)))+1  # ДОРАБОТАТЬ
+        scroll_d = round(scroll / 1.4)
         if turn == 'right_down':
-            self.point_x += scroll
-            self.point_y += scroll
+            self.point_x += scroll_d
+            self.point_y += scroll_d
         elif turn == 'left_down':
-            self.point_x -= scroll
-            self.point_y += scroll
+            self.point_x -= scroll_d
+            self.point_y += scroll_d
         elif turn == 'left_up':
-            self.point_x -= scroll
-            self.point_y -= scroll
+            self.point_x -= scroll_d
+            self.point_y -= scroll_d
         elif turn == 'right_up':
-            self.point_x += scroll
-            self.point_y -= scroll
+            self.point_x += scroll_d
+            self.point_y -= scroll_d
         elif turn == 'right':
             self.point_x += scroll
         elif turn == 'down':
