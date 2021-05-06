@@ -12,6 +12,6 @@ class Score(object):
         """ Обновление """
         pass
 
-    def draw(self):
+    def draw(self, g):
         """ Отрисовка """
         pass

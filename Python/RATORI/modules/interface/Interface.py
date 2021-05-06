@@ -9,15 +9,21 @@ class Interface(object):
     def __init__(self, size):
         """ Интерфейс игры """
         self.size = size
+        self.minimap = Minimap(self.size)
         self.life = Life()
         self.score = Score()
         self.control = Control()
-        self.minimap = Minimap(self.size)
 
     def update(self, hero, size):
         """ Обновление интерфейса """
         self.minimap.update(hero, size)
+        self.life.update()
+        self.score.update()
+        self.control.update()
 
     def draw(self, g):
         """ Отрисовка интерфейса """
         self.minimap.draw(g)
+        self.life.draw(g)
+        self.score.draw(g)
+        self.control.draw(g)
