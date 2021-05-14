@@ -1,5 +1,5 @@
 import pygame as pg
-from modules.ground.map_2 import map as _map_
+from modules.ground.map_2 import map, start_point
 
 
 class Terrain(object):
@@ -10,11 +10,11 @@ class Terrain(object):
 
     def __init__(self):
         """ Графический атлас (graphic atlas / tile) """
-        self.map = _map_
+        self.map = map
         self.rate = self._rate_
         self.tile_atlas = {}
         self.tile_atlas = self.filling()
-        self.start_point = 1536, 768  # С учетом смещения на центр блока (1511, 743)
+        self.start_point = start_point
 
     def filling(self):
         """ Заполняем набор тайлов """

@@ -29,6 +29,7 @@ class Ground(object):
 
         # Прокрутка карты
         scroll = round(speed/(100/(6-1)))+1  # ДОРАБОТАТЬ
+        scroll = 12  # ВРЕМЕННО
         scroll_d = round(scroll / 1.4)
         if turn == 'right_down':
             self.point_x += scroll_d
