@@ -1,6 +1,7 @@
 import pygame as pg
 from modules.ground.Ground import Ground
 from modules.unit.Hero import Hero
+from modules.unit.Gangster import Gangster
 from modules.interface.Interface import Interface
 
 
@@ -12,6 +13,7 @@ class Game(object):
         self.size = size
         self.speed = speed
         self.ground = Ground(size)
+        self.gangster = Gangster()
         self.hero = Hero()
         self.interface = Interface(size)
         self.hero.rect.center = self.position(size)
@@ -56,6 +58,7 @@ class Game(object):
                 print("Нажата кнопка № ", e.button, " в позиции ", pos)
         """
         self.ground.update(self.size, self.turn, self.speed)
+        self.gangster.update(self.speed)
         self.hero.update(self.turn, self.speed)
         self.interface.update((self.ground.point_x, self.ground.point_y), self.size)
 
@@ -63,6 +66,7 @@ class Game(object):
         """ Отрисовка игры """
         g.fill('Grey')
         self.ground.draw(g)
+        self.gangster.draw(g)
         self.hero.draw(g)
         self.interface.draw(g)
 
