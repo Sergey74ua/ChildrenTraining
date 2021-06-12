@@ -14,6 +14,9 @@ class Game(object):
         self.speed = speed
         self.ground = Ground(size)
         self.gangster = Gangster()
+        self.gangster2 = Gangster()
+        self.gangster3 = Gangster()
+        self.gangster4 = Gangster()
         self.hero = Hero()
         self.interface = Interface(size)
         self.hero.rect.center = self.position(size)
@@ -58,7 +61,10 @@ class Game(object):
                 print("Нажата кнопка № ", e.button, " в позиции ", pos)
         """
         self.ground.update(self.size, self.turn, self.speed)
-        self.gangster.update(self.speed)
+        self.gangster.update(self.turn, self.speed)
+        self.gangster2.update(self.turn, self.speed)
+        self.gangster3.update(self.turn, self.speed)
+        self.gangster4.update(self.turn, self.speed)
         self.hero.update(self.turn, self.speed)
         self.interface.update((self.ground.point_x, self.ground.point_y), self.size)
 
@@ -67,6 +73,9 @@ class Game(object):
         g.fill('Grey')
         self.ground.draw(g)
         self.gangster.draw(g)
+        self.gangster2.draw(g)
+        self.gangster3.draw(g)
+        self.gangster4.draw(g)
         self.hero.draw(g)
         self.interface.draw(g)
 

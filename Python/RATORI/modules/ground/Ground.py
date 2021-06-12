@@ -29,7 +29,7 @@ class Ground(object):
 
         # Прокрутка карты
         scroll = round(speed/(100/(6-1)))+1  # ДОРАБОТАТЬ
-        scroll = 12  # ВРЕМЕННО
+        scroll = 4  # ВРЕМЕННО
         scroll_d = round(scroll / 1.4)
         if turn == 'right_down':
             self.point_x += scroll_d
@@ -89,4 +89,3 @@ class Ground(object):
                 #text_button = self.font.render(str(y)+'-'+str(x), True, 'DarkBlue')
                 #text_rect = text_button.get_rect()
                 #self.surface.blit(text_button, (x*self.rate-x_left+4, y*self.rate-y_top+16), text_rect)
-
