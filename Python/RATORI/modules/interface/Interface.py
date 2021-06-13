@@ -11,15 +11,15 @@ class Interface(object):
         self.size = size
         self.minimap = Minimap(self.size)
         self.life = Life()
-        self.score = Score()
-        self.control = Control()
+        self.score = Score(size)
+        self.control = Control(size)
 
     def update(self, hero, size):
         """ Обновление интерфейса """
         self.minimap.update(hero, size)
         self.life.update()
-        self.score.update()
-        self.control.update()
+        self.score.update(size)
+        self.control.update(size)
 
     def draw(self, g):
         """ Отрисовка интерфейса """

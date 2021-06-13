@@ -1,5 +1,5 @@
 import pygame as pg
-from random import *
+from random import randint
 
 
 class Gangster(object):

@@ -4,14 +4,19 @@ import pygame as pg
 class Control(object):
     """ Управление игры """
 
-    def __init__(self):
+    def __init__(self, size):
         """ Управление """
-        self.button = None
+        self.size = size
+        self.bullet = 24
+        self.font = pg.font.Font(None, 36)
+        self.text = self.font.render(str(self.bullet), True, 'Black')
 
-    def update(self):
+    def update(self, size):
         """ Обновление """
-        pass
+        size = pg.display.get_window_size()
+        if self.size != size:
+            self.size = size
 
     def draw(self, g):
         """ Отрисовка """
-        pass
+        g.blit(self.text, (self.size[0]-50, self.size[1]-50))
