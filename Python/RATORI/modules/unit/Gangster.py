@@ -1,17 +1,17 @@
 import pygame as pg
-import random
+from random import *
 
 
 class Gangster(object):
     """ Противник """
     pg.init()
     _atlas_ = pg.image.load('images/gangster.png')
-    _atlas_ = pg.transform.scale(_atlas_, (8 * 128, 9 * 104))
+    _atlas_ = pg.transform.scale(_atlas_, (8 * 80, 9 * 65))
 
     def __init__(self):
         """ Персонаж противника """
-        self.rate_x = 128
-        self.rate_y = 104
+        self.rate_x = 80
+        self.rate_y = 65
         self.tile_atlas = []
         self.tile_atlas = self.filling()
         self.row = 6
@@ -19,7 +19,7 @@ class Gangster(object):
         self.step = 0
         self.unit_turn = 8
         self.time_move = 60
-        self.point_x, self.point_y = (200, 200)
+        self.point_x, self.point_y = (randint(400, 600), randint(200, 400))
         self.image = self.tile_atlas[self.row][self.col]
         self.rect = pg.Rect(self.point_x, self.point_y, self.rate_x, self.rate_y)
         self.scroll = 4
@@ -117,7 +117,7 @@ class Gangster(object):
 
     def rand_move(self):
         """ Случайное движение юнита """
-        self.time_move = random.randint(30, 150)
-        self.unit_turn = random.randint(0, 8)
+        self.time_move = randint(30, 150)
+        self.unit_turn = randint(0, 8)
 
         return self.unit_turn
