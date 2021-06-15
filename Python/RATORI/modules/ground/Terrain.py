@@ -20,11 +20,10 @@ class Terrain(object):
         """ Заполняем набор тайлов """
         atlas = self._atlas_
         rate = self.rate
-        size = (rate, rate)
         for row in range(atlas.get_height() // rate):
             for col in range(atlas.get_width() // rate):
                 rect = (rate * col, rate * row)
-                image = atlas.subsurface(rect, size)
+                image = atlas.subsurface(rect, (rate, rate))
                 key = str(f'{row:0{2}}') + str(f'{col:0{2}}')
                 self.tile_atlas[key] = image
         return self.tile_atlas

@@ -49,7 +49,6 @@ class Hero(object):
     def select(self, speed):
         """ Позиция персонажа """
         step = 48*speed/100  # ДОРАБОТАТЬ
-        #print(step)
         if self.step > 32:  # ПОДОГНАТЬ ДЛИНУ ШАГА (16 px *2)
             if self.col > 7:
                 pg.mixer.Sound.play(self.sound)
@@ -63,11 +62,11 @@ class Hero(object):
 
     def filling(self):
         """ Заполняем набор тайлов """
+        size = self.rate, self.rate
         for row in range(8):
             self.tile_atlas.append([])
             for col in range(9):
                 rect = (self.rate * col, self.rate * row)
-                size = self.rate, self.rate
                 image = self._atlas_.subsurface(rect, size)
                 self.tile_atlas[row].append(image)
         return self.tile_atlas
