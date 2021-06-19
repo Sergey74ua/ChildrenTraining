@@ -45,7 +45,7 @@ res = list(map(int, x))
 print(type(res), "тип:", type(res[0]), "на выходе: ", res)
 print()
 
-print(" -= 6. Строка в список чисел =-") # пример для олимпиады 6-1
+print(" -= 6. Строка в список чисел =-")
 x = "1 23 456 7890"
 print("Тип:", type(x), "на входе: ", x)
 res = list(map(int, x.split()))
