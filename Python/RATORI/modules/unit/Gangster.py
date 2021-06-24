@@ -4,16 +4,29 @@ from random import randint
 
 class Gangster(object):
     """ Противник """
-    pg.init()
-    _atlas_ = pg.image.load('images/gangster.png')
-    _atlas_ = pg.transform.scale(_atlas_, (8 * 80, 9 * 65))
 
-    def __init__(self, size):
+    @staticmethod
+    def filling():
+        """ Заполняем набор тайлов """
+        pg.init()
+        atlas = pg.image.load('images/gangster.png')
+        atlas = pg.transform.scale(atlas, (8 * 80, 9 * 65))
+        tile_atlas = []
+        rate_x = 80
+        rate_y = 65
+        for row in range(9):
+            tile_atlas.append([])
+            for col in range(8):
+                rect = (rate_x * col, rate_y * row)
+                image = atlas.subsurface(rect, (rate_x, rate_y))
+                tile_atlas[row].append(image)
+        return tile_atlas
+
+    def __init__(self, size, tile_atlas):
         """ Персонаж противника """
         self.rate_x = 80
         self.rate_y = 65
-        self.tile_atlas = []
-        self.tile_atlas = self.filling()
+        self.tile_atlas = tile_atlas
         self.row = 6
         self.col = 0
         self.step = 0
@@ -51,17 +64,6 @@ class Gangster(object):
         else:
             self.step += step
         return self.tile_atlas[self.row][self.col]
-
-    def filling(self):
-        """ Заполняем набор тайлов """
-        size = self.rate_x, self.rate_y
-        for row in range(9):
-            self.tile_atlas.append([])
-            for col in range(8):
-                rect = (self.rate_x * col, self.rate_y * row)
-                image = self._atlas_.subsurface(rect, size)
-                self.tile_atlas[row].append(image)
-        return self.tile_atlas
 
     def pos_unit(self, turn):
         """ Рассчет позиции юнита """
