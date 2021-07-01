@@ -58,7 +58,7 @@ class Main(object):
             self.menu.menu_state = not self.menu.menu_state
 
         # Полноэкранный режим (ИСПРАВИТЬ ПЕРЕХОД ИЗ ПОЛНОЭКРАННОГО РЕЖИМА)
-        if (e.type == pg.KEYDOWN and e.key == pg.K_F11):
+        if e.type == pg.KEYDOWN and e.key == pg.K_F11:
             if pg.display.get_surface().get_flags() & pg.FULLSCREEN:
                 self.flag = pg.RESIZABLE
             else:
@@ -70,3 +70,17 @@ class Main(object):
         if e.type == pg.QUIT:
             pg.quit()
             quit()
+
+        # Сохранение игры
+        path = "save/save_test"
+        if e.type == pg.KEYDOWN and e.key == pg.K_F4:
+            with open(path, "wb") as file:
+                data = bytearray(self.game)
+                file.write(data)
+                print('сохраняем', path)
+
+        if e.type == pg.KEYDOWN and e.key == pg.K_F5:
+            with open(path, "rb") as file:
+                data = file.read()
+                self.game = list(data)
+            print('загружаем', path)
