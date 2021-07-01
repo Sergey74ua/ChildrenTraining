@@ -1,9 +1,10 @@
 import pygame as pg
 from modules.menu.Button import Button
+from modules.menu.Save import Save
 
 
 class Menu(object):
-    button_name = ['Старт', 'Создать', 'Загурзить', 'Сохранить',
+    button_name = ['Старт', 'Создать', 'Сохранить', 'Загрузить',
                    'Настройки', 'Об игре', 'Вернуться', 'Выход']
 
     def __init__(self, size):
@@ -78,8 +79,12 @@ class Menu(object):
             if self.button_action == self.button_name[1]:
                 print('Нажата кнопка: ', self.button_action)
             if self.button_action == self.button_name[2]:
+                # save = Save()
+                # save.save_game()
                 print('Нажата кнопка: ', self.button_action)
             if self.button_action == self.button_name[3]:
+                # save = Save()
+                # save.load_game()
                 print('Нажата кнопка: ', self.button_action)
             if self.button_action == self.button_name[4]:
                 print('Нажата кнопка: ', self.button_action)

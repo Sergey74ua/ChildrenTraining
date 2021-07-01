@@ -19,18 +19,18 @@ class Units(object):
 
     def update(self, turn, speed):
         """ Обновление юнтов """
-        for i in range(self.count):
-            if self.list_unit[i].time_move < 1:
-                self.list_unit[i].time_move = randint(30, 150)
-                self.list_unit[i].unit_turn = randint(0, 8)
-            self.list_unit[i].time_move -= 1
-            self.list_unit[i].update(turn, speed)
-            self.move_unit(self.list_unit[i])
+        for unit in self.list_unit:
+            if unit.time_move < 1:
+                unit.time_move = randint(30, 150)
+                unit.unit_turn = randint(0, 8)
+            unit.time_move -= 1
+            unit.update(turn, speed)
+            self.move_unit(unit)
 
     def draw(self, g):
         """ Отрисовка юнитов """
-        for i in range(self.count):
-            self.list_unit[i].draw(g)
+        for unit in self.list_unit:
+            unit.draw(g)
 
     def move_unit(self, unit):
         """ Движение юнита """
