@@ -86,3 +86,21 @@ from modules.Settings import Settings
     for i in range(5):
         unit = Unit((i*200, i*100))
         list_unit.add(unit)
+
+############################################################################
+    # Сохранение
+    import pickle
+    path = r'save/save_test.bin'
+    if e.type == pg.KEYDOWN and e.key == pg.K_F4:
+        data = self.game
+        file = open(path, 'wb')
+        pickle.dump(data, file, protocol=pickle.HIGHEST_PROTOCOL)
+        file.close()
+        print('сохраняем', data)
+    # Загрузка
+    if e.type == pg.KEYDOWN and e.key == pg.K_F5:
+        file = open(path, 'rb')
+        data = pickle.load(file)
+        assert data == self.game
+        file.close()
+        print('загружаем', data)

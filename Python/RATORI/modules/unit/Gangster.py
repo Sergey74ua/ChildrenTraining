@@ -48,7 +48,7 @@ class Gangster(object):
             self.col = self.unit_turn
             self.image = self.select(speed)
 
-    def draw(self, g):
+    def draw_unit(self, g):
         """ Отрисовка персонажа """
         g.blit(self.image, self.rect)
 

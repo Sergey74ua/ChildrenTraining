@@ -70,17 +70,3 @@ class Main(object):
         if e.type == pg.QUIT:
             pg.quit()
             quit()
-
-        # Сохранение игры
-        path = "save/save_test"
-        if e.type == pg.KEYDOWN and e.key == pg.K_F4:
-            with open(path, "wb") as file:
-                data = bytearray(self.game)
-                file.write(data)
-                print('сохраняем', path)
-
-        if e.type == pg.KEYDOWN and e.key == pg.K_F5:
-            with open(path, "rb") as file:
-                data = file.read()
-                self.game = list(data)
-            print('загружаем', path)
