@@ -9,6 +9,7 @@ class Units(object):
     def __init__(self, size, count):
         """ Список юнитов """
         tile_atlas = Adapter.filling()
+        self.size = size
         self.list_unit = []
         self.count = count
         for i in range(self.count):
@@ -21,12 +22,14 @@ class Units(object):
         """ Обновление юнтов """
         for unit in self.list_unit:
             if not unit.arrest:
-                if unit.time_move < 1:
+                if unit.rect.collidepoint(self.size[0] // 2, self.size[1] // 2):
+                    unit.arrest = True
+                elif unit.time_move < 1:
                     unit.time_move = randint(30, 150)
                     unit.unit_turn = randint(0, 8)
                 unit.time_move -= 1
+                self.move_unit(unit)
             unit.update(turn, speed)
-            self.move_unit(unit)
 
     def draw(self, g):
         """ Отрисовка юнитов """
