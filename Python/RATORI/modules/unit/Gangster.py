@@ -38,11 +38,14 @@ class Gangster(object):
         self.rect = pg.Rect(self.point_x, self.point_y, self.rate_x, self.rate_y)
         self.scroll = 4
         self.scroll_d = round(self.scroll / 1.4)
+        self.arrest = False
 
     def update(self, turn, speed):
         """ Обновление персонажа """
         self.rect.x, self.rect.y = self.pos_unit(turn)
-        if self.unit_turn == 8:
+        if self.arrest:
+            self.image = self.tile_atlas[8][self.col]
+        elif self.unit_turn == 8:
             self.image = self.tile_atlas[6][0]
         else:
             self.col = self.unit_turn

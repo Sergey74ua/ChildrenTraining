@@ -20,10 +20,11 @@ class Units(object):
     def update(self, turn, speed):
         """ Обновление юнтов """
         for unit in self.list_unit:
-            if unit.time_move < 1:
-                unit.time_move = randint(30, 150)
-                unit.unit_turn = randint(0, 8)
-            unit.time_move -= 1
+            if not unit.arrest:
+                if unit.time_move < 1:
+                    unit.time_move = randint(30, 150)
+                    unit.unit_turn = randint(0, 8)
+                unit.time_move -= 1
             unit.update(turn, speed)
             self.move_unit(unit)
 
