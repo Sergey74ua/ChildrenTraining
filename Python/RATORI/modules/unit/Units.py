@@ -19,6 +19,8 @@ class Units(object):
             self.list_unit.append(unit)
         self.unit_speed = 3
         self.unit_speed_d = 2
+        self.scroll = 4
+        self.scroll_d = round(self.scroll / 1.4)
 
     def update(self, turn, speed):
         """ Обновление юнитов """
@@ -31,11 +33,12 @@ class Units(object):
                     unit.unit_turn = randint(0, 8)
                 unit.time_move -= 1
                 self.move_unit(unit)
-            unit.update(turn, speed)
+            unit.rect.x, unit.rect.y = self.position(turn, unit)
+            unit.update(speed)
 
         for shot in self.list_shot:
-            self.move_unit(shot)
-            shot.update(turn)
+            shot.point_x, shot.point_y = self.position(turn, shot)
+            shot.update()
 
     def draw(self, g):
         """ Отрисовка юнитов """
@@ -44,6 +47,10 @@ class Units(object):
 
         for shot in self.list_shot:
             shot.draw(g)
+
+    def add_shot(self, target):
+        shot = Shot(self.size, target)
+        self.list_shot.append(shot)
 
     def move_unit(self, unit):
         """ Движение юнита """
@@ -70,6 +77,27 @@ class Units(object):
 
         return unit.point_x, unit.point_y
 
-    def add_shot(self, position):
-        shot = Shot(self.size, position)
-        self.list_shot.append(shot)
+    def position(self, turn, unit):
+        """ Рассчет позиции """
+        if turn == 'right_down':
+            unit.point_x -= self.scroll_d
+            unit.point_y -= self.scroll_d
+        elif turn == 'left_down':
+            unit.point_x += self.scroll_d
+            unit.point_y -= self.scroll_d
+        elif turn == 'left_up':
+            unit.point_x += self.scroll_d
+            unit.point_y += self.scroll_d
+        elif turn == 'right_up':
+            unit.point_x -= self.scroll_d
+            unit.point_y += self.scroll_d
+        elif turn == 'right':
+            unit.point_x -= self.scroll
+        elif turn == 'down':
+            unit.point_y -= self.scroll
+        elif turn == 'left':
+            unit.point_x += self.scroll
+        elif turn == 'up':
+            unit.point_y += self.scroll
+
+        return unit.point_x, unit.point_y

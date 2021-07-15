@@ -50,12 +50,12 @@ class Game(object):
             self.turn = 'stop'
 
         # Клики кнопок мышки (события)
-        if e.type == pg.MOUSEBUTTONUP:
-            position = pg.mouse.get_pos()
-            if e.button == 1:
-                self.units.add_shot(position)
-            elif e.button == 3:
-                print("Нажата кнопка № ", e.button, " в позиции ", position)
+        click = pg.mouse.get_pressed(3)
+        if click[0]:
+            target = pg.mouse.get_pos()
+            self.units.add_shot(target)
+        elif click[2]:
+            print("Нажата кнопка № ", e.button, " в позиции ", position)
 
         self.ground.update(self.size, self.turn, self.speed)
         self.units.update(self.turn, self.speed)

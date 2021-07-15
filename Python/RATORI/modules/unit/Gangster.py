@@ -36,13 +36,10 @@ class Gangster(object):
         self.point_y = randint(size[1]//2-size[1]//3, size[1]//2+size[1]//3)
         self.image = self.tile_atlas[self.row][self.col]
         self.rect = pg.Rect(self.point_x, self.point_y, self.rate_x, self.rate_y)
-        self.scroll = 4
-        self.scroll_d = round(self.scroll / 1.4)
         self.arrest = False
 
-    def update(self, turn, speed):
+    def update(self, speed):
         """ Обновление персонажа """
-        self.rect.x, self.rect.y = self.pos_unit(turn)
         if self.arrest:
             self.image = self.tile_atlas[8][self.col]
         elif self.unit_turn == 8:
@@ -68,27 +65,3 @@ class Gangster(object):
         else:
             self.step += step
         return self.tile_atlas[self.row][self.col]
-
-    def pos_unit(self, turn):
-        """ Рассчет позиции юнита """
-        if turn == 'right_down':
-            self.point_x -= self.scroll_d
-            self.point_y -= self.scroll_d
-        elif turn == 'left_down':
-            self.point_x += self.scroll_d
-            self.point_y -= self.scroll_d
-        elif turn == 'left_up':
-            self.point_x += self.scroll_d
-            self.point_y += self.scroll_d
-        elif turn == 'right_up':
-            self.point_x -= self.scroll_d
-            self.point_y += self.scroll_d
-        elif turn == 'right':
-            self.point_x -= self.scroll
-        elif turn == 'down':
-            self.point_y -= self.scroll
-        elif turn == 'left':
-            self.point_x += self.scroll
-        elif turn == 'up':
-            self.point_y += self.scroll
-        return self.point_x, self.point_y

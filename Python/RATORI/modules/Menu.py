@@ -18,7 +18,7 @@ class Menu(object):
             button = Button(btn_pos, self.button_name[i])
             self.list_button.append(button)
         self.list_button[6].active = False  # ВРЕМЕННО
-        self.save = Save()
+        #self.save = Save()
 
     def update(self, e):
         """ Обновление пунктов меню """

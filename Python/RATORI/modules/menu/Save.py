@@ -8,7 +8,7 @@ class Save(object):
     def __init__(self):
         name = self.file_name()
         path = "save/" + name
-        #self.file = shelve.open(path) #############
+        self.file = shelve.open(path)
         self.data = None
 
     def __del__(self):
