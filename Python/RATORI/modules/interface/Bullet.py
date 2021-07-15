@@ -33,7 +33,6 @@ class Bullet(object):
                 pg.mixer.Sound.play(self.sound_reload)
                 self.text = self.font.render('Reload', True, 'Black')
 
-
     def Shot(self):
         self.step = 0
         if self.bullet > 0:

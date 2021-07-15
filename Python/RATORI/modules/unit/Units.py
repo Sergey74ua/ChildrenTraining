@@ -1,6 +1,7 @@
 import pygame as pg
 from random import randint
 from modules.unit.Adapter import Adapter
+from modules.unit.Shot import Shot
 
 
 class Units(object):
@@ -11,6 +12,7 @@ class Units(object):
         tile_atlas = Adapter.filling()
         self.size = size
         self.list_unit = []
+        self.list_shot = []
         self.count = count
         for i in range(self.count):
             unit = Adapter(size, tile_atlas)
@@ -19,7 +21,7 @@ class Units(object):
         self.unit_speed_d = 2
 
     def update(self, turn, speed):
-        """ Обновление юнтов """
+        """ Обновление юнитов """
         for unit in self.list_unit:
             if not unit.arrest:
                 if unit.rect.collidepoint(self.size[0] // 2, self.size[1] // 2):
@@ -31,10 +33,17 @@ class Units(object):
                 self.move_unit(unit)
             unit.update(turn, speed)
 
+        for shot in self.list_shot:
+            self.move_unit(shot)
+            shot.update(turn)
+
     def draw(self, g):
         """ Отрисовка юнитов """
         for unit in self.list_unit:
             unit.draw(g)
+
+        for shot in self.list_shot:
+            shot.draw(g)
 
     def move_unit(self, unit):
         """ Движение юнита """
@@ -60,3 +69,7 @@ class Units(object):
             unit.point_y -= self.unit_speed
 
         return unit.point_x, unit.point_y
+
+    def add_shot(self, position):
+        shot = Shot(self.size, position)
+        self.list_shot.append(shot)
