@@ -1,6 +1,8 @@
 import pygame as pg
 from random import randint
 from modules.unit.Adapter import Adapter
+from modules.unit.Cat import Cat
+from modules.unit.Dog import Dog
 from modules.unit.Shot import Shot
 
 
@@ -10,13 +12,21 @@ class Units(object):
     def __init__(self, size, count):
         """ Список юнитов """
         tile_atlas = Adapter.filling()
+        tile_atlas_cat = Cat.filling()
+        tile_atlas_dog = Dog.filling()
         self.size = size
         self.list_unit = []
+        self.list_pet = []
         self.list_shot = []
         self.count = count
         for i in range(self.count):
             unit = Adapter(size, tile_atlas)
             self.list_unit.append(unit)
+        for i in range(self.count):
+            unit = Cat(size, tile_atlas_cat)
+            self.list_pet.append(unit)
+            unit = Dog(size, tile_atlas_dog)
+            self.list_pet.append(unit)
         self.unit_speed = 3
         self.unit_speed_d = 2
         self.scroll = 4
@@ -33,16 +43,24 @@ class Units(object):
                     unit.unit_turn = randint(0, 8)
                 unit.time_move -= 1
                 self.move_unit(unit)
-            unit.rect.x, unit.rect.y = self.position(turn, unit)
+            unit.rect.x, unit.rect.y = unit.pos_unit(turn)
             unit.update(speed)
 
+        for pet in self.list_pet:
+            pet.point_x, pet.point_y = pet.pos_unit(turn)
+            self.move_unit(pet)
+            pet.update(speed)
+
         for shot in self.list_shot:
-            shot.point_x, shot.point_y = self.position(turn, shot)
+            shot.point_x, shot.point_y = shot.pos_unit(turn)
             shot.update()
 
     def draw(self, g):
         """ Отрисовка юнитов """
         for unit in self.list_unit:
+            unit.draw(g)
+
+        for unit in self.list_pet:
             unit.draw(g)
 
         for shot in self.list_shot:
@@ -74,30 +92,5 @@ class Units(object):
             unit.point_x -= self.unit_speed
         elif unit.unit_turn == 4:
             unit.point_y -= self.unit_speed
-
-        return unit.point_x, unit.point_y
-
-    def position(self, turn, unit):
-        """ Рассчет позиции """
-        if turn == 'right_down':
-            unit.point_x -= self.scroll_d
-            unit.point_y -= self.scroll_d
-        elif turn == 'left_down':
-            unit.point_x += self.scroll_d
-            unit.point_y -= self.scroll_d
-        elif turn == 'left_up':
-            unit.point_x += self.scroll_d
-            unit.point_y += self.scroll_d
-        elif turn == 'right_up':
-            unit.point_x -= self.scroll_d
-            unit.point_y += self.scroll_d
-        elif turn == 'right':
-            unit.point_x -= self.scroll
-        elif turn == 'down':
-            unit.point_y -= self.scroll
-        elif turn == 'left':
-            unit.point_x += self.scroll
-        elif turn == 'up':
-            unit.point_y += self.scroll
 
         return unit.point_x, unit.point_y

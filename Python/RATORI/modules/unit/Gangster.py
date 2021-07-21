@@ -1,8 +1,9 @@
 import pygame as pg
 from random import randint
+from modules.unit.Abstract import Abstract
 
 
-class Gangster(object):
+class Gangster(Abstract):
     """ Противник """
 
     @staticmethod

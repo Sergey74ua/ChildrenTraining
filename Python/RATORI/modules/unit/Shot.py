@@ -1,7 +1,8 @@
 import pygame as pg
+from modules.unit.Abstract import Abstract
 
 
-class Shot(object):
+class Shot(Abstract):
 
     def __init__(self, size, target):
         """ Пуля """

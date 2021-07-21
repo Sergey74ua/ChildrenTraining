@@ -13,7 +13,7 @@ class Game(object):
         self.size = size
         self.speed = speed
         self.ground = Ground(self.size)
-        self.units = Units(self.size, 100)
+        self.units = Units(self.size, 10)
         self.hero = Hero()
         self.interface = Interface(size)
         self.hero.rect.center = self.position(size)
