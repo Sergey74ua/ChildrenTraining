@@ -50,8 +50,12 @@ class Units(object):
             self.move_unit(pet)
             pet.update(speed)
 
-        for shot in self.list_shot:
-            shot.update(turn)
+        for i in range(len(self.list_shot)):
+            if self.list_shot[i].del_time <= 0:
+                del self.list_shot[i]
+                break
+            else:
+                self.list_shot[i].update(turn)
 
         if self.shot_time > 0:
             self.shot_time -= 1

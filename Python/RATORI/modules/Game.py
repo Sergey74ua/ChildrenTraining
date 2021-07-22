@@ -55,7 +55,7 @@ class Game(object):
             #target = pg.mouse.get_pos()
             self.units.add_shot(self.turn)
         elif click[2]:
-            print("Нажата кнопка № ", e.button, " в позиции ", position)
+            print("Нажата кнопка № ", e.button, " в позиции ", click)
 
         self.ground.update(self.size, self.turn, self.speed)
         self.units.update(self.turn, self.speed)
