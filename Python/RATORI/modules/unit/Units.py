@@ -29,8 +29,7 @@ class Units(object):
             self.list_pet.append(unit)
         self.unit_speed = 3
         self.unit_speed_d = 2
-        self.scroll = 4
-        self.scroll_d = round(self.scroll / 1.4)
+        self.shot_time = 60
 
     def update(self, turn, speed):
         """ Обновление юнитов """
@@ -52,8 +51,10 @@ class Units(object):
             pet.update(speed)
 
         for shot in self.list_shot:
-            shot.point_x, shot.point_y = shot.pos_unit(turn)
-            shot.update()
+            shot.update(turn)
+
+        if self.shot_time > 0:
+            self.shot_time -= 1
 
     def draw(self, g):
         """ Отрисовка юнитов """
@@ -66,9 +67,11 @@ class Units(object):
         for shot in self.list_shot:
             shot.draw(g)
 
-    def add_shot(self, target):
-        shot = Shot(self.size, target)
-        self.list_shot.append(shot)
+    def add_shot(self, turn):
+        if self.shot_time <= 0:
+            shot = Shot(self.size, turn)
+            self.list_shot.append(shot)
+            self.shot_time = 30
 
     def move_unit(self, unit):
         """ Движение юнита """
