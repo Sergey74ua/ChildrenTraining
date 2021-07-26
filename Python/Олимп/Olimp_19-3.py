@@ -1,17 +1,17 @@
 N, M = map(int, input().split())
 arr = list(map(int, input().split()))
 
-arr.sort()  # замедляет алгоритм, нужна сортировка при вводе
+arr.sort()
 
 start_counter = 0
 max_counter = 1
 last = 0
 
-for i in arr:
-    if i > last:
+for i in range(N):
+    if arr[i] > last:
         counter = 1
-        last = i
-        start_counter = arr.index(i)
+        last = arr[i]
+        start_counter = i
     else:
         counter += 1
         if counter >= M:

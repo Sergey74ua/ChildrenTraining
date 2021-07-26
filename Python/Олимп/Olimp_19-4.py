@@ -20,6 +20,9 @@ def maximum(arr):
     last = 0
     
     for i in arr:
+        pass
+    
+    for i in arr:
         if i != last:
             counter = 1
             last = i
