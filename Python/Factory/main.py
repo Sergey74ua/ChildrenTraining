@@ -3,19 +3,19 @@ from race import Race
 from factory import Factory
 
 
-f = Factory()
+window = tk.Tk()
+window.title('Фабрика')
+g = tk.Canvas(window, width=480, height=320)
+g.pack()
 
-root = tk.Tk()
-g = tk.Canvas(root, width=400, height=320)
+f = Factory()
 
 for i in Race:
     unit = f.new_unit(i)
-    print('Юнит рассы: ', i, ' с планеты: ', unit.from_planet(), ' на позиции: ', unit.pos)
-    # ГОВНОКОД КАКОЙ-ТО
-    img = tk.PhotoImage(file=unit.file)
-    g.create_image(unit.pos, image=img)
-    label = tk.Label(root, image=img)
-    label.img = img
+    print('Юнит рассы: ', i, ' на позиции: ', unit.pos)
+    file = tk.PhotoImage(file=unit.file)
+    image = tk.Label()
+    i.image = file
+    g.create_image(unit.pos, image=i.image)
 
-g.pack()
-root.mainloop()
+window.mainloop()

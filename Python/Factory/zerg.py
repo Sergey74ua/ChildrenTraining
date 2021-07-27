@@ -3,6 +3,6 @@ from units import Units
 
 class Zerg(Units):
     def __init__(self):
-        super().__init__('Чар')
-        self.file = 'img/z1.gif'
-        self.pos = 200, 100
+        file = 'img/z1.gif'
+        super().__init__(file)
+        self.pos = self.get_pos()
