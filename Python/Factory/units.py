@@ -5,6 +5,7 @@ class Units:
     """Базовый класс"""
     def __init__(self, file):
         self.file = file
+        self.pos = self.get_pos()
 
     @staticmethod
     def get_pos():

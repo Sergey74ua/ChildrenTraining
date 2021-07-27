@@ -1,5 +1,4 @@
 import tkinter as tk
-from race import Race
 from factory import Factory
 
 
@@ -10,7 +9,7 @@ g.pack()
 
 f = Factory()
 
-for i in Race:
+for i in Factory.Race:
     unit = f.new_unit(i)
     print('Юнит рассы: ', i, ' на позиции: ', unit.pos)
     file = tk.PhotoImage(file=unit.file)

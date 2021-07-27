@@ -1,4 +1,4 @@
-from race import Race
+from enum import Enum
 from terran import Terran
 from zerg import Zerg
 from protoss import Protoss
@@ -6,6 +6,13 @@ from protoss import Protoss
 
 class Factory:
     """Фабричный метод"""
+
+    class Race(Enum):
+        """Вложенный класс с перечислением"""
+        TERRAN = 0,
+        ZERG = 1,
+        PROTOSS = 2
+
     factory_dict = {
         Race.TERRAN: Terran,
         Race.ZERG: Zerg,
