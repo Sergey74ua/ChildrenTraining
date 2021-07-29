@@ -9,9 +9,10 @@ g.pack()
 
 f = Factory()
 
-for i in Factory.Race:
+for i in f.Race:
     unit = f.new_unit(i)
-    print('Юнит рассы: ', i, ' на позиции: ', unit.pos)
+    unit.console()
+
     file = tk.PhotoImage(file=unit.file)
     image = tk.Label()
     i.image = file

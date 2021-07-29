@@ -1,5 +1,7 @@
+# НЕРАБОЧИЙ ПРИМЕР
+
 class Creator:
-    """НЕ РАБОЧИЙ ПРИМЕР создателя списка классов"""
+    """Создатель списка классов"""
     def __init__(self):
         self.dict_creator = {}
 
@@ -10,7 +12,7 @@ class Creator:
         new_class = self.dict_creator.get(type_class)
         if not creator:
             raise ValueError(type_class)
-        return new_class()
+        return new_class
 
 # Для клиента
 creator = Creator()
