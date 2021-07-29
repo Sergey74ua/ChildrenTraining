@@ -11,6 +11,7 @@ f = Factory()
 
 
 def new_game():
+    g.delete("all")
     for i in f.Race:
         unit = f.new_unit(i)
         unit.console()
@@ -18,8 +19,8 @@ def new_game():
         file = tk.PhotoImage(file=unit.file)
         i.image = file
         g.create_image(unit.pos, image=i.image)
-
-        g.create_text((unit.pos[0], unit.pos[1]+20), text=unit.pos, fill='lime')
+        g.create_text((unit.pos[0], unit.pos[1] - 36), text=unit.__class__.__name__, font=14, fill='White')
+        g.create_text((unit.pos[0], unit.pos[1] + 32), text=unit.pos, fill='Lime')
 
 
 button = tk.Button(window, text='Обновить', font=16, bg='LightGrey', command=new_game)
