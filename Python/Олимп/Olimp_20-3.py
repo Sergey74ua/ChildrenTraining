@@ -1,9 +1,9 @@
 K = list(map(int, input()))
 
 M = 1
-for i in reversed(K): # 25 = 11/5
-    N = i
-    M = M + N * i
-    
+N = 0
+for i in reversed(K):
+    N, M = M, N
+    M = i * N + M
 
 print(str(M) + '/' + str(N))
