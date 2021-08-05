@@ -1,12 +1,13 @@
 /**
  * Игра "Жизнь"
- * Автор: Сергей Покидько
+ * Сергей Покидько
  * 04 августа ‎2021 ‎г.
  */
 
 
-var canvas=document.getElementById('life'), ctx=canvas.getContext("2d"), width, height, row, col, life;
-var game = true, speed = 250, size = 16;
+var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
+   btn_play = document.getElementById('play'), btn_clear = document.getElementById('clear'),
+   width, height, row, col, life, game = false, focus = false, speed = 100, size = 16;
 
 //Выравнивание canvas по размерам экрана
 onResize();
@@ -33,6 +34,39 @@ function new_arr() {
 };
 arr = new_arr();
 
+//Функция старт/пауза
+function play() {
+   if (game)
+      btn_play.innerHTML = 'pause';
+   else
+      btn_play.innerHTML = 'start';
+};
+
+//Кнопка старт/пауза
+btn_play.onclick=function() {
+   focus = true;
+   game = !game;
+   play();
+};
+
+//Кнопка очистка
+btn_clear.onclick=function() {
+   focus = true;
+   game = false;
+   play();
+   arr = new_arr();
+};
+
+//Отслеживаем клики мышкой
+onclick=function(e) {
+   if (!focus) {
+      let x = Math.floor(e.clientX / size);
+      let y = Math.floor(e.clientY / size);
+      arr[y][x] = !arr[y][x];
+   }
+   focus = false;
+};
+
 //Перерасчет окружения
 function copy_arr(arr) {
    let buffer = []
@@ -44,26 +78,12 @@ function copy_arr(arr) {
    }
    return buffer;
 }
-buffer = copy_arr(arr);
-
-//Отслеживаем клики мышкой
-onclick=function(e) {
-   game = false;
-   let x = Math.floor(e.clientX / size);
-   let y = Math.floor(e.clientY / size);
-   arr[y][x] = !arr[y][x];
-};
-
-//Отслеживаем клавиатуру
-onkeyup=function(){
-   game = !game;
-};
 
 //Перерасчет окружения
 function life_ceil(loc_i, loc_j) {
    life = 0;
-   for (let i = loc_i-1; i < loc_i+2; i++) {
-      for (let j = loc_j-1; j < loc_j+2; j++) {
+   for (let i = loc_i-1; i < loc_i+2; i++) {  // for (let i = ((loc_i-1)+row)%row; i < ((loc_i+2)+row)%row; i++) {
+      for (let j = loc_j-1; j < loc_j+2; j++) {  //   for (let j = ((loc_j-1)+col)%col; j < ((loc_j+2)+col)%col; j++) {
          if (arr[i][j])
             life++;
       }
@@ -77,24 +97,31 @@ function life_ceil(loc_i, loc_j) {
 function update_ceil() {
    buffer = copy_arr(arr);
 
-   for (let i = 1; i < row-1; i++) {
-      for (let j = 1; j < col-1; j++) {
+   let empty = false;
+
+   for (let i = 1; i < row-1; i++) {  //ОБРЕЗАННЫЙ ДИАПАЗОН :(
+      for (let j = 1; j < col-1; j++) {  //ОБРЕЗАННЫЙ ДИАПАЗОН :(
          life = life_ceil(i, j);
-         if (arr[i][j] && life >= 2 && life <= 3)
+         if (arr[i][j] && life >= 2 && life <= 3) {
             buffer[i][j] = true;
-         else if (!arr[i][j] && life == 3)
+            empty = true;
+         } else if (!arr[i][j] && life == 3)
             buffer[i][j] = true;
          else
             buffer[i][j] = false;
          
          /*ctx.beginPath();
          ctx.fillStyle="Red";
-         ctx.font="12pt Arial";
-         ctx.fillText(life, j*size+12, i*size+24);
+         ctx.font="8pt Arial";
+         ctx.fillText(life, j*size+6, i*size+12);
          ctx.closePath();*/
       }
    }
-   
+
+   if (empty == false) {
+      game = false;
+      play();
+   }
    arr = copy_arr(buffer);
 };
 
