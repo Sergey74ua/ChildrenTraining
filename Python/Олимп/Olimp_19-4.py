@@ -4,14 +4,12 @@ arr1 = []
 arr2 = []
 
 for i in range(N):
-    temp_arr = input()
-    count = (i + 1) % 2
-    for j in temp_arr:
-        count += 1
-        if count % 2 == 0:
-            arr1.append(j)
+    arr = input()
+    for j in range(N):
+        if (i + j) % 2 == 0:
+            arr1.append(arr[j])
         else:
-            arr2.append(j)
+            arr2.append(arr[j])
 
 def maximum(arr):
     arr.sort()

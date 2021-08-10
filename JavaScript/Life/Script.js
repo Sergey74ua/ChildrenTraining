@@ -7,7 +7,7 @@
 
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
    btn_play = document.getElementById('play'), btn_clear = document.getElementById('clear'),
-   width, height, row, col, life, game = false, focus = false, speed = 100, size = 16;
+   width, height, row, col, life, game = false, focus = false, speed = 200, size = 16;
 
 //Выравнивание canvas по размерам экрана
 onResize();
