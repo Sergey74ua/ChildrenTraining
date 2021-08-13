@@ -7,7 +7,7 @@
 
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
    btn_play = document.getElementById('play'), btn_clear = document.getElementById('clear'),
-   width, height, row, col, life, game = false, focus = false, speed = 200, size = 16;
+   width, height, row, col, game = false, focus = false, speed = 200, size = 16, center = size/2, arch = 2*Math.PI;
 
 //Выравнивание canvas по размерам экрана
 onResize();
@@ -80,17 +80,17 @@ function copy_arr(arr) {
 }
 
 //Перерасчет окружения
-function life_ceil(loc_i, loc_j) {
-   life = 0;
-   for (let i = loc_i-1; i < loc_i+2; i++) {  // for (let i = ((loc_i-1)+row)%row; i < ((loc_i+2)+row)%row; i++) {
-      for (let j = loc_j-1; j < loc_j+2; j++) {  //   for (let j = ((loc_j-1)+col)%col; j < ((loc_j+2)+col)%col; j++) {
+function near_ceil(pos_i, pos_j) {
+   let near = 0;
+   for (let i = pos_i-1; i < pos_i+2; i++) {
+      for (let j = pos_j-1; j < pos_j+2; j++) {
          if (arr[i][j])
-            life++;
+            near++;
       }
    }
-   if (arr[loc_i][loc_j] && life > 0)
-      life-=1;
-   return life;
+   if (arr[pos_i][pos_j] && near)
+      near-=1;
+   return near;
 };
 
 //Перерасчет клеток
@@ -101,20 +101,20 @@ function update_ceil() {
 
    for (let i = 1; i < row-1; i++) {  //ОБРЕЗАННЫЙ ДИАПАЗОН :(
       for (let j = 1; j < col-1; j++) {  //ОБРЕЗАННЫЙ ДИАПАЗОН :(
-         life = life_ceil(i, j);
-         if (arr[i][j] && life >= 2 && life <= 3) {
+         let near = near_ceil(i, j);
+         if (arr[i][j] && near >= 2 && near <= 3) {
             buffer[i][j] = true;
             empty = true;
-         } else if (!arr[i][j] && life == 3)
+         } else if (!arr[i][j] && near == 3)
             buffer[i][j] = true;
          else
             buffer[i][j] = false;
          
-         /*ctx.beginPath();
+         /* ctx.beginPath();
          ctx.fillStyle="Red";
          ctx.font="8pt Arial";
-         ctx.fillText(life, j*size+6, i*size+12);
-         ctx.closePath();*/
+         ctx.fillText(near, j*size+6, i*size+12);
+         ctx.closePath(); */
       }
    }
 
@@ -127,8 +127,8 @@ function update_ceil() {
 
 //Отрисовка сетки
 function draw_lines() {
-   ctx.lineWidth = 0.25;
-   ctx.strokeStyle='Grey';
+   ctx.lineWidth = 0.5;
+   ctx.strokeStyle='LightBlue';
    //Вертикальные линии
    ctx.beginPath();
    for (let i = 0; i < height; i+=size) {
@@ -149,13 +149,12 @@ function draw_lines() {
 
 //Отрисовка клеток
 function draw_ceil() {
-   let centre = size/2;
    ctx.fillStyle='Black';
    for (let i = 0; i < row; i++) {
       for (let j = 0; j < col; j++) {
          if (arr[i][j]) {
             ctx.beginPath();
-            ctx.arc(j*size+centre, i*size+centre, centre-1, 0, 2*Math.PI, true);
+            ctx.arc(j*size+center, i*size+center, center-1, 0, arch, true);
             ctx.fill();
             ctx.closePath();
          };
