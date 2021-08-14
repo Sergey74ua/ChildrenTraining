@@ -6,7 +6,7 @@
 
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
    btnPlay = document.getElementById('play'), btnClear = document.getElementById('clear'), btnRand = document.getElementById('rand'),
-   game = false, focus = false, speed = 40, size = 8, rnd = 0.61803, center = size/2, arch = 2*Math.PI, radius = center*0.95,
+   game = false, focus = false, speed = 120, size = 16, rnd = 0.61803, center = size/2, arch = 2*Math.PI, radius = center*0.95,
    colBG = 'PapayaWhip', colLine = 'LightBlue', colCell = 'Black',
    //colBG = 'Black', colLine = 'YellowGreen', colCell = 'Lime',
    width, height, row, col;
