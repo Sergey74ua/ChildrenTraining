@@ -6,8 +6,11 @@ html, body {
 }
 
 button{
+    color: maroon;
+    font-weight: bold;
+    width: 5em;
     border-radius: 4px;
-    background-color: Transparent;
+    background-color: rgba(255, 239, 213, .61803);
 }
 
 #buttons{
