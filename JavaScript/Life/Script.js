@@ -5,21 +5,11 @@
  */
 
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
-   btnPlay = document.getElementById('play'), btnClear = document.getElementById('clear'),
-   btnRand = document.getElementById('rand'),
-   game = false, focus = false, speed = 200, size = 16, rnd = 0.61803,
-   center = size/2, radius = center*0.95, arch = 2*Math.PI,
+   btnPlay = document.getElementById('play'), btnClear = document.getElementById('clear'), btnRand = document.getElementById('rand'),
+   game = false, focus = false, speed = 40, size = 8, rnd = 0.61803, center = size/2, arch = 2*Math.PI, radius = center*0.95,
+   colBG = 'PapayaWhip', colLine = 'LightBlue', colCell = 'Black',
+   //colBG = 'Black', colLine = 'YellowGreen', colCell = 'Lime',
    width, height, row, col;
-
-//Аннимационный цикл
-setInterval(() => {
-   ctx.fillStyle = 'PapayaWhip';
-   ctx.fillRect(0, 0, width, height);
-   drawLines();
-   if (game)
-      updateCell();
-   drawCell();
-}, speed)
 
 //Выравнивание canvas по размерам экрана
 window.addEventListener('resize', onResize);
@@ -63,15 +53,24 @@ function btnName() {
       btnPlay.innerHTML = 'start';
 }
 
+//Аннимационный цикл
+setInterval(() => {
+   ctx.fillStyle = colBG;
+   ctx.fillRect(0, 0, width, height);
+   drawLines();
+   if (game)
+      updateCell();
+   drawCell();
+}, speed)
+
 //Очистка массива клеток
 arr = arrNew();
 function arrNew() {
    let arr = [];
    for (let i = 0; i < row; i++) {
       arr[i] = [];
-      for (let j = 0; j < col; j++) {
+      for (let j = 0; j < col; j++)
          arr[i][j] = false;
-      }
    }
    return arr;
 }
@@ -79,11 +78,10 @@ function arrNew() {
 //Рандомное заполнение массива клеток
 function arrRand() {
    arr = arrNew();
-   for (let i = 1; i < row-1; i++) {
+   for (let i = 0; i < row; i++) {
       arr[i] = [];
-      for (let j = 1; j < col-1; j++) {
+      for (let j =0; j < col; j++)
          arr[i][j] = Math.random() >= rnd;
-      }
    }
    return arr;
 }
@@ -101,7 +99,7 @@ onclick = (e) => {
 //Отрисовка сетки
 function drawLines() {
    ctx.lineWidth = 0.5;
-   ctx.strokeStyle='LightBlue';
+   ctx.strokeStyle=colLine;
    //Горизонтальные линии
    ctx.beginPath();
    for (let i = 0; i < height; i+=size) {
@@ -122,39 +120,41 @@ function drawLines() {
 
 //Отрисовка клеток
 function drawCell() {
-   ctx.fillStyle='Black';
-   for (let i = 0; i < row; i++) {
-      for (let j = 0; j < col; j++) {
+   ctx.fillStyle = colCell;
+   for (let i = 0; i < row; i++)
+      for (let j = 0; j < col; j++)
          if (arr[i][j]) {
             ctx.beginPath();
             ctx.arc(j*size+center, i*size+center, radius, 0, arch, true);
             ctx.fill();
             ctx.closePath();
-         };
-		}
-	}
+         }
 }
 
 //Перерасчет клеток
 function updateCell() {
    buffer = arrCopy(arr);
    let empty = false;
+   //Перерасчет середины
    for (let i = 1; i < row-1; i++) {
       for (let j = 1; j < col-1; j++) {
-         let near = nearCell(i, j);
-         if (arr[i][j] && near >= 2 && near <= 3) {
-            buffer[i][j] = true;
-            empty = true;
-         } else if (!arr[i][j] && near == 3)
-            buffer[i][j] = true;
-         else
-            buffer[i][j] = false;
-         //printNear(near, i, j);  //Для тестирования
+         buffer[i][j] = nearCell(i, j);
+         if (!empty)
+            empty = buffer[i][j];
       }
    }
+   //Перерасчет крайних рядов, левый, правый, верхний, нижний
+   for (let i = 0; i < row; i++)
+      buffer[i][0] = nearCellBorder(i, 0);
+   for (let i = 0; i < row; i++)
+      buffer[i][col-1] = nearCellBorder(i, col-1);
+   for (let j = 1; j < col-1; j++)
+      buffer[0][j] = nearCellBorder(0, j);
+   for (let j = 1; j < col-1; j++)
+      buffer[row-1][j] = nearCellBorder(row-1, j);
    //Проверка на отсутствие клеток
    arr = arrCopy(buffer);
-   if (empty == false) {
+   if (!empty) {
       game = false;
       btnName();
    }
@@ -162,40 +162,56 @@ function updateCell() {
 
 //Копирование клеток
 function arrCopy(arr) {
-   let buffer = []
+   let buffer = [];
    for (let i = 0; i < row; i++) {
       buffer[i] = [];
-      for (let j = 0; j < col; j++) {
+      for (let j = 0; j < col; j++)
          buffer[i][j] = arr[i][j];
-      }
    }
    return buffer;
 }
 
 //Проверка окружения
-function nearCell(pos_i, pos_j) {
+function nearCell(i, j) {
    let near = 0;
-   for (let i = pos_i-1; i < pos_i+2; i++) {
-      for (let j = pos_j-1; j < pos_j+2; j++)
-         near+=arr[i][j];
+   for (let iNear = i-1; iNear < i+2; iNear++) {
+      for (let jNear = j-1; jNear < j+2; jNear++)
+         near+=arr[iNear][jNear];
    }
-   if (arr[pos_i][pos_j] && near)
+   if (arr[i][j] && near)
       near-=1;
-   return near;
+   life = getLife(i, j, near);
+   return life;
 }
 
-//Вывод счетчика клеток
-ctx.font = "8pt Arial";
-function printNear(near, i, j) {
-   ctx.beginPath();
-   if (near == 0)
-      ctx.fillStyle = "White";
-   else if (near > 0 && near < 3)
-      ctx.fillStyle = "Blue";
-   else if (near > 2 && near < 5)
-      ctx.fillStyle = "Green";
-   else
-      ctx.fillStyle = "Red";
-   ctx.fillText(near, j*size+size*0.5-4, i*size+size*0.5+4);
-   ctx.closePath();
+//Проверка окружения по краям
+function nearCellBorder(i, j) {
+   let near = 0;
+   for (let iNear = i-1; iNear < i+2; iNear++) {
+      for (let jNear = j-1; jNear < j+2; jNear++) {
+         iBorder = iNear;
+         jBorder = jNear;
+         if (iNear < 0)
+            iBorder = row-1;
+         else if (iNear > row-1)
+            iBorder = 0;
+         if (jNear < 0)
+            jBorder = col-1;
+         else if (jNear > col-1)
+            jBorder = 0;
+         near+=arr[iBorder][jBorder];
+      }
+   }
+   if (arr[i][j] && near)
+      near-=1;
+   life = getLife(i, j, near);
+   return life;
+}
+
+//Логика жизни
+function getLife(i, j, near) {
+   let life = false;
+   if (arr[i][j] && near >= 2 && near <= 3 || !arr[i][j] && near == 3)
+      life = true;
+   return life;
 }
