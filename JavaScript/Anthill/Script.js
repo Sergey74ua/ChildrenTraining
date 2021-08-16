@@ -6,8 +6,7 @@
 
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
    btnPlay = document.getElementById('play'), btnClear = document.getElementById('clear'),
-   width, height, game = false, focus = false, speed = 40, size = 20,
-   posX = 300, posY = 200;
+   width, height, game = false, focus = false, speed = 100;
 
 //Выравнивание canvas по размерам экрана
 onResize();
@@ -24,6 +23,8 @@ onclick=function(e) {
    if (!focus) {
       let x = e.clientX;
       let y = e.clientY;
+      let ant = new Ant(x, y);
+      arr.push(ant);
    }
    focus = false;
 }
@@ -55,8 +56,8 @@ function btnName() {
 arr = arrNew();
 function arrNew() {
    let arr = [];
-   for (let i = 0; i < 10; i++) {
-      let ant = new Ant(300 + i * 50, 200 + i * 30);
+   for (let i = 0; i < 20; i++) {
+      let ant = new Ant(200+i*75, 800);
       arr[i] = ant;
    }
    return arr;
@@ -72,13 +73,11 @@ setInterval(function() {
 //Обновление
 function update() {
    for (let ant of arr) {
-      ant.x += 3;
-      ant.y += 2;
+      ant.update();
    }
 }
 
-//Настройка линий и тени
-ctx.lineWidth = size/5;
+//Настройка тени
 /*ctx.shadowColor = 'black';
 ctx.shadowBlur = 10;
 ctx.shadowOffsetX = 3;
@@ -89,5 +88,5 @@ function draw() {
    ctx.fillStyle = 'darkGreen';
    ctx.fillRect(0, 0, width, height);
    for (let ant of arr)
-      ant.drawAnt();
+      ant.draw();
 }
