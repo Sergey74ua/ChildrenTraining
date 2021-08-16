@@ -63,7 +63,7 @@ setInterval(() => {
    drawCell();
 }, speed)
 
-//Очистка массива клеток
+//Заполнение / очистка массива клеток
 arr = arrNew();
 function arrNew() {
    let arr = [];
@@ -80,7 +80,7 @@ function arrRand() {
    arr = arrNew();
    for (let i = 0; i < row; i++) {
       arr[i] = [];
-      for (let j =0; j < col; j++)
+      for (let j = 0; j < col; j++)
          arr[i][j] = Math.random() >= rnd;
    }
    return arr;
@@ -125,7 +125,7 @@ function drawCell() {
       for (let j = 0; j < col; j++)
          if (arr[i][j]) {
             ctx.beginPath();
-            ctx.arc(j*size+center, i*size+center, radius, 0, arch, true);
+            ctx.arc(j*size+center, i*size+center, radius, 0, arch);
             ctx.fill();
             ctx.closePath();
          }
