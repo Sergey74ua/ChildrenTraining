@@ -42,7 +42,7 @@ btnClear.onclick = () => {
 btnRand.onclick = () => {
    focus = true;
    btnName();
-   arr = arrRand();
+   arr = arrNew(r);
 }
 
 //Функция старт/пауза
@@ -65,23 +65,15 @@ setInterval(() => {
 
 //Заполнение / очистка массива клеток
 arr = arrNew();
-function arrNew() {
+function arrNew(param=0) {
    let arr = [];
    for (let i = 0; i < row; i++) {
       arr[i] = [];
       for (let j = 0; j < col; j++)
-         arr[i][j] = false;
-   }
-   return arr;
-}
-
-//Рандомное заполнение массива клеток
-function arrRand() {
-   arr = arrNew();
-   for (let i = 0; i < row; i++) {
-      arr[i] = [];
-      for (let j = 0; j < col; j++)
-         arr[i][j] = Math.random() >= rnd;
+         if (param != 0)
+            arr[i][j] = Math.random() >= rnd;
+         else
+            arr[i][j] = false;
    }
    return arr;
 }
