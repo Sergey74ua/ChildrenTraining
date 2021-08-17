@@ -42,7 +42,7 @@ btnClear.onclick = () => {
 btnRand.onclick = () => {
    focus = true;
    btnName();
-   arr = arrNew(r);
+   arr = arrNew(1);
 }
 
 //Функция старт/пауза
