@@ -4,89 +4,12 @@
  * 12 августа ‎2021 ‎г.
  */
 
-var canvas=document.getElementById('canvas'), ctx=canvas.getContext("2d"),
-   btnPlay=document.getElementById('play'), btnClear=document.getElementById('clear'),
-   width, height, game=false, focus=false, speed=100;
+//Подключение скриптов/классов
+var listClass=['Action', 'Graphic', 'Ant', 'Game', 'Life'];
 
-//Выравнивание canvas по размерам экрана
-onResize();
-window.addEventListener('resize', onResize);
-function onResize() {
-   width=window.innerWidth;
-   height=window.innerHeight;
-   canvas.width=width;
-   canvas.height=height;
-}
-
-//Отслеживаем клики мышкой
-onclick=function(e) {
-   if (!focus) {
-      let x=e.clientX;
-      let y=e.clientY;
-      let ant=new Ant(x, y);
-      arr.push(ant);
-   }
-   focus=false;
-}
-
-//Кнопка старт/пауза
-btnPlay.onclick=()=>{
-   focus=true;
-   game=!game;
-   btnName();
-}
-
-//Кнопка очистка
-btnClear.onclick=()=>{
-   focus=true;
-   game=false;
-   btnName();
-   arr=arrNew();
-}
-
-//Функция старт/пауза
-function btnName() {
-   if (game)
-      btnPlay.innerHTML='pause';
-   else
-      btnPlay.innerHTML='start';
-}
-
-//Заполнение / очистка массива объектов
-arr = arrNew();
-function arrNew() {
-   let arr=[];
-   for (let i=0; i<60; i++) {
-      let ant=new Ant(50+i*30, 850+Math.random()*50);
-      arr[i]=ant;
-   }
-   return arr;
-}
-
-//Аннимационный цикл
-setInterval(function() {
-   if (game)
-      update();
-   draw();
-}, speed)
-
-//Обновление
-function update() {
-   for (let ant of arr) {
-      ant.update();
-   }
-}
-
-//Настройка тени
-/*ctx.shadowColor='black';
-ctx.shadowBlur=10;
-ctx.shadowOffsetX=3;
-ctx.shadowOffsetY=2;*/
-
-//Отрисовка
-function draw() {
-   ctx.fillStyle='darkGreen';
-   ctx.fillRect(0, 0, width, height);
-   for (let ant of arr)
-      ant.draw();
+for (let name of listClass) {
+   let script=document.createElement('script');
+   script.type='application/javascript';
+   script.src='js/'+name+'.js';
+   document.body.appendChild(script);
 }

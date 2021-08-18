@@ -1,37 +1,50 @@
+//Игра "Муравейник"
+
 class Ant {
     Pi2=2*Math.PI;
     stroke='black';
     fill='saddleBrown';
-    size=5;
+    size=2;
     line=this.size/5;
     
     //Создание муравья
-    constructor(x, y) {
-        this.x=x;
-        this.y=y;
-        this.angle=0.0;
+    constructor(pos) {
+        this.pos = {x: pos.x, y: pos.y};
+        this.angle=Math.random()*this.Pi2;
         this.pose=true;
         this.food=true;
     }
 
     //Обновление
     update() {
-        this.x+=Math.random() * this.size-this.size/2;
-        this.y-=this.size;
-        if (this.y<0)
-            this.y=1000;
+        //Рассчет координат при перемещении
+        if(Math.random() >= 0.9)
+            this.angle+=Math.random()-0.5;
+        let angle=this.angle-Math.PI/2;
+        this.pos.x+=this.size*Math.cos(angle);
+        this.pos.y+=this.size*Math.sin(angle);
+        // ВРЕМЕННО ///////////////////////////////////////////////////////////////
+        if (this.pos.x<3 || this.pos.y<3 || this.pos.x>1917 || this.pos.y>1077)
+            this.angle-=Math.PI;
     }
 
     //Отрисовка
     draw() {
         let Pi2=this.Pi2, size=this.size;
-        let x=this.x, y=this.y, angle=this.angle;
-        if (game)
+        let x=this.pos.x, y=this.pos.y;
+        let angle=this.angle;
+        if (play)
             this.pose=!this.pose;
         let pose = this.pose*size*0.5;
+        //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle=this.stroke;
         ctx.fillStyle=this.fill;
+        //Смена координат для поворота
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.translate(-x, -y);
         //Лапки 1-4
         ctx.beginPath();
         ctx.moveTo(x-size*2.5, y-size*3-pose*2);
@@ -52,13 +65,13 @@ class Ant {
         ctx.closePath();
         //Голова
         ctx.beginPath();
-        ctx.ellipse(x, y-size*2, size*1.25, size, angle, 0, Pi2);
+        ctx.ellipse(x, y-size*2, size*1.25, size, 0, 0, Pi2);
         ctx.fill();
         ctx.stroke();
         ctx.closePath();
         //Брюшко
         ctx.beginPath();
-        ctx.ellipse(x, y+size*3.5, size*1.5, size*2.5, angle, 0, Pi2);
+        ctx.ellipse(x, y+size*3.5, size*1.5, size*2.5, 0, 0, Pi2);
         ctx.fill();
         ctx.stroke();
         ctx.closePath();
@@ -76,5 +89,7 @@ class Ant {
         ctx.lineTo(x+size*1.5-pose*0.5, y-size*4.5);
         ctx.stroke();
         ctx.closePath();
+        //Сброс координат
+        ctx.restore();
     }
  }
