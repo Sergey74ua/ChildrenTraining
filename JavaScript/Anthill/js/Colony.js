@@ -1,13 +1,14 @@
 //Игра "Муравейник"
 
 class Colony {
-    fill='Black';
+    pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
 
     //Игровой фон
-    constructor(color) {
-        this.color=color;
-        this.pos={x: width/2, y: height/2}; //Заменить на генератор разных позиций
+    constructor(i) {
+        this.color=this.getColor(i);
+        this.pos={x: Math.random()*width, y: Math.random()*height};
         this.listAnt=this.listAntFill();
+        this.rad=size*12;
     }
 
     //Обновление
@@ -15,13 +16,16 @@ class Colony {
         ;
     }
 
-    //Отрисовка
+    //Отрисовка муравейника
     draw() {
-        ctx.fillStyle=this.fill;
+        let grad = ctx.createRadialGradient(this.pos.x, this.pos.y, size*2,
+            this.pos.x, this.pos.y, this.rad);
+        grad.addColorStop(0, this.color);
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(x, y, 100, 0, Pi2);
+        ctx.arc(this.pos.x, this.pos.y, this.rad, 0, Pi2);
         ctx.fill();
-        ctx.stroke();
         ctx.closePath();
     }
     
@@ -33,5 +37,15 @@ class Colony {
             listAnt.push(ant);
         }
         return listAnt;
+    }
+    
+    //Цвет колонии
+    getColor(i) {
+        let color;
+        if (i<this.pallet.length)
+            color=this.pallet[i];
+        else
+            color='#'+Math.floor(Math.random()*16777216).toString(16).padStart(6, '0');
+        return color;
     }
 }

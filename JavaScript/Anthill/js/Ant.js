@@ -38,6 +38,10 @@ class Ant {
         ctx.lineWidth=this.line;
         ctx.strokeStyle=this.stroke;
         ctx.fillStyle=this.party;
+        //Тени
+        ctx.shadowBlur=3;
+        ctx.shadowOffsetX=2;
+        ctx.shadowOffsetY=1;
         //Смена координат для поворота
         ctx.save();
         ctx.translate(x, y);
@@ -89,5 +93,8 @@ class Ant {
         ctx.closePath();
         //Сброс координат
         ctx.restore();
+        ctx.shadowBlur=0;
+        ctx.shadowOffsetX=0;
+        ctx.shadowOffsetY=0;
     }
  }
