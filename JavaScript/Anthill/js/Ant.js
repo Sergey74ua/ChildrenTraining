@@ -2,46 +2,42 @@
 
 class Ant {
     //Муравей
-    Pi2=2*Math.PI;
     stroke='Black';
-    fill='SaddleBrown';
-    size=2;
-    line=this.size/5;
-    speed=this.size*2;
+    line=size/5;
+    speed=size*2;
     
     //Создание муравья
-    constructor(pos) {
+    constructor(pos, party) {
+        this.party=party;
         this.pos={x: pos.x, y: pos.y};
-        this.angle=Math.random()*this.Pi2;
+        this.angle=Math.random()*Pi2;
         this.pose=true;
         this.food=true;
     }
 
     //Обновление
     update() {
-        let pos=this.pos, size=this.size*10;
+        let pos=this.pos;
         //Рассчет координат при перемещении
         if(Math.random() >= 0.9)
             this.angle+=Math.random()-0.5;
         let angle=this.angle-Math.PI/2;
         pos.x+=this.speed*Math.cos(angle);
         pos.y+=this.speed*Math.sin(angle);
-        if (pos.x<size || pos.y<size || pos.x>width-size || pos.y>height-size)
-            this.angle=(this.angle+Math.PI)%this.Pi2;
+        if (pos.x<0 || pos.y<0 || pos.x>width || pos.y>height)
+            this.angle=(this.angle+Math.PI)%Pi2;
     }
 
     //Отрисовка
     draw() {
-        let Pi2=this.Pi2, size=this.size;
-        let x=this.pos.x, y=this.pos.y;
-        let angle=this.angle;
+        let x=this.pos.x, y=this.pos.y, angle=this.angle;
         if (play)
             this.pose=!this.pose;
         let pose = this.pose*size*0.5;
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle=this.stroke;
-        ctx.fillStyle=this.fill;
+        ctx.fillStyle=this.party;
         //Смена координат для поворота
         ctx.save();
         ctx.translate(x, y);

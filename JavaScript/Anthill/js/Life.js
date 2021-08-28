@@ -2,7 +2,8 @@
 
 var canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d'), 
    btnPlay=document.getElementById('play'), btnClear=document.getElementById('clear'),
-   game, width, height, play=false, focus=false, speed=100, shadow=true;
+   width, height, play=false, focus=false, fps=100, shadow=true, Pi2=2*Math.PI,
+   game, numColony=6, population=4, size=2;
 
 //Запускаем игру после загрузки
 window.onload=() => {
@@ -20,7 +21,7 @@ function onResize() {
 
    //Настройка тени
    if (shadow) {
-      ctx.shadowColor='black';
+      ctx.shadowColor='Black';
       ctx.shadowBlur=3;
       ctx.shadowOffsetX=2;
       ctx.shadowOffsetY=1;
@@ -32,13 +33,13 @@ setInterval(() => {
    if (play)
       game.update();
    game.draw();
-}, speed)
+}, fps)
 
 //Отслеживае кликов мышки
 onclick=(e) => {
    if (!focus) {
-      let pos = {x: e.clientX, y: e.clientY};
-      game.newAnt(pos);
+      let pos={x: e.clientX, y: e.clientY};
+      game.newFood(pos);
    }
    focus=false;
 }
