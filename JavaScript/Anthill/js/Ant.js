@@ -1,15 +1,17 @@
 //Игра "Муравейник"
 
 class Ant {
+    //Муравей
     Pi2=2*Math.PI;
-    stroke='black';
-    fill='saddleBrown';
+    stroke='Black';
+    fill='SaddleBrown';
     size=2;
     line=this.size/5;
+    speed=this.size*2;
     
     //Создание муравья
     constructor(pos) {
-        this.pos = {x: pos.x, y: pos.y};
+        this.pos={x: pos.x, y: pos.y};
         this.angle=Math.random()*this.Pi2;
         this.pose=true;
         this.food=true;
@@ -17,15 +19,15 @@ class Ant {
 
     //Обновление
     update() {
+        let pos=this.pos, size=this.size*10;
         //Рассчет координат при перемещении
         if(Math.random() >= 0.9)
             this.angle+=Math.random()-0.5;
         let angle=this.angle-Math.PI/2;
-        this.pos.x+=this.size*Math.cos(angle);
-        this.pos.y+=this.size*Math.sin(angle);
-        // ВРЕМЕННО ///////////////////////////////////////////////////////////////
-        if (this.pos.x<3 || this.pos.y<3 || this.pos.x>1917 || this.pos.y>1077)
-            this.angle-=Math.PI;
+        pos.x+=this.speed*Math.cos(angle);
+        pos.y+=this.speed*Math.sin(angle);
+        if (pos.x<size || pos.y<size || pos.x>width-size || pos.y>height-size)
+            this.angle=(this.angle+Math.PI)%this.Pi2;
     }
 
     //Отрисовка

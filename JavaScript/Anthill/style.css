@@ -7,10 +7,12 @@ html, body {
 
 button{
     color: darkblue;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
     font-weight: bold;
-    width: 5em;
-    padding: 2px;
-    border-radius: 4px;
+    width: 2em;
+    padding: .2em;
+    border-radius: .5em;
     background-color: rgba(255, 239, 213, .61803);
 }
 
