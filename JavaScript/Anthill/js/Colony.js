@@ -2,13 +2,16 @@
 
 class Colony {
     pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
+    rad=size*12;
 
     //Игровой фон
     constructor(i) {
+        this.pos={
+            x: Math.random()*width*0.8+width/10,
+            y: Math.random()*height*0.8+height/10
+        };
         this.color=this.getColor(i);
-        this.pos={x: Math.random()*width, y: Math.random()*height};
         this.listAnt=this.listAntFill();
-        this.rad=size*12;
     }
 
     //Обновление

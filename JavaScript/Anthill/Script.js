@@ -5,7 +5,7 @@
  */
 
 //Подключение скриптов/классов
-var listClass=['Action', 'Graphic', 'Ground', 'Colony', 'Ant', 'Game', 'Life'];
+var listClass=['Graphic', 'Ground', 'Colony', 'Ant', 'Game', 'Life', 'Action'];
 
 for (let name of listClass) {
    let script=document.createElement('script');

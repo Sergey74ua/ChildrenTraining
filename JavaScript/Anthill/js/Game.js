@@ -4,6 +4,7 @@ class Game {
     //Игра
     constructor() {
         this.ground=new Ground();
+        this.action=new Action();
         this.listColony=this.listColonyFill();
     }
 
@@ -12,11 +13,22 @@ class Game {
         this.ground.update();
         for (let colony of this.listColony)
             for (let ant of colony.listAnt) {
-                //Осмотреться - Ant
-                this.pixel(ant.pos);  ////////////////////////////
-                //Выбрать дейтвие - Actions
-                //Совершить действие - Ant
-                ant.update(); /////
+                let pos={x: Math.round(ant.pos.x), y: Math.round(ant.pos.y)};
+                //Муравьиные метки
+                this.ground.newLabel(pos);
+                //Высматриваем цель (корм или метку)
+                if (ant.target===undefined) {
+                    ant.target=this.action.vision(this.ground.map, pos);
+                    ant.update();
+                //Поворачиваемся и подбираемся к цели
+                } else {
+                    ant.angle=this.action.vector(pos, ant.target);
+                    if (this.action.delta(pos, ant.target)>ant.speed) {
+                        ant.update();
+                        ant.food=true;
+                    }
+                }
+                //
             }
     }
 
@@ -38,21 +50,5 @@ class Game {
             listColony.push(colony);
         }
         return listColony;
-    }
-
-    //Добавление корма
-    newFood(pos) {
-        let food={pos: pos, value: 255};
-        this.ground.listFood.push(food);
-    }
-
-    //Зрение (получаем цвет пикселя) ///////////////////////////////////////
-    pixel(pos) {
-        let pix=ctx.getImageData(pos.x, pos.y, 1, 1);
-        //Получаем цвет пикселя
-        let rgb=pix.data[0]+','+pix.data[1]+','+pix.data[2]+','+pix.data[3];
-        //Меняем цвет пикселя
-        pix.data[1]=255;
-        ctx.putImageData(pix, pos.x, pos.y);
     }
 }

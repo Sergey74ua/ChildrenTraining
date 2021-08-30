@@ -1,11 +1,7 @@
 //Игра "Муравейник"
 
 class Graphic {
-    //Рассчет угла на цель
-    getVector(pos, target) {
-        vector = Math.atan2(target.y - pos.y, target.x - pos.x);
-        return vector;
-    }
+
 
     //Рассчет координат при перемещении
     getPos(x, y, vector, speed) {

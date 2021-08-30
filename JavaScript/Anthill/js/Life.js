@@ -1,9 +1,9 @@
 //Игра "Муравейник"
 
-var canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d'), 
+const canvas=document.getElementById('canvas'), ctx=canvas.getContext('2d'), 
    btnPlay=document.getElementById('play'), btnClear=document.getElementById('clear'),
-   width, height, play=false, focus=false, fps=100, Pi2=2*Math.PI,
-   game, numColony=6, population=16, size=2;
+   Pi2=2*Math.PI, fps=128, numColony=6, population=32, size=2;
+var width, height, game, play=false, focus=false;
 
 //Запускаем игру после загрузки
 window.onload=() => {
@@ -32,7 +32,7 @@ setInterval(() => {
 onclick=(e) => {
    if (!focus) {
       let pos={x: e.clientX, y: e.clientY};
-      game.newFood(pos);
+      game.ground.newFood(pos);
    }
    focus=false;
 }
