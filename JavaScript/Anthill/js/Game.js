@@ -1,54 +1,48 @@
 //Игра "Муравейник"
 
 class Game {
+    anthill=6;
+    family=16;
+
     //Игра
     constructor() {
-        this.ground=new Ground();
-        this.action=new Action();
-        this.listColony=this.listColonyFill();
+        //Карта игры (количество корма)
+        this.ground=new Ground(this.anthill*this.family);
+        //Набор действий (карта)
+        this.action=new Action(this.ground.map);
+        //Список колоний -> заполняем
+        this.listColony=[];
+        for (let i=0; i<this.anthill; i++)
+            this.listColony.push(new Colony(i, this.family));
     }
 
-    //Обновление
+    //Обновление игры
     update() {
-        this.ground.update();
-        for (let colony of this.listColony)
+        //Обновление юнитов в колониях
+        for (let colony of this.listColony) {
             for (let ant of colony.listAnt) {
-                let pos={x: Math.round(ant.pos.x), y: Math.round(ant.pos.y)};
-                //Муравьиные метки
-                this.ground.newLabel(pos);
-                //Высматриваем цель (корм или метку)
-                if (ant.target===undefined) {
-                    ant.target=this.action.vision(this.ground.map, pos);
-                    ant.update();
-                //Поворачиваемся и подбираемся к цели
-                } else {
-                    ant.angle=this.action.vector(pos, ant.target);
-                    if (this.action.delta(pos, ant.target)>ant.speed) {
-                        ant.update();
-                        ant.food=true;
-                    }
-                }
-                //
+                //Обновление поведения муравьев
+                this.action.behavior(ant);
+                //Обновление меток муравьев на карте
+                this.ground.update(ant);
+                //Обновление состояния муравьев
+                ant.update();
             }
+            //Обновление муравейников
+            colony.update();
+        }
     }
 
-    //Отрисовка
+    //Отрисовка игры
     draw() {
+        //Отрисовка карты
         this.ground.draw();
+        //Отрисовка юнитов
         for (let colony of this.listColony)
             for (let ant of colony.listAnt)
                 ant.draw();
+        //Отрисовка муравейников
         for (let colony of this.listColony)
             colony.draw();
-    }
-
-    //Заполнение массива муравейников
-    listColonyFill() {
-        let listColony=[];
-        for (let i=0; i<numColony; i++) {
-            let colony=new Colony(i)
-            listColony.push(colony);
-        }
-        return listColony;
     }
 }

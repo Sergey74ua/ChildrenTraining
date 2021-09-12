@@ -1,11 +1,7 @@
-/**
- * Игра "Муравейник"
- * Сергей Покидько
- * 12 августа ‎2021 ‎г.
- */
+//Игра "Муравейник"
 
 //Подключение скриптов/классов
-var listClass=['Graphic', 'Ground', 'Colony', 'Ant', 'Game', 'Life', 'Action'];
+var listClass=['Action', 'Ant', 'Colony', 'Ground', 'Game', 'Main'];
 
 for (let name of listClass) {
    let script=document.createElement('script');

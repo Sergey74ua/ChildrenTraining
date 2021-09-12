@@ -5,13 +5,30 @@ class Ground {
     colFood='DarkRed';
 
     //Игровой фон
-    constructor() {
-        this.map=this.startMap();
+    constructor(resources) {
+        this.map=[];
+        this.startMap(resources);
     }
 
     //Обновление
-    update() {
-        ;
+    update(ant) { ////Ломается при изменении размера экрана
+        this.map[ant.pos.y][ant.pos.x].busy=1;
+        //Добавление метки на карту
+        if (this.map[ant.pos.y][ant.pos.x].label<=0)
+            this.map[ant.pos.y][ant.pos.x].label=128;
+        else if (this.map[ant.pos.y][ant.pos.x].label>128)
+            this.map[ant.pos.y][ant.pos.x].label=255;
+        else
+            this.map[ant.pos.y][ant.pos.x].label+=128;
+        //Добавление аромата на карту
+        if (ant.food>0) {
+            if (this.map[ant.pos.y][ant.pos.x].aroma<=0)
+                this.map[ant.pos.y][ant.pos.x].aroma=128;
+            else if (this.map[ant.pos.y][ant.pos.x].aroma>128)
+                this.map[ant.pos.y][ant.pos.x].aroma=255;
+            else
+                this.map[ant.pos.y][ant.pos.x].aroma+=128;
+        }
     }
 
     //Отрисовка
@@ -24,15 +41,13 @@ class Ground {
             for (let x=0; x<width; x++) {
                 //Препятствие
                 this.map[y][x].busy=0; ////
-                //Отрисовка меток
-                if (this.map[y][x].smell>0) {
-                    ctx.fillStyle='rgba(127, 0, 127,'+(this.map[y][x].smell/256)+')';
-                    ctx.beginPath();
-                    ctx.fillRect(x, y, 1, 1);
-                    ctx.fill();
-                    ctx.closePath();
-                    //Испарение меток
-                    this.map[y][x].smell--;
+                //Отрисовка аромата или метки
+                if (this.map[y][x].aroma>0) {
+                    ctx.fillStyle='rgba(255, 192, 0,'+(this.map[y][x].aroma/256)+')';
+                    this.drawPixel(x, y);
+                } else if (this.map[y][x].label>0) {
+                    ctx.fillStyle='rgba(64, 0, 128,'+(this.map[y][x].label/256)+')';
+                    this.drawPixel(x, y);
                 }
                 //Отрисовка корма
                 if (this.map[y][x].food>0) {
@@ -46,33 +61,32 @@ class Ground {
         }
     }
 
+    //Отрисовка пикселя аромата или метки
+    drawPixel(x, y) {
+        ctx.beginPath();
+        ctx.fillRect(x, y, 1, 1);
+        ctx.fill();
+        ctx.closePath();
+        //Испарение аромата или метки
+        this.map[y][x].aroma--;
+        this.map[y][x].label--;
+    }
+
     //Начальный корм
-    startMap() {
-        let map=[];
+    startMap(resources) {
+        //Заполняем массив объектов
         for (let y=0; y<height; y++) {
-            map[y]=[];
+            this.map[y]=[];
             for (let x=0; x<width; x++) {
-                map[y][x]={busy: 0, food: 0, smell: 0};
+                this.map[y][x]={busy: 0, food: 0, label: 0, aroma: 0};
             }
         }
         //Случайный корм
-        let numFood=numColony*population;
-        for (let i=0; i<numFood; i++) {
+        for (let i=0; i<resources; i++) {
             let x=Math.round(Math.random()*width*0.9+width/20),
                 y=Math.round(Math.random()*height*0.9+height/20);
-            map[y][x].food=Math.round(Math.random()*128)+128;
+            this.map[y][x].food=Math.round(Math.random()*128)+128;
         }
-        return map;
-    }
-
-    //Добавление метки
-    newLabel(pos) { //Ломается при изменении размера экрана
-        if (this.map[pos.y][pos.x].smell<=0)
-            this.map[pos.y][pos.x].smell=128;
-        else if (this.map[pos.y][pos.x].smell>128)
-            this.map[pos.y][pos.x].smell=255;
-        else
-            this.map[pos.y][pos.x].smell+=128;
     }
 
     //Добавление корма по клику

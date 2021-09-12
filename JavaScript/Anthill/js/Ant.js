@@ -1,10 +1,10 @@
 //Игра "Муравейник"
 
 class Ant {
-    //Муравей
     stroke='Black';
     line=size/5;
     speed=size*2;
+    power=8;
     
     //Создание муравья
     constructor(pos, party) {
@@ -12,57 +12,68 @@ class Ant {
         this.pos={x: pos.x, y: pos.y};
         this.angle=Math.random()*Pi2;
         this.pose=false;
-        this.food=false;
+        this.status='wait';
+        this.food=0; //(Math.random()>0.5)*16;
+        this.timer=0;
         this.target;
     }
 
     //Обновление
     update() {
-        let pos=this.pos;
-        //Рандомное смещение
+        //Смена шагов
+        if (this.timer>0)
+            this.timer--;
+        if (play && this.timer<=0) {
+            this.pose=!this.pose;
+            this.speed=size*2;
+        }
+        else
+            this.speed=0;
+        //Рандомное смещение (ПЕРЕНЕСТИ - ???)
         if(Math.random() >= 0.9)
             this.angle=(this.angle+Math.random()-0.5+Pi2)%Pi2;
         //Рассчет координат при перемещении
         let angle=this.angle-Math.PI/2;
-        pos.x+=this.speed*Math.cos(angle);
+        this.pos.x+=this.speed*Math.cos(angle);
         //левая граница
-        if (pos.x<0) {
-            pos.x=0;
+        if (this.pos.x<0) {
+            this.pos.x=0;
             this.angle=Pi2-this.angle;
         //правая граница
-        } else if (pos.x>width-1) {
-            pos.x=width-1;
+        } else if (this.pos.x>width-1) {
+            this.pos.x=width-1;
             this.angle=Pi2-this.angle;
         }
-        pos.y+=this.speed*Math.sin(angle);
+        this.pos.y+=this.speed*Math.sin(angle);
         //верхняя граница
-        if (pos.y<0) {
-            pos.y=0;
+        if (this.pos.y<0) {
+            this.pos.y=0;
             this.angle=(Math.PI-this.angle+Pi2)%Pi2;
         //нижняя граница
-        } else if (pos.y>height-1) {
-            pos.y=height-1;
+        } else if (this.pos.y>height-1) {
+            this.pos.y=height-1;
             this.angle=(Math.PI-this.angle+Pi2)%Pi2;
         }
-        //Замкнутый мир
-        /*pos.x+=this.speed*Math.cos(angle);
-        if (pos.x<0)
-            pos.x=width-1;
-        else if (pos.x>width-1)
-            pos.x=0;
-        pos.y+=this.speed*Math.sin(angle);
-        if (pos.y<0)
-            pos.y=height-1;
-        else if (pos.y>height-1)
-            pos.y=0;*/
-        if (play)
-            this.pose=!this.pose;
+        this.pos={x: Math.round(this.pos.x), y: Math.round(this.pos.y)};
     }
 
     //Отрисовка
     draw() {
         let x=this.pos.x, y=this.pos.y, angle=this.angle;
         let pose = this.pose*size*0.5;
+        //Смена координат для поворота
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.translate(-x, -y);
+        //Корм
+        if (this.food>0) {
+            ctx.fillStyle='DarkRed';
+            ctx.beginPath();
+            ctx.arc(x, y-size*4, size, 0, Pi2);
+            ctx.fill();
+            ctx.closePath();
+        }
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle=this.stroke;
@@ -71,11 +82,6 @@ class Ant {
         ctx.shadowBlur=3;
         ctx.shadowOffsetX=2;
         ctx.shadowOffsetY=1;
-        //Смена координат для поворота
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(angle);
-        ctx.translate(-x, -y);
         //Лапки 1-4
         ctx.beginPath();
         ctx.moveTo(x-size*2.5, y-size*3-pose*2);
