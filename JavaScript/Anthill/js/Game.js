@@ -1,19 +1,19 @@
 //Игра "Муравейник"
 
 class Game {
-    anthill=6;
+    anthill=4;
     family=16;
 
     //Игра
     constructor() {
         //Карта игры (количество корма)
         this.ground=new Ground(this.anthill*this.family);
-        //Набор действий (карта)
-        this.action=new Action(this.ground.map);
         //Список колоний -> заполняем
         this.listColony=[];
         for (let i=0; i<this.anthill; i++)
             this.listColony.push(new Colony(i, this.family));
+        //Набор действий (карта)
+        this.action=new Action(this.ground.map, this.listColony);
     }
 
     //Обновление игры

@@ -77,9 +77,8 @@ class Ground {
         //Заполняем массив объектов
         for (let y=0; y<height; y++) {
             this.map[y]=[];
-            for (let x=0; x<width; x++) {
+            for (let x=0; x<width; x++)
                 this.map[y][x]={busy: 0, food: 0, label: 0, aroma: 0};
-            }
         }
         //Случайный корм
         for (let i=0; i<resources; i++) {

@@ -3,17 +3,20 @@
 class Ant {
     stroke='Black';
     line=size/5;
-    speed=size*2;
-    power=8;
+    step=size*1.618034;
+    fast=size*2.718282;
+    power=16;
     
     //Создание муравья
     constructor(pos, party) {
         this.party=party;
+        this.status='wait';
         this.pos={x: pos.x, y: pos.y};
         this.angle=Math.random()*Pi2;
+        this.speed=0;
         this.pose=false;
-        this.status='wait';
-        this.food=0; //(Math.random()>0.5)*16;
+        this.life=64;
+        this.food=0;
         this.timer=0;
         this.target;
     }
@@ -23,15 +26,22 @@ class Ant {
         //Смена шагов
         if (this.timer>0)
             this.timer--;
-        if (play && this.timer<=0) {
-            this.pose=!this.pose;
-            this.speed=size*2;
-        }
-        else
+        //Выбор режима
+        if (!play) {
+            this.pose=this.pose;
             this.speed=0;
-        //Рандомное смещение (ПЕРЕНЕСТИ - ???)
-        if(Math.random() >= 0.9)
-            this.angle=(this.angle+Math.random()-0.5+Pi2)%Pi2;
+        }
+        //Выбор скорости
+        if (this.status=='find') {
+            this.pose=!this.pose;
+            this.speed=this.fast;
+        } else if (this.status=='back' || this.status=='move') {
+            this.pose=!this.pose;
+            this.speed=this.step;
+        } else {
+            this.pose=this.pose;
+            this.speed=0;
+        }
         //Рассчет координат при перемещении
         let angle=this.angle-Math.PI/2;
         this.pos.x+=this.speed*Math.cos(angle);
