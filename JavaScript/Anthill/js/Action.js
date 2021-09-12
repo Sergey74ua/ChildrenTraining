@@ -67,7 +67,7 @@ class Action {
     }
 
     //Выбор действия
-    select(ant) {
+    select(ant) { //// НЕ ДОРАБОТАНО ////
         //Смерть
         if (ant.life<1) {
             ant.status='dead';
