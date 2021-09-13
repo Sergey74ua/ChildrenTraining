@@ -10,10 +10,13 @@ class Game {
         this.ground=new Ground(this.anthill*this.family);
         //Список колоний -> заполняем
         this.listColony=[];
-        for (let i=0; i<this.anthill; i++)
-            this.listColony.push(new Colony(i, this.family));
+        for (let i=0; i<this.anthill; i++) {
+            let colony=new Colony(i, this.family);
+            this.listColony.push(colony);
+            this.ground.map[colony.pos.y][colony.pos.x].busy=colony.clan;
+        }
         //Набор действий (карта)
-        this.action=new Action(this.ground.map, this.listColony);
+        this.action=new Action(this.ground.map);
     }
 
     //Обновление игры
@@ -22,7 +25,7 @@ class Game {
         for (let colony of this.listColony) {
             for (let ant of colony.listAnt) {
                 //Обновление поведения муравьев
-                this.action.behavior(ant);
+                this.action.behavior(ant, colony);
                 //Обновление меток муравьев на карте
                 this.ground.update(ant);
                 //Обновление состояния муравьев

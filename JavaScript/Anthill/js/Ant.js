@@ -8,16 +8,16 @@ class Ant {
     power=16;
     
     //Создание муравья
-    constructor(pos, party) {
-        this.party=party;
-        this.status='wait';
+    constructor(pos, clan, life) {
+        this.clan=clan;
+        this.life=life;
         this.pos={x: pos.x, y: pos.y};
         this.angle=Math.random()*Pi2;
-        this.speed=0;
+        this.status='wait';
         this.pose=false;
-        this.life=64;
-        this.food=0;
+        this.speed=0;
         this.timer=0;
+        this.food=0;
         this.target;
     }
 
@@ -87,7 +87,7 @@ class Ant {
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle=this.stroke;
-        ctx.fillStyle=this.party;
+        ctx.fillStyle=this.clan;
         //Тени
         ctx.shadowBlur=3;
         ctx.shadowOffsetX=2;

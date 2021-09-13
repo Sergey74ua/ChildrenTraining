@@ -12,7 +12,6 @@ class Ground {
 
     //Обновление
     update(ant) { ////Ломается при изменении размера экрана
-        this.map[ant.pos.y][ant.pos.x].busy=1;
         //Добавление метки на карту
         if (this.map[ant.pos.y][ant.pos.x].label<=0)
             this.map[ant.pos.y][ant.pos.x].label=128;
@@ -39,8 +38,6 @@ class Ground {
         //Отрисовка карты на холсте
         for (let y=0; y<height; y++) {
             for (let x=0; x<width; x++) {
-                //Препятствие
-                this.map[y][x].busy=0; ////
                 //Отрисовка аромата или метки
                 if (this.map[y][x].aroma>0) {
                     ctx.fillStyle='rgba(255, 192, 0,'+(this.map[y][x].aroma/256)+')';
