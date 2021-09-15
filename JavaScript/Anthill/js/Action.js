@@ -1,7 +1,7 @@
 //Игра "Муравейник"
 
 class Action {
-    rad=size*8;
+    rad=size*16;
 
     constructor(map) {
         this.map=map;
@@ -119,7 +119,7 @@ class Action {
         finishY=ant.pos.y+this.rad;
         if (finishY>height-1)
             finishY=height;
-        //Выбор цели (атакующий - дом - корм - жертва - аромат - метка) ////
+        //Выбор цели
         let temp=255;
         for (let y=startY; y<finishY; y++)
             for (let x=startX; x<finishX; x++) {
@@ -128,16 +128,16 @@ class Action {
                     if (this.map[y][x].food>0) {
                         target={x: x, y: y};
                         break;
-                    }/* else if (this.map[y][x].aroma>0 && this.map[y][x].aroma<temp)
-                        target={x: x, y: y};*/
+                    } /*else if (this.map[y][x].aroma>0 && this.map[y][x].aroma<temp)
+                        ant.angle=this.vector(ant.pos, {x: x, y: y});*/
                 }
                 //поиск муравейника или следов
                 if (ant.status=='back' || (ant.status=='wait' && ant.food>0)) {
                     if (this.map[y][x].busy==ant.clan) {
                         target={x: x, y: y};
                         break;
-                    }/* else if (this.map[y][x].label>0 && this.map[y][x].label<temp)
-                        target={x: x, y: y};*/
+                    } /*else if (this.map[y][x].label>0 && this.map[y][x].label<temp)
+                        ant.angle=this.vector(ant.pos, {x: x, y: y});*/
                 }
                 //поиск противника
                 if (ant.status=='kick') {

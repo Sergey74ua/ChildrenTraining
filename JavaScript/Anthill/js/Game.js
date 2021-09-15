@@ -2,7 +2,7 @@
 
 class Game {
     anthill=4;
-    family=16;
+    family=8;
 
     //Игра
     constructor() {
