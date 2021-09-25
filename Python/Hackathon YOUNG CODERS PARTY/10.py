@@ -5,3 +5,6 @@ if Math.Sqrt(catetX * catetX + catetY * catetY) <= R:
     print(1)
 else:
     print(0)
+
+
+#Верно!
