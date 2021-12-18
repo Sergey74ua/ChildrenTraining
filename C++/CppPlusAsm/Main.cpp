@@ -14,10 +14,10 @@ int main()
 	//result = num1 + num2;
 	__asm
 	{
-		mov eax, num1
-
-		add eax, num2
-
+		mov eax, num1 //5
+		mov ebx, num2 //6
+		//add eax, num2
+		add eax, ebx
 		mov result, eax
 	}
 	cout << "сумма чисел : " << result << endl;
@@ -27,7 +27,7 @@ int main()
 	__asm
 	{
 		mov eax, num1
-		mov ebx, num2
+		mov ebx, num2 //если закоментировать, ничего не измениться.
 
 		mul ebx
 
@@ -35,6 +35,9 @@ int main()
 	}
 	cout << "произведение : " << result << endl;
 	system("pause");
+
+	//sub - минус, div - деление
+	//
 
 	return 0;
 }

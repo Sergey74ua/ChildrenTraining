@@ -83,9 +83,4 @@ print()
 
 print(dir(arr))
 
-# breakpoint, dir, vars, help, open, repr
-# super, property, issubclass и isinstance, hasattr, getattr, setattr и delattr, classmethod и staticmethod
-# iter, callable, filter and map, divmod, bin, oct и hex, abs, hash, object, ord и chr, exec и eval, compile, slice
-# bytes, bytearray и memoryview, ascii, frozenset, importlib, format, complex
-
 input()
