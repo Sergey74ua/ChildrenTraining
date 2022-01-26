@@ -1,7 +1,7 @@
 -- 22.01.2022
 --[[
-Комментарии Lua
-многострочные
+РљРѕРјРјРµРЅС‚Р°СЂРёРё Lua
+РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅС‹Рµ
 ]]
 
 os.setlocale('rus_rus.1251')
@@ -13,16 +13,16 @@ Y = io.read('*n')
 if Y == 1 and (Y > 0 or Y == 1000) then
 	io.write(X, X)
 elseif Y ~= 0 then
-	print('не ноль')
+	print('РЅРµ РЅРѕР»СЊ')
 else
-	print('иначе')
+	print('РёРЅР°С‡Рµ')
 end
 
 a, b, c = 5, 10, 15
 arr = {1, 2, 3, 4, 5}
 print(arr[1])
 
-arr2 = {pn = 'понедельник', vt = 'вторник', sr = 'среда'}
+arr2 = {pn = 'РїРѕРЅРµРґРµР»СЊРЅРёРє', vt = 'РІС‚РѕСЂРЅРёРє', sr = 'СЃСЂРµРґР°'}
 print(arr2.vt .. arr2.sr)
 
 function sum(x, y)
@@ -32,16 +32,16 @@ end
 print(sum(5, 6))
 
 repeat
-	print('цикл repeat ', Y); Y = Y - 1
+	print('С†РёРєР» repeat ', Y); Y = Y - 1
 until Y < 3
 
 
 while Y > 0 do
-	print('цикл while ', Y); Y = Y - 1
+	print('С†РёРєР» while ', Y); Y = Y - 1
 end
 
 for i = 1, 5, 2 do
-	print('цикл for ', i)
+	print('С†РёРєР» for ', i)
 end
 
 print(type("Hello world"))      --> string
@@ -52,8 +52,8 @@ print(type(true))               --> boolean
 print(type(nil))                --> nil
 print(type(type(X)))            --> string
 
--- tonumber(Y) преобразование в число
--- x, y = y, x - работает!
+-- tonumber(Y) РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РІ С‡РёСЃР»Рѕ
+-- x, y = y, x - СЂР°Р±РѕС‚Р°РµС‚!
 
 s = 'walternate'  -- Immutable strings like Python.
 t = "double-quotes are also fine"
@@ -62,15 +62,15 @@ u = [[ Double brackets
        multi-line strings.]]
 t = nil
 
-print(math.random()) -- [0 до 1]
-print(math.random(10)) -- [1..до числа];
-print(math.random(10, 20)) -- [от числа..до числа].
+print(math.random()) -- [0 РґРѕ 1]
+print(math.random(10)) -- [1..РґРѕ С‡РёСЃР»Р°];
+print(math.random(10, 20)) -- [РѕС‚ С‡РёСЃР»Р°..РґРѕ С‡РёСЃР»Р°].
 
--- функциональщина
+-- С„СѓРЅРєС†РёРѕРЅР°Р»СЊС‰РёРЅР°
 function f(x) return math.sin(x) end
 f = function (x) return math.sin(x) end
 
--- обход ключей и данных
+-- РѕР±С…РѕРґ РєР»СЋС‡РµР№ Рё РґР°РЅРЅС‹С…
 for key, val in pairs(arr) do  -- Table iteration.
   print(key, val)
 end
@@ -80,15 +80,15 @@ for i = 1, #arr do  -- #v is the size of v for lists.
 end
 -- ???? module.lua
 -- local mod = require('module')
--- по сути равносильно:
+-- РїРѕ СЃСѓС‚Рё СЂР°РІРЅРѕСЃРёР»СЊРЅРѕ:
 -- local mod = (function ()
 --  <contents of mod.lua>
 -- end)()
 
--- Запуск файла
+-- Р—Р°РїСѓСЃРє С„Р°Р№Р»Р°
 -- dofile("data/scripts/Main.lua");
 
--- Строки: 
+-- РЎС‚СЂРѕРєРё:В 
 print(string.upper('aaaAAA'))
 print(string.lower ('aaaAAA'))
 print(string.gsub("aaaa","a","z",3)) --> zzza	3
