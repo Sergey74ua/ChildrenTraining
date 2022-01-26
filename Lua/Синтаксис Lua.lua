@@ -1,8 +1,7 @@
 -- 22.01.2022
 --[[
-язык программировани¤ Lua
-скриптовый
-строки - константные
+Комментарии Lua
+многострочные
 ]]
 
 os.setlocale('rus_rus.1251')
@@ -13,9 +12,10 @@ print(X)
 Y = io.read('*n')
 if Y == 1 and (Y > 0 or Y == 1000) then
 	io.write(X, X)
+elseif Y ~= 0 then
+	print('не ноль')
 else
-	print('нет')
--- elseif a ~= b
+	print('иначе')
 end
 
 a, b, c = 5, 10, 15
@@ -52,8 +52,7 @@ print(type(true))               --> boolean
 print(type(nil))                --> nil
 print(type(type(X)))            --> string
 
--- Че?
--- tonumber(Y) — преобразует переменную в число.
+-- tonumber(Y) преобразование в число
 -- x, y = y, x - работает!
 
 s = 'walternate'  -- Immutable strings like Python.
@@ -63,15 +62,15 @@ u = [[ Double brackets
        multi-line strings.]]
 t = nil
 
-print(math.random()) -- генерирует псевдослучайное вещественное число в диапазоне[0 до 1]
-print(math.random(10)) -- генерирует целое число в диапазоне [1..upper];
-print(math.random(10, 20)) -- генерирует целое число в диапазоне [lower..upper].
+print(math.random()) -- [0 до 1]
+print(math.random(10)) -- [1..до числа];
+print(math.random(10, 20)) -- [от числа..до числа].
 
--- функция, одно и то же
+-- функциональщина
 function f(x) return math.sin(x) end
 f = function (x) return math.sin(x) end
 
--- обход значений и ключей
+-- обход ключей и данных
 for key, val in pairs(arr) do  -- Table iteration.
   print(key, val)
 end
@@ -79,17 +78,17 @@ end
 for i = 1, #arr do  -- #v is the size of v for lists.
   print(arr[i])  -- Indices start at 1 !! SO CRAZY!
 end
--- файл module.lua
+-- ???? module.lua
 -- local mod = require('module')
--- равносильно:
+-- по сути равносильно:
 -- local mod = (function ()
 --  <contents of mod.lua>
 -- end)()
 
--- ВЫПОЛНЯЕТ ФАЙЛ
+-- Запуск файла
 -- dofile("data/scripts/Main.lua");
 
--- ФУНКЦИИ СТРОК
+-- Строки: 
 print(string.upper('aaaAAA'))
 print(string.lower ('aaaAAA'))
 print(string.gsub("aaaa","a","z",3)) --> zzza	3
