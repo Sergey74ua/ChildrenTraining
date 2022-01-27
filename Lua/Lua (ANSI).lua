@@ -48,7 +48,6 @@ print(sum(5, 6))
 function f(x) return math.sin(x) end
 f = function (x) return math.sin(x) end
 
------------------------------------------------------------
 -- ^ возведение в степень
 -- tostring(Y) преобразование в строку (print стрингует и выводит)
 
@@ -89,16 +88,14 @@ mymetatable = {}
 setmetatable(mytable,mymetatable)
 print("METATABLE: ", mymetatable)
 
--- итератор
-for key,value in ipairs(arr) 
-do
-   print(key, value)
+-- итератор (обход ключей и данных)
+for key, i in ipairs(arr) do
+   print(key, i)
 end
 
 repeat
 	print('цикл repeat ', Y); Y = Y - 1
 until Y < 3
-
 
 while Y > 0 do
 	print('цикл while ', Y); Y = Y - 1
@@ -106,11 +103,6 @@ end
 
 for i = 1, 5, 2 do
 	print('цикл for ', i)
-end
-
--- обход ключей и данных
-for key, val in pairs(arr) do  -- Table iteration.
-  print(key, val)
 end
 
 for i = 1, #arr do  -- #v is the size of v for lists.
