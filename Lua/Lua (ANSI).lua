@@ -40,7 +40,7 @@ end
 
 function sum(x, y)
 	local z = x + y
-	return(z)
+	return(z) -- можно несколько значений
 end
 print(sum(5, 6))
 
@@ -48,6 +48,17 @@ print(sum(5, 6))
 function f(x) return math.sin(x) end
 f = function (x) return math.sin(x) end
 
+-----------------------------------------------------------
+-- ^ возведение в степень
+-- tostring(Y) преобразование в строку (print стрингует и выводит)
+
+-- не равно ~=
+
+-- блок кода
+do
+	local x = math.max(1, 5, 3, 1, 6) -- локальные переменные закрыты
+	print(x)
+end
 
 -- Строки: 
 print(string.upper('aaaAAA'))
@@ -68,9 +79,21 @@ print(math.random(10, 20)) -- [от числа..до числа].
 
 arr = {1, 2, 3, 4, 5}
 print(arr[1])
+print(#arr) -- длина массива
 
 arr2 = {pn = 'понедельник', vt = 'вторник', sr = 'среда'}
-print(arr2.vt .. arr2.sr)
+table.sort(arr2)
+
+mytable = { 5, 4, 3, 5, 5, 3, 3, 4, 4, 4, 4, 5, 3, }
+mymetatable = {}
+setmetatable(mytable,mymetatable)
+print("METATABLE: ", mymetatable)
+
+-- итератор
+for key,value in ipairs(arr) 
+do
+   print(key, value)
+end
 
 repeat
 	print('цикл repeat ', Y); Y = Y - 1
