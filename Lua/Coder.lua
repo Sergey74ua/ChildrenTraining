@@ -5,9 +5,9 @@ print("»—’ŒƒÕ€… “≈ —“: ")
 text = io.read()
 print(text)
 
-origSimbol = {text: sub(1, 1)}
+origSimbol = {}
 math.randomseed(os.time())
-codeSimbol = {string.char(3)}
+codeSimbol = {}
 codeText = ""
 
 function rndSymbol()
