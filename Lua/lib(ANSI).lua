@@ -1,7 +1,7 @@
 -- Подборка криптов для декодирования
 os.setlocale('rus_rus.1251')
 
-print('Для вызова справки наберите: help() \n')
+--print('Для вызова справки наберите: help() \n')
 
 -- Частотность употребления букв
 ch = {'о - 10.97', 'е - 8.45', 'а - 8.01', 'и - 7.35', 'н - 6.70',
@@ -85,6 +85,30 @@ function abc(text)
 		numbAbc = numbAbc..origSimbol[i]..'-'..numbSimbol[i]..'; '
 	end
 	print(numbAbc, '\n')
+end
+
+-- Поиск слов с 2+ символами
+function find2(text, sp)
+	print(text)
+	c = ''
+	for i = 1, #text do
+		c2 = c
+		c = text: sub(i, i)
+		if c2 == c and c2 ~= sp then
+			l = i
+			repeat
+				l = l - 1
+				lc = text: sub(l, l)
+			until lc == sp
+			r = i - 1
+			repeat
+				r = r + 1
+				rc = text: sub(r, r)
+			until rc == sp
+			w = text: sub(l+1, r-1)
+			print(w)
+		end
+	end
 end
 
 -- Запустить все фукции
