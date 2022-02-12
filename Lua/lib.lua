@@ -89,7 +89,6 @@ end
 
 -- Поиск слов с 2+ символами
 function find2(text, sp)
-	print(text)
 	c = ''
 	for i = 1, #text do
 		c2 = c
@@ -106,6 +105,19 @@ function find2(text, sp)
 				rc = text: sub(r, r)
 			until rc == sp
 			w = text: sub(l+1, r-1)
+			print(w)
+		end
+	end
+end
+
+-- Поиск слов с 2+ символами, с выводом куска текста
+function find22(text)
+	local c = ''
+	for i = 1, #text do
+		local c2 = c
+		c = text: sub(i, i)
+		if c2 == c then
+			w = text: sub(math.max(i-8, 1), math.min(i+8, #text))
 			print(w)
 		end
 	end

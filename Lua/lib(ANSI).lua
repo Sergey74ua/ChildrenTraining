@@ -111,6 +111,19 @@ function find2(text, sp)
 	end
 end
 
+-- Поиск слов с 2+ символами, с выводом куска текста
+function find22(text)
+	local c = ''
+	for i = 1, #text do
+		local c2 = c
+		c = text: sub(i, i)
+		if c2 == c then
+			w = text: sub(math.max(i-8, 1), math.min(i+8, #text))
+			print(w)
+		end
+	end
+end
+
 -- Запустить все фукции
 function all(text)
 	help()
