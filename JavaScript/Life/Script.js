@@ -1,7 +1,7 @@
 /**
  * Игра "Жизнь"
  * Сергей Покидько
- * 04 августа ‎2021 ‎г.
+ * 04 августа 2021 г.
  */
 
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext("2d"),
