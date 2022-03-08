@@ -10,25 +10,24 @@ class Control {
         this.btnClear.addEventListener('click', this.Clear.bind(this));
         this.play=false;
         this.focus=false;
-        this.animation(128);
+        this.fps=128;
+        setInterval(() => this.animation(), this.fps);
     }
 
-    animation(fps) {
-        //Анимация кадров
-        setInterval(() => {
-            if (this.play)
-                this.viev.draw();
-        }, fps);
-        //Отслеживае кликов мышки
-        onclick=(e) => {
-            if (!this.focus) {
-                let pos={x: e.clientX, y: e.clientY};
-                console.log(pos);
-            }
-            this.focus=false;
-        };
+    animation() {
+        if (this.play)
+            this.viev.draw();
     }
 
+    //Отслеживае кликов мышки
+    onclick=(e) => {
+        if (!this.focus) {
+            let pos={x: e.clientX, y: e.clientY};
+            console.log(pos);
+        }
+        this.focus=false;
+    };
+    
     //Кнопка старт/пауза
     Play() {
         this.focus=true;
