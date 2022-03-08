@@ -2,21 +2,20 @@
 
 class Control {
 
-    constructor(view) {
-        this.viev=view;
+    constructor() {
         this.btnPlay=document.getElementById('play');
         this.btnClear=document.getElementById('clear');
         this.btnPlay.addEventListener('click', this.Play.bind(this));
         this.btnClear.addEventListener('click', this.Clear.bind(this));
-        this.play=false;
+        this.play=true;
         this.focus=false;
-        this.fps=128;
-        setInterval(() => this.animation(), this.fps);
+        this.fps=500;
+        setInterval(() => this.update(), this.fps);
     }
 
-    animation() {
+    update() {
         if (this.play)
-            this.viev.draw();
+            view.draw();
     }
 
     //Отслеживае кликов мышки

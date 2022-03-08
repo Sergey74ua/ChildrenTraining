@@ -1,12 +1,9 @@
 //Симулятор колонии муравьев
 
-class Main {
+var model, view, control;
 
-    constructor() {
-        this.model=new Model();
-        this.view=new View(this.model);
-        this.control=new Control(this.view);
-    }
+window.onload=() => {
+    model=new Model(),
+    view=new View(),
+    control=new Control();
 }
-
-var main=new Main();
