@@ -144,4 +144,4 @@ class Ant {
         ctx.shadowOffsetX=0;
         ctx.shadowOffsetY=0;
     }
- }
+}
