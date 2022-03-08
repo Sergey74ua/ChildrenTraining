@@ -9,7 +9,7 @@ class Terrain {
         this.loadBlock();
         this.loadRock(100);
         this.loadFood(100);
-        this.range=0.5;
+        this.range=1.0;
     }
 
     //Границы мира
@@ -46,15 +46,16 @@ class Terrain {
     }
 
     //Проверка занятости точки
-    getPos(pos) { //РАБОТАЕТ, НО НА ВЫХОДЕ - НЕОПРЕДЕЛЕННОСТЬ
-        let tempPos={y: pos.y, x: pos.x};
-        if (this.map[pos.y][pos.x]!=undefined) {
-            tempPos.y+=Math.floor(Math.random()*3)-1*Math.floor(this.range);
-            tempPos.x+=Math.floor(Math.random()*3)-1*Math.floor(this.range);
+    getPos(pos) {
+        if (this.map[pos.y][pos.x]!=undefined && this.range<16) {
+            pos.y+=(Math.floor(Math.random()*3)-1)*Math.floor(this.range);
+            pos.x+=(Math.floor(Math.random()*3)-1)*Math.floor(this.range);
             this.range+=0.1;
-            this.getPos(tempPos);
-        } else
+            this.getPos(pos); // НЕ РАБОТАЕТ, НА ВЫХОДЕ - НЕОПРЕДЕЛЕННОСТЬ
+        } else {
+            this.range=1.0;
             return pos
+        }
     }
 
     //Отрисовка пикселя аромата или метки

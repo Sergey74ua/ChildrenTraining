@@ -17,8 +17,12 @@ class Game {
         }
         this.colFill='DarkGreen';
         this.colFood='DarkRed';
+        ////////////////
         this.terrain.map[100][200]=new Block();
-        console.log(this.terrain.getPos({y: 100, x: 200}));
+        this.pos={y: 100, x: 200};
+        this.pos=this.terrain.getPos(this.pos);
+        console.log('Game', this.pos, typeof(this.pos));
+        ////////////////
     }
 
     //Обновление игры

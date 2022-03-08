@@ -10,6 +10,7 @@ class Colony {
     constructor(i, logic, size) {
         this.clan=this.getColor(i);
         this.pos=this.getPos(size);
+        this.logic=logic;
         this.listAnt=[];
         this.food=100;
         this.timer=this.duration/2;
