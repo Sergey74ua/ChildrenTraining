@@ -7,7 +7,7 @@ html, body {
     padding: 0;
 }
 
-button{
+button {
     color: darkblue;
     font-size: 1em;
     font-weight: bold;
@@ -17,7 +17,7 @@ button{
     background-color: rgba(255, 239, 213, .61803);
 }
 
-#buttons{
+#buttons {
     position: absolute;
     top: 8px;
     right: 8px;

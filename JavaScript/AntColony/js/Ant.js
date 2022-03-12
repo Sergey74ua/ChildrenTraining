@@ -2,21 +2,23 @@
 
 class Ant {
     
-    //Создание муравья
-    constructor() {
-        this.size=10;
+    //Муравей
+    constructor(pos={y: window.innerHeight/2, x: window.innerWidth/2}) {
+        this.size=15;
         this.clan='DarkRed';
-        this.pos={y: 200, x: 200};
-        this.angle=Math.random()*Math.PI*2*0;
+        this.pos=pos;
+        this.angle=Math.random()*Math.PI*2;
         this.status='wait';
         this.pose=false;
         this.food=0;
+        this.markup();
+    }
 
-        //Предрассчет для отрисовки
-        this.stroke='Black';
-        this.line=this.size/5;
+    //Предрассчет для отрисовки
+    markup() {
         this.Pi2=Math.PI*2;
-        this.PI05=Math.PI/2;
+        this.stroke='Black';
+        this.line=this.size*0.2;
         this.size025=this.size*0.25;
         this.size05=this.size*0.5;
         this.size125=this.size*1.25;
@@ -35,9 +37,13 @@ class Ant {
 
     //Отрисовка
     draw(ctx) {
-        let x=500, y=500, angle=this.angle;
+        let x=this.pos.x, y=this.pos.y, angle=this.angle;
         this.pose=!this.pose;
         let pose=this.pose*this.size05;
+        //Цвета и линии
+        ctx.lineWidth=this.line;
+        ctx.strokeStyle=this.stroke;
+        ctx.fillStyle=this.clan;
         //Смена координат для поворота
         ctx.save();
         ctx.translate(x, y);
@@ -51,10 +57,6 @@ class Ant {
             ctx.fill();
             ctx.closePath();
         }
-        //Цвета и линии
-        ctx.lineWidth=this.line;
-        ctx.strokeStyle=this.stroke;
-        ctx.fillStyle=this.clan;
         //Тени
         ctx.shadowBlur=3;
         ctx.shadowOffsetX=2;
@@ -109,4 +111,6 @@ class Ant {
         ctx.shadowOffsetX=0;
         ctx.shadowOffsetY=0;
     }
+
+
 }

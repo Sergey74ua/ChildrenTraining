@@ -2,15 +2,19 @@
 
 class Control {
 
+    //Управление
     constructor() {
+        this.play=true;
+        this.focus=false;
+        this.fps=500;
+        
         this.btnPlay=document.getElementById('play');
         this.btnClear=document.getElementById('clear');
         this.btnPlay.addEventListener('click', this.Play.bind(this));
         this.btnClear.addEventListener('click', this.Clear.bind(this));
-        this.play=true;
-        this.focus=false;
-        this.fps=500;
+
         setInterval(() => this.update(), this.fps);
+        onclick=(e) => this.onClick(e);
     }
 
     update() {
@@ -19,7 +23,7 @@ class Control {
     }
 
     //Отслеживае кликов мышки
-    onclick=(e) => {
+    onClick=(e) => {
         if (!this.focus) {
             let pos={x: e.clientX, y: e.clientY};
             console.log(pos);
@@ -37,10 +41,10 @@ class Control {
     //Кнопка очистка
     Clear() {
         this.focus=true;
-        this.play=false;
+        //this.play=false;
         this.btnName();
         //Предложение сохранения
-        //game=new Game(anthill);
+        model=new Model();
     }
 
     //Функция старт/пауза
@@ -51,3 +55,14 @@ class Control {
             this.btnPlay.innerHTML='<i class="fa fa-play" aria-hidden="true"></i>';
     }
 }
+
+/*
+ЗАГРУЗКА
+- инициализация базовых данных управления
+
+СТАРТ/РЕСТАРТ
+- сброс базовых данных
+
+ШАГ ИГРЫ
+- игровой цикл
+*/
