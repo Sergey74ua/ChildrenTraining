@@ -6,7 +6,7 @@ class Control {
     constructor() {
         this.play=true;
         this.focus=false;
-        this.fps=500;
+        this.fps=250;
         
         this.btnPlay=document.getElementById('play');
         this.btnClear=document.getElementById('clear');
@@ -58,7 +58,10 @@ class Control {
 
 /*
 ЗАГРУЗКА
-- инициализация базовых данных управления
+- инициализация базовых данных управления:
+    -- старт/пауза
+    -- сохранение/загрузка
+    -- рестарт (сохранение)
 
 СТАРТ/РЕСТАРТ
 - сброс базовых данных

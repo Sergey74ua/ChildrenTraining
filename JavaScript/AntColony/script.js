@@ -10,7 +10,11 @@ let listClass=[
     'Control'
 ];
 
-for(let name of listClass) {
+for (let name of listClass) {
+    getScript(name);
+}
+
+function getScript(name) {
     let script=document.createElement('script');
     script.type='application/javascript';
     script.src='js/'+name+'.js';

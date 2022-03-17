@@ -7,6 +7,7 @@ class View {
         this.canvas=document.getElementById('canvas');
         this.onResize();
         window.addEventListener('resize', this.onResize);
+        this.fw=new Flyweight();
     }
 
     //Отрисовка экрана
@@ -14,7 +15,7 @@ class View {
         this.ctx.fillStyle='DarkGreen';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        model.ant.draw(this.ctx);
+        model.ant.draw(this.ctx, this.fw);
         model.antHill.draw(this.ctx);
         model.block.draw(this.ctx);
         model.rock.draw(this.ctx);
