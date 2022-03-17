@@ -20,6 +20,10 @@ class View {
         model.block.draw(this.ctx);
         model.rock.draw(this.ctx);
         model.food.draw(this.ctx);
+
+        for (let colony of model.listColony)
+            for (let ant of colony.listAnt)
+                ant.draw(this.ctx, this.fw);
     }
 
     //Выравнивание экрана по размерам окна

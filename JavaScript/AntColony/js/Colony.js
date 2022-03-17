@@ -35,7 +35,11 @@ class Colony {
 
     //Создание муравья
     newAnt() {
-        let ant=new Ant();
+        let pos={
+            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10),
+            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10)
+        };
+        let ant=new Ant(pos);
         this.listAnt.push(ant);
     }
     
