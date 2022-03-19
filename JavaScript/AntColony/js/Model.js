@@ -6,23 +6,20 @@ class Model {
     constructor() {
         this.base=4;
         this.family=3;
-        this.listColony=[];
-        this.fillListColony(this.base);
-
-        ///////////////////////////////
-        //this.ant=new Ant({y: 200, x: 600});
-        this.ant=new Ant();
-        this.antHill=new Anthill();
+        this.listColony=this.fillListColony(this.base, this.family);
+        
         this.block=new Block();
         this.rock=new Rock();
         this.food=new Food();
     }
 
-    fillListColony(base) {
+    fillListColony(base, family) {
+        let listColony=[];
         for (let i=0; i<base; i++) {
-            let colony=new Colony(i, this.family);
-            this.listColony.push(colony);
+            let colony=new Colony(i, family);
+            listColony.push(colony);
         }
+        return listColony;
     }
 }
 

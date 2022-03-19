@@ -1,6 +1,7 @@
 //Симулятор колонии муравьев
 
 var model, view, control;
+
 let listClass=[
     'Ant',
     'Colony',

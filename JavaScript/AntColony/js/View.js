@@ -7,7 +7,6 @@ class View {
         this.canvas=document.getElementById('canvas');
         this.onResize();
         window.addEventListener('resize', this.onResize);
-        this.fw=new Flyweight();
     }
 
     //Отрисовка экрана
@@ -15,8 +14,6 @@ class View {
         this.ctx.fillStyle='DarkGreen';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
-        model.ant.draw(this.ctx, this.fw);
-        model.antHill.draw(this.ctx);
         model.block.draw(this.ctx);
         model.rock.draw(this.ctx);
         model.food.draw(this.ctx);
@@ -24,6 +21,9 @@ class View {
         for (let colony of model.listColony)
             for (let ant of colony.listAnt)
                 ant.draw(this.ctx, this.fw);
+        
+        for (let colony of model.listColony)
+            colony.draw(this.ctx)
     }
 
     //Выравнивание экрана по размерам окна
@@ -32,6 +32,7 @@ class View {
         this.canvas.height=window.innerHeight;
         this.ctx=this.canvas.getContext('2d');
         this.ctx.shadowColor='Black';
+        this.fw=new Flyweight();
     }
 }
 

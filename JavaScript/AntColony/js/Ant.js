@@ -3,9 +3,9 @@
 class Ant {
     
     //Муравей
-    constructor(pos={y: window.innerHeight/2, x: window.innerWidth/2}) {
-        this.clan='DarkRed';
-        this.pos=pos;
+    constructor(colony) {
+        this.color=colony.color;
+        this.pos=this.getPos(colony.pos);
         this.angle=Math.random()*Math.PI*2;
         this.status='wait';
         this.pose=false;
@@ -20,7 +20,7 @@ class Ant {
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle='Black';
-        ctx.fillStyle=this.clan;
+        ctx.fillStyle=this.color;
         //Смена координат для поворота
         ctx.save();
         ctx.translate(x, y);
@@ -87,6 +87,15 @@ class Ant {
         ctx.shadowBlur=0;
         ctx.shadowOffsetX=0;
         ctx.shadowOffsetY=0;
+    }
+
+    //Позиция колонии
+    getPos(colonyPos) {
+        let pos={
+            x: Math.round(colonyPos.x+Math.random()*50-25),
+            y: Math.round(colonyPos.y+Math.random()*50-25)
+        };
+        return pos;
     }
 }
 

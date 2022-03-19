@@ -5,13 +5,10 @@ class Colony {
     pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
 
     constructor(i, family) {
-        this.clan=this.getColor(i);
+        this.pos=this.getPos();
+        this.color=this.getColor(i);
         this.listAnt=[];
         this.fillListAnt(family);
-        this.pos={
-            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10),
-            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10)
-        };
     }
 
     //Обновление
@@ -26,6 +23,19 @@ class Colony {
             }
         }
     }
+
+    //Отрисовка
+    draw(ctx) {
+        let grad=ctx.createRadialGradient(this.pos.x, this.pos.y, 8,
+            this.pos.x, this.pos.y, 32);
+        grad.addColorStop(0, this.color);
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle=grad;
+        ctx.beginPath();
+        ctx.arc(this.pos.x, this.pos.y, 32, 0, Math.PI*2);
+        ctx.fill();
+        ctx.closePath();
+    }
     
     //Начальное заполнение колонии
     fillListAnt(family) {
@@ -35,12 +45,17 @@ class Colony {
 
     //Создание муравья
     newAnt() {
+        let ant=new Ant(this);
+        this.listAnt.push(ant);
+    }
+
+    //Позиция колонии
+    getPos() {
         let pos={
             y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10),
             x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10)
         };
-        let ant=new Ant(pos);
-        this.listAnt.push(ant);
+        return pos;
     }
     
     //Цвет колонии
