@@ -4,19 +4,28 @@ class Model {
 
     //Базовая модель
     constructor() {
-        this.base=4;
-        this.family=3;
-        this.listColony=this.fillListColony(this.base, this.family);
-        
+        this.base=2;
+        this.reserve=50;
+        this.listColony=this.getListColony(this.base, this.reserve);
         this.block=new Block();
         this.rock=new Rock();
         this.food=new Food();
     }
 
-    fillListColony(base, family) {
+    //Обновление
+    update() {
+        for (let colony of model.listColony) {
+            for (let ant of colony.listAnt)
+                ant.update();
+            colony.update();
+        }
+    }
+
+    //Запуск колоний
+    getListColony(base, reserve) {
         let listColony=[];
         for (let i=0; i<base; i++) {
-            let colony=new Colony(i, family);
+            let colony=new Colony(i, reserve);
             listColony.push(colony);
         }
         return listColony;

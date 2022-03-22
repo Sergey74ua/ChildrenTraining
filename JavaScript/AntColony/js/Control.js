@@ -17,9 +17,11 @@ class Control {
         onclick=(e) => this.onClick(e);
     }
 
+    //Обновление
     update() {
         if (this.play)
-            view.draw();
+            model.update();
+        view.draw();
     }
 
     //Отслеживае кликов мышки

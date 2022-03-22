@@ -4,24 +4,23 @@ class Colony {
     
     pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
 
-    constructor(i, family) {
+    constructor(i, reserve) {
         this.pos=this.getPos();
         this.color=this.getColor(i);
+        this.reserve=reserve;
+        this.ai=new PI;
         this.listAnt=[];
-        this.fillListAnt(family);
+        this.delay=8;
     }
 
     //Обновление
     update() {
-        if (this.food>=this.life) {
-            if (this.timer>0)
-                this.timer--;
-            else {
-                this.timer=this.duration;
-                this.food-=this.life;
-                this.newAnt();
-            }
-        }
+        if (this.delay>10 && this.reserve>=10) {
+            this.newAnt();
+            this.reserve-=10;
+            this.delay=0;
+        } else
+            this.delay++;
     }
 
     //Отрисовка
@@ -35,12 +34,6 @@ class Colony {
         ctx.arc(this.pos.x, this.pos.y, 32, 0, Math.PI*2);
         ctx.fill();
         ctx.closePath();
-    }
-    
-    //Начальное заполнение колонии
-    fillListAnt(family) {
-        for (let i=0; i<family; i++)
-            this.newAnt();
     }
 
     //Создание муравья

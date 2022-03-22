@@ -5,11 +5,26 @@ class Ant {
     //Муравей
     constructor(colony) {
         this.color=colony.color;
-        this.pos=this.getPos(colony.pos);
-        this.angle=Math.random()*Math.PI*2;
+        this.pos={
+            x: colony.pos.x,
+            y: colony.pos.y
+        };
+        this.target={
+            x: Math.round(window.innerWidth/2),
+            y: Math.round(window.innerHeight/2)
+        }
+        this.angle=this.getAngle(this.pos, this.target);
         this.status='wait';
+        this.speed=10;
         this.pose=false;
         this.food=0;
+    }
+
+    //Обновление
+    update() {
+        let angle=this.angle-Math.PI/2;
+        this.pos.x=Math.round(this.pos.x+this.speed*Math.cos(angle));
+        this.pos.y=Math.round(this.pos.y+this.speed*Math.sin(angle));
     }
 
     //Отрисовка
@@ -89,13 +104,9 @@ class Ant {
         ctx.shadowOffsetY=0;
     }
 
-    //Позиция колонии
-    getPos(colonyPos) {
-        let pos={
-            x: Math.round(colonyPos.x+Math.random()*50-25),
-            y: Math.round(colonyPos.y+Math.random()*50-25)
-        };
-        return pos;
+    //Поворот на цель
+    getAngle(pos, target) {
+        return Math.atan2(target.y-pos.y, target.x-pos.x)+Math.PI/2;
     }
 }
 
