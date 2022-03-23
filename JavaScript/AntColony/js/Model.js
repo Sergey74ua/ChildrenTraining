@@ -5,7 +5,7 @@ class Model {
     //Базовая модель
     constructor() {
         this.base=2;
-        this.reserve=50;
+        this.reserve=5;
         this.listColony=this.getListColony(this.base, this.reserve);
         this.block=new Block();
         this.rock=new Rock();

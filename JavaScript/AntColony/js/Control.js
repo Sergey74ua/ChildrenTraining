@@ -27,7 +27,10 @@ class Control {
     //Отслеживае кликов мышки
     onClick=(e) => {
         if (!this.focus) {
-            let pos={x: e.clientX, y: e.clientY};
+            let pos={
+                x: e.clientX,
+                y: e.clientY
+            };
             console.log(pos);
         }
         this.focus=false;

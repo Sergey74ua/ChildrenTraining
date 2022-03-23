@@ -5,19 +5,20 @@ class Colony {
     pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
 
     constructor(i, reserve) {
+        this.reserve=reserve;
         this.pos=this.getPos();
         this.color=this.getColor(i);
-        this.reserve=reserve;
         this.ai=new PI;
         this.listAnt=[];
-        this.delay=8;
+        this.timer=20;
+        this.delay=Math.round(this.timer*0.75);
     }
 
     //Обновление
     update() {
-        if (this.delay>10 && this.reserve>=10) {
+        if (this.delay>this.timer && this.reserve>0) {
             this.newAnt();
-            this.reserve-=10;
+            this.reserve--;
             this.delay=0;
         } else
             this.delay++;

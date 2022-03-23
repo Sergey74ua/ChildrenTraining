@@ -10,9 +10,9 @@ class Ant {
             y: colony.pos.y
         };
         this.target={
-            x: Math.round(window.innerWidth/2),
-            y: Math.round(window.innerHeight/2)
-        }
+            x: Math.round(view.canvas.width/2),
+            y: Math.round(view.canvas.height/2)
+        };
         this.angle=this.getAngle(this.pos, this.target);
         this.status='wait';
         this.speed=10;
@@ -25,12 +25,12 @@ class Ant {
         let angle=this.angle-Math.PI/2;
         this.pos.x=Math.round(this.pos.x+this.speed*Math.cos(angle));
         this.pos.y=Math.round(this.pos.y+this.speed*Math.sin(angle));
+        this.pose=!this.pose;
     }
 
     //Отрисовка
     draw(ctx, fw) {
         let x=this.pos.x, y=this.pos.y, angle=this.angle;
-        this.pose=!this.pose;
         let pose=this.pose*fw.size05;
         //Цвета и линии
         ctx.lineWidth=this.line;
