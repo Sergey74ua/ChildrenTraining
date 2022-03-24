@@ -13,10 +13,6 @@ class View {
     draw() {
         this.ctx.fillStyle='DarkGreen';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        model.block.draw(this.ctx);
-        model.rock.draw(this.ctx);
-        model.food.draw(this.ctx);
 
         for (let colony of model.listColony)
             for (let ant of colony.listAnt)
@@ -24,6 +20,10 @@ class View {
         
         for (let colony of model.listColony)
             colony.draw(this.ctx)
+            
+        model.block.draw(this.ctx);
+        model.rock.draw(this.ctx);
+        model.food.draw(this.ctx);
     }
 
     //Выравнивание экрана по размерам окна

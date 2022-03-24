@@ -7,6 +7,7 @@ class Model {
         this.base=2;
         this.reserve=5;
         this.listColony=this.getListColony(this.base, this.reserve);
+        
         this.block=new Block();
         this.rock=new Rock();
         this.food=new Food();
