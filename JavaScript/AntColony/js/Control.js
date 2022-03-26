@@ -27,11 +27,12 @@ class Control {
     //Отслеживае кликов мышки
     onClick=(e) => {
         if (!this.focus) {
-            let pos={
+            let food=new Food();
+            food.pos={
                 x: e.clientX,
                 y: e.clientY
             };
-            console.log(pos);
+            model.listFood.push(food);
         }
         this.focus=false;
     };

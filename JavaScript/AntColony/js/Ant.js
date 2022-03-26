@@ -31,7 +31,7 @@ class Ant {
     //Отрисовка
     draw(ctx, fw) {
         let x=this.pos.x, y=this.pos.y, angle=this.angle;
-        let pose=this.pose*fw.size05;
+        let pose=this.pose*.5;
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle='Black';

@@ -4,13 +4,15 @@ class Model {
 
     //Базовая модель
     constructor() {
-        this.base=2;
-        this.reserve=5;
-        this.listColony=this.getListColony(this.base, this.reserve);
+        this.base=1;
+        this.reserve=1;
         
+        this.listColony=this.getListColony(this.base, this.reserve);
+        this.listFood=[];
+
+        this.listFood.push(new Food());
         this.block=new Block();
         this.rock=new Rock();
-        this.food=new Food();
     }
 
     //Обновление
