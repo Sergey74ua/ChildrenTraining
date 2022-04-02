@@ -9,22 +9,23 @@ class Ant {
             x: colony.pos.x,
             y: colony.pos.y
         };
+        this.speed=1.5;
+        this.food=0;
         this.target=this.getTarget(this.pos);
         this.angle=this.getAngle(this.pos, this.target);
-        this.speed=1.5;
+        this.delay=0;
         this.step=5;
         this.pose=false;
-        this.food=0;
-
-        this.action = () => Action.wait(this);
+        this.action=() => Action.wait(this);
     }
 
     //Обновление
     update() {
+        this.delay--;
+        if (this.delay<0)
+            this.action=() => Action.wait(this);
         this.action();
-        let angle=this.angle-Math.PI/2;
-        this.pos.x+=this.speed*Math.cos(angle);
-        this.pos.y+=this.speed*Math.sin(angle);
+
         if (this.step<=0) {
             this.pose=!this.pose;
             this.step=5;
