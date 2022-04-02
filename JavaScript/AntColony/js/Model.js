@@ -5,9 +5,10 @@ class Model {
     //Базовая модель
     constructor() {
         this.base=1;
-        this.reserve=1;
+        this.food=1;
         
-        this.listColony=this.getListColony(this.base, this.reserve);
+        this.map=this.initMap();
+        this.listColony=this.initListColony(this.base, this.food);
         this.listFood=[];
 
         this.listFood.push(new Food());
@@ -24,11 +25,23 @@ class Model {
         }
     }
 
+    //Запуск карты
+    initMap() {
+        let map=[];
+        for (let x=0; x<window.innerWidth; x++) {
+            map[x]=[];
+            for (let y=0; y<window.innerHeight; y++)
+                map[x][y]=undefined;
+            map.push(x);
+        }
+        return map;
+    }
+
     //Запуск колоний
-    getListColony(base, reserve) {
+    initListColony(base, food) {
         let listColony=[];
         for (let i=0; i<base; i++) {
-            let colony=new Colony(i, reserve);
+            let colony=new Colony(i, food);
             listColony.push(colony);
         }
         return listColony;

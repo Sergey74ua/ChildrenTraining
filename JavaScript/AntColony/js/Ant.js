@@ -9,23 +9,27 @@ class Ant {
             x: colony.pos.x,
             y: colony.pos.y
         };
-        this.target={
-            x: Math.round(view.canvas.width/2),
-            y: Math.round(view.canvas.height/2)
-        };
+        this.target=this.getTarget(this.pos);
         this.angle=this.getAngle(this.pos, this.target);
-        this.status='wait';
-        this.speed=10;
+        this.speed=1.5;
+        this.step=5;
         this.pose=false;
         this.food=0;
+
+        this.action = () => Action.wait(this);
     }
 
     //Обновление
     update() {
+        this.action();
         let angle=this.angle-Math.PI/2;
-        this.pos.x=Math.round(this.pos.x+this.speed*Math.cos(angle));
-        this.pos.y=Math.round(this.pos.y+this.speed*Math.sin(angle));
-        this.pose=!this.pose;
+        this.pos.x+=this.speed*Math.cos(angle);
+        this.pos.y+=this.speed*Math.sin(angle);
+        if (this.step<=0) {
+            this.pose=!this.pose;
+            this.step=5;
+        } else
+            this.step--;
     }
 
     //Отрисовка
@@ -106,7 +110,15 @@ class Ant {
 
     //Поворот на цель
     getAngle(pos, target) {
-        return Math.atan2(target.y-pos.y, target.x-pos.x)+Math.PI/2;
+        return Math.atan2(target.y-pos.y, target.x-pos.x)+Math.PI/2*0;
+    }
+
+    //Рандомная цель
+    getTarget(pos) {
+        return {
+            x: Math.round(pos.x+Math.random()*200-100),
+            y: Math.round(pos.y+Math.random()*200-100)
+        }
     }
 }
 

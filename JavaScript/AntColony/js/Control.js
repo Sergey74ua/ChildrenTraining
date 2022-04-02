@@ -4,14 +4,14 @@ class Control {
 
     //Управление
     constructor() {
-        this.play=true;
+        this.game=true;
         this.focus=false;
-        this.fps=250;
+        this.fps=40;
         
         this.btnPlay=document.getElementById('play');
         this.btnClear=document.getElementById('clear');
-        this.btnPlay.addEventListener('click', this.Play.bind(this));
-        this.btnClear.addEventListener('click', this.Clear.bind(this));
+        this.btnPlay.addEventListener('click', this.play.bind(this));
+        this.btnClear.addEventListener('click', this.clear.bind(this));
 
         setInterval(() => this.update(), this.fps);
         onclick=(e) => this.onClick(e);
@@ -19,13 +19,13 @@ class Control {
 
     //Обновление
     update() {
-        if (this.play)
+        if (this.game)
             model.update();
         view.draw();
     }
 
     //Отслеживае кликов мышки
-    onClick=(e) => {
+    onClick(e) {
         if (!this.focus) {
             let food=new Food();
             food.pos={
@@ -35,17 +35,17 @@ class Control {
             model.listFood.push(food);
         }
         this.focus=false;
-    };
+    }
     
     //Кнопка старт/пауза
-    Play() {
+    play() {
         this.focus=true;
-        this.play=!this.play;
+        this.game=!this.game;
         this.btnName();
     }
 
     //Кнопка очистка
-    Clear() {
+    clear() {
         this.focus=true;
         //this.play=false;
         this.btnName();
@@ -55,7 +55,7 @@ class Control {
 
     //Функция старт/пауза
     btnName() {
-        if (this.play)
+        if (this.game)
             this.btnPlay.innerHTML='<i class="fa fa-pause" aria-hidden="true"></i>';
         else
             this.btnPlay.innerHTML='<i class="fa fa-play" aria-hidden="true"></i>';

@@ -4,6 +4,7 @@ var model, view, control;
 
 let listClass=[
     'AI',
+    'Action',
     'Ant',
     'Colony',
     'Items',

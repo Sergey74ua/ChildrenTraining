@@ -4,24 +4,25 @@ class Colony {
     
     pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
 
-    constructor(i, reserve) {
-        this.reserve=reserve;
+    constructor(i, food) {
+        this.food=food;
         this.pos=this.getPos();
         this.color=this.getColor(i);
         this.ai=new PI;
         this.listAnt=[];
-        this.timer=20;
-        this.delay=Math.round(this.timer*0.75);
+        this.timer=100;
+        this.delay=Math.round(this.timer/4);
     }
 
     //Обновление
     update() {
-        if (this.delay>this.timer && this.reserve>0) {
-            this.newAnt();
-            this.reserve--;
-            this.delay=0;
-        } else
-            this.delay++;
+        if (this.food>0)
+            this.delay--;
+            if (this.delay<0) {
+                this.listAnt.push(new Ant(this));
+                this.food--;
+                this.delay=this.timer;
+            }
     }
 
     //Отрисовка
@@ -37,26 +38,25 @@ class Colony {
         ctx.closePath();
     }
 
-    //Создание муравья
-    newAnt() {
-        let ant=new Ant(this);
-        this.listAnt.push(ant);
-    }
-
     //Позиция колонии
     getPos() {
         let pos={
-            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10),
-            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10)
+            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
+            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
         };
-        return pos;
+        /*if (model.map[x][y]===undefined) ПРОБЛЕМА ( async await )
+            return pos;
+        else
+            this.getPos();*/ return pos;
     }
     
     //Цвет колонии
     getColor(i) {
+        let color;
         if (i<this.pallet.length)
-            return this.pallet[i];
+            color=this.pallet[i];
         else
-            return '#'+Math.floor(Math.random()*16777216).toString(16).padStart(6, '0');
+            color='#'+Math.floor(Math.random()*16777216).toString(16).padStart(6, '0');
+        return color;
     }
 }
