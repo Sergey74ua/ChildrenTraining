@@ -48,9 +48,12 @@ class Model {
 
     //Обзор юнита
     vision(pos) {
-        let listItems={
-            food: 0
-        };
+        let range=20;
+        let listItems=[];
+        for (let x=pos.x-range; x>pos.x+range; x++)
+            for (let y=pos.y-range; y>pos.y+range; y++)
+                if (this.map[x][y] != undefined)
+                    listItems.push(this.map[x][y]);
         return listItems;
     }
 }

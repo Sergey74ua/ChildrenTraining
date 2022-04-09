@@ -9,14 +9,15 @@ class Ant {
             y: colony.pos.y
         };
         this.ai=colony.ai;
+        this.listTarget=[];
         this.life=100;
         this.speed=1.0;
-        this.food=0;
+        this.food=1;
         this.target=this.getTarget(this.pos);
         this.angle=this.getAngle(this.pos, this.target);
-        this.delay=0;
         this.step=5;
         this.pose=false;
+        this.delay=0;
         this.action=() => Action.wait(this);
     }
 
@@ -25,13 +26,11 @@ class Ant {
         this.delay--;
         if (this.delay<0)
             if (this.life<=0)
-                this.action=() => Action.dead(ant);
+                this.action=() => Action.dead(this);
             else {
-                //список целей{...}=vision(ant.pos)
-                let listItems=model.vision(this.pos);
-                //выбор action и target =ai(список{...})
-                //let chois=this.ai.choice(this);
                 this.action=() => Action.wait(this);
+                this.listTarget=model.vision(this.pos);
+                this.ai.select(this);
             }
         this.action();
     }
@@ -40,10 +39,6 @@ class Ant {
     draw(ctx, fw) {
         let x=this.pos.x, y=this.pos.y, angle=this.angle;
         let pose=this.pose*.5;
-        //Цвета и линии
-        ctx.lineWidth=this.line;
-        ctx.strokeStyle='Black';
-        ctx.fillStyle=this.color;
         //Смена координат для поворота
         ctx.save();
         ctx.translate(x, y);
@@ -51,12 +46,16 @@ class Ant {
         ctx.translate(-x, -y);
         //Корм
         if (this.food>0) {
-            ctx.fillStyle='DarkRed';
+            ctx.fillStyle=Food.color;
             ctx.beginPath();
-            ctx.arc(x, y-fw.size4, fw.size, 0, Pi2);
+            ctx.arc(x, y-fw.size4, fw.size15, 0, fw.Pi2);
             ctx.fill();
             ctx.closePath();
         }
+        //Цвета и линии
+        ctx.lineWidth=this.line;
+        ctx.strokeStyle='Black';
+        ctx.fillStyle=this.color;
         //Тени
         ctx.shadowBlur=3;
         ctx.shadowOffsetX=2;

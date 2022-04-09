@@ -1,18 +1,20 @@
 //Симулятор колонии муравьев
 
 class PI {
-    choice(ant) {
-        //Ожидание
-        if (ant.target==undefined)
-            return Action.wait(this);
-        //Поиск
-        if (true)
-            return Action.find(this);
+    select(ant) {
+        ant.target=ant.getTarget(ant.pos);
+        ant.angle=ant.getAngle(ant.pos, ant.target)
+        ant.delay=Math.round(Math.random()*60+20);
+
+        if (ant.action==Action.wait(ant)) //// ТАК НЕ РАБОТАЕТ
+            ant.action=() => Action.find(ant);
+        else
+            ant.action=() => Action.wait(ant);
     }
 }
 
 class AI {
-    choice() {
-        ;
+    select(ant) {
+        ant.action=() => Action.wait(ant);
     }
 }

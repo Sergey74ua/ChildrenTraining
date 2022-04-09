@@ -2,12 +2,8 @@
 
 class Action {
     //Действия муравья
-    static wait(ant) { /////////
-        ant.target=ant.getTarget(ant.pos);
-        ant.angle=ant.getAngle(ant.pos, ant.target)
-        ant.delay=Math.round(Math.random()*100+20);
-        ant.action=() => Action.find(ant);
-        console.log(ant.color, ' - сменил режим', ant.pos);
+    static wait(ant) {
+        ;
     }
 
     static find(ant) {
