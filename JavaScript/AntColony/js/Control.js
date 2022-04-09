@@ -1,7 +1,6 @@
 //Симулятор колонии муравьев
 
 class Control {
-
     //Управление
     constructor() {
         this.game=true;

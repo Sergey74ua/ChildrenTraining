@@ -1,7 +1,6 @@
 //Симулятор колонии муравьев
 
 class Ant {
-    
     //Муравей
     constructor(colony) {
         this.color=colony.color;
@@ -9,7 +8,9 @@ class Ant {
             x: colony.pos.x,
             y: colony.pos.y
         };
-        this.speed=1.5;
+        this.ai=colony.ai;
+        this.life=100;
+        this.speed=1.0;
         this.food=0;
         this.target=this.getTarget(this.pos);
         this.angle=this.getAngle(this.pos, this.target);
@@ -23,14 +24,16 @@ class Ant {
     update() {
         this.delay--;
         if (this.delay<0)
-            this.action=() => Action.wait(this);
+            if (this.life<=0)
+                this.action=() => Action.dead(ant);
+            else {
+                //список целей{...}=vision(ant.pos)
+                let listItems=model.vision(this.pos);
+                //выбор action и target =ai(список{...})
+                //let chois=this.ai.choice(this);
+                this.action=() => Action.wait(this);
+            }
         this.action();
-
-        if (this.step<=0) {
-            this.pose=!this.pose;
-            this.step=5;
-        } else
-            this.step--;
     }
 
     //Отрисовка
@@ -109,6 +112,18 @@ class Ant {
         ctx.shadowOffsetY=0;
     }
 
+    //Смена шагов
+    getStep() {
+        let angle=this.angle-Math.PI/2;
+        this.pos.x+=this.speed*Math.cos(angle);
+        this.pos.y+=this.speed*Math.sin(angle);
+        if (this.step<=0) {
+            this.pose=!this.pose;
+            this.step=5;
+        } else
+            this.step--;
+    }
+
     //Поворот на цель
     getAngle(pos, target) {
         return Math.atan2(target.y-pos.y, target.x-pos.x)+Math.PI/2*0;
@@ -125,7 +140,6 @@ class Ant {
 
 
 class Flyweight {
-    
     //Статичные данные
     constructor() {
         this.size=2;

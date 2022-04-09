@@ -1,7 +1,6 @@
 //Симулятор колонии муравьев
 
 class View {
-
     //Представление
     constructor() {
         this.canvas=document.getElementById('canvas');

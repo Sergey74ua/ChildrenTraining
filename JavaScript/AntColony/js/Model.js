@@ -1,7 +1,6 @@
 //Симулятор колонии муравьев
 
 class Model {
-
     //Базовая модель
     constructor() {
         this.base=1;
@@ -45,6 +44,14 @@ class Model {
             listColony.push(colony);
         }
         return listColony;
+    }
+
+    //Обзор юнита
+    vision(pos) {
+        let listItems={
+            food: 0
+        };
+        return listItems;
     }
 }
 

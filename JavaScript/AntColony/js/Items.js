@@ -2,10 +2,13 @@
 
 class Items {
     //Абстрактный класс для объектов
-    constructor() {
+    constructor(pos={
+            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
+            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
+        }) {
         this.pos={
-            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10),
-            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10)
+            x: pos.x,
+            y: pos.y
         };
     }
 
