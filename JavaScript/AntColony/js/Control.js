@@ -14,6 +14,8 @@ class Control {
 
         setInterval(() => this.update(), this.fps);
         onclick=(e) => this.onClick(e);
+
+        model.init();
     }
 
     //Обновление
@@ -26,12 +28,11 @@ class Control {
     //Отслеживае кликов мышки
     onClick(e) {
         if (!this.focus) {
-            let food=new Food();
-            food.pos={
+            let pos={
                 x: e.clientX,
                 y: e.clientY
             };
-            model.listFood.push(food);
+            model.newFood(pos);
         }
         this.focus=false;
     }

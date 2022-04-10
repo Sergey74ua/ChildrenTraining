@@ -12,9 +12,12 @@ class View {
     draw() {
         this.ctx.fillStyle='DarkGreen';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+        for (let block of model.listBlock)
+            block.draw(this.ctx);
         
-        model.block.draw(this.ctx);
-        model.rock.draw(this.ctx);
+        for (let rock of model.listRock)
+            rock.draw(this.ctx);
 
         for (let food of model.listFood)
             food.draw(this.ctx);

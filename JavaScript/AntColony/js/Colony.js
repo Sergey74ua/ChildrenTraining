@@ -6,7 +6,7 @@ class Colony {
 
     constructor(i, food) {
         this.food=food;
-        this.pos=this.getPos();
+        this.pos=model.randPos();
         this.color=this.getColor(i);
         this.ai=new PI;
         this.listAnt=[];
@@ -36,18 +36,6 @@ class Colony {
         ctx.arc(this.pos.x, this.pos.y, 32, 0, Math.PI*2);
         ctx.fill();
         ctx.closePath();
-    }
-
-    //Позиция колонии
-    getPos() {
-        let pos={
-            x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
-            y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
-        };
-        /*if (model.map[x][y]===undefined) ПРОБЛЕМА ( async await )
-            return pos;
-        else
-            this.getPos();*/ return pos;
     }
     
     //Цвет колонии

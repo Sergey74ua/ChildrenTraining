@@ -12,6 +12,7 @@ class Ant {
         this.listTarget=[];
         this.life=100;
         this.speed=1.0;
+        this.range=20;
         this.food=1;
         this.target=this.getTarget(this.pos);
         this.angle=this.getAngle(this.pos, this.target);
@@ -29,7 +30,7 @@ class Ant {
                 this.action=() => Action.dead(this);
             else {
                 this.action=() => Action.wait(this);
-                this.listTarget=model.vision(this.pos);
+                this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
             }
         this.action();
