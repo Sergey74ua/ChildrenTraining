@@ -28,7 +28,7 @@ class Action {
         ;
     }
 
-    static quit(ant) {
+    static drop(ant) {
         ;
     }
 

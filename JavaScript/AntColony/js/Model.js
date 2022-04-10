@@ -3,6 +3,11 @@
 class Model {
     //Базовая модель
     constructor() {
+        this.size={
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+        
         this.base=1;
         this.food=1;
         
@@ -14,6 +19,39 @@ class Model {
         this.listFood=[];
     }
 
+    //Инициализация карты
+    init() {
+        //Карта
+        for (let x=0; x<this.size.width; x++) {
+            this.map[x]=[];
+            this.air[x]=[];
+            for (let y=0; y<this.size.height; y++) {
+                this.map[x][y]={};
+                this.air[x][y]={};
+                this.newBlock({x: x, y: y});
+            }
+        }
+        //Колонии
+        for (let i=0; i<this.base; i++) {
+            let pos=this.rndPos();
+            let colony=new Colony(i, pos, this.food);
+            this.listColony.push(colony);
+            this.map[pos.x][pos.y]=colony;
+        }
+        //Камни
+        for (let i=0; i<this.base*this.food*10; i++) {
+            let pos=this.rndPos();
+            let rock=new Rock(pos);
+            this.listRock.push(rock);
+            this.map[rock.pos.x][rock.pos.y]=rock;
+        }
+        //Корм
+        for (let i=0; i<this.base*this.food*10; i++) {
+            let pos=this.rndPos();
+            this.newFood(pos);
+        }
+    }
+
     //Обновление
     update() {
         for (let colony of this.listColony) {
@@ -23,46 +61,15 @@ class Model {
         }
     }
 
-    //Инициализация карты
-    init() {
-        let w=window.innerWidth,
-            h=window.innerHeight;
-        //Карта
-        for (let x=0; x<w; x++) {
-            this.map[x]=[];
-            this.air[x]=[];
-            for (let y=0; y<h; y++) {
-                this.map[x][y]={};
-                this.air[x][y]={};
-                this.newBlock({x: x, y: y});
-            }
-        }
-        //Колонии
-        for (let i=0; i<this.base; i++) {
-            let pos=this.randPos();
-            let colony=new Colony(i, this.food);
-            this.listColony.push(colony);
-            this.map[colony.pos.x][colony.pos.y]=colony;
-        }
-        //Камни
-        for (let i=0; i<this.base*this.food*10; i++) {
-            let pos=this.randPos();
-            let rock=new Rock(pos);
-            this.listRock.push(rock);
-            this.map[rock.pos.x][rock.pos.y]=rock;
-        }
-        //Корм
-        for (let i=0; i<this.base*this.food*10; i++) {
-            let pos=this.randPos();
-            this.newFood(pos);
-        }
-    }
-
     //Обзор юнита
     vision(pos, range=0) {
         let listTarget=[];
-        for (let x=Math.round(pos.x-range); x<Math.round(pos.x+range); x++)
-            for (let y=Math.round(pos.y-range); y<Math.round(pos.y+range); y++)
+        let left=Math.max(Math.round(pos.x-range), 0);
+        let right=Math.min(Math.round(pos.x+range), this.size.width);
+        let top=Math.max(Math.round(pos.y-range), 0);
+        let bottom=Math.min(Math.round(pos.y+range), this.size.height);
+        for (let x=left; x<right; x++)
+            for (let y=top; y<bottom; y++)
                 if (Object.keys(this.map[x][y]).length!==0)
                     listTarget.push(this.map[x][y]);
         return listTarget;
@@ -70,10 +77,9 @@ class Model {
 
     //Добавление блоков
     newBlock(pos) {
-        let w=window.innerWidth,
-            h=window.innerHeight,
-            b=3;
-        if ((pos.y<b || pos.y>=(h-b)) || (pos.x<b || pos.x>=(w-b))) {
+        let border=3;
+        if ((pos.x<border || pos.x>=(this.size.width-border)) ||
+            (pos.y<border || pos.y>=(this.size.height-border))) {
             let block=new Block({x: pos.x, y: pos.y});
             this.listBlock.push(block);
             this.map[pos.x][pos.y]=block;
@@ -88,7 +94,7 @@ class Model {
     }
 
     //Случайная позиция
-    randPos() {
+    rndPos() {
         let collision=true;
         let pos={};
         while (collision) {

@@ -4,11 +4,11 @@ class Colony {
     
     pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
 
-    constructor(i, food) {
+    constructor(i, pos, food) {
         this.food=food;
-        this.pos=model.randPos();
+        this.pos=pos;
         this.color=this.getColor(i);
-        this.ai=new PI;
+        this.ai=new PI();
         this.listAnt=[];
         this.timer=100;
         this.delay=Math.round(this.timer/4);
