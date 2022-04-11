@@ -3,20 +3,20 @@
 class Model {
     //Базовая модель
     constructor() {
+        this.base=1;
+        this.food=10;
         this.size={
             width: window.innerWidth,
             height: window.innerHeight
         };
-        
-        this.base=1;
-        this.food=1;
-        
         this.map=[];
         this.air=[];
         this.listBlock=[];
         this.listColony=[];
         this.listRock=[];
         this.listFood=[];
+
+        this.init();
     }
 
     //Инициализация карты
@@ -41,9 +41,7 @@ class Model {
         //Камни
         for (let i=0; i<this.base*this.food*10; i++) {
             let pos=this.rndPos();
-            let rock=new Rock(pos);
-            this.listRock.push(rock);
-            this.map[rock.pos.x][rock.pos.y]=rock;
+            this.newRock(pos);
         }
         //Корм
         for (let i=0; i<this.base*this.food*10; i++) {
@@ -70,14 +68,14 @@ class Model {
         let bottom=Math.min(Math.round(pos.y+range), this.size.height);
         for (let x=left; x<right; x++)
             for (let y=top; y<bottom; y++)
-                if (Object.keys(this.map[x][y]).length!==0)
+                if (Object.keys(this.map[x][y]).length!=0)
                     listTarget.push(this.map[x][y]);
         return listTarget;
     }
 
     //Добавление блоков
     newBlock(pos) {
-        let border=3;
+        let border=1;
         if ((pos.x<border || pos.x>=(this.size.width-border)) ||
             (pos.y<border || pos.y>=(this.size.height-border))) {
             let block=new Block({x: pos.x, y: pos.y});
@@ -93,6 +91,13 @@ class Model {
         this.map[food.pos.x][food.pos.y]=food;
     }
 
+    //Добавление камня
+    newRock(pos) {
+        let rock=new Rock(pos);
+        this.listRock.push(rock);
+        this.map[rock.pos.x][rock.pos.y]=rock;
+    }
+
     //Случайная позиция
     rndPos() {
         let collision=true;
@@ -102,10 +107,10 @@ class Model {
                 x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
                 y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
             };
-            if (Object.keys(this.map[pos.x][pos.y]).length===0)
+            if (Object.keys(this.map[pos.x][pos.y]).length==0)
                 collision=false;
         }
-        return pos
+        return pos;
     }
 }
 

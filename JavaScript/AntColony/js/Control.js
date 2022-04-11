@@ -14,8 +14,6 @@ class Control {
 
         setInterval(() => this.update(), this.fps);
         onclick=(e) => this.onClick(e);
-
-        model.init();
     }
 
     //Обновление

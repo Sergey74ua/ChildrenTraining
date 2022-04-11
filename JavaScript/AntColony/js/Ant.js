@@ -4,22 +4,21 @@ class Ant {
     //Муравей
     constructor(colony) {
         this.color=colony.color;
-        this.pos={
-            x: colony.pos.x,
-            y: colony.pos.y
-        };
+        this.pos=this.getPos(colony.pos, 2);
         this.ai=colony.ai;
         this.listTarget=[];
+        this.contact={}; ////////
+        this.score=0; ////////
         this.life=100;
+        this.food=0;
         this.speed=1.0;
-        this.range=100;
-        this.food=1;
-        this.target=this.getTarget(this.pos);
-        this.angle=this.getAngle(this.pos, this.target);
+        this.range=32;
         this.step=5;
         this.pose=false;
         this.delay=0;
-        this.action=() => Action.wait(this);
+        this.target=this.getPos(this.pos, this.range);
+        this.angle=this.getAngle(this.pos, this.target);
+        this.action=Action.wait;
     }
 
     //Обновление
@@ -27,13 +26,15 @@ class Ant {
         this.delay--;
         if (this.delay<0)
             if (this.life<=0)
-                this.action=() => Action.dead(this);
+                this.action=Action.dead;
             else {
-                this.action=() => Action.wait(this);
+                this.action=Action.wait;
                 this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
+                this.delay=60;
+                console.log(this.action.name); ///////////////////
             }
-        this.action();
+        this.action(this);
     }
 
     //Отрисовка
@@ -110,6 +111,11 @@ class Ant {
         ctx.shadowBlur=0;
         ctx.shadowOffsetX=0;
         ctx.shadowOffsetY=0;
+
+        //ВРЕМЕННО - ОБЗОР //////////////////////////////////////////////////
+        ctx.strokeStyle='Yellow';
+        ctx.lineWidth=0.5;
+        ctx.strokeRect(x-this.range, y-this.range, this.range*2, this.range*2)
     }
 
     //Смена шагов
@@ -124,17 +130,24 @@ class Ant {
             this.step--;
     }
 
+    //Рандомная цель
+    getPos(inPos, range) {
+        let collision=true;
+        let pos={};
+        while (collision) {
+            pos={
+                x: Math.round(inPos.x+Math.random()*range*2-range),
+                y: Math.round(inPos.y+Math.random()*range*2-range)
+            };
+            if (Object.keys(model.map[pos.x][pos.y]).length==0)
+                collision=false;
+        }
+        return pos;
+    }
+
     //Поворот на цель
     getAngle(pos, target) {
         return Math.atan2(target.y-pos.y, target.x-pos.x)+Math.PI/2*0;
-    }
-
-    //Рандомная цель
-    getTarget(pos) {
-        return {
-            x: Math.round(pos.x+Math.random()*this.range*2-this.range),
-            y: Math.round(pos.y+Math.random()*this.range*2-this.range)
-        }
     }
 }
 

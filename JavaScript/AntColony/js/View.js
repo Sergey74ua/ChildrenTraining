@@ -32,8 +32,8 @@ class View {
 
     //Выравнивание экрана по размерам окна
     onResize() {
-        this.canvas.width=window.innerWidth;
-        this.canvas.height=window.innerHeight;
+        this.canvas.width=model.size.width;
+        this.canvas.height=model.size.height;
         this.ctx=this.canvas.getContext('2d');
         this.ctx.shadowColor='Black';
         this.fw=new Flyweight();

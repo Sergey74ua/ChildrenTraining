@@ -8,9 +8,9 @@ class Colony {
         this.food=food;
         this.pos=pos;
         this.color=this.getColor(i);
-        this.ai=new PI();
+        this.ai=new RI();
         this.listAnt=[];
-        this.timer=100;
+        this.timer=120;
         this.delay=Math.round(this.timer/4);
     }
 
