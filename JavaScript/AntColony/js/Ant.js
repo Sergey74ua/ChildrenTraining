@@ -14,6 +14,7 @@ class Ant {
         this.speed=1.0;
         this.range=32;
         this.step=5;
+        this.run=false;
         this.pose=false;
         this.delay=30;
         this.timer=0;
@@ -29,12 +30,11 @@ class Ant {
             if (this.life<=0)
                 this.action=Action.dead;
             else {
-                this.action(this);
                 this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
-                console.log(this.timer, this.action.name); ///////////////////
+                this.action(this);
             }
-        if (this.action==Action.find || this.action==Action.move || this.action==Action.back)
+        if (this.run)
             this.getStep();
     }
 
