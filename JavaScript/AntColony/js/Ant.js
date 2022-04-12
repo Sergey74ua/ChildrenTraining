@@ -15,7 +15,8 @@ class Ant {
         this.range=32;
         this.step=5;
         this.pose=false;
-        this.delay=0;
+        this.delay=30;
+        this.timer=0;
         this.target=this.getPos(this.pos, this.range);
         this.angle=this.getAngle(this.pos, this.target);
         this.action=Action.wait;
@@ -23,18 +24,18 @@ class Ant {
 
     //Обновление
     update() {
-        this.delay--;
-        if (this.delay<0)
+        this.timer--;
+        if (this.timer<0)
             if (this.life<=0)
                 this.action=Action.dead;
             else {
-                this.action=Action.wait;
+                this.action(this);
                 this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
-                this.delay=60;
-                console.log(this.action.name); ///////////////////
+                console.log(this.timer, this.action.name); ///////////////////
             }
-        this.action(this);
+        if (this.action==Action.find || this.action==Action.move || this.action==Action.back)
+            this.getStep();
     }
 
     //Отрисовка
@@ -131,18 +132,18 @@ class Ant {
     }
 
     //Рандомная цель
-    getPos(inPos, range) {
+    getPos(pos, range) {
         let collision=true;
-        let pos={};
+        let target={};
         while (collision) {
-            pos={
-                x: Math.round(inPos.x+Math.random()*range*2-range),
-                y: Math.round(inPos.y+Math.random()*range*2-range)
+            target={
+                x: Math.round(pos.x+Math.random()*range*2-range),
+                y: Math.round(pos.y+Math.random()*range*2-range)
             };
-            if (Object.keys(model.map[pos.x][pos.y]).length==0)
+            if (Object.keys(model.map[target.x][target.y]).length==0)
                 collision=false;
         }
-        return pos;
+        return target;
     }
 
     //Поворот на цель

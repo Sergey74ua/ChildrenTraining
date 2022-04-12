@@ -3,44 +3,75 @@
 class Action {
     //Действия муравья
     static drop(ant) {
-        ;
+        ant.timer=ant.delay;
+        //проверить близость своего муравейника
+        // и добавить корм в колонию,
+        //или найти свободную точку для сброса корма
+        // и добавть корм на точку,
+        //убрать корм с муравья,
+        ant.action=Action.wait;
     }
 
     static kick(ant) {
-        ;
+        ant.timer=ant.delay*5;
+        //проверить близость корма или противника,
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        //шаг перед или назад,
+        ant.action=Action.wait;
     }
 
     static grab(ant) {
-        ;
+        ant.timer=ant.delay*4;
+        let food=Math.min(0, ant.life);
+        //забрать корм с точки,
+        ant.food=food;
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        ant.action=Action.wait;
     }
 
-    static move(ant) {
+    static move(ant) { ///////////////////////
+        ant.timer=ant.delay; //// тут должна быть проверка на близость
+        ant.angle=ant.getAngle(ant.pos, ant.target);
         if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
             ant.action=Action.grab;
         else {
             model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
-            ant.getStep();
             model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
         }
     }
 
-    static find(ant) {
-        if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
-            ant.action=Action.wait;
-        else {
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
-            ant.getStep();
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
-        }
-    }
-
-    static info(ant) {
+    static back(ant) {
+        ant.timer=ant.delay*5;
+        ant.target=ant.getPos(ant.pos, ant.range);
+        ant.angle=ant.getAngle(ant.pos, ant.target);
         ant.action=Action.wait;
     }
 
-    static dead(ant) {
-        ant.pos.x=Math.round(ant.pos.x);
-        ant.pos.y=Math.round(ant.pos.y);
+    static find(ant) {
+        ant.timer=ant.delay*4;
+        ant.target=ant.getPos(ant.pos, ant.range);
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        /*if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
+            ant.action=Action.wait;
+        else {
+            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
+            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
+        }*/
+        ant.action=Action.wait;
+    }
+
+    static info(ant) {
+        ant.timer=ant.delay*3;
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        ant.action=Action.wait;
+    }
+
+    static dead(ant) { ///////////////////////
+        ant.timer=ant.delay*20;
+        ant.pos={
+            x: Math.round(ant.pos.x),
+            y:Math.round(ant.pos.y)
+        };
         if (ant.delay<0) {
             if (ant.food>0) {
                 let food=new Food(ant.pos);
@@ -56,6 +87,7 @@ class Action {
     }
     
     static wait(ant) {
+        ant.timer=ant.delay;
         ant.action=Action.wait;
     }
 }

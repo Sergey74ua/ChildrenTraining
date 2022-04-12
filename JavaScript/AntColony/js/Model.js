@@ -4,7 +4,7 @@ class Model {
     //Базовая модель
     constructor() {
         this.base=1;
-        this.food=10;
+        this.food=1;
         this.size={
             width: window.innerWidth,
             height: window.innerHeight

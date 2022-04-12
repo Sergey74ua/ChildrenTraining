@@ -29,6 +29,9 @@ class AI { //////////////////////////////
         //Подход - если виден корм или муравейник
         else if (ant.listTarget.includes(Food))
             ant.action=Action.move;
+        //Возврат - если есть корм
+        else if (ant.food>0)
+            ant.action=Action.back;
         //Поиск - если нет корма и корм не виден
         else if (ant.food<=0)
             ant.action=Action.find;
@@ -50,6 +53,7 @@ class RI { //////////////////////////////
         Action.kick,
         Action.grab,
         Action.move,
+        Action.back,
         Action.find,
         Action.info,
         Action.dead,
