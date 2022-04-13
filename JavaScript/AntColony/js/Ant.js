@@ -6,9 +6,10 @@ class Ant {
         this.color=colony.color;
         this.pos=this.getPos(colony.pos, 2);
         this.ai=colony.ai;
+        //веса нейронов
         this.listTarget=[];
         this.contact={}; ////////
-        this.score=0; ////////
+        this.score=0;
         this.life=100;
         this.food=0;
         this.speed=1.0;
@@ -49,12 +50,14 @@ class Ant {
         ctx.translate(-x, -y);
         //Корм
         if (this.food>0) {
+            this.speed=0.667;
             ctx.fillStyle=Food.color;
             ctx.beginPath();
             ctx.arc(x, y-fw.size4, fw.size15, 0, fw.Pi2);
             ctx.fill();
             ctx.closePath();
-        }
+        } else
+            this.speed=1.0;
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle='Black';
@@ -112,21 +115,23 @@ class Ant {
         ctx.shadowBlur=0;
         ctx.shadowOffsetX=0;
         ctx.shadowOffsetY=0;
-
-        //ВРЕМЕННО - ОБЗОР //////////////////////////////////////////////////
-        ctx.strokeStyle='Yellow';
+        //////////////////// ВРЕМЕННО - ОБЗОР ////////////////////
+        /*ctx.strokeStyle='Yellow';
         ctx.lineWidth=0.5;
-        ctx.strokeRect(x-this.range, y-this.range, this.range*2, this.range*2)
+        ctx.strokeRect(x-this.range, y-this.range, this.range*2, this.range*2);*/
     }
 
     //Смена шагов
     getStep() {
+        model.map[Math.round(this.pos.x)][Math.round(this.pos.y)]=false;
         let angle=this.angle-Math.PI/2;
         this.pos.x+=this.speed*Math.cos(angle);
         this.pos.y+=this.speed*Math.sin(angle);
+        model.map[Math.round(this.pos.x)][Math.round(this.pos.y)]=this;
         if (this.step<=0) {
             this.pose=!this.pose;
             this.step=5;
+            this.score++;
         } else
             this.step--;
     }

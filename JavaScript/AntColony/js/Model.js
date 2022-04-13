@@ -26,8 +26,8 @@ class Model {
             this.map[x]=[];
             this.air[x]=[];
             for (let y=0; y<this.size.height; y++) {
-                this.map[x][y]={};
-                this.air[x][y]={};
+                this.map[x][y]=false;
+                this.air[x][y]=false;
                 this.newBlock({x: x, y: y});
             }
         }
@@ -68,7 +68,7 @@ class Model {
         let bottom=Math.min(Math.round(pos.y+range), this.size.height);
         for (let x=left; x<right; x++)
             for (let y=top; y<bottom; y++)
-                if (Object.keys(this.map[x][y]).length!=0)
+                if (this.map[x][y]!=0)
                     listTarget.push(this.map[x][y]);
         return listTarget;
     }
@@ -107,7 +107,7 @@ class Model {
                 x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
                 y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
             };
-            if (Object.keys(this.map[pos.x][pos.y]).length==0)
+            if (!this.map[pos.x][pos.y])
                 collision=false;
         }
         return pos;

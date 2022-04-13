@@ -10,25 +10,28 @@ class Action {
         //или найти свободную точку для сброса корма
         // и добавть корм на точку,
         //убрать корм с муравья,
+        ant.score+=50;
         //ant.action=Action.wait;
     }
 
     static kick(ant) {
-        ant.timer=ant.delay*5;
+        ant.timer=ant.delay*4;
         ant.run=false;
         //проверить близость корма или противника,
         ant.angle=ant.getAngle(ant.pos, ant.target);
         //шаг перед или назад,
+        ant.score+=100;
         //ant.action=Action.wait;
     }
 
     static grab(ant) {
-        ant.timer=ant.delay*4;
+        ant.timer=ant.delay*3;
         ant.run=false;
         let food=Math.min(0, ant.life);
         //забрать корм с точки,
         ant.food=food;
         ant.angle=ant.getAngle(ant.pos, ant.target);
+        ant.score+=50;
         //ant.action=Action.wait;
     }
 
@@ -67,14 +70,18 @@ class Action {
     }
 
     static info(ant) {
-        ant.timer=ant.delay*3;
+        ant.timer=ant.delay*2;
         ant.run=false;
         ant.angle=ant.getAngle(ant.pos, ant.target);
+        if (ant.score>ant.contact.score*0.75) {
+            //копирование весов нейронов
+            ant.score+=20;
+        }
         //ant.action=Action.wait;
     }
 
     static dead(ant) { ///////////////////////
-        ant.timer=ant.delay*10;
+        ant.timer=ant.delay*6;
         ant.run=false;
         ant.pos={
             x: Math.round(ant.pos.x),
