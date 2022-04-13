@@ -68,7 +68,7 @@ class Model {
         let bottom=Math.min(Math.round(pos.y+range), this.size.height);
         for (let x=left; x<right; x++)
             for (let y=top; y<bottom; y++)
-                if (this.map[x][y]!=0)
+                if (this.map[x][y]!==false)
                     listTarget.push(this.map[x][y]);
         return listTarget;
     }
@@ -107,7 +107,7 @@ class Model {
                 x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
                 y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
             };
-            if (!this.map[pos.x][pos.y])
+            if (this.map[pos.x][pos.y]===false)
                 collision=false;
         }
         return pos;
