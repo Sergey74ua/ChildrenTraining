@@ -145,7 +145,7 @@ class Ant {
                 x: Math.round(pos.x+Math.random()*range*2-range),
                 y: Math.round(pos.y+Math.random()*range*2-range)
             };
-            if (Object.keys(model.map[target.x][target.y]).length==0)
+            if (model.map[target.x][target.y]===false)
                 collision=false;
         }
         return target;
