@@ -1,6 +1,7 @@
 //Симулятор колонии муравьев
 
 class PI { //////////////////////////////
+    //Программируемый интеллект
     select(ant) {
         if (ant.pose) {
             ant.action=Action.wait;
@@ -16,6 +17,7 @@ class PI { //////////////////////////////
 }
 
 class AI { //////////////////////////////
+    //Искуственный интеллект (нейросеть)
     select(ant) {
         //Сброс - если есть корм и (рядом свой муравейник или тебя атакуют)
         if (ant.food>0 && (false || ant.life<100)) //урон-?
@@ -48,19 +50,9 @@ class AI { //////////////////////////////
 }
 
 class RI { //////////////////////////////
-    listAction=[
-        Action.drop,
-        Action.kick,
-        Action.grab,
-        Action.move,
-        Action.back,
-        Action.find,
-        Action.info,
-        Action.dead,
-        Action.wait
-    ];
-
+    //Рандомный интеллект
     select(ant) {
-        ant.action=this.listAction[Math.floor(Math.random()*this.listAction.length)];
+        ant.action=Action.listAction[Math.floor(Math.random()*Action.listAction.length)];
+        //console.log(ant.action.name);
     }
 }

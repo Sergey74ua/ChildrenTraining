@@ -2,6 +2,18 @@
 
 class Action {
     //Действия муравья
+    static listAction=[
+        Action.drop,
+        Action.kick,
+        Action.grab,
+        Action.move,
+        Action.back,
+        Action.find,
+        Action.info,
+        Action.dead,
+        Action.wait
+    ];
+
     static drop(ant) {
         ant.timer=ant.delay;
         ant.run=false;
