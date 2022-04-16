@@ -3,8 +3,8 @@
 class Model {
     //Базовая модель
     constructor() {
-        this.base=1;
-        this.food=1;
+        this.base=4;
+        this.food=10;
         this.size={
             width: window.innerWidth,
             height: window.innerHeight
@@ -62,10 +62,10 @@ class Model {
     //Обзор юнита
     vision(pos, range=0) {
         let listTarget=[];
-        let left=Math.max(Math.round(pos.x-range), 0);
-        let right=Math.min(Math.round(pos.x+range), this.size.width);
-        let top=Math.max(Math.round(pos.y-range), 0);
-        let bottom=Math.min(Math.round(pos.y+range), this.size.height);
+        let left=Math.max(pos.x-range, 0);
+        let right=Math.min(pos.x+range, this.size.width);
+        let top=Math.max(pos.y-range, 0);
+        let bottom=Math.min(pos.y+range, this.size.height);
         for (let x=left; x<right; x++)
             for (let y=top; y<bottom; y++)
                 if (this.map[x][y]!==false)

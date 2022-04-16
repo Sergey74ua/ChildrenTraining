@@ -2,13 +2,18 @@
 
 class Colony {
     
-    pallet=['SaddleBrown', 'DarkKhaki', 'DimGrey', 'Maroon'];
+    pallet=[
+        'SaddleBrown',
+        'DarkKhaki',
+        'DimGrey',
+        'Maroon'
+    ];
 
     constructor(i, pos, food) {
         this.food=food;
         this.pos=pos;
         this.color=this.getColor(i);
-        this.ai=new RI();
+        this.ai=new PI();
         this.listAnt=[];
         this.timer=120;
         this.delay=Math.round(this.timer/4);

@@ -3,6 +3,7 @@
 class Action {
     //Действия муравья
     static listAction=[
+        Action.dead,
         Action.drop,
         Action.kick,
         Action.grab,
@@ -10,95 +11,12 @@ class Action {
         Action.back,
         Action.find,
         Action.info,
-        Action.dead,
         Action.wait
     ];
-
-    static drop(ant) {
-        ant.timer=ant.delay;
-        ant.run=false;
-        //проверить близость своего муравейника
-        // и добавить корм в колонию,
-        //или найти свободную точку для сброса корма
-        // и добавть корм на точку,
-        //убрать корм с муравья,
-        ant.score+=50;
-        //ant.action=Action.wait;
-    }
-
-    static kick(ant) {
-        ant.timer=ant.delay*4;
-        ant.run=false;
-        //проверить близость корма или противника,
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        //шаг перед или назад,
-        ant.score+=100;
-        //ant.action=Action.wait;
-    }
-
-    static grab(ant) {
-        ant.timer=ant.delay*3;
-        ant.run=false;
-        let food=Math.min(0, ant.life);
-        //забрать корм с точки,
-        ant.food=food;
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        ant.score+=50;
-        //ant.action=Action.wait;
-    }
-
-    static move(ant) { ///////////////////////
-        ant.timer=ant.delay; //// тут должна быть проверка на близость
-        ant.run=true;
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
-            ant.action=Action.grab;
-        else {
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
-        }
-    }
-
-    static back(ant) {
-        ant.timer=ant.delay*5;
-        ant.run=true;
-        ant.target=ant.getPos(ant.pos, ant.range);
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        //ant.action=Action.wait;
-    }
-
-    static find(ant) {
-        ant.timer=ant.delay*4;
-        ant.run=true;
-        ant.target=ant.getPos(ant.pos, ant.range);
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        /*if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
-            ant.action=Action.wait;
-        else {
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
-        }*/
-        //ant.action=Action.wait;
-    }
-
-    static info(ant) {
-        ant.timer=ant.delay*2;
-        ant.run=false;
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        if (ant.score>ant.contact.score*0.75) {
-            //копирование весов нейронов
-            ant.score+=20;
-        }
-        //ant.action=Action.wait;
-    }
-
+    
     static dead(ant) { ///////////////////////
-        ant.timer=ant.delay*6;
+        ant.timer=ant.getDelay(ant.delay*6);
         ant.run=false;
-        ant.pos={
-            x: Math.round(ant.pos.x),
-            y:Math.round(ant.pos.y)
-        };
         if (ant.delay<0) {
             if (ant.food>0) {
                 let food=new Food(ant.pos);
@@ -112,9 +30,78 @@ class Action {
             //delete(ant);
         }
     }
+
+    static drop(ant) {
+        ant.timer=ant.getDelay(ant.delay);
+        ant.run=false;
+        //проверить близость своего муравейника
+        // и добавить корм в колонию,
+        //или найти свободную точку для сброса корма
+        // и добавть корм на точку,
+        //убрать корм с муравья,
+        ant.score+=50;
+        //ant.action=Action.wait;
+    }
+
+    static kick(ant) {
+        ant.timer=ant.getDelay(ant.delay*4);
+        ant.run=false;
+        //проверить близость корма или противника,
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        //шаг перед или назад,
+        ant.score+=100;
+        //ant.action=Action.wait;
+    }
+
+    static grab(ant) {
+        ant.timer=ant.getDelay(ant.delay*3);
+        ant.run=false;
+        let food=Math.min(0, ant.life);
+        //забрать корм с точки,
+        ant.food=food;
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        ant.score+=50;
+    }
+
+    static move(ant) { ///////////////////////
+        ant.timer=ant.getDelay(ant.delay); //// тут должна быть проверка на близость
+        ant.run=true;
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
+            ant.action=Action.grab;
+        else {
+            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
+            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
+        }
+    }
+
+    static back(ant) {
+        ant.timer=ant.getDelay(ant.delay*5);
+        ant.run=true;
+        ant.target=ant.rndPos(ant.pos, ant.range);
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+    }
+
+    static find(ant) {
+        ant.timer=ant.getDelay(ant.delay*4);
+        ant.run=true;
+        ant.target=ant.rndPos(ant.pos, ant.range);
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+    }
+
+    static info(ant) {
+        ant.timer=ant.getDelay(ant.delay*2);
+        ant.run=false;
+        ant.angle=ant.getAngle(ant.pos, ant.target);
+        if (ant.score>ant.contact.score*0.75) {
+            //копирование весов нейронов
+            ant.score+=20;
+        }
+        //ant.action=Action.wait;
+    }
     
     static wait(ant) {
-        ant.timer=ant.delay;
+        ant.timer=ant.getDelay(ant.delay);
         ant.run=false;
         //ant.action=Action.wait;
     }

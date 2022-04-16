@@ -4,7 +4,7 @@ class Ant {
     //Муравей
     constructor(colony) {
         this.color=colony.color;
-        this.pos=this.getPos(colony.pos, 2);
+        this.pos=this.rndPos(colony.pos, 2);
         this.ai=colony.ai;
         //веса нейронов
         this.listTarget=[];
@@ -19,7 +19,7 @@ class Ant {
         this.pose=false;
         this.delay=30;
         this.timer=0;
-        this.target=this.getPos(this.pos, this.range);
+        this.target=this.rndPos(this.pos, this.range);
         this.angle=this.getAngle(this.pos, this.target);
         this.action=Action.wait;
     }
@@ -27,16 +27,23 @@ class Ant {
     //Обновление
     update() {
         this.timer--;
+        //Смена режима
         if (this.timer<0)
             if (this.life<=0)
                 this.action=Action.dead;
             else {
+                this.pos={
+                    x: Math.round(this.pos.x),
+                    y: Math.round(this.pos.y)
+                };
                 this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
                 this.action(this);
+                console.log(this.action.name, this.timer);
             }
+        //Движение лапок
         if (this.run)
-            this.getStep();
+            this.goStep();
     }
 
     //Отрисовка
@@ -122,7 +129,7 @@ class Ant {
     }
 
     //Смена шагов
-    getStep() {
+    goStep() {
         model.map[Math.round(this.pos.x)][Math.round(this.pos.y)]=false;
         let angle=this.angle-Math.PI/2;
         this.pos.x+=this.speed*Math.cos(angle);
@@ -137,7 +144,7 @@ class Ant {
     }
 
     //Рандомная цель
-    getPos(pos, range) {
+    rndPos(pos, range) { ////Переместить в МОДЕЛЬ
         let collision=true;
         let target={};
         while (collision) {
@@ -145,7 +152,7 @@ class Ant {
                 x: Math.round(pos.x+Math.random()*range*2-range),
                 y: Math.round(pos.y+Math.random()*range*2-range)
             };
-            if (model.map[target.x][target.y]===false)
+            if (true && model.map[target.x][target.y]===false)
                 collision=false;
         }
         return target;
@@ -154,6 +161,11 @@ class Ant {
     //Поворот на цель
     getAngle(pos, target) {
         return Math.atan2(target.y-pos.y, target.x-pos.x)+Math.PI/2*0;
+    }
+
+    //Поворот на цель
+    getDelay(delay) {
+        return Math.round(delay*0.667+Math.random()*delay*0.667);
     }
 }
 
