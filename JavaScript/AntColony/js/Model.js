@@ -15,7 +15,6 @@ class Model {
         this.listColony=[];
         this.listRock=[];
         this.listFood=[];
-
         this.init();
     }
 
@@ -59,20 +58,6 @@ class Model {
         }
     }
 
-    //Обзор юнита
-    vision(pos, range=0) {
-        let listTarget=[];
-        let left=Math.max(pos.x-range, 0);
-        let right=Math.min(pos.x+range, this.size.width);
-        let top=Math.max(pos.y-range, 0);
-        let bottom=Math.min(pos.y+range, this.size.height);
-        for (let x=left; x<right; x++)
-            for (let y=top; y<bottom; y++)
-                if (this.map[x][y]!==false)
-                    listTarget.push(this.map[x][y]);
-        return listTarget;
-    }
-
     //Добавление блоков
     newBlock(pos) {
         let border=1;
@@ -92,25 +77,55 @@ class Model {
     }
 
     //Добавление камня
-    newRock(pos) {
+    newRock(pos) { //Отдельная функция может и не нужна.
         let rock=new Rock(pos);
         this.listRock.push(rock);
         this.map[rock.pos.x][rock.pos.y]=rock;
     }
 
     //Случайная позиция
-    rndPos() {
+    rndPos(_pos={x: 0, y: 0}, _range=0) { //возможно совмещение с vision
         let collision=true;
         let pos={};
+        let range={};
+        if (!_range) { //Объединить в одно с min/max и учетом границ
+            range={
+                left: this.size.width*.05,
+                right: this.size.width*.95,
+                top: this.size.height*.05,
+                bottom: this.size.height*.95
+            };
+        } else {
+            range={
+                left: Math.max(_pos.x-_range, 0),
+                right: Math.min(_pos.x+_range, this.size.width),
+                top: Math.max(_pos.y-_range, 0),
+                bottom: Math.min(_pos.y+_range, this.size.height)
+            };
+        }
         while (collision) {
             pos={
-                x: Math.round(Math.random()*window.innerWidth*0.8+window.innerWidth/10),
-                y: Math.round(Math.random()*window.innerHeight*0.8+window.innerHeight/10)
+                x: Math.round(Math.random()*(range.right-range.left)+range.left),
+                y: Math.round(Math.random()*(range.bottom-range.top)+range.top)
             };
             if (this.map[pos.x][pos.y]===false)
                 collision=false;
         }
         return pos;
+    }
+    
+    //Обзор юнита
+    vision(pos, range=0) { //возможно совмещение с randPos
+        let listTarget=[];
+        let left=Math.max(pos.x-range, 0);
+        let right=Math.min(pos.x+range, this.size.width);
+        let top=Math.max(pos.y-range, 0);
+        let bottom=Math.min(pos.y+range, this.size.height);
+        for (let x=left; x<right; x++)
+            for (let y=top; y<bottom; y++)
+                if (this.map[x][y]!==false)
+                    listTarget.push(this.map[x][y]);
+        return listTarget;
     }
 }
 

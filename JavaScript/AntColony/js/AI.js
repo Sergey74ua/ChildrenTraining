@@ -1,5 +1,12 @@
 //Симулятор колонии муравьев
 
+class RI {
+    //Рандомный интеллект
+    select(ant) {
+        ant.action=Action.listAction[Math.floor(Math.random()*Action.listAction.length)];
+    }
+}
+
 class PI { //////////////////////////////
     //Программируемый интеллект
     select(ant) {
@@ -10,7 +17,7 @@ class PI { //////////////////////////////
         else if (ant.life<100)  //урон-?
             ant.action=Action.kick;
         //Сбор - если нет корма и рядом корм
-        else if (ant.food<=0 && typeof(ant.contact)==Food)
+        else if (ant.food<=0 && typeof(ant.target)==Food)
             ant.action=Action.grab;
         //Подход - если виден корм или муравейник
         else if (ant.listTarget.includes(Food))
@@ -22,7 +29,7 @@ class PI { //////////////////////////////
         else if (ant.food<=0)
             ant.action=Action.find;
         //Обучение - если в контакте с союзником
-        else if (typeof(ant.contact)==Ant && ant.contact.score>ant.score)
+        else if (typeof(ant.contact)==Ant && ant.target.score>ant.score)
             ant.action=Action.info;
         //Смерть - если жизни нет
         else if (ant.life<0)
@@ -33,15 +40,44 @@ class PI { //////////////////////////////
     }
 }
 
-class RI {
-    //Рандомный интеллект
-    select(ant) {
-        ant.action=Action.listAction[Math.floor(Math.random()*Action.listAction.length)];
-    }
-}
-
 class AI { //////////////////////////////
     //Искуственный интеллект (нейросеть)
+    constructor() {
+        input={
+            life: 1,
+            loss: 0,
+            food: 0,
+            rock: 0,
+            run: 0,
+            dead: 0,
+            drop: 0,
+            kick: 0,
+            grab: 0,
+            move: 0,
+            back: 0,
+            find: 0,
+            info: 0,
+            flex: 0,
+            wait: 0,
+            tgFood: 0,
+            tgRock: 0,
+            tgHill: 0,
+            tgAlly: 0,
+            tgEnemy: 0,
+            vsFood: 0,
+            vsRock: 0,
+            vsHill: 0,
+            vsAlly: 0,
+            vsEnemy: 0,
+            arFoodMin: 0,
+            arFoodMax: 0,
+            arAllyMin: 0,
+            arAllyMax: 0,
+            arEnemyMin: 0,
+            arEnemyMax: 0
+        };
+    }
+
     select(ant) {
         ant.action=Action.listAction[getAct(ant)];
     }

@@ -4,14 +4,15 @@ class Ant {
     //Муравей
     constructor(colony) {
         this.color=colony.color;
-        this.pos=this.rndPos(colony.pos, 2);
+        this.pos=model.rndPos(colony.pos, 5);
         this.ai=colony.ai;
         //веса нейронов
         this.listTarget=[];
-        this.contact={}; ////////
         this.score=0;
         this.life=100;
-        this.food=0;
+        this.lose=0;
+        this.food=0; //можут лучше в load передавать
+        this.rock=0; // объект (food или rock)?
         this.speed=1.0;
         this.range=32;
         this.step=5;
@@ -19,7 +20,7 @@ class Ant {
         this.pose=false;
         this.delay=30;
         this.timer=0;
-        this.target=this.rndPos(this.pos, this.range);
+        this.target=model.rndPos(this.pos, this.range);
         this.angle=this.getAngle(this.pos, this.target);
         this.action=Action.wait;
     }
@@ -39,7 +40,7 @@ class Ant {
                 this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
                 this.action(this);
-                console.log(this.action.name, this.timer);
+                //console.log(this.action.name, this.timer); ////////////////////////
             }
         //Движение лапок
         if (this.run)
@@ -56,9 +57,11 @@ class Ant {
         ctx.rotate(angle);
         ctx.translate(-x, -y);
         //Корм
-        if (this.food>0) {
-            this.speed=0.667;
+        if (this.food>0 || this.rock>0) {
             ctx.fillStyle=Food.color;
+            if (this.rock>0)
+                ctx.fillStyle=Rock.color;
+            this.speed=0.667;
             ctx.beginPath();
             ctx.arc(x, y-fw.size4, fw.size15, 0, fw.Pi2);
             ctx.fill();
@@ -141,21 +144,6 @@ class Ant {
             this.score++;
         } else
             this.step--;
-    }
-
-    //Рандомная цель
-    rndPos(pos, range) { ////Переместить в МОДЕЛЬ
-        let collision=true;
-        let target={};
-        while (collision) {
-            target={
-                x: Math.round(pos.x+Math.random()*range*2-range),
-                y: Math.round(pos.y+Math.random()*range*2-range)
-            };
-            if (true && model.map[target.x][target.y]===false)
-                collision=false;
-        }
-        return target;
     }
 
     //Поворот на цель

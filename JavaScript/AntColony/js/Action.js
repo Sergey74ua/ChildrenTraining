@@ -11,6 +11,7 @@ class Action {
         Action.back,
         Action.find,
         Action.info,
+        Action.flex,
         Action.wait
     ];
     
@@ -78,14 +79,14 @@ class Action {
     static back(ant) {
         ant.timer=ant.getDelay(ant.delay*5);
         ant.run=true;
-        ant.target=ant.rndPos(ant.pos, ant.range);
+        ant.target=model.rndPos(ant.pos, ant.range);
         ant.angle=ant.getAngle(ant.pos, ant.target);
     }
 
     static find(ant) {
         ant.timer=ant.getDelay(ant.delay*4);
         ant.run=true;
-        ant.target=ant.rndPos(ant.pos, ant.range);
+        ant.target=model.rndPos(ant.pos, ant.range);
         ant.angle=ant.getAngle(ant.pos, ant.target);
     }
 
@@ -98,6 +99,12 @@ class Action {
             ant.score+=20;
         }
         //ant.action=Action.wait;
+    }
+
+    static flex(ant) {
+        ant.timer=ant.getDelay(ant.delay*8);
+        ant.target=ant.pos;
+        ant.run=true;
     }
     
     static wait(ant) {
