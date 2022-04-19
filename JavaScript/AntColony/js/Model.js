@@ -3,8 +3,8 @@
 class Model {
     //Базовая модель
     constructor() {
-        this.base=4;
-        this.food=10;
+        this.base=1;
+        this.food=2;
         this.size={
             width: window.innerWidth,
             height: window.innerHeight
@@ -84,29 +84,21 @@ class Model {
     }
 
     //Случайная позиция
-    rndPos(_pos={x: 0, y: 0}, _range=0) { //возможно совмещение с vision
-        let collision=true;
-        let pos={};
-        let range={};
-        if (!_range) { //Объединить в одно с min/max и учетом границ
-            range={
+    rndPos(pos={x: 0, y: 0}, range=false) {
+        let sector=this.getSector(pos, range);
+        if (!range)
+            sector={
                 left: this.size.width*.05,
                 right: this.size.width*.95,
                 top: this.size.height*.05,
                 bottom: this.size.height*.95
             };
-        } else {
-            range={
-                left: Math.max(_pos.x-_range, 0),
-                right: Math.min(_pos.x+_range, this.size.width),
-                top: Math.max(_pos.y-_range, 0),
-                bottom: Math.min(_pos.y+_range, this.size.height)
-            };
-        }
+        //Поиск свободных координат
+        let collision=true;
         while (collision) {
             pos={
-                x: Math.round(Math.random()*(range.right-range.left)+range.left),
-                y: Math.round(Math.random()*(range.bottom-range.top)+range.top)
+                x: Math.round(Math.random()*(sector.right-sector.left)+sector.left),
+                y: Math.round(Math.random()*(sector.bottom-sector.top)+sector.top)
             };
             if (this.map[pos.x][pos.y]===false)
                 collision=false;
@@ -115,17 +107,24 @@ class Model {
     }
     
     //Обзор юнита
-    vision(pos, range=0) { //возможно совмещение с randPos
+    vision(pos, range) {
+        let sector=this.getSector(pos, range);
         let listTarget=[];
-        let left=Math.max(pos.x-range, 0);
-        let right=Math.min(pos.x+range, this.size.width);
-        let top=Math.max(pos.y-range, 0);
-        let bottom=Math.min(pos.y+range, this.size.height);
-        for (let x=left; x<right; x++)
-            for (let y=top; y<bottom; y++)
+        for (let x=sector.left; x<sector.right; x++)
+            for (let y=sector.top; y<sector.bottom; y++)
                 if (this.map[x][y]!==false)
                     listTarget.push(this.map[x][y]);
         return listTarget;
+    }
+
+    //Границы сектора (желательно заменить на круг)
+    getSector(pos, range=0) {
+        return {
+            left: Math.max(pos.x-range, 0),
+            right: Math.min(pos.x+range, this.size.width),
+            top: Math.max(pos.y-range, 0),
+            bottom: Math.min(pos.y+range, this.size.height)
+        };
     }
 }
 

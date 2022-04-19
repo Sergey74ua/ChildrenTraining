@@ -40,7 +40,7 @@ class Ant {
                 this.listTarget=model.vision(this.pos, this.range);
                 this.ai.select(this);
                 this.action(this);
-                //console.log(this.action.name, this.timer); ////////////////////////
+                //console.log(this.action.name, this.timer); ///////////////
             }
         //Движение лапок
         if (this.run)
