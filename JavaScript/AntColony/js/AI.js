@@ -14,22 +14,22 @@ class PI { //////////////////////////////
         if (ant.food>0 && (false || ant.life<100)) //урон-?
             ant.action=Action.drop;
         //Атака - если тебя атакуют и рядом чужой муравей
-        else if (ant.life<100)  //урон-?
+        else if (ant.lose>0)  //урон-?
             ant.action=Action.kick;
         //Сбор - если нет корма и рядом корм
         else if (ant.food<=0 && typeof(ant.target)==Food)
             ant.action=Action.grab;
         //Подход - если виден корм или муравейник
-        else if (ant.listTarget.includes(Food))
+        else if (ant.listTarget.food)
             ant.action=Action.move;
         //Возврат - если есть корм
-        else if (ant.food>0)
+        else if (ant.load)
             ant.action=Action.back;
         //Поиск - если нет корма и корм не виден
-        else if (ant.food<=0)
+        else if (!ant.load)
             ant.action=Action.find;
         //Обучение - если в контакте с союзником
-        else if (typeof(ant.contact)==Ant && ant.target.score>ant.score)
+        else if (typeof(ant.target)==Ant && ant.target.score>ant.score)
             ant.action=Action.info;
         //Смерть - если жизни нет
         else if (ant.life<0)

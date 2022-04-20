@@ -7,12 +7,19 @@ class Ant {
         this.pos=model.rndPos(colony.pos, 5);
         this.ai=colony.ai;
         //веса нейронов
-        this.listTarget=[];
+        this.listTarget={
+            hill: false,
+            food: false,
+            rock: false,
+            block: false,
+            ally: false,
+            enemy: false,
+            label: 0
+        };
         this.score=0;
         this.life=100;
         this.lose=0;
-        this.food=0; //можут лучше в load передавать
-        this.rock=0; // объект (food или rock)?
+        this.load=false; //new Food(this.pos);
         this.speed=1.0;
         this.range=32;
         this.step=5;
@@ -37,7 +44,7 @@ class Ant {
                     x: Math.round(this.pos.x),
                     y: Math.round(this.pos.y)
                 };
-                this.listTarget=model.vision(this.pos, this.range);
+                model.vision(this);
                 this.ai.select(this);
                 this.action(this);
                 //console.log(this.action.name, this.timer); ///////////////
@@ -45,6 +52,11 @@ class Ant {
         //Движение лапок
         if (this.run)
             this.goStep();
+        //Корм
+        if (this.load)
+            this.speed=0.667;
+        else
+            this.speed=1.0;
     }
 
     //Отрисовка
@@ -57,17 +69,10 @@ class Ant {
         ctx.rotate(angle);
         ctx.translate(-x, -y);
         //Корм
-        if (this.food>0 || this.rock>0) {
-            ctx.fillStyle=Food.color;
-            if (this.rock>0)
-                ctx.fillStyle=Rock.color;
-            this.speed=0.667;
-            ctx.beginPath();
-            ctx.arc(x, y-fw.size4, fw.size15, 0, fw.Pi2);
-            ctx.fill();
-            ctx.closePath();
-        } else
-            this.speed=1.0;
+        if (this.load) {
+            this.load.pos={x: x, y: y-fw.size4};
+            this.load.draw(ctx);
+        }
         //Цвета и линии
         ctx.lineWidth=this.line;
         ctx.strokeStyle='Black';

@@ -107,14 +107,17 @@ class Model {
     }
     
     //Обзор юнита
-    vision(pos, range) {
-        let sector=this.getSector(pos, range);
-        let listTarget=[];
+    vision(ant) { //Нужен поиск по спирали, до нужной цели
+        let sector=this.getSector(ant.pos, ant.range);
         for (let x=sector.left; x<sector.right; x++)
             for (let y=sector.top; y<sector.bottom; y++)
-                if (this.map[x][y]!==false)
-                    listTarget.push(this.map[x][y]);
-        return listTarget;
+                if (this.map[x][y]==false) {
+                    //если нет корма - добавть, а если есть, сравнить расстояния и выбрать ближайший
+                    ant.listTarget.food=this.map[x][y];
+                } else if (false) {
+                    ant.listTarget.food=this.map[x][y];
+                } else
+                    ant.listTarget.food=this.map[x][y];
     }
 
     //Границы сектора (желательно заменить на круг)
