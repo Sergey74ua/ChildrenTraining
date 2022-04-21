@@ -7,15 +7,7 @@ class Ant {
         this.pos=model.rndPos(colony.pos, 5);
         this.ai=colony.ai;
         //веса нейронов
-        this.listTarget={
-            hill: false,
-            food: false,
-            rock: false,
-            block: false,
-            ally: false,
-            enemy: false,
-            label: 0
-        };
+        this.aim=Food; ////
         this.score=0;
         this.life=100;
         this.lose=0;
@@ -27,7 +19,7 @@ class Ant {
         this.pose=false;
         this.delay=30;
         this.timer=0;
-        this.target=model.rndPos(this.pos, this.range);
+        this.target=model.rndPos(this.pos, this.range); //// Объект или цель???
         this.angle=this.getAngle(this.pos, this.target);
         this.action=Action.wait;
     }
@@ -47,7 +39,7 @@ class Ant {
                 model.vision(this);
                 this.ai.select(this);
                 this.action(this);
-                //console.log(this.action.name, this.timer); ///////////////
+                console.log(this.action.name, this.timer); ///////////////
             }
         //Движение лапок
         if (this.run)

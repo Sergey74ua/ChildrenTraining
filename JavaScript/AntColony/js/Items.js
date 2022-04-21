@@ -47,3 +47,18 @@ class Food extends Items {
         this.weight=Math.round(Math.random()*128)+128;
     }
 }
+
+/* /////////////////////////////////////
+//Метки - запах корма и муравьев
+class Label {
+    constructor(aroma, weight=128) {
+        this.color=aroma;
+        this.weight=weight;
+    }
+    update() { // Учесть наложение меток
+        if (this.weight>0)
+            this.weight--;
+        else
+            delete this;
+    }
+}*/

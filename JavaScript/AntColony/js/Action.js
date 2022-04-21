@@ -67,12 +67,9 @@ class Action {
     static move(ant) { ///////////////////////
         ant.timer=ant.getDelay(ant.delay); //// тут должна быть проверка на близость
         ant.run=true;
-        ant.angle=ant.getAngle(ant.pos, ant.target);
-        if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed)
+        ant.angle=ant.getAngle(ant.pos, ant.target.pos);
+        if (Math.sqrt(Math.pow(ant.target.y-ant.pos.y, 2)+Math.pow(ant.target.y-ant.pos.y, 2))<=ant.speed) {
             ant.action=Action.grab;
-        else {
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]={};
-            model.map[Math.round(ant.pos.x)][Math.round(ant.pos.y)]=ant;
         }
     }
 

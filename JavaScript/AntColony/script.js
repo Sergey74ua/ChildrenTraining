@@ -29,3 +29,12 @@ window.onload=() => {
     view=new View();
     control=new Control();
 }
+
+/*let listLib=['FileSaver'];
+//Подключение библиотек
+for (let name of listLib) {
+   let script=document.createElement('script');
+   script.type='application/javascript';
+   script.src='libs/'+name+'.js';
+   document.body.appendChild(script);
+}*/

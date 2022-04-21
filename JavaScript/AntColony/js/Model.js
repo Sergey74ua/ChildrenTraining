@@ -4,7 +4,7 @@ class Model {
     //Базовая модель
     constructor() {
         this.base=1;
-        this.food=2;
+        this.food=1;
         this.size={
             width: window.innerWidth,
             height: window.innerHeight
@@ -43,7 +43,7 @@ class Model {
             this.newRock(pos);
         }
         //Корм
-        for (let i=0; i<this.base*this.food*10; i++) {
+        for (let i=0; i<this.base*this.food*100; i++) {
             let pos=this.rndPos();
             this.newFood(pos);
         }
@@ -106,21 +106,19 @@ class Model {
         return pos;
     }
     
-    //Обзор юнита
-    vision(ant) { //Нужен поиск по спирали, до нужной цели
+    //Обзор юнита (желательно, поиск по спирали, до нужной цели)
+    vision(ant) {
         let sector=this.getSector(ant.pos, ant.range);
         for (let x=sector.left; x<sector.right; x++)
             for (let y=sector.top; y<sector.bottom; y++)
-                if (this.map[x][y]==false) {
+                if (this.map[x][y] instanceof ant.aim) {
+                    ant.target=this.map[x][y];
                     //если нет корма - добавть, а если есть, сравнить расстояния и выбрать ближайший
-                    ant.listTarget.food=this.map[x][y];
-                } else if (false) {
-                    ant.listTarget.food=this.map[x][y];
-                } else
-                    ant.listTarget.food=this.map[x][y];
+                }
+                    
     }
 
-    //Границы сектора (желательно заменить на круг)
+    //Границы сектора
     getSector(pos, range=0) {
         return {
             left: Math.max(pos.x-range, 0),
@@ -129,6 +127,37 @@ class Model {
             bottom: Math.min(pos.y+range, this.size.height)
         };
     }
+
+    //Расстояние до цели
+    /*delta(pos, target) {
+        return Math.sqrt(Math.pow(target.y-pos.y, 2)+Math.pow(target.y-pos.y, 2));
+    }
+    
+    //Размер игровой карты
+    resize() {
+        if (this.size.width<=canvas.width)
+            this.size.width=canvas.width;
+        else
+            this.size.width=this.size.width; //Проверка на наличие объектов
+        if (this.size.height<=canvas.height)
+            this.size.height=canvas.height;
+        else
+            this.size.height=this.size.height; //Проверка на наличие объектов
+        ctx.shadowColor='Black';
+        this.terrain.reload(this.size); //а что там делается?
+    }
+
+    //Сохранение игры (ДОРАБОТАТЬ)
+    save() {
+        var blob=new Blob(["Тестовый текст ..."],
+            {type: "text/plain; charset=utf-8"});
+        saveAs(blob, "save_"+new Date().toJSON().slice(0,10)+".txt");
+    }
+
+    //Загрузка игры (ДОРАБОТАТЬ)
+    load() {
+        ;
+    }*/
 }
 
 /*

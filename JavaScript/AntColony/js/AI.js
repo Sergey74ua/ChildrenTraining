@@ -20,7 +20,7 @@ class PI { //////////////////////////////
         else if (ant.food<=0 && typeof(ant.target)==Food)
             ant.action=Action.grab;
         //Подход - если виден корм или муравейник
-        else if (ant.listTarget.food)
+        else if (ant.target instanceof Food)
             ant.action=Action.move;
         //Возврат - если есть корм
         else if (ant.load)
