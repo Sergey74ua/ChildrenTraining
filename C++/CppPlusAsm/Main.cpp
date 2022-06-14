@@ -8,9 +8,9 @@ int main()
 	int num2;
 	int result;
 
+	cout << "¬ведите A и B :" << endl;
 	cin >> num1;
 	cin >> num2;
-
 	//result = num1 + num2;
 	__asm
 	{
@@ -21,23 +21,47 @@ int main()
 		mov result, eax
 	}
 	cout << "сумма чисел : " << result << endl;
-	system("pause");
+	system("pause>nul");
 
 	//result = num1 * num2;
 	__asm
 	{
 		mov eax, num1
 		mov ebx, num2 //если закоментировать, ничего не изменитьс€.
-
 		mul ebx
-
 		mov result, eax
 	}
-	cout << "произведение : " << result << endl;
-	system("pause");
+	cout << "и их произведение : " << result << endl;
+	system("pause>nul");
 
-	//sub - минус, div - деление
-	//
+	cout << "¬ведите A и B :" << endl;
+	cin >> num1;
+	cin >> num2;
+	//result = num1 - num2;
+	__asm
+	{
+		mov eax, num1
+		mov ebx, num2
+		sub eax, ebx
+		mov result, eax
+	}
+	cout << "разность : " << result << endl;
+	system("pause>nul");
+
+	cout << "¬ведите A и B :" << endl;
+	cin >> num1;
+	cin >> num2;
+	//result = num1 / num2;
+	__asm
+	{
+		mov eax, num1
+		mov edx, 0	//необходимо указывать дл€ делени€
+		mov ebx, num2
+		div ebx
+		mov result, eax
+	}
+	cout << "частное : " << result << endl;
+	system("pause>nul");
 
 	return 0;
 }

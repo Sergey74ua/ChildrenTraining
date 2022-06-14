@@ -7,6 +7,7 @@ int main()
 	int count;
 	int factorial = 1;
 
+	cout << "Введите число для факториала:" << endl;
 	cin >> count;
 
 	__asm
@@ -24,7 +25,7 @@ int main()
 	}
 
 	cout << "факториал: " << factorial << endl;
-	system("pause");
+	system("pause>nul");
 
 	return 0;
 }
