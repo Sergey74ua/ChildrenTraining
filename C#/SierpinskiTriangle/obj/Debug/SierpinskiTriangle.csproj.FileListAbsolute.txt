@@ -10,10 +10,10 @@ D:\Documents\Program\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.pdb
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\bin\Debug\SierpinskiTriangle.exe.config
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\bin\Debug\SierpinskiTriangle.exe
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\bin\Debug\SierpinskiTriangle.pdb
-D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.csprojAssemblyReference.cache
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.Form1.resources
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.Properties.Resources.resources
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.csproj.GenerateResource.cache
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.csproj.CoreCompileInputs.cache
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.exe
 D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.pdb
+D:\Documents\Program\ChildrenTraining\C#\SierpinskiTriangle\obj\Debug\SierpinskiTriangle.csproj.AssemblyReference.cache

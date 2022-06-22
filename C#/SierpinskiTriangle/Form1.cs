@@ -12,7 +12,7 @@ namespace SierpinskiTriangle
         private Point[] angle;
         private Random random;
         private int number, rand;
-        private byte count = 4;
+        private byte count = 3;
 
         //Запуск окна
         public Form1()
@@ -27,7 +27,7 @@ namespace SierpinskiTriangle
             angle[0] = new Point(795, 5);
             angle[1] = new Point(795, 795);
             angle[2] = new Point(5, 795);
-            angle[3] = new Point(5, 5);
+            //angle[3] = new Point(5, 5);
 
             for (int i = 0; i < count; i++)
                 bitmap.SetPixel(angle[i].X, angle[i].Y, Color.Red);

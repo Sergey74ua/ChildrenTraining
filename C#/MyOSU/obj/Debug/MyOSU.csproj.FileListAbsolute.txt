@@ -11,7 +11,6 @@ D:\Documents\Program\C#\MyOSU\obj\Debug\MyOSU.FormMyOsu.resources
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\bin\Debug\MyOSU.exe.config
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\bin\Debug\MyOSU.exe
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\bin\Debug\MyOSU.pdb
-D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.csprojAssemblyReference.cache
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.FormMyOsu.resources
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.Properties.Resources.resources
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.Resource1.resources
@@ -19,3 +18,4 @@ D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.csproj.GenerateRe
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.csproj.CoreCompileInputs.cache
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.exe
 D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.pdb
+D:\Documents\Program\ChildrenTraining\C#\MyOSU\obj\Debug\MyOSU.csproj.AssemblyReference.cache

@@ -5,3 +5,10 @@ D:\Documents\Program\C#\Variable\obj\Debug\Variable.csprojAssemblyReference.cach
 D:\Documents\Program\C#\Variable\obj\Debug\Console1.exe
 D:\Documents\Program\C#\Variable\obj\Debug\Console1.pdb
 D:\Documents\Program\C#\Variable\obj\Debug\Variable.csproj.CoreCompileInputs.cache
+D:\Documents\Program\ChildrenTraining\C#\Variable\bin\Debug\Console1.exe.config
+D:\Documents\Program\ChildrenTraining\C#\Variable\bin\Debug\Console1.exe
+D:\Documents\Program\ChildrenTraining\C#\Variable\bin\Debug\Console1.pdb
+D:\Documents\Program\ChildrenTraining\C#\Variable\obj\Debug\Variable.csproj.AssemblyReference.cache
+D:\Documents\Program\ChildrenTraining\C#\Variable\obj\Debug\Variable.csproj.CoreCompileInputs.cache
+D:\Documents\Program\ChildrenTraining\C#\Variable\obj\Debug\Console1.exe
+D:\Documents\Program\ChildrenTraining\C#\Variable\obj\Debug\Console1.pdb
