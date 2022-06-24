@@ -91,7 +91,14 @@
     echo 'empty : ', empty($x), '<br/>'; //Проверка на пустоту
     echo 'isset : ', isset($x), '<br/><br/>'; //Проверка на существование
 
-    echo strlen('Hello');
+    echo strlen('Hello'), '<br/>';
+    echo trim('    Hello      123       '), '<br/>';
+    echo 'Хеширование - Hello: ', md5('Hello'), '<br/>';
+    echo 'Хеширование - 1: ', md5(1), '<br/>';
+    echo 'Хеширование - Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123: ',
+        md5('Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123'), '<br/>';
+    echo strtolower('hello'), '<br/>';
+
     /*
     ОПЕРАЦИИ ДЛЯ СТРОК:
     strtolower, strtoupper, ucfirst, lcfirst, ucwords, strlen, substr,
