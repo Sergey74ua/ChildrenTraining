@@ -42,6 +42,13 @@ switch ($x) {
 }
 echo '<br/><br/>';
 
+match($x) {
+    0 => print 'Да! match $x = 0',
+    5 => print 'Да! match $x = 5',
+    default => print 'действие по умолчанию',
+};
+echo '<br/><br/>';
+
 while ($x > 0):
     $x--;
     if ($x == 3)
