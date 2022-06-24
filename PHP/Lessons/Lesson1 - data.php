@@ -46,6 +46,8 @@
 
     echo("<script>console.log('From PHP with love');</script>");
 
+    ?> <script>console.log('From PHP with love 2');</script> <?
+
     $zzz='колдунство с указателями';
     $x='zzz'; //Строка
     echo $x, '<br/>';
