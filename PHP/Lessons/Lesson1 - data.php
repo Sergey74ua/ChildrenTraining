@@ -52,6 +52,11 @@
     echo $$x, '<br/>';
     echo '<br/><br/>';
 
+    $a = 'hello';
+    $$a = 'world';
+    echo "$a ${$a}";
+    echo "$a $hello";
+
     echo 2+2, ' ', 2-2, ' ', 2*2, ' ', 2/2, '<br/>';
     echo 10%3, '<br/>';
     echo abs(-5), '<br/>';
@@ -97,7 +102,7 @@
     echo 'Хеширование - 1: ', md5(1), '<br/>';
     echo 'Хеширование - Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123: ',
         md5('Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123'), '<br/>';
-    echo strtolower('hello'), '<br/>';
+    echo strtoupper('hello'), '<br/>';
 
     /*
     ОПЕРАЦИИ ДЛЯ СТРОК:
