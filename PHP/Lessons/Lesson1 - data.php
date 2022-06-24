@@ -44,7 +44,9 @@
     + (binary) - бинарный код, но сути стринг
     */
 
-    $zzz='магия с указателями';
+    echo("<script>console.log('From PHP with love');</script>");
+
+    $zzz='колдунство с указателями';
     $x='zzz'; //Строка
     echo $x, '<br/>';
     echo $$x, '<br/>';
@@ -62,6 +64,8 @@
     echo 'floor : ', floor(5.9), '<br/>';
     echo 'ceil : ', ceil(5.1), '<br/>';
     echo 'round : ', round(5.5), '<br/>';
+    echo 'Число Пи: ', M_PI, '<br/>';
+    echo 'Число E: ', M_E, '<br/>';
 
     $x = 10;
     $y = $x++;
