@@ -48,6 +48,21 @@
 
     ?> <script>console.log('From PHP with love 2');</script> <?
 
+    echo '<br/><br/>';
+    $x = 5;
+    $y = $x;
+    echo 'X и Y = ', $x, ' ', $y, '<br/>';
+    $x=111;
+    echo 'X и Y = ', $x, ' ', $y, '<br/>';
+    
+    echo 'по ссылке:', '<br/>';
+    $x = 5;
+    $y = &$x;
+    echo 'X и Y = ', $x, ' ', $y, '<br/>';
+    $x=111;
+    echo 'X и Y = ', $x, ' ', $y, '<br/>';
+    echo '<br/><br/>';
+
     $zzz='колдунство с указателями';
     $x='zzz'; //Строка
     echo $x, '<br/>';
