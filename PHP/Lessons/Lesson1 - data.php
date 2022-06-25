@@ -71,6 +71,7 @@
 
     $a = 'hello';
     $$a = 'world';
+    echo "$a $$a";
     echo "$a ${$a}";
     echo "$a $hello";
 
@@ -102,7 +103,7 @@
     $y = --$x;
     echo '--X : ', $x, ' ', $y, '<br/>';
 
-    echo date('d.m.Y H:i'), '<br/>', '<br/>'; //Системная дата, с указанием формата
+    echo date('d.m.Y H:i w'), '<br/>', '<br/>'; //Системная дата, с указанием формата
 
     echo 2 + '2', '<br/>';
     echo '2' + '2', '<br/>';
@@ -115,11 +116,12 @@
 
     echo strlen('Hello'), '<br/>';
     echo trim('    Hello      123       '), '<br/>';
+    echo strtoupper('hello'), '<br/>';
+
     echo 'Хеширование - Hello: ', md5('Hello'), '<br/>';
     echo 'Хеширование - 1: ', md5(1), '<br/>';
     echo 'Хеширование - Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123: ',
         md5('Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123 Hello 123'), '<br/>';
-    echo strtoupper('hello'), '<br/>';
 
     /*
     ОПЕРАЦИИ ДЛЯ СТРОК:
