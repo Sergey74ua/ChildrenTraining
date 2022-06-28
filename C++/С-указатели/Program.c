@@ -13,6 +13,7 @@ int main(void)
 
 	p++;
 	printf("%p\n", p); //Переход по адресам памяти
+	printf("%d\n", *p); //Вывод переменной по адресу памяти
 
 	system("pause>nul");
 	return 0;
