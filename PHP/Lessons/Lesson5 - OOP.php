@@ -1,4 +1,5 @@
 <?php
+namespace lessons;
 
 define('SIZE', 1920); //Константа
 
@@ -85,3 +86,4 @@ trait Super { //Набор функций для вставки в класс
 class SuperHero extends Unit {
     use Super;
 }
+?>
