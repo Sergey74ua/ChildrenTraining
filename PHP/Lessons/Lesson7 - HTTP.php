@@ -1,4 +1,5 @@
 <?php
+
 echo '<h3>Протокол HTTP.</h3>';
 echo '<h4>GET запросы:</h4>';
 
@@ -43,9 +44,27 @@ echo '<br/><hr/>';
 
 // Пример с POST с полем для ввода
 echo '<h4>POST запросы:</h4>';
-//............................
+
+$name = "неизвестно";
+$age = "неизвестно";
+if(isset($_POST["name"]))
+    $name = $_POST["name"];
+if(isset($_POST["age"]))
+    $age = $_POST["age"];
+echo "Имя: $name <br/> Возраст: $age";
+
+?>
+<h3>Форма ввода данных</h3>
+<form method="POST">
+    <p>Имя: <input type="text" name="name" /></p>
+    <p>Возраст: <input type="number" name="age" /></p>
+    <input type="submit" value="Отправить">
+</form>
+<?php
+
 echo '<br/><hr/>';
 
+//атрибут формы action="user.php" - указывает на файл скрипта, который должен принимать данные.
 
 // Глобальные данные
 echo '<h5>Содержимое супер-глабального массива $GLOBALS:</h5>';

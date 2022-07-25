@@ -1,7 +1,9 @@
 <?php
+
 namespace lessons;
 
 define('SIZE', 1920); //Константа
+const TEST = 'тестовая констата';
 
 class Unit {
     const PI = 3.14;
