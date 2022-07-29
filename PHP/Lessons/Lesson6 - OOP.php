@@ -49,6 +49,10 @@ class Hero extends Unit {
         $this -> armor = 1000;
     }
 
+    function __destruct() {
+        echo 'Объект уничтожен';
+    }
+
     public function getPos() {
         echo parent:: PI, '<br/>'; //хотя self тоже работает
         return $this -> pos;
@@ -87,5 +91,25 @@ trait Super { //Набор функций для вставки в класс
  
 class SuperHero extends Unit {
     use Super;
+}
+
+//Интерфейс (без реализации, и естественно без объектов)
+interface iDrive {
+    function update(); //Абстрактный метод
+}
+
+//Абстрактный класс (без возможности создания объектов)
+abstract class Item implements iDrive { //Имплементировать можно разные интерфесы, через зяпятую
+    function update() {
+        echo 'Объект обновлен';
+    }
+}
+//$item = new Item(); //Обшибка!
+
+//Запечатанный клас (без права наследования)
+final class Calc {
+    public final function delta() { //Не будет наследоваться
+        echo 'запечатанный метод';
+    }
 }
 ?>
