@@ -1,14 +1,6 @@
-/*
-var request = new XMLHttpRequest();
-request.onreadystatechange = function () {
-    if (this.status == 200 && this.readyState == 4)
-        func(this.responseText);
-}
-
-request.open('GET', 'http://localhost:3000/index.php', true);
-request.send();
-
-function func(data) {
-    //console.log(data);
-}
-*/
+//JS-счетчик кликов на клиенте
+var js_count = 0;
+function JS_Click() {
+    js_count++;
+    document.getElementById("js_count").innerHTML = js_count;
+};
