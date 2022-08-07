@@ -1,3 +1,5 @@
+<?php //Casino ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
