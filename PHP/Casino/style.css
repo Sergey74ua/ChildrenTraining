@@ -1,57 +1,10 @@
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
 body {
-    background-color: darkgreen;
-    color: lime;
-}
-
-form, div {
-    margin: 16px;
-    text-align: center;
+  background-color: darkgreen;
+  color: lime;
 }
 
 .button {
-    position: relative;
-    display: inline-block;
-    font-family: Arial,Helvetica,FreeSans,"Liberation Sans","Nimbus Sans L",sans-serif;
-    font-size: 1.5em;
-    font-weight: 700;
-    color: rgb(245,245,245);
-    text-shadow: 0 -1px rgba(0,0,0,.1);
-    text-decoration: none;
-    user-select: none;
-    padding: .3em 1em;
-    outline: none;
-    border: none;
-    border-radius: 3px;
-    background: #0c9c0d linear-gradient(#82d18d, #0c9c0d);
-    box-shadow: inset #72de26 0 -1px 1px, inset 0 1px 1px #98ff98, #3caa3c 0 0 0 1px, rgba(0,0,0,.3) 0 2px 5px;
-    -webkit-animation: pulsate 1.2s linear infinite;
-    animation: pulsate 1.2s linear infinite;
-  }
-  .button:hover {
-    -webkit-animation-play-state: paused;
-    animation-play-state: paused;
-    cursor: pointer;
-  }
-  .button:active {
-    top: 1px;
-    color: #fff;
-    text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff;
-    box-shadow: 0 -1px 3px rgba(0,0,0,.3), 0 1px 1px #fff, inset 0 1px 2px rgba(0,0,0,.8), inset 0 -1px 0 rgba(0,0,0,.05);
-  }
-  @-webkit-keyframes pulsate {
-    50% {color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff;}
-  }
-  @keyframes pulsate {
-    50% {color: #fff; text-shadow: 0 -1px rgba(0,0,0,.3), 0 0 5px #ffd, 0 0 8px #fff;}
-  }
-
-  button.button {
-    background: #0c3e9c linear-gradient(#82a4d1, #900c9c);
-    box-shadow: inset #2632de 0 -1px 1px, inset 0 1px 1px #98a2ff, #aa3c54 0 0 0 1px, rgba(0,0,0,.3) 0 2px 5px;
-  }
+  margin: 16px;
+  padding: 16px;
+  font-size: 1.2em;
+}
