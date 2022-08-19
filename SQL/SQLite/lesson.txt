@@ -1,5 +1,0 @@
-sqlite> .help
-sqlite> .open lesson.sqlite
-sqlite> CREATE TABLE `user`(`name` TEXT, `age` INTEGER);
-sqlite> INSERT INTO `user` VALUES('Sergey', 48);
-sqlite> SELECT * FROM `user`;
