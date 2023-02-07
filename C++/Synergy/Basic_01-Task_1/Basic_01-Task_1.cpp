@@ -7,6 +7,8 @@ using namespace std;
 
 class Student
 {
+    friend class Teacher;
+
     //Открытые поля, имя и возраст
     public:
         string name;
@@ -72,6 +74,8 @@ int main()
     ivan.fix_name();
     ivan.fix_age();
     ivan.info();
+
+    Teacher docent = Teacher();
 
     return 0;
 }
