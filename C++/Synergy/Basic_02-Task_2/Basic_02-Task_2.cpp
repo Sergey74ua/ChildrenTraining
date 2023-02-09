@@ -27,7 +27,11 @@ public:
     }
 
     string get_genre() {
-        return genre;
+        if (genre != "unknown")
+            return genre;
+        else
+            return "not defined";
+        
     }
 
 private:
@@ -37,9 +41,11 @@ private:
 int main()
 {
     Game game = Game("Tetris", "Puzzle");
-
     cout << "Game name: " << game.name << endl;
-    cout << "Game genre: " << game.get_genre() << endl;
+    cout << "Game genre: " << game.get_genre() << endl << endl;
+
+    Game game2 = Game();
+    cout << "Game genre: " << game2.get_genre() << endl;
 
     return 0;
 }
