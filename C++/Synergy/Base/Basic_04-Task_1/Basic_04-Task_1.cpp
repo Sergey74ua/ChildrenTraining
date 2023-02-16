@@ -1,5 +1,6 @@
 ﻿/*
-Перед вами частичная реализация на C++ математической дроби.Класс Fraction из себя представляет структуру данных с приватными полями _numerator(числитель) и _denomenator(знаменатель).Публичный метод toString() - дает строковое представление дроби
+Перед вами частичная реализация на C++ математической дроби.Класс Fraction из себя представляет структуру данных с приватными
+полями _numerator(числитель) и _denomenator(знаменатель).Публичный метод toString() - дает строковое представление дроби
 Приватный метод reduce() - сокращает дробь, если возможно
 
 Необходимо реализовать следующие операторы :
@@ -76,14 +77,21 @@ void Fraction::reduce() {
 
 Fraction& Fraction::operator+=(int a) {
 	// Напиши меня!
+	Fraction f(_numeratotr += a * _denomenator, _denomenator);
+	return f;
 }
 
 bool operator==(const Fraction& left, const Fraction& rigth) {
 	// Напиши меня!
+	bool f = left._numeratotr == rigth._numeratotr && left._denomenator == rigth._denomenator;
+	return f;
 }
 
 const Fraction operator+(const Fraction& left, const Fraction& rigth) {
 	// Напиши меня!
+	Fraction f(left._numeratotr * rigth._denomenator + rigth._numeratotr * left._denomenator,
+		left._denomenator * rigth._denomenator);
+	return f;
 }
 
 int main() {
