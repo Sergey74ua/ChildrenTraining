@@ -28,8 +28,8 @@ int main()
 {
     srand(time(NULL));
 
-    //Словарь сумма - статистика
-    map <short, short> total;
+    //Словарь: сумма - статистика
+    map <int, int> total;
     for (int i = 1 + 1; i <= 6 + 6; i++)
         total[i] = 0;
 
