@@ -52,8 +52,8 @@ private:
     const double salary     =   35.00;  //зарплата
     const double security   =   15.00;  //услуги
 
-    double rent             =   0.0;    //аренда
     double sales            =   0.0;    //доход
+    double rent             =   0.0;    //аренда
     double costs            =   0.0;    //расход
     double profit           =   0.0;    //прибыль
 
