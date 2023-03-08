@@ -40,14 +40,14 @@ c.	Расходы на услуги мракоборцев составляет 
 #include <iostream>
 #include <string>
 #include <iomanip>
-#define $ std::cout << "\n" << std::string(32, '=') << "\n\n";
+#define $ std::cout << "\n" << std::string(32, '#') << "\n\n";
 
 
 class BrunchFinances
 {
 private:
     const double tariff     =   50.00;  //ставка
-    const double percent    =   7.0;    //проценты
+    const double percent    =   0.07;   //проценты
     const double limit      =   270.00; //лимит
     const double salary     =   35.00;  //зарплата
     const double security   =   15.00;  //услуги
@@ -60,10 +60,10 @@ private:
 public:
     BrunchFinances()
     {
-        sales = (rand() % 25001) / 100.0 + 250.0;
-        rent = tariff + std::max(0.0, (sales - limit) * percent / 100.0);
-        costs = rent + salary + security;
-        profit = sales - costs;
+        sales   =   (rand() % 25001) / 100.0 + 250.0;
+        rent    =   tariff + std::max(0.0, (sales - limit) * percent);
+        costs   =   rent + salary + security;
+        profit  =   sales - costs;
     }
 
     ~BrunchFinances()
@@ -97,20 +97,20 @@ public:
 
 class NewBranch : public BrunchFinances
 {
+private:
+    std::string name = "Ollivander shop";   //название
+
 public:
     NewBranch(std::string name) : BrunchFinances()
     {
         this->name = name;
-        std::cout << "\n     -=#  Shop: " << this->name << "  #=-\n"; $
+        std::cout << "\n   -=#  Shop: " << this->name << "  #=-\n"; $
     }
 
     ~NewBranch()
     {
-        std::cout << this->name << " - closed.\n";
+        std::cout << "Shop \"" << name << "\" - closed.\n";
     }
-
-private:
-    std::string name = "Ollivander shop";   //название филиала
 };
 
 
