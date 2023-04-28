@@ -1,0 +1,4 @@
+D:/Documents/Program/ChildrenTraining/C++/Synergy/3_Upgrade/Upgrade_01-Task_1/out/build/x64-Debug/CMakeFiles/inoutlib.dir
+D:/Documents/Program/ChildrenTraining/C++/Synergy/3_Upgrade/Upgrade_01-Task_1/out/build/x64-Debug/CMakeFiles/untitled13.dir
+D:/Documents/Program/ChildrenTraining/C++/Synergy/3_Upgrade/Upgrade_01-Task_1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/Documents/Program/ChildrenTraining/C++/Synergy/3_Upgrade/Upgrade_01-Task_1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
