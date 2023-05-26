@@ -1,0 +1,116 @@
+#include <iostream>
+#include "sqlite3.h"
+#include <sstream>
+
+sqlite3* db;
+char* zErrMsg = 0;
+int rc;
+sqlite3_stmt* stmt;
+
+int main()
+{
+    //Создаем/открываем базу даных
+    rc = sqlite3_open("Upgrade_07.sqlite", &db);
+    if (rc) {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        return(0);
+    } else {
+        fprintf(stderr, "Opened database successfully\n");
+    }
+
+    //Создаем таблицу с названием INTERVAL
+    {
+        std::stringstream SQL;
+        SQL << "CREATE TABLE INTERVAL(ID INTEGER  PRIMARY KEY  AUTOINCREMENT    NOT NULL,";
+        SQL << "NAME  TEXT  NOT NULL,";
+        SQL << "AGE   INT   NOT NULL";
+        SQL << ");";
+
+        rc = sqlite3_exec(db, SQL.str().c_str(), NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        } else {
+            fprintf(stdout, "Table created successfully\n");
+        }
+    }
+
+    //Записываем данные
+    {
+        std::stringstream SQL;
+        SQL << "INSERT INTO INTERVAL (NAME,AGE) ";
+        SQL << "VALUES ('" << "Jone" << "','" << 25 << "'); ";
+
+        SQL << "INSERT INTO INTERVAL (NAME,AGE) ";
+        SQL << "VALUES ('" << "Masha" << "','" << 15 << "'); ";
+
+        SQL << "INSERT INTO INTERVAL (NAME,AGE) ";
+        SQL << "VALUES ('" << "Botemm" << "','" << 27 << "'); ";
+
+        SQL << "INSERT INTO INTERVAL (NAME,AGE) ";
+        SQL << "VALUES ('" << "Jora" << "','" << 33 << "'); ";
+
+        SQL << "INSERT INTO INTERVAL (NAME,AGE) ";
+        SQL << "VALUES ('" << "Kolya" << "','" << 23 << "'); ";
+
+        SQL << "INSERT INTO INTERVAL (NAME,AGE) ";
+        SQL << "VALUES ('" << "Anna" << "','" << 26 << "'); ";
+
+        rc = sqlite3_exec(db, SQL.str().c_str(), NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        } else {
+            fprintf(stdout, "Records created successfully\n");
+        }
+    }
+
+    //Извлекаем данные
+    {
+        std::stringstream SQL;
+        SQL << "SELECT * from INTERVAL WHERE AGE >=25 AND AGE <=27";
+
+        rc = sqlite3_prepare_v2(db, SQL.str().c_str(), -1, &stmt, NULL);
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg); sqlite3_free(zErrMsg);
+        } else {
+            std::cout << "ID\tNAME\tAGE\n\n";
+            while ((rc = sqlite3_step(stmt) == SQLITE_ROW)) {
+                std::cout << sqlite3_column_text(stmt, 0) << "\t" << sqlite3_column_text(stmt, 1) << "\t" << sqlite3_column_text(stmt, 2) << "\n";
+            }
+            fprintf(stdout, "Operation done successfully\n");
+        }
+    }
+
+    //Обновляем данные
+    {
+        std::stringstream SQL;
+        SQL << "UPDATE INTERVAL set AGE = '19' where NAME='Jone';";
+
+        rc = sqlite3_exec(db, SQL.str().c_str(), NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        } else {
+            fprintf(stdout, "Records created successfully\n");
+        }
+    }
+
+    //Удаляем данные
+    {
+        std::stringstream SQL;
+        SQL << " DELETE from INTERVAL where NAME='Anna';";
+
+        rc = sqlite3_exec(db, SQL.str().c_str(), NULL, 0, &zErrMsg);
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        } else {
+            fprintf(stdout, "Records created successfully\n");
+        }
+    }
+
+    //Закрываем базу данных
+    sqlite3_close(db);
+    return 0;
+}
