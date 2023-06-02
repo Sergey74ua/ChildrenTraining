@@ -18,12 +18,12 @@
     <ClCompile Include="Upgrade_09.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="sqlite3.c">
-      <Filter>Файлы заголовков</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sqlite3.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="request.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

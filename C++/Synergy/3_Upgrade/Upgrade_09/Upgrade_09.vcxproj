@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{77349910-c35f-4196-bc1e-cf25db129c2f}</ProjectGuid>
+    <ProjectGuid>{ce5b23a1-6fd4-45bf-aef8-a798170aa8bb}</ProjectGuid>
     <RootNamespace>Upgrade09</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -127,10 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="Upgrade_09.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="request.h" />
     <ClInclude Include="sqlite3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
