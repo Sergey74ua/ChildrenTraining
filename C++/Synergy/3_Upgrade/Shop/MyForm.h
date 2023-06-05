@@ -252,7 +252,7 @@ namespace Shop {
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(385, 48);
 			this->label4->TabIndex = 3;
-			this->label4->Text = L"выберите рукоять и сердцевину";
+			this->label4->Text = L"выберите минимальную или максимальную цену";
 			this->label4->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// button1
@@ -317,7 +317,7 @@ namespace Shop {
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(543, 48);
 			this->label7->TabIndex = 3;
-			this->label7->Text = L"выберите рукоять и сердцевину";
+			this->label7->Text = L"выберите случайный посох";
 			this->label7->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
 			// MyForm
@@ -372,7 +372,7 @@ namespace Shop {
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 		randShaft = (KeyValuePair<String^, int>)comboBox1->Items[rand() % 39];
 		randCore = (KeyValuePair<String^, int>)comboBox2->Items[rand() % 23];
-		this->label7->Text = System::Convert::ToString(randShaft.Key + randCore.Key);
+		this->label7->Text = System::Convert::ToString(randShaft.Key + " + " + randCore.Key);
 		this->label8->Text = System::Convert::ToString(randShaft.Value + randCore.Value + " галлеонов");
 	}
 };
