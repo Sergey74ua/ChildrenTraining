@@ -30,7 +30,7 @@ public:
     }
 
     // виртуальный метод
-    virtual void report() {}
+    virtual void source() {}
 };
 
 
