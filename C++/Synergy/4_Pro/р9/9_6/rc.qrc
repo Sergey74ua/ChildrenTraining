@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>test1.txt</file>
+        <file>meme.png</file>
+    </qresource>
+</RCC>
