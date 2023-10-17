@@ -1,0 +1,169 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-5a80c572807ce21fb3de.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Final",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Debug-07c052ac4dcda3c41400.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Debug-81b198fbc3d2f19ed745.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Debug-58399dfa7af8017c786b.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-5fb064a1c90a8cfc5b69.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal-Debug-7ae465e9ecb69b760a63.json",
+					"name" : "appFinal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_autogen-Debug-293a2c377a67d75be5fe.json",
+					"name" : "appFinal_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_autogen_timestamp_deps-Debug-86696f3d1721de4bf2ca.json",
+					"name" : "appFinal_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_qmlimportscan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_qmlimportscan-Debug-4cee13525c75eba2586e.json",
+					"name" : "appFinal_qmlimportscan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_qmllint-Debug-c2676f231ad367baaef5.json",
+					"name" : "appFinal_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_qmllint_json-Debug-290dcc4b36c65e311ef6.json",
+					"name" : "appFinal_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_qmllint_module-Debug-8a7d04b735251dffcd0c.json",
+					"name" : "appFinal_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_qmltyperegistration-Debug-1819e568d8f1a8c5f88d.json",
+					"name" : "appFinal_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appFinal_tooling::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appFinal_tooling-Debug-8247a33a60cf5be9abab.json",
+					"name" : "appFinal_tooling",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/build-Final-Desktop_Qt_6_5_2_MSVC2019_64bit-Debug",
+		"source" : "D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/Final"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

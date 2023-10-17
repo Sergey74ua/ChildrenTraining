@@ -24,6 +24,25 @@ nidzt xylbi
 #include <vector>
 #include <algorithm>
 
+bool compare(const std::string& a, const std::string& b) {
+    if (a > b)
+        return true;
+    else if (a < b)
+        return false;
+    else if (a == b) {
+        if (a.length() > b.length())
+            return false;
+        else if (a.length() < b.length())
+            return true;
+        else if (a.length() == b.length()) {
+            if (a.find('0') >= b.find('0'))
+                return false;
+            else
+                return true;
+        }
+    }
+}
+
 int main() {
     int n, t = 0; // число слов, максимальное кол-во повторений
     std::string s; // набор слов
@@ -47,7 +66,7 @@ int main() {
             v.push_back(i.first);
 
     // сортировка вектора
-    sort(v.begin(), v.end());
+    std::sort(v.begin(), v.end(), compare);
 
     // вывод максимально повторяющихся слов
     for (std::string &i : v)

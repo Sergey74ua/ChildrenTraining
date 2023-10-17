@@ -35,37 +35,45 @@ fifteen
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <vector>
+#include <algorithm>
 
 int main() {
-    std::ifstream f("data.txt");
-    std::map<std::string, int> m;
-    std::string r[3], w, target;
-    bool h = false;
+    std::ifstream f("data.txt"); //приложенный файлик
+    std::map<std::string, int> m; //словарь <слова - их количество>
+    std::string target, w; //слово, ключевое слово
 
+    //считываем данные
     std::cin >> target;
     if (f.is_open()) {
+        bool t = false; //предыдущее слово target?
         for (f >> w; !f.eof(); f >> w) {
             if (w == "stopword")
                 break;
-            else if (h == true) {
-                h = false;
+            else if (t == true) {
+                t = false;
                 m[w]++;
             } else if (w == target)
-                h = true;
+                t = true;
         }
         f.close();
     }
 
-    for (const auto& p : m)
-        if (p.first.size() >= 1 && p.second >= r[0]) { ////////
-            r[2] = r[1];
-            r[1] = r[0];
-            r[0] = p.first;
+    if (!m.empty()) {
+        //сортировка с лямбдой по условиям
+        std::vector<std::pair<std::string, int>> s(m.begin(), m.end());
+        std::sort(s.begin(), s.end(), [](const auto& a, const auto& b) {
+            return a.second > b.second || (a.second == b.second && a.first < b.first);
+        });
+        //вывод результата
+        for (size_t i = 0; i < std::min(s.size(), static_cast<size_t>(3)); i++) {
+            std::cout << s[i].first;
+            if (i != std::min(s.size(), static_cast<size_t>(3)) - 1)
+                std::cout << " ";
         }
-
-    if (r[0] == "") ////////
+    } else
+        //отсутствие результата
         std::cout << "-";
-    else
-        for (const std::string i : r)
-            std::cout << i << " ";
+
+    return 0;
 }

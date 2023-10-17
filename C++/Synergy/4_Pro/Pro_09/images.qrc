@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/txt">
+        <file>test1.txt</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>g0.png</file>
+        <file>g1.gif</file>
+        <file>g2.png</file>
+        <file>g3.png</file>
+    </qresource>
+</RCC>

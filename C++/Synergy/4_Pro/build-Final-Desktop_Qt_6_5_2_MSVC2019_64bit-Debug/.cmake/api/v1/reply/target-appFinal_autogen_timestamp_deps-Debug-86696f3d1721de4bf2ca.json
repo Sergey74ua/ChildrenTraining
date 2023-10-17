@@ -1,0 +1,69 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"folder" : 
+	{
+		"name" : "QtInternalTargets"
+	},
+	"id" : "appFinal_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+	"isGeneratorProvided" : true,
+	"name" : "appFinal_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/build-Final-Desktop_Qt_6_5_2_MSVC2019_64bit-Debug/CMakeFiles/appFinal_autogen_timestamp_deps",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/build-Final-Desktop_Qt_6_5_2_MSVC2019_64bit-Debug/CMakeFiles/appFinal_autogen_timestamp_deps.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/build-Final-Desktop_Qt_6_5_2_MSVC2019_64bit-Debug/.rcc/qmlcache/appFinal_qmlcache_loader.cpp.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}
