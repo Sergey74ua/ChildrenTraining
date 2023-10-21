@@ -1,5 +1,0 @@
-module Final
-typeinfo appFinal.qmltypes
-prefer :/Final/
-Main 1.0 Main.qml
-

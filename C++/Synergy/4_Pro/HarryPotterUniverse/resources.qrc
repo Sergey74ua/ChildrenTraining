@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/file">
+        <file>img/g0.png</file>
+        <file>img/g1.png</file>
+        <file>img/g2.jpg</file>
+        <file>txt/core.txt</file>
+        <file>txt/test.txt</file>
+        <file>txt/wand.txt</file>
+        <file>txt/wood.txt</file>
+        <file>img/f1.png</file>
+        <file>img/f2.png</file>
+        <file>img/m1.png</file>
+        <file>img/m2.png</file>
+        <file>img/m3.png</file>
+        <file>img/m4.png</file>
+        <file>img/m5.png</file>
+        <file>img/w1.png</file>
+        <file>img/w2.png</file>
+    </qresource>
+</RCC>

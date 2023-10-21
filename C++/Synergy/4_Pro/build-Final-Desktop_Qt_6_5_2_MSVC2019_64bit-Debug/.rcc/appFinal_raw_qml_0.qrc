@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="/Final/">
-    <file alias="Main.qml">D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/Final/Main.qml</file>
-    <file alias="resources.qrc">D:/Documents/Program/ChildrenTraining/C++/Synergy/4_Pro/Final/resources.qrc</file>
-  </qresource>
-</RCC>
-
