@@ -48,11 +48,11 @@ struct Passager {
 
 int main()
 {
-    int pclass, age;                //класс и возраст
-    std::string line, word, n;   //строка, слово, имя
-    std::vector<std::string> t;     //массив слов из строки
-    std::vector<Passager> v;        //список (имя, возраст)
-    Passager p;                     //временный пассажир
+    int pclass, age;            //класс и возраст
+    std::string line, w, s, n;  //строка, слово, склейка, имя
+    std::vector<std::string> t; //массив слов из строки
+    std::vector<Passager> v;    //список (имя, возраст)
+    Passager p;                 //временный пассажир
 
     std::cin >> pclass >> age;
     std::ifstream file("train.csv");
@@ -61,19 +61,21 @@ int main()
         std::getline(file, line, '\r');
 
         //Считываем строку, в пустоты вставляем "0"
-        std::istringstream s(line);
-        while (std::getline(s, word, ',')) {
-            if (word.size()==0)
-                word = "0";
-            t.push_back(word);
+        std::istringstream ss(line);
+        while (std::getline(ss, w, ',')) {
+            if (w.size()==0)
+                w = "0";
+            t.push_back(w);
         }
 
         //Проверяем данные и вносим в массив имя и возраст
         if (t[5] == "female" && std::stoi(t[6]) > age && std::stoi(t[2]) == pclass) {
-            t[3].erase(t[3].begin()); //удаляем кавычку в начале
-            t[4].pop_back(); //удаляем кавычку в конце
-            n = t[3] + ',' + t[4]; //склеиваем имя, восстанавливаем ","
-            //n.replace(n.begin(), n.end(), "\"\"", "\""); //// нужно убрать двойные кавычки
+            s = t[3] + ',' + t[4]; //склеиваем имя, восстанавливаем ","
+            //Убраем лишние кавычки
+            n = "";
+            for (int i = 1; i < s.size()-1; i++)
+                if (!(s[i - 1] == '\"' && s[i] == '\"'))
+                    n += s[i];
             p = {n, std::stoi(t[6])};
             v.push_back(p);
         }
@@ -83,16 +85,14 @@ int main()
 
     //Сортировка с условиями (вручную)
     for (int i = 0; i < v.size(); i++)
-        for (int j = i+1; j < v.size(); j++) {
+        for (int j = i+1; j < v.size(); j++)
             if (v[i].age > v[j].age || (v[i].age == v[j].age && v[i].name > v[j].name)) {
                 p = v[i];
                 v[i] = v[j];
                 v[j] = p;
             }
-        }
 
     //Вывод списка
-    for (auto& i : v) {
+    for (auto& i : v)
         std::cout << i.name << std::endl;
-    }
 }
