@@ -67,7 +67,6 @@ int main()
                 w = "0";
             t.push_back(w);
         }
-
         //Проверяем данные и вносим в массив имя и возраст
         if (t[5] == "female" && std::stoi(t[6]) > age && std::stoi(t[2]) == pclass) {
             s = t[3] + ',' + t[4]; //склеиваем имя, восстанавливаем ","
@@ -76,6 +75,7 @@ int main()
             for (int i = 1; i < s.size()-1; i++)
                 if (!(s[i - 1] == '\"' && s[i] == '\"'))
                     n += s[i];
+            //Добавляем в массив
             p = {n, std::stoi(t[6])};
             v.push_back(p);
         }
@@ -83,7 +83,7 @@ int main()
     }
     file.close();
 
-    //Сортировка с условиями (вручную)
+    //Сортировка с условиями
     for (int i = 0; i < v.size(); i++)
         for (int j = i+1; j < v.size(); j++)
             if (v[i].age > v[j].age || (v[i].age == v[j].age && v[i].name > v[j].name)) {
