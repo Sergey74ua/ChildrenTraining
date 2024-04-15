@@ -1,0 +1,13 @@
+{
+  "group_name": "group_name",
+  "group_id": "group_id",
+  "group_owner": "group_owner_user_name",
+  "group_members": [
+    {
+      "user_name": "member_name",
+      "user_ip": "member_ip",
+      "user_id": "user_id",
+      "user_pub_key": "user_pub_key"
+    }
+  ]
+}

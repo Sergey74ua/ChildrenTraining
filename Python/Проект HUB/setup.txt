@@ -1,0 +1,12 @@
+You should enter:
+  python3 -m venv venv
+  {
+    or Linux:
+      source venv/bin/activate
+    or Windows:
+      venv\Scripts\activate
+  }
+  pip install -r requirements.txt
+
+if you download lib you should enter ( in venv ):
+  pip freeze > requirements.txt

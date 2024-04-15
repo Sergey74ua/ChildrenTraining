@@ -1,0 +1,15 @@
+{
+  "chat": [
+    {
+      "username": "user_name",
+      "userid": "user_id",
+      "userip": "userip",
+      "usermac": "user_mac",
+      "date": "D_M_Y/H_M_S",
+      "message": [
+        "some_message01",
+        "some_message02"
+      ]
+    }
+  ]
+}
