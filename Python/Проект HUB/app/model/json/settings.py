@@ -1,5 +1,6 @@
 __author__ = "Maxim"
 
+import os.path
 import json
 
 from datetime import datetime
@@ -13,18 +14,19 @@ class Json():
         self.them = "light"
 
     # Создание JSON и заполнение по умолчанию
-    def createJSON(self, name="undefined", mail="undefined", icon = "default"):
-        data = {
-            "serv": self.serv,
-            "port": self.port,
-            "name": name,
-            "mail": mail,
-            "icon": icon,
-            "them": self.them,
-            "last": datetime.now().strftime("%H:%M:%S")
-        }
-        with open(self.file, "w") as file:
-            json.dump(data, file)
+    def createJSON(self, name, mail, icon):
+        if not os.path.exists(self.file):
+            data = {
+                "serv": self.serv,
+                "port": self.port,
+                "name": name,
+                "mail": mail,
+                "icon": icon,
+                "them": self.them,
+                "last": datetime.now().strftime("%H:%M:%S")
+            }
+            with open(self.file, "w") as file:
+                json.dump(data, file)
     
     # Чтение файла JSON
     def readJSON(self):

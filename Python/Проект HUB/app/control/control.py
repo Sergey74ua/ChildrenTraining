@@ -4,17 +4,25 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 
 from view.user import Ui_user
 from view.message import Ui_message
+
 from control.user import User
 from control.message import Message
+
+from model.user import User as ModelUser
+from model.message import Message as ModelMessage
+
+#from model.socket.socket import Socket # (перенести в control)
 
 class Control(QMainWindow):
     def __init__(self, model, view, parent=None):
         super(Control, self).__init__(parent)
+        #self.socket = Socket() # Исправить потоки (перенести в control)
         self.model = model
         self.view = view
         self.view.setupUi(self)
 
-        self.countUser = 0 # Временно для теста, должно быть в model
+        self.countUser = 0 # Временно для теста
+        self.countMessage = 0 # Временно для теста
         
         self.view.nameButton.clicked.connect(self.nameButton) # Создать/изменить имя
         self.view.btn_1.clicked.connect(self.btn_1) # Кнопка 1 - ?
@@ -27,16 +35,13 @@ class Control(QMainWindow):
         # listMessages # Список сообщений
         # textEdit # Поле ввода сообщения
 
-        self.model.json.createJSON() # Инициализация JSON (нужна проверка на имя)
-
     # Создать/изменить имя
     def nameButton(self):
         # Добавить проверку имени != "undefined"
         if self.view.nameButton.text() == 'name':
             text = self.view.nameEdit.text()
-            self.model.json.editJSON(text)
-            data = self.model.json.readJSON()
-            name = data['name'] # В model имя должно пройти верификацию
+            self.model.json.editJSON(name = text)
+            name = self.model.json.readJSON()['name']
             self.setWindowTitle(u"HUB messager - " + name)
             self.view.nameEdit.setEnabled(False)
             self.view.nameEdit.setText("Пользователь: " + name)
@@ -61,7 +66,13 @@ class Control(QMainWindow):
     
     # Кнопка 3 - временно иммитирует новое сообщение
     def btn_3(self):
-        message = Message()
+        # Прием сообщения с socket
+        self.countMessage += 1
+        user = "user-" + str(self.countMessage) # Временно (будет из socket)
+        text = "Всем привет!" # Временно (будет из socket)
+        modelMessage = ModelMessage(user, text)
+        message = Message(modelMessage)
+        self.model.addMessage(message)
         self.view.listMessage.addWidget(message)
 
     # Кнопка 4 - временно иммитирует очистку всех сообщений
@@ -72,8 +83,10 @@ class Control(QMainWindow):
 
     # Отправка
     def sendButton(self):
+        user = self.model.json.readJSON()['name']
         text = self.view.textEdit.toPlainText()
-        message = Message()
-        message.ui.messageText.setText(text)
+        modelMessage = ModelMessage(user, text)
+        message = Message(modelMessage)
+        self.model.addMessage(message)
         self.view.listMessage.addWidget(message)
         self.view.textEdit.setPlainText("")

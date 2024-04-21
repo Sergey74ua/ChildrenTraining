@@ -15,6 +15,5 @@ class User(QWidget):
         self.id_widget = id_widget
         self.ui.userID.setTitle(str(id_widget))
 
-    @Slot()
     def press_del(self):
         self.delete.emit(self.id_widget)
