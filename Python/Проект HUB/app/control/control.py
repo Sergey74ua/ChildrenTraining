@@ -40,7 +40,7 @@ class Control(QMainWindow):
         # Добавить проверку имени != "undefined"
         if self.view.nameButton.text() == 'name':
             text = self.view.nameEdit.text()
-            self.model.json.editJSON(name = text)
+            self.model.json.editJSON(text)
             name = self.model.json.readJSON()['name']
             self.setWindowTitle(u"HUB messager - " + name)
             self.view.nameEdit.setEnabled(False)
@@ -81,11 +81,12 @@ class Control(QMainWindow):
             item = self.view.listMessage.takeAt(0)
             item.widget().deleteLater()
 
-    # Отправка
+    # Отправка ИСПРАВИТЬ ОБНОВЛЕНИЕ ИМЕНИ КЛИЕНТА
     def sendButton(self):
         user = self.model.json.readJSON()['name']
         text = self.view.textEdit.toPlainText()
         modelMessage = ModelMessage(user, text)
+        # message.ui.messageText.setText(text)
         message = Message(modelMessage)
         self.model.addMessage(message)
         self.view.listMessage.addWidget(message)

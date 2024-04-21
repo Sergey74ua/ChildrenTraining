@@ -4,6 +4,8 @@ title Компилятор
 mode con cols=80 lines=20
 color 0a
 
+echo Надо перед компиляцией удалять файлы настроек
+
 echo:
 pyinstaller --onefile --icon="view\img\icon.ico" -w HUB.py
 echo:

@@ -8,7 +8,8 @@ from datetime import datetime
 #### Лучше разделить на 3 файла JSON: для server, для user и для настроек GUI.
 class Json():
     def __init__(self):
-        self.file = "model/json/settings.json"
+        self.file = os.getcwd() + "//settings.json"
+        # self.file = "model\json\settings.json"
         self.serv = "192.168.3.121"
         self.port = "9090"
         self.them = "light"

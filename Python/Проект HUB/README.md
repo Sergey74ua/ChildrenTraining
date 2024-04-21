@@ -14,22 +14,13 @@
 
 4. Домен и хостинг - ?
 
-## $${\color{red}Можно \space делать \space только \space сайт, \space по  \space backend-у  \space и \space frontend-у \space Ваня \space скажет \space что \space делать.}$$
+## $${\color{red}Можно \space делать \space только \space сайт, \space по  \space backend  \space и \space frontend \space Ваня \space скажет \space что \space делать.}$$
 ### Список задач по frontend.
 1. Сверстать gui-форму:
-- https://github.com/hacksawridge1/project_hub/tree/main/app/view (уже делает Матвей)
+- https://github.com/hacksawridge1/project_hub/tree/main/app/view (уже делает Матвей или Дима)
 2. Написать функции ui/ux:
 - https://github.com/hacksawridge1/project_hub/blob/main/app/control/control.py
 3. Сохранение настроек в JSON (имя, настройки и т.д.):
-- https://github.com/hacksawridge1/project_hub/blob/main/app/model/json/settings.py (доделывает Максим)
+- https://github.com/hacksawridge1/project_hub/blob/main/app/model/json/settings.py
 4. Доделать клас socket-оф (исправить потоки, синхронизировать с backend-ом, возможно перенесётся в control):
 - https://github.com/hacksawridge1/project_hub/blob/main/app/model/socket/socket.py
-
-#### Возможно нужно добавить классы (model):
-- Класс пользователя (аватарка, имя).
-- Класс сообщения (дата, имя, текст).
-- Класс списка пользователей.
-- Класс списка сообщений.
-
-### Список задач по backend.
-(backend-ом занимается Ваня)
