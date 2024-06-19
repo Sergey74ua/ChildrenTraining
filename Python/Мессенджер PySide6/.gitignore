@@ -1,8 +1,0 @@
-.env
-.trash
-venv
-.vscode
-*.pem
-*.pub
-__pycache__/
-src/security/secret
