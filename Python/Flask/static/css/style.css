@@ -1,3 +1,54 @@
 body {
-    background: yellowgreen;
+    background: lightblue;
+    font-family: Verdana, Geneva, sans-serif;
+    color: black;
+    font-size: 1em;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+    background: darkslateblue;
+    color: lightblue;
+    font-size: 2em;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 2em;
+    background: darkslateblue;
+    color: lightblue;
+    font-size: 1.5em;
+}
+
+section {
+    margin: 1em;
+    padding: 1em;
+    background: steelblue;
+    border-radius: .5em;
+}
+
+aside {
+    width: 20%;
+}
+
+menu {
+    padding: 1em;
+}
+
+
+h1, h2 {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.content {
+    width: 80%;
 }
