@@ -1,0 +1,106 @@
+    - = 1 = -
+
+py -V - Проверка версии Python (python --version)
+import sys; print(sys.version) - Проверка версии Python из кода
+python.exe -m pip install --upgrade pip - обновление pip
+
+Get-ExecutionPolicy - проверка разрешений запуска скриптов (Restricted)
+Set-ExecutionPolicy AllSigned - разрешает запуск скриптов
+
+python -m venv venv - Создаем локальную среду (-m - ключ для активации venv)
+.\venv\Scripts\activate - Активируем локальную среду (появиться зеленый (venv))
+deactivate - если надо декативировать
+
+py -m pip freeze - для списка модулей (list - все модули, freeze - только установленные)
+pip list - Просмотреть установленные модули
+pip freeze > requirements.txt - Сохраняем список модулей
+pip install -r requirements.txt - Загружаем список модулей
+
+pip install Flask - Установка Flask
+
+app.py - Создаем файл приложения (можно по другому)
+  from flask import Flask - подкллючаем класс Flask
+  app = Flask(__name__) - объект приложения с именем
+  @app.route("/") - декоратор (урл роутинга, можно несколько)
+  def index(): - функция обработчика урла
+    return "Hello world!" - (можно <h1>"Hello world!"</h1>)
+  if __name__ == '__main__': - стандартная проверка
+    app.run(debug=True) - запуск приложения (с обновлением на ходу)
+python app.py - запуск приложения (см. http://127.0.0.1:5000/ - Not Found)
+
+    - = 2 = -
+
+templates - папка для хранения шаблонов html (index, about и т.д.)
+render_template - добавляем в import (from flask import Flask, render_template)
+return render_template('index.html') - возврат из функции
+
+base.html - базовый шаблон страницы html (или layout)
+{% extends 'base.html' %} - наследование страниц от шаблона
+{% block title %} {% endblock %} - вставка блоков (title, body, content и т.д.)
+
+static - папка для папок css, js, img и т.д.
+подключаем файл стилей: (аналогично для всех других файлов из static)
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<a href="{{url_for('index')}}">Домой</a> - ссылки Jinja (<p><a href="/">Домой</a></p>)
+
+Создаем header, footer, article, section, nav, aside и component
+Например: {% include 'component/menu.html' %}
+
+    - = 3 = -
+
+pip install flask_sqlalchemy - модуль для работы с базами данных
+from flask_sqlalchemy import SQLAlchemy - добавляем в app
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlite.db' - подключаем БД
+db = SQLAlchemy(app) - создаем объект БД
+class User(db.Model): - класс создания таблицы в БД
+    id = db.Column(db.Integer, primary_key=True) - поле таблицы ID
+    name = db.Column(db.String(255), nullable=False) - строка заданного размера
+    description = db.Column(db.Text, nullable=True) - текст (default='пусто')
+
+python - прописываем в консоли для перехода в консоль Python (выход: exit())
+>>> from app import app, db - появиться папка instance (или from app import db)
+>>> app.app_context().push()
+>>> db.create_all() - создается БД: instance\sqlite.db
+
+<form method="post"> - Создаем страницу create.html с формой. Иссылки на нее.
+    <input type="text" name="name" placeholder="Имя"><br><br>
+    <input type="text" name="description" placeholder="Описание"><br><br>
+    <button type="submit">Отправить</button>
+</form>
+
+request, redirect - добавить к импортирту из flask
+@app.route("/create", methods=['POST', 'GET']) - декоратор для формы create
+def create():
+if request.method == 'POST':
+        print(request.form['name']) - должен вывестись в консоль ввод
+        print(request.form['description']) -+ это временно, для теста
+        return redirect('index') - страница, куда перейти после ввода
+    else:
+        return render_template('create.html')
+
+меняем print() на name = request.form['name'] и т.д.
+и создаем запись для БД: user = User(name = name, description = description)
+try:
+    db.session.add(user)
+    db.session.commit()
+    return redirect('index')
+except:
+    return 'Возникла ошибка при записи в БД'
+
+@app.route("/users") - декоратор для вывода всех записей
+def users():
+    data = User.query.all()
+    return render_template('users.html', data=users) - данные для вывода
+
+{% if data %} - создаем страницу users.html с циклом.
+        {% for i in data %}
+            <p>{{ i.name }} - {{ i.description }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Данные отсутствуют</p>
+    {% endif %}
+
+@app.route("/user/<int:id>") - декоратор для динамических урлов (int, string ...)
+def user(id):
+    string = "Пользователь № " + str(id)
+    return string

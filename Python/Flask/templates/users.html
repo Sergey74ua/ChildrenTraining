@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Все записи
+{% endblock %}
+
+{% block content %}
+    <h1>Все записи</h1>
+    {% if data %}
+        {% for i in data %}
+            <p>{{ i.name }} - {{ i.description }}</p>
+        {% endfor %}
+    {% else %}
+        <p>Данные отсутствуют</p>
+    {% endif %}
+{% endblock %}
