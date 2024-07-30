@@ -38,7 +38,6 @@ menu {
     padding: 1em;
 }
 
-
 h1, h2 {
     font-family: 'Times New Roman', Times, serif;
 }
@@ -51,4 +50,9 @@ h1, h2 {
 
 .content {
     width: 80%;
+}
+
+.row {
+    display: flex;
+    gap: 1em;
 }

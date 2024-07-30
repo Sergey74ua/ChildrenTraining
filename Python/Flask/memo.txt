@@ -4,12 +4,12 @@ py -V - Проверка версии Python (python --version)
 import sys; print(sys.version) - Проверка версии Python из кода
 python.exe -m pip install --upgrade pip - обновление pip
 
-Get-ExecutionPolicy - проверка разрешений запуска скриптов (Restricted)
-Set-ExecutionPolicy AllSigned - разрешает запуск скриптов
-
 python -m venv venv - Создаем локальную среду (-m - ключ для активации venv)
 .\venv\Scripts\activate - Активируем локальную среду (появиться зеленый (venv))
 deactivate - если надо декативировать
+
+Get-ExecutionPolicy - проверка разрешений запуска скриптов (Restricted)
+Set-ExecutionPolicy AllSigned - разрешает запуск скриптов
 
 py -m pip freeze - для списка модулей (list - все модули, freeze - только установленные)
 pip list - Просмотреть установленные модули
@@ -26,6 +26,7 @@ app.py - Создаем файл приложения (можно по друг�
     return "Hello world!" - (можно <h1>"Hello world!"</h1>)
   if __name__ == '__main__': - стандартная проверка
     app.run(debug=True) - запуск приложения (с обновлением на ходу)
+
 python app.py - запуск приложения (см. http://127.0.0.1:5000/ - Not Found)
 
     - = 2 = -
@@ -56,6 +57,7 @@ class User(db.Model): - класс создания таблицы в БД
     id = db.Column(db.Integer, primary_key=True) - поле таблицы ID
     name = db.Column(db.String(255), nullable=False) - строка заданного размера
     description = db.Column(db.Text, nullable=True) - текст (default='пусто')
+(from datetime import datetime + date = db.Column(db.Date, default=datetime.utcnow))
 
 python - прописываем в консоли для перехода в консоль Python (выход: exit())
 >>> from app import app, db - появиться папка instance (или from app import db)
@@ -72,13 +74,13 @@ request, redirect - добавить к импортирту из flask
 @app.route("/create", methods=['POST', 'GET']) - декоратор для формы create
 def create():
 if request.method == 'POST':
-        print(request.form['name']) - должен вывестись в консоль ввод
-        print(request.form['description']) -+ это временно, для теста
-        return redirect('index') - страница, куда перейти после ввода
-    else:
-        return render_template('create.html')
+    print(request.form['name']) - должен вывестись в консоль ввод
+    print(request.form['description']) -+ это временно, для теста
+    return redirect('index') - страница, куда перейти после ввода
+else:
+    return render_template('create.html')
 
-меняем print() на name = request.form['name'] и т.д.
+меняем print() на name = request.form['name'] и т.д. (+ return redirect('/users'))
 и создаем запись для БД: user = User(name = name, description = description)
 try:
     db.session.add(user)
@@ -87,20 +89,72 @@ try:
 except:
     return 'Возникла ошибка при записи в БД'
 
-@app.route("/users") - декоратор для вывода всех записей
+@app.route("/users") - декоратор для вывода всех записей (User.query.count())
 def users():
-    data = User.query.all()
+    data = User.query.all() - (...order_by(User.name).all(), filter_by(name='Тест'))
     return render_template('users.html', data=users) - данные для вывода
 
 {% if data %} - создаем страницу users.html с циклом.
-        {% for i in data %}
-            <p>{{ i.name }} - {{ i.description }}</p>
-        {% endfor %}
-    {% else %}
-        <p>Данные отсутствуют</p>
-    {% endif %}
+    {% for i in data %}
+        <p>{{ i.name }} - {{ i.description }}</p>
+    {% endfor %}
+{% else %}
+    <p>Данные отсутствуют</p>
+{% endif %}
+
+    - = 4 = -
 
 @app.route("/user/<int:id>") - декоратор для динамических урлов (int, string ...)
 def user(id):
-    string = "Пользователь № " + str(id)
-    return string
+    user = User.query.get(id)
+    return render_template('user.html', data=user)
+
+{% block title %} - создаем страницу user.html.
+    {{ data.name }}
+{% endblock %}
+{% block content %}
+    {% if data %}
+        <h1>Пользователь: {{ data.name }}</h1>
+        <p>Описание: {{ data.description }}</p>
+    {% else %}
+        <p>Данные отсутствуют</p>
+    {% endif %}
+    {% include 'ins/action.html' %}
+{% endblock %}
+
+<div class="row"> - компонент с действиями над записями
+    <div><a href="{{url_for('create')}}">Добавить запись</a></div>
+    <div><a href="/user/{{data.id}}/delete">Удалить запись</a></div>
+    <div><a href="/user/{{data.id}}/update">Редактировать запись</a></div>
+</div>
+
+@app.route("/user/<int:id>/delete") - декоратор удаления записи.
+def userDelete(id):
+    user = User.query.get_or_404(id)
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return redirect('/users')
+    except:
+        return 'Возникла ошибка при удалении записи из БД'
+
+<h1>Редактировать запись</h1> - создать сраницу update.html (title заменить)
+<form method="post">
+    <input type="text" name="name" value="{{data.name}}" placeholder="Имя"><br><br>
+    <input type="text" name="description" value="{{data.description}}" placeholder="Описание"><br><br>
+    <button type="submit">Обновить</button>
+</form>
+
+@app.route("/user/<int:id>/update", methods=['POST', 'GET']) - редактирование записи.
+def userUpdate(id):
+    user = User.query.get(id)
+    if request.method == 'POST':
+        user.name = request.form['name']
+        user.description = request.form['description']
+        try:
+            db.session.commit()
+            return redirect('/users')
+        except:
+            return 'Возникла ошибка при обновлении записи БД'
+    else:
+        return render_template('update.html', data=user)

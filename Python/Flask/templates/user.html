@@ -1,0 +1,15 @@
+{% extends 'base/main.html' %}
+
+{% block title %}
+    {{ data.name }}
+{% endblock %}
+
+{% block content %}
+    {% if data %}
+        <h1>Пользователь: {{ data.name }}</h1>
+        <p>Описание: {{ data.description }}</p>
+    {% else %}
+        <p>Данные отсутствуют</p>
+    {% endif %}
+    {% include 'ins/action.html' %}
+{% endblock %}

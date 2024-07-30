@@ -9,6 +9,7 @@
     {% if data %}
         {% for i in data %}
             <p>{{ i.name }} - {{ i.description }}</p>
+            <p><a href="/user/{{i.id}}">Подробнее</a></p>
         {% endfor %}
     {% else %}
         <p>Данные отсутствуют</p>

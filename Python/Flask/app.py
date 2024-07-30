@@ -22,11 +22,6 @@ def index():
 def about():
     return render_template('about.html')
 
-@app.route("/users")
-def users():
-    users = User.query.all()
-    return render_template('users.html', data=users)
-
 @app.route("/create", methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
@@ -36,16 +31,45 @@ def create():
         try:
             db.session.add(user)
             db.session.commit()
-            return redirect('index')
+            return redirect('/users')
         except:
             return 'Возникла ошибка при записи в БД'
     else:
         return render_template('create.html')
 
+@app.route("/users")
+def users():
+    users = User.query.all()
+    return render_template('users.html', data=users)
+
 @app.route("/user/<int:id>")
 def user(id):
-    string = "Пользователь № " + str(id)
-    return string
+    user = User.query.get(id)
+    return render_template('user.html', data=user)
+
+@app.route("/user/<int:id>/update", methods=['POST', 'GET'])
+def userUpdate(id):
+    user = User.query.get(id)
+    if request.method == 'POST':
+        user.name = request.form['name']
+        user.description = request.form['description']
+        try:
+            db.session.commit()
+            return redirect('/users')
+        except:
+            return 'Возникла ошибка при обновлении записи БД'
+    else:
+        return render_template('update.html', data=user)
+
+@app.route("/user/<int:id>/delete")
+def userDelete(id):
+    user = User.query.get_or_404(id)
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return redirect('/users')
+    except:
+        return 'Возникла ошибка при удалении записи из БД'
 
 if __name__ == '__main__':
     app.run(debug=True)
