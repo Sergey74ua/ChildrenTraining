@@ -90,8 +90,8 @@ except:
     return 'Возникла ошибка при записи в БД'
 
 @app.route("/users") - декоратор для вывода всех записей (User.query.count())
-def users():
-    data = User.query.all() - (...order_by(User.name).all(), filter_by(name='Тест'))
+def users(): - (...order_by(User.name).all(), filter_by(name='Тест'), limit(10))
+    data = User.query.all()
     return render_template('users.html', data=users) - данные для вывода
 
 {% if data %} - создаем страницу users.html с циклом.
@@ -158,3 +158,17 @@ def userUpdate(id):
             return 'Возникла ошибка при обновлении записи БД'
     else:
         return render_template('update.html', data=user)
+
+    - = 5 = -
+
+Оптимизация кода:
+1. В файл model.py переносим все классы и импортируем db + datetime и т.д.
+2. В control.py переносим урлы с функциями и импортируем app, db и все из model
+3. В app.py перед app.run добавляем from control import *
+4. Если классов много: создаем папку model, в ней классы и ипортируем в control
+5. Так же можно разделить control на несколько файлов, которые ипортируем в app
+
+class Сity(db.Model): - пример "один к одному"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(user.id))
