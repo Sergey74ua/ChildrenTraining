@@ -6,10 +6,15 @@
 
 {% block content %}
     <h1>Добавить запись</h1>
-
     <form method="post">
         <input type="text" name="name" placeholder="Имя"><br><br>
         <input type="text" name="description" placeholder="Описание"><br><br>
+        Город: <select name="city">
+            {% for i in city %}
+                <option value="{{ i.id }}">{{ i.name }}</option>
+            {% endfor %}
+            <!--<option value="new">+ добавить город</option>-->
+        </select><br><br>
         <button type="submit">Отправить</button>
     </form>
 {% endblock %}

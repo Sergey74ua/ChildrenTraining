@@ -7,7 +7,9 @@
 {% block content %}
     {% if data %}
         <h1>Пользователь: {{ data.name }}</h1>
+        <p>Город: {{ data.city_id }}</p>
         <p>Описание: {{ data.description }}</p>
+        <p>{{ data.date }}</p>
     {% else %}
         <p>Данные отсутствуют</p>
     {% endif %}
