@@ -43,14 +43,13 @@ def user(id):
     user.city_id = City.query.get(user.city_id).name
     return render_template('user.html', data=user)
 
-@app.route("/user/<int:id>/update", methods=['POST', 'GET'])
+@app.route("/user/<int:id>/update", methods=['GET', 'POST'])
 def userUpdate(id):
     user = User.query.get(id)
     if request.method == 'POST':
         user.name = request.form['name']
         user.description = request.form['description']
         city = request.form['city']
-        user = User(name=name, description=description, city_id=city)
         try:
             db.session.commit()
             return redirect('/users')
@@ -69,11 +68,3 @@ def userDelete(id):
         return redirect('/users')
     except:
         return 'Возникла ошибка при удалении записи из БД'
-
-@app.route("/users/<string:key>") #НЕ ВЫЗЫВАЕТСЯ
-def userSort(key):
-    if key == 'name':
-        users = User.query.order_by(User.name).all()
-    elif key == 'description':
-        users = User.query.order_by(User.description).all()
-    return render_template('users.html', data=users)
