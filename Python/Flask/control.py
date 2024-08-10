@@ -25,7 +25,7 @@ def create():
         try:
             db.session.add(user)
             db.session.commit()
-            return redirect('/users')
+            return redirect('/user/'+ str(user.id))
         except:
             return 'Возникла ошибка при записи в БД'
     else:
@@ -55,7 +55,7 @@ def userUpdate(id):
         city = request.form['city']
         try:
             db.session.commit()
-            return redirect('/users')
+            return redirect('/user/'+ str(user.id))
         except:
             return 'Возникла ошибка при обновлении записи БД'
     else:
