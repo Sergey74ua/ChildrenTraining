@@ -29,8 +29,11 @@ def create():
         except:
             return 'Возникла ошибка при записи в БД'
     else:
-        city = City.query.all()
-        return render_template('create.html', city=city)
+        date = {
+            'title': 'Добавление пользователя',
+            'city': City.query.all()
+        }
+        return render_template('create.html', date=date)
 
 @app.route("/users")
 def users():

@@ -1,18 +1,22 @@
 {% extends 'base/main.html' %}
 
 {% block title %}
-    Добавить запись
+    {{ date.title }}
 {% endblock %}
 
 {% block content %}
-    <h1>Добавить запись</h1>
+    <h1>{{ date.title }}</h1>
     <form method="post">
         <input type="text" name="name" placeholder="Имя"><br><br>
         <input type="text" name="description" placeholder="Описание"><br><br>
         Город: <select name="city">
-            {% for i in city %}
-                <option value="{{ i.id }}">{{ i.name }}</option>
-            {% endfor %}
+            {% if date.city %}
+                {% for i in date.city %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                {% endfor %}
+            {% else %}
+                <option>нет данных</option>
+            {% endif %}
             <!--<option value="new">+ добавить город</option>-->
         </select><br><br>
         <button type="submit">Отправить</button>
