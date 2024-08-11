@@ -1,5 +1,3 @@
-    - = 1 = -
-
 py -V - Проверка версии Python (python --version)
 import sys; print(sys.version) - Проверка версии Python из кода
 python.exe -m pip install --upgrade pip - обновление pip
@@ -29,8 +27,6 @@ app.py - Создаем файл приложения (можно по друг�
 
 python app.py - запуск приложения (см. http://127.0.0.1:5000/ - Not Found)
 
-    - = 2 = -
-
 templates - папка для хранения шаблонов html (index, about и т.д.)
 render_template - добавляем в import (from flask import Flask, render_template)
 return render_template('index.html') - возврат из функции
@@ -46,8 +42,6 @@ static - папка для папок css, js, img и т.д.
 
 Создаем header, footer, article, section, nav, aside и component
 Например: {% include 'component/menu.html' %}
-
-    - = 3 = -
 
 pip install flask_sqlalchemy - модуль для работы с базами данных
 from flask_sqlalchemy import SQLAlchemy - добавляем в app
@@ -101,8 +95,6 @@ def users(): - (...order_by(User.name).all(), filter_by(name='Тест'), limit(
 {% else %}
     <p>Данные отсутствуют</p>
 {% endif %}
-
-    - = 4 = -
 
 @app.route("/user/<int:id>") - декоратор для динамических урлов (int, string ...)
 def user(id):
@@ -174,8 +166,6 @@ def userUpdate(id):
         }
         return render_template('update.html', data=data)
 
-    - = 5 = -
-
 Оптимизация кода:
 1. В файл model.py переносим все классы и импортируем db + datetime и т.д.
 2. В control.py переносим урлы с функциями и импортируем app, db и все из model
@@ -183,10 +173,9 @@ def userUpdate(id):
 4. Если классов много: создаем папку model, в ней классы и ипортируем в control
 5. Так же можно разделить control на несколько файлов, которые ипортируем в app
 
-class Сity(db.Model): - пример "один к одному"
+class Сity(db.Model): - пример "один к многим"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-
 В class User добавить:
     user_id = db.Column(db.Integer, db.ForeignKey(user.id))
 
