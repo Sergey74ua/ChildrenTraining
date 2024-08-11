@@ -52,15 +52,19 @@ def userUpdate(id):
     if request.method == 'POST':
         user.name = request.form['name']
         user.description = request.form['description']
-        city = request.form['city']
+        user.city_id = request.form['city']
         try:
             db.session.commit()
             return redirect('/user/'+ str(user.id))
         except:
             return 'Возникла ошибка при обновлении записи БД'
     else:
-        city = City.query.all()
-        return render_template('update.html', data=user, city=city)
+        data = {
+            'title': 'Редактирование пользователя',
+            'user': user,
+            'city': City.query.all()
+        }
+        return render_template('update.html', data=data)
 
 @app.route("/user/<int:id>/delete")
 def userDelete(id):

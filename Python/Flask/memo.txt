@@ -171,4 +171,16 @@ def userUpdate(id):
 class Сity(db.Model): - пример "один к одному"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
+
+В class User добавить:
     user_id = db.Column(db.Integer, db.ForeignKey(user.id))
+
+Подключаемые модули (Jinja2, SQLAlchemy):
+Bootstrap - загогтовки для верстки фронтэнда и скрипты.
+Awesome - набор векторных иконок для кнопок и т.д.
+Blueprint - подмодули с подобной структурой (admin, blog, forum ...);
+Flask-Script - обслуживающие скрипты (запуск сервера, загрузка БД данными ...);
+Flask-Migrate - записи изменений БД (стукрута БД должна быть неизменной);
+Flask-WTF - набор классов полей и валидаторов для форм;
+Flask-Login - для авторизации и пользовательских сессий;
+Flask-Bcrypt - для хеширования и проверки паролей; и т.д.

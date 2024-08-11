@@ -1,23 +1,22 @@
 {% extends 'base/main.html' %}
 
 {% block title %}
-    Редактировать запись
+    {{ data.title }}
 {% endblock %}
 
 {% block content %}
-    <h1>Редактировать запись</h1>
+    <h1>{{ data.title }}</h1>
     <form method="post">
-        <input type="text" name="name" value="{{data.name}}" placeholder="Имя"><br><br>
-        <input type="text" name="description" value="{{data.description}}" placeholder="Описание"><br><br>
+        <input type="text" name="name" value="{{data.user.name}}" placeholder="Имя"><br><br>
+        <input type="text" name="description" value="{{data.user.description}}" placeholder="Описание"><br><br>
         Город: <select name="city">
-            {% for i in city %}
-                {% if i.id == data.city_id %} <!-- НЕ ВЫБИРАЕТ -->
+            {% for i in data.city %}
+                {% if i.id == data.user.city_id %}
                     <option selected value="{{ i.id }}">{{ i.name }}</option>
                 {% else %}
                     <option value="{{ i.id }}">{{ i.name }}</option>
                 {% endif %}
             {% endfor %}
-            <!--<option value="newCity">+ добавить город</option>-->
         </select><br><br>
         <button type="submit">Обновить</button>
     </form>
