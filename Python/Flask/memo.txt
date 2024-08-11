@@ -138,26 +138,41 @@ def userDelete(id):
     except:
         return 'Возникла ошибка при удалении записи из БД'
 
-<h1>Редактировать запись</h1> - создать сраницу update.html (title заменить)
+<h1>{{ data.title }}</h1> - создать сраницу update.html (title заменить)
 <form method="post">
-    <input type="text" name="name" value="{{data.name}}" placeholder="Имя"><br><br>
-    <input type="text" name="description" value="{{data.description}}" placeholder="Описание"><br><br>
+    <input type="text" name="name" value="{{data.user.name}}" placeholder="Имя"><br><br>
+    <input type="text" name="description" value="{{data.user.description}}" placeholder="Описание"><br><br>
+    Город: <select name="city">
+        {% for i in data.city %}
+            {% if i.id == data.user.city_id %}
+                <option selected value="{{ i.id }}">{{ i.name }}</option>
+            {% else %}
+                <option value="{{ i.id }}">{{ i.name }}</option>
+            {% endif %}
+        {% endfor %}
+    </select><br><br>
     <button type="submit">Обновить</button>
 </form>
 
-@app.route("/user/<int:id>/update", methods=['POST', 'GET']) - редактирование записи.
+@app.route("/user/<int:id>/update", methods=['GET', 'POST']) - редактирование записи.
 def userUpdate(id):
     user = User.query.get(id)
     if request.method == 'POST':
         user.name = request.form['name']
         user.description = request.form['description']
+        user.city_id = request.form['city']
         try:
             db.session.commit()
-            return redirect('/users')
+            return redirect('/user/'+ str(user.id))
         except:
             return 'Возникла ошибка при обновлении записи БД'
     else:
-        return render_template('update.html', data=user)
+        data = {
+            'title': 'Редактирование пользователя',
+            'user': user,
+            'city': City.query.all()
+        }
+        return render_template('update.html', data=data)
 
     - = 5 = -
 
