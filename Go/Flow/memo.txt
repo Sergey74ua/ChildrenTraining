@@ -1,0 +1,67 @@
+Команды терминала:
+go run main.go - запуск кода (к примеру тут - http://127.0.0.1:8080/)
+go build main.go - компилируется exe-шник (консоль + сервер)
+./main.exe - запуск exe-шника (сервера) из терминала.
+ctrl+c (en) - остановка сервера
+
+go mod init [название модуля] - подключение модулей
+go mod tidy - запрашивает система для сброса
+
+import
+    "fmt" - консоль
+	"net/http" - веб-странички
+    "html/template" - шаблоны html
+
+
+-= MODEL =-
+
+type User struct {
+	Name string
+	Age uint16
+	Arr []string
+}
+
+func (u *User) getUserName() string {
+    return fmt.(u.Name)
+}
+
+
+-= VIEW =-
+
+<h1>О проекте</h1>
+<p>{{.Name}}</p>
+<p>{{.Age}}</p>
+Условия: {{if (eq ==, ne !=, lt <, gt >) .Name "Unknow"}} {{else}} {{end}}
+Циклы: {{range .Arr}} {{.}} {{else}} список пуст {{end}}
+
+
+
+-= CONTROL =-
+
+Урлы (страница и функция):
+http.HandleFunc("/home/", )
+
+Слушатель порта (адрес, настройки или nil):
+http.ListenAndServe("localhost:8080", nil)
+
+Функции контроллера (w - вывод страниц, r - запрос):
+func home(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Сервер работает (сообщение в консоль)")
+	fmt.Fprint(w, "<b>Сервер работает</b> (вывод в html)")
+}
+
+func about(w http.ResponseWriter, r *http.Request) {
+	data := User{"Ышкыльдык", 123}
+	page, _ := template.ParseFiles("template/home.html")
+	page.Execute(w, data)
+}
+
+#############################################
+Добавить в импорт
+	"database/sql"
+	"github.com/mattn/go-sqlite3"
+
+Подключаем БД:
+	dbms := "sqlite3"
+	path := "./model/db.sqlite"
+	db, _ := sql.Open(dbms, path)
