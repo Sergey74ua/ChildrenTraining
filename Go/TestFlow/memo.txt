@@ -57,6 +57,9 @@ func about(w http.ResponseWriter, r *http.Request) {
 }
 
 #############################################
+Для работы с SQLite в Go ввести в терминал:
+go get github.com/mattn/go-sqlite3
+
 Добавить в импорт
 	"database/sql"
 	"github.com/mattn/go-sqlite3"
@@ -65,3 +68,11 @@ func about(w http.ResponseWriter, r *http.Request) {
 	dbms := "sqlite3"
 	path := "./model/db.sqlite"
 	db, _ := sql.Open(dbms, path)
+
+Запрос к БД:
+db.Query() - выбор многих строк
+db.QueryRow() - выбор одной строки
+
+db.Exec() - запись в БД, обновление и удаление
+result.LastInsertId() - возвращает id последнего добавления
+result.RowsAffected() - возвращает количество добавленных строк
