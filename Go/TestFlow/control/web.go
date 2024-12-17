@@ -9,6 +9,8 @@ import (
 )
 
 func index(w http.ResponseWriter, r *http.Request) {
+	//model.CreateTable() //Одноразово
+	model.AddUser()
 	data := model.AllUser()
 	page, err := template.ParseFiles(
 		"view/index.html",

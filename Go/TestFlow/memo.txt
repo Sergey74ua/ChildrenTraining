@@ -59,6 +59,8 @@ func about(w http.ResponseWriter, r *http.Request) {
 #############################################
 Для работы с SQLite в Go ввести в терминал:
 go get github.com/mattn/go-sqlite3
+(еще вариант: go get -u crawshaw.io/sqlite ???)
+(Пример другой СУБД: PostgreSQL: go get github.com/lib/pq)
 
 Добавить в импорт
 	"database/sql"
@@ -76,3 +78,25 @@ db.QueryRow() - выбор одной строки
 db.Exec() - запись в БД, обновление и удаление
 result.LastInsertId() - возвращает id последнего добавления
 result.RowsAffected() - возвращает количество добавленных строк
+
+#############################################
+1. Устанавливаем Go (сейчас 1.23.4)
+2. Проверяем версию в консоли: go version
+ - если нет, добавляем путь в Path
+3. Проверяем окружение: go env
+ - GOBIN=   ??? Надо добавить C:\Users\Sergey\go\bin (/bin - утилиты по go install)
+ - GOMODCACHE=C:\Users\Sergey\go\pkg\mod (? /pkg - зависимости по go get)
+ - GOPATH=C:\Program Files\Go\bin
+ - GOROOT=C:\Program Files\Go
+4. Установливаем модуль VS Code: Go (тут можно тоже прописать пути, локально)
+5. Проверяем пути в Path и GOPATH: C:\Program Files\Go\bin
+6. В VS Code жмем Ctrl+Shift+P - Go install / Upadate Tools - и все ставим
+7. Доставил SQLite3 Editor, go get github.com/mattn/go-sqlite3 (не сразу)
+ - Все равно ошибка: panic: Binary was compiled with 'CGO_ENABLED=0',
+   go-sqlite3 requires cgo to work. This is a stub
+8. Устанавливаю компилятор GCC, т.к. без него не работает SQLite3.
+ - https://github.com/msys2/msys2-installer/releases/download/2024-12-08/msys2-x86_64-20241208.exe
+9. От администратора, вводим команду: pacman -S mingw-w64-ucrt-x86_64-gcc
+10. Добавляем в Path: C:\Program Files\msys64\ucrt64\bin
+11. Проверяем в терминале: gcc --version
+12. Ура! Заработало!
