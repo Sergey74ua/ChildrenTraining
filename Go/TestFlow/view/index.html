@@ -2,23 +2,23 @@
 {{template "header"}}
 {{template "menu"}}
 <main>
-    {{.}}
     Контент index
-    <p>Имя: {{.Name}}</p>
-    <p>Возраст: {{.Age}}</p>
-
-    {{if lt .Age 18}}
-        <p>меньше 18</p>
+    <p>Цикл</p>
+    {{range .}}
+    <p>
+        {{.Name}} - {{.Age}} -
+        {{if lt .Age 18}}
+            меньше 18
+        {{else}}
+            больше 18
+        {{end}}
+    
     {{else}}
-        <p>больше 18</p>
+        список пуст
     {{end}}
-
-    {{range .Arr}}
-        <p>{{.}}</p>
-    {{else}}
-        <p>список пуст</p>
-    {{end}}
-
+    </p>
+    <p>Все содержимое:</p>
+    {{.}}
 </main>
 {{template "footer"}}
 {{end}}
