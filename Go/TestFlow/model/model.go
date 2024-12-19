@@ -4,8 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 
-	//go get github.com/mattn/go-sqlite3
 	_ "github.com/mattn/go-sqlite3"
+)
+
+// ВСЕ ЭТО НАДО ОПТИМИЗИРОВАТЬ!
+var (
+	Dbms string
+	Path string
 )
 
 type user struct {
@@ -14,32 +19,16 @@ type user struct {
 	Age  int
 }
 
-func CreateTable() { //Одноразово
-	path := "./model/sqlite.db"
-	db, err := sql.Open("sqlite3", path)
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
-	query := "CREATE TABLE IF NOT EXISTS User (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Age INTEGER)"
-	data, err := db.Exec(query)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(data.RowsAffected())
-}
-
-func AddUser() {
-	path := "./model/sqlite.db"
-	db, err := sql.Open("sqlite3", path)
+// Регистрация пользователя
+func AddUser(name, age string) {
+	db, err := sql.Open(Dbms, Path)
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
 
 	query := "INSERT INTO User (Name, Age) VALUES ($1, $2)"
-	data, err := db.Exec(query, "Коля", 456)
+	data, err := db.Exec(query, name, age)
 	if err != nil {
 		panic(err)
 	}
@@ -47,6 +36,7 @@ func AddUser() {
 	fmt.Println(data.LastInsertId())
 }
 
+// Вывод всех пользователей
 func AllUser() []user {
 	path := "./model/sqlite.db"
 	db, err := sql.Open("sqlite3", path)

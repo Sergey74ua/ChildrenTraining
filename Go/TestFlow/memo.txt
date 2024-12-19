@@ -1,3 +1,5 @@
+.gitignore - Go и VSCode
+
 Команды терминала:
 go run main.go - запуск кода (к примеру тут - http://127.0.0.1:8080/)
 go build main.go - компилируется exe-шник (консоль + сервер)
@@ -59,8 +61,6 @@ func about(w http.ResponseWriter, r *http.Request) {
 #############################################
 Для работы с SQLite в Go ввести в терминал:
 go get github.com/mattn/go-sqlite3
-(еще вариант: go get -u crawshaw.io/sqlite ???)
-(Пример другой СУБД: PostgreSQL: go get github.com/lib/pq)
 
 Добавить в импорт
 	"database/sql"

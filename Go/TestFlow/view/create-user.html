@@ -1,0 +1,13 @@
+{{define "content"}}
+{{template "header"}}
+{{template "menu"}}
+<main>
+    <h1>Регистрация пользователя</h1>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Имя"><br><br>
+        <input type="number" name="age" placeholder="Возраст"><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+</main>
+{{template "footer"}}
+{{end}}
