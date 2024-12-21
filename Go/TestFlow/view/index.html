@@ -6,20 +6,18 @@
     <p>Цикл</p>
     {{range .}}
     <p>
-        {{.Name}} - {{.Age}} -
+        {{.Name}} - {{.Age}} - 
         {{if lt .Age 18}}
             меньше 18
         {{else}}
             больше 18
         {{end}}
+        - <a href="/get-user/{{.Id}}">Смотреть пользователя</a> 
     
     {{else}}
         список пуст
     {{end}}
     </p>
-    <br><br>
-    <p>Все содержимое:</p>
-    {{.}}
 </main>
 {{template "footer"}}
 {{end}}

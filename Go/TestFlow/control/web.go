@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"net/url"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -89,26 +91,14 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func getUser(w http.ResponseWriter, r *http.Request) {
-	//var id int = 4 //ЗАМЕНИТЬ НА ПАРСИНГ ID
-	//id, _ := strconv.Atoi(http.StripPrefix("/get-user/", http.FileServer(http.Dir(r.Host))))
-	println(r.RequestURI)
-	println(r.URL.Path)
-	println(r.Pattern)
-	/*
-		println(r.URL.Query().Get("id"))
-		println(strconv.Atoi(r.URL.Query().Get("key")))
-
-		u, _ := url.Parse("https://example.com/path/to/123")
-		path := u.Path
-		parts := strings.Split(path, "/")
-		key, err := strconv.Atoi(parts[len(parts)-1])
-		if err != nil {
-			fmt.Println("Invalid key:", err)
-		} else {
-			fmt.Println("Key:", key)
-		}
-	*/
-	data := r // model.GetUser(id)
+	u, _ := url.Parse(r.RequestURI)
+	path := u.Path
+	parts := strings.Split(path, "/")
+	id, err := strconv.Atoi(parts[len(parts)-1])
+	if err != nil {
+		fmt.Println("Invalid key:", err)
+	}
+	data := model.GetUser(id)
 	tmpl := tmplFiles("view/get-user.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
