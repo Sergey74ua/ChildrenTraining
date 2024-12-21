@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -15,6 +16,7 @@ func Web(host, port string) {
 	http.HandleFunc("/about/", about)
 	http.HandleFunc("/contact/", contact)
 	http.HandleFunc("/create-user/", createUser)
+	http.HandleFunc("/get-user/{id}", getUser)
 
 	//Сообщение в терминал
 	t := time.Now()
@@ -60,20 +62,53 @@ func contact(w http.ResponseWriter, r *http.Request) {
 
 func createUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
+		// Выводим форму для заполнения
 		data := "Страница регистрации пользователя с отправкой данных для ввода"
 		tmpl := tmplFiles("view/create-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
 	} else if r.Method == "POST" {
+		// Принимаем форму с данными
 		name := r.FormValue("name")
-		age := r.FormValue("age")
+		age, err := strconv.Atoi(r.FormValue("age"))
+		//Верификация
+		if name == "" || len(name) > 127 {
+			fmt.Fprintf(w, "Имя указано не верно")
+		}
+		if err != nil || age < 0 || age > 127 {
+			fmt.Fprintf(w, "Возраст указан не верно")
+		}
+		//Добавляем данные в базу данных
 		model.AddUser(name, age)
-		//Редирект куда-то
-		data := "Страница регистрации пользователя с отправкой данных для ввода"
-		tmpl := tmplFiles("view/create-user.html")
-		tmpl.ExecuteTemplate(w, "content", data)
+		//Редирект после отправки формы
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	} else { //Прочие запросы (OPTIONS, HEAD, PUT, PATCH, DELETE, TRACE, CONNECT)
 		data := "Запрос не обрабатывается"
 		tmpl := tmplFiles("view/create-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
 	}
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) {
+	//var id int = 4 //ЗАМЕНИТЬ НА ПАРСИНГ ID
+	//id, _ := strconv.Atoi(http.StripPrefix("/get-user/", http.FileServer(http.Dir(r.Host))))
+	println(r.RequestURI)
+	println(r.URL.Path)
+	println(r.Pattern)
+	/*
+		println(r.URL.Query().Get("id"))
+		println(strconv.Atoi(r.URL.Query().Get("key")))
+
+		u, _ := url.Parse("https://example.com/path/to/123")
+		path := u.Path
+		parts := strings.Split(path, "/")
+		key, err := strconv.Atoi(parts[len(parts)-1])
+		if err != nil {
+			fmt.Println("Invalid key:", err)
+		} else {
+			fmt.Println("Key:", key)
+		}
+	*/
+	data := r // model.GetUser(id)
+	tmpl := tmplFiles("view/get-user.html")
+	tmpl.ExecuteTemplate(w, "content", data)
 }

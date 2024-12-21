@@ -19,8 +19,28 @@ type user struct {
 	Age  int
 }
 
+// Данные пользователя  ПЕРЕДОДЕЛАТЬ
+func GetUser(id int) *user {
+	db, err := sql.Open(Dbms, Path)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	query := "SELECT * FROM User WHERE id = $1"
+	data := db.QueryRow(query, id)
+
+	user := user{}
+	err = data.Scan(&user.Id, &user.Name, &user.Age)
+	if err != nil {
+		panic(err)
+	}
+
+	return &user
+}
+
 // Регистрация пользователя
-func AddUser(name, age string) {
+func AddUser(name string, age int) {
 	db, err := sql.Open(Dbms, Path)
 	if err != nil {
 		panic(err)

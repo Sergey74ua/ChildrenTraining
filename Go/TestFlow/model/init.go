@@ -10,7 +10,7 @@ func Init(DBMS, PATH string) {
 	Path = PATH
 
 	//Проверка на существование БД и ее создание при необходимости
-	//createTable() //ДОДЕЛАТЬ
+	createTable() //ДОДЕЛАТЬ
 }
 
 func createTable() {
