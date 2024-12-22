@@ -3,6 +3,8 @@ package model
 import (
 	"database/sql"
 	"fmt"
+	"os"
+	"time"
 )
 
 var (
@@ -14,11 +16,16 @@ func Init(DBMS, PATH string) {
 	Dbms = DBMS
 	Path = PATH
 
-	//Проверка на существование БД и ее создание при необходимости
-	createTable() //ДОДЕЛАТЬ все таблицы с внутренними ключами
+	_, err := os.Stat(Path)
+	if err != nil && os.IsNotExist(err) {
+		createDB()
+	} else {
+		backupDB()
+	}
 }
 
-func createTable() {
+// Первичное создание БД
+func createDB() {
 	db, err := sql.Open(Dbms, Path)
 	if err != nil {
 		panic(err)
@@ -31,4 +38,11 @@ func createTable() {
 		panic(err)
 	}
 	fmt.Println(data.RowsAffected()) //Сообщение о создании БД или что она уже есть
+}
+
+// Резервное копирование БД
+func backupDB() { // ДОДЕЛАТЬ КОПИРОВАНИЕ
+	t := time.Now()
+	file := "./model/backup/" + t.Format("2006-01-02") + "_" + t.Format("15-04-05") + ".db"
+	println(file)
 }
