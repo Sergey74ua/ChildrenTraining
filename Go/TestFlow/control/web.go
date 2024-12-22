@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -19,6 +18,8 @@ func Web(host, port string) {
 	http.HandleFunc("/contact/", contact)
 	http.HandleFunc("/create-user/", createUser)
 	http.HandleFunc("/get-user/{id}", getUser)
+	http.HandleFunc("/update-user/{id}", updateUser)
+	http.HandleFunc("/delete-user/{id}", deleteUser)
 
 	//Сообщение в терминал
 	t := time.Now()
@@ -65,7 +66,7 @@ func contact(w http.ResponseWriter, r *http.Request) {
 func createUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		// Выводим форму для заполнения
-		data := "Страница регистрации пользователя с отправкой данных для ввода"
+		data := "Страница регистрации пользователя"
 		tmpl := tmplFiles("view/create-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
 	} else if r.Method == "POST" {
@@ -83,22 +84,48 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 		model.AddUser(name, age)
 		//Редирект после отправки формы
 		http.Redirect(w, r, "/", http.StatusSeeOther)
-	} else { //Прочие запросы (OPTIONS, HEAD, PUT, PATCH, DELETE, TRACE, CONNECT)
-		data := "Запрос не обрабатывается"
-		tmpl := tmplFiles("view/create-user.html")
-		tmpl.ExecuteTemplate(w, "content", data)
 	}
 }
 
 func getUser(w http.ResponseWriter, r *http.Request) {
-	u, _ := url.Parse(r.RequestURI)
-	path := u.Path
-	parts := strings.Split(path, "/")
-	id, err := strconv.Atoi(parts[len(parts)-1])
-	if err != nil {
-		fmt.Println("Invalid key:", err)
-	}
+	arr := strings.Split(r.RequestURI, "/")
+	id, _ := strconv.Atoi(arr[len(arr)-1])
 	data := model.GetUser(id)
 	tmpl := tmplFiles("view/get-user.html")
 	tmpl.ExecuteTemplate(w, "content", data)
+}
+
+func updateUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		// Выводим форму для заполнения
+		arr := strings.Split(r.RequestURI, "/")
+		id, _ := strconv.Atoi(arr[len(arr)-1])
+		data := model.GetUser(id)
+		tmpl := tmplFiles("view/update-user.html")
+		tmpl.ExecuteTemplate(w, "content", data)
+	} else if r.Method == "POST" {
+		// Принимаем форму с данными
+		arr := strings.Split(r.RequestURI, "/")
+		id, _ := strconv.Atoi(arr[len(arr)-1])
+		name := r.FormValue("name")
+		age, err := strconv.Atoi(r.FormValue("age"))
+		//Верификация
+		if name == "" || len(name) > 127 {
+			fmt.Fprintf(w, "Имя указано не верно")
+		}
+		if err != nil || age < 0 || age > 127 {
+			fmt.Fprintf(w, "Возраст указан не верно")
+		}
+		//Добавляем данные в базу данных
+		model.UpdateUser(id, name, age)
+		//Редирект после отправки формы
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
+}
+
+func deleteUser(w http.ResponseWriter, r *http.Request) {
+	arr := strings.Split(r.RequestURI, "/")
+	id, _ := strconv.Atoi(arr[len(arr)-1])
+	model.DeleteUser(id)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

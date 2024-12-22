@@ -79,6 +79,9 @@ db.Exec() - запись в БД, обновление и удаление
 result.LastInsertId() - возвращает id последнего добавления
 result.RowsAffected() - возвращает количество добавленных строк
 
+//Проверка запроса
+r.Method == GET, POST, OPTIONS, HEAD, PUT, PATCH, DELETE, TRACE, CONNECT
+
 #############################################
 1. Устанавливаем Go (сейчас 1.23.4)
 2. Проверяем версию в консоли: go version
@@ -94,8 +97,6 @@ result.RowsAffected() - возвращает количество добавле
 7. Доставил SQLite3 Editor, go get github.com/mattn/go-sqlite3 (не сразу)
  - Все равно ошибка: panic: Binary was compiled with 'CGO_ENABLED=0',
    go-sqlite3 requires cgo to work. This is a stub
-
-       -= Д Л Я   Н И К И Т Ы = -
 8. Устанавливаю компилятор GCC, т.к. без него не работает SQLite3.
  - https://github.com/msys2/msys2-installer/releases/download/2024-12-08/msys2-x86_64-20241208.exe
 9. От администратора, вводим команду: pacman -S mingw-w64-ucrt-x86_64-gcc

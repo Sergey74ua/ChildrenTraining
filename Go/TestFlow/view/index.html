@@ -12,8 +12,9 @@
         {{else}}
             больше 18
         {{end}}
-        - <a href="/get-user/{{.Id}}">Смотреть пользователя</a> 
-    
+        - <a href="/get-user/{{.Id}}"> Пользователь </a>
+        - <a href="/update-user/{{.Id}}"> Изменить </a> 
+        - <a href="/delete-user/{{.Id}}"> Удалить </a> 
     {{else}}
         список пуст
     {{end}}

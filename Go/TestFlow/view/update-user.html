@@ -1,0 +1,13 @@
+{{define "content"}}
+{{template "header"}}
+{{template "menu"}}
+<main>
+    <h1>Обновление данных пользователя</h1>
+    <form method="POST">
+        <input type="text" name="name" value={{.Name}}><br><br>
+        <input type="number" name="age" value={{.Age}}><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+</main>
+{{template "footer"}}
+{{end}}

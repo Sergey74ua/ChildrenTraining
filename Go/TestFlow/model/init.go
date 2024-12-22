@@ -5,12 +5,17 @@ import (
 	"fmt"
 )
 
+var (
+	Dbms string
+	Path string
+)
+
 func Init(DBMS, PATH string) {
 	Dbms = DBMS
 	Path = PATH
 
 	//Проверка на существование БД и ее создание при необходимости
-	createTable() //ДОДЕЛАТЬ
+	createTable() //ДОДЕЛАТЬ все таблицы с внутренними ключами
 }
 
 func createTable() {
