@@ -37,7 +37,6 @@ func (u *User) getUserName() string {
 Циклы: {{range .Arr}} {{.}} {{else}} список пуст {{end}}
 
 
-
 -= CONTROL =-
 
 Урлы (страница и функция):
@@ -102,4 +101,11 @@ r.Method == GET, POST, OPTIONS, HEAD, PUT, PATCH, DELETE, TRACE, CONNECT
 9. От администратора, вводим команду: pacman -S mingw-w64-ucrt-x86_64-gcc
 10. Добавляем в Path: C:\Program Files\msys64\ucrt64\bin
 11. Проверяем в терминале: gcc --version
-12. Ура! Заработало!
+12. Надо перегрузить компьтер для изменений Path.
+
+#############################################
+ToDo:
+1. Добавить title и h1
+2. Настройки в JSON
+3. БэкАппы БД
+4. С++ токен авторизации
