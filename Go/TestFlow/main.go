@@ -8,11 +8,11 @@ import (
 
 // Глобальные переменные (переделать на запрос с json)
 const (
-	HOST string = "localhost"         //Адрес сервера
-	PORT string = "8888"              //Порт сервера
-	DBMS string = "sqlite3"           //Дравер СУБД
-	PATH string = "./model/sqlite.db" //Расположение БД
-	STAT string = "./view/"           //Расположение файлов
+	HOST string = "localhost"         // Адрес сервера
+	PORT string = "8888"              // Порт сервера
+	DBMS string = "sqlite3"           // Дравер СУБД
+	PATH string = "./model/sqlite.db" // Расположение БД
+	STAT string = "./view/"           // Расположение файлов
 )
 
 func main() {

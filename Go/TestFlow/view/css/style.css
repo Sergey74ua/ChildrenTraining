@@ -45,3 +45,14 @@ a{
   text-decoration: none;
   font-size: 14px;
 }
+
+.avatar {
+  height: 100px;
+  width: 100px;
+}
+
+.bgCourse {
+  height: 300px;
+  width: 100%;
+  object-fit:cover;
+}

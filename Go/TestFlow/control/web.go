@@ -15,7 +15,9 @@ func Web(host, port string) {
 	//Урлы страниц
 	http.HandleFunc("/", index)
 	http.HandleFunc("/about/", about)
-	http.HandleFunc("/contact/", contact)
+	http.HandleFunc("/author/", author)
+	http.HandleFunc("/admin/", admin)
+	http.HandleFunc("/demo-migration/", demo)
 
 	http.HandleFunc("/create-user/", createUser)
 	http.HandleFunc("/get-user/{id}", getUser)
@@ -64,7 +66,6 @@ func tmplFiles(content string) *template.Template {
 	tmpl, err := template.ParseFiles(
 		"view/inc/header.html",
 		"view/inc/menu.html",
-		"view/inc/menu-courses.html",
 		"view/inc/footer.html",
 		content,
 	)
@@ -75,10 +76,9 @@ func tmplFiles(content string) *template.Template {
 }
 
 // Верификация
-func valid(name string, age int) bool {
+func valid(name string) bool {
 	vName := name != "" && len(name) < 128
-	vAge := age > 0 && age < 128
-	return vName && vAge
+	return vName
 }
 
 // Выборка id из урла
@@ -91,107 +91,30 @@ func getId(url string) int {
 // Функции страниц:
 
 func index(w http.ResponseWriter, r *http.Request) {
-	data := model.AllUser()
+	data := model.AllUsers()
 	tmpl := tmplFiles("view/index.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
 func about(w http.ResponseWriter, r *http.Request) {
-	data := 16
+	data := "О проекте"
 	tmpl := tmplFiles("view/about.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
-func contact(w http.ResponseWriter, r *http.Request) {
-	data := 7
-	tmpl := tmplFiles("view/contact.html")
+func author(w http.ResponseWriter, r *http.Request) {
+	data := "Об авторе"
+	tmpl := tmplFiles("view/author.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
-// Создать пользователя
-func createUser(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		// Выводим форму для заполнения
-		data := "Страница регистрации пользователя"
-		tmpl := tmplFiles("view/create-user.html")
-		tmpl.ExecuteTemplate(w, "content", data)
-	} else if r.Method == "POST" {
-		// Принимаем форму с данными
-		name := r.FormValue("name")
-		age, err := strconv.Atoi(r.FormValue("age"))
-		//Верификация и добавление данных в базу данных
-		if err == nil && valid(name, age) {
-			id := model.AddUser(name, age)
-			http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
-		} else {
-			http.Redirect(w, r, "/", http.StatusSeeOther) //надо редирект на 404
-		}
-	}
-}
-
-// Вывод пользователя
-func getUser(w http.ResponseWriter, r *http.Request) {
-	id := getId(r.RequestURI)
-	data := model.GetUser(id)
-	tmpl := tmplFiles("view/get-user.html")
+func admin(w http.ResponseWriter, r *http.Request) {
+	data := model.AllUsers()
+	tmpl := tmplFiles("view/admin.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
-// Редактировать пользователя
-func updateUser(w http.ResponseWriter, r *http.Request) {
-	id := getId(r.RequestURI)
-	if r.Method == "GET" {
-		// Выводим форму для заполнения
-		data := model.GetUser(id)
-		tmpl := tmplFiles("view/update-user.html")
-		tmpl.ExecuteTemplate(w, "content", data)
-	} else if r.Method == "POST" {
-		// Принимаем форму с данными
-		name := r.FormValue("name")
-		age, err := strconv.Atoi(r.FormValue("age"))
-		//Верификация и добавление данных в базу данных
-		if err == nil && valid(name, age) {
-			model.UpdateUser(id, name, age)
-			http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
-		} else {
-			http.Redirect(w, r, "/", http.StatusSeeOther) //надо редирект на 404
-		}
-	}
-}
-
-// Удалить пользователя
-func deleteUser(w http.ResponseWriter, r *http.Request) {
-	id := getId(r.RequestURI)
-	model.DeleteUser(id)
-	http.Redirect(w, r, "/", http.StatusSeeOther)
-}
-
-func courses(w http.ResponseWriter, r *http.Request) {
-	data := model.AllCoursec()
-	tmpl := tmplFiles("view/course/courses.html")
-	tmpl.ExecuteTemplate(w, "content", data)
-}
-
-func createCourse(w http.ResponseWriter, r *http.Request) {
-	data := model.CreateCourse()
-	tmpl := tmplFiles("view/course/create-course.html")
-	tmpl.ExecuteTemplate(w, "content", data)
-}
-
-func getCourse(w http.ResponseWriter, r *http.Request) {
-	data := model.GetCourse()
-	tmpl := tmplFiles("view/course/get-course.html")
-	tmpl.ExecuteTemplate(w, "content", data)
-}
-
-func updateCourse(w http.ResponseWriter, r *http.Request) {
-	data := model.UpdateCourse()
-	tmpl := tmplFiles("view/course/update-course.html")
-	tmpl.ExecuteTemplate(w, "content", data)
-}
-
-func deleteCourse(w http.ResponseWriter, r *http.Request) {
-	model.DeleteCourse()
-
-	http.Redirect(w, r, "/courses/", http.StatusSeeOther)
+func demo(w http.ResponseWriter, r *http.Request) {
+	model.DemoUser()
+	http.Redirect(w, r, "/admin/", http.StatusSeeOther)
 }

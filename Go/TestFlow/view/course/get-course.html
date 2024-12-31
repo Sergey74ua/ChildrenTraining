@@ -1,9 +1,11 @@
 {{define "content"}}
 {{template "header"}}
-{{template "menu-courses"}}
+{{template "menu"}}
 <main>
-    Контент get-courses
-    {{.}}
+    <div>
+        <img src="{{.Background}}" alt="" class="bgCourse">
+        <p>{{.Description}}</p>
+    </div>
 </main>
 {{template "footer"}}
 {{end}}

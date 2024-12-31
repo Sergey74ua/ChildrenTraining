@@ -1,9 +1,21 @@
 {{define "content"}}
 {{template "header"}}
-{{template "menu-courses"}}
+{{template "menu"}}
 <main>
-    Контент courses
-    {{.}}
+    <h1>Дисциплины</h1>
+    {{range .}}
+    <p>
+        <p>{{.Name}}</p>
+        <img src="{{.Icon}}" alt="" class="avatar">
+        <ul id="login">
+            <li class="button"><a href="/get-course/{{.Id}}"> Дисциплина </a></li>
+            <li class="button"><a href="/update-course/{{.Id}}"> Изменить </a> </li>
+            <li class="button"><a href="/delete-course/{{.Id}}"> Удалить </a> </li>
+        </ul>
+    {{else}}
+        список пуст
+    {{end}}
+    </p>
 </main>
 {{template "footer"}}
 {{end}}

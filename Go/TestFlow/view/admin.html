@@ -2,8 +2,14 @@
 {{template "header"}}
 {{template "menu"}}
 <main>
-    Контент index
-    <p>Цикл</p>
+    <h1>Админ панель</h1>
+    <div>
+        <div><a href="/demo-migration">Демо-миграция</a></div>
+        <div><a href="/create-user">Регистрация</a></div>
+        <div><a href="/create-course">Создать курс</a></div>
+    </div>
+    <hr>
+    <p>Список пользователей</p>
     {{range .}}
     <p>
         {{.Name}}
