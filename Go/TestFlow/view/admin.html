@@ -15,17 +15,16 @@
     <p>Список пользователей</p>
     <p>Цикл</p>
     {{range .}}
-    <p>
-        {{.Name}}
         <div>
-            <a href="/get-user/{{.Id}}"> Пользователь </a></li>
-            <a href="/update-user/{{.Id}}"> Изменить </a> </li>
-            <a href="/delete-user/{{.Id}}"> Удалить </a> </li>
+            {{.Name}}
+            <a href="/get-user/{{.Id}}"> Пользователь </a>
+            <a href="/update-user/{{.Id}}"> Изменить </a>
+            <a href="/delete-user/{{.Id}}"> Удалить </a>
+            <hr>
         </div>
     {{else}}
         список пуст
     {{end}}
-    </p>
 </main>
 {{template "footer"}}
 {{end}}

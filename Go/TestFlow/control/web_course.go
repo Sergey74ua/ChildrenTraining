@@ -6,7 +6,7 @@ import (
 )
 
 func courses(w http.ResponseWriter, r *http.Request) {
-	data := model.AllCoursec()
+	data := model.AllCourse()
 	tmpl := tmplFiles("view/course/courses.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }

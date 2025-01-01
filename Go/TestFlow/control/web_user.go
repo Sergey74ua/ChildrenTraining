@@ -10,7 +10,7 @@ import (
 func createUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		// Выводим форму для заполнения
-		data := "Страница регистрации пользователя"
+		data := model.AllCourse()
 		tmpl := tmplFiles("view/user/create-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
 	} else if r.Method == "POST" {
@@ -22,7 +22,8 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		email := r.FormValue("email")
 		dataBirth := r.FormValue("dataBirth")
-		id := model.AddUser(name, password, email, dataBirth)
+		course := r.FormValue("course")
+		id := model.AddUser(name, password, email, dataBirth, course)
 		http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
 	}
 }
@@ -40,7 +41,13 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
 	if r.Method == "GET" {
 		// Выводим форму для заполнения
-		data := model.GetUser(id)
+		data := struct {
+			User   model.User
+			Course []model.Course
+		}{
+			User:   *model.GetUser(id),
+			Course: *model.AllCourse(),
+		}
 		tmpl := tmplFiles("view/user/update-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
 	} else if r.Method == "POST" {
@@ -52,7 +59,8 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		email := r.FormValue("email")
 		dataBirth := r.FormValue("dataBirth")
-		model.UpdateUser(id, name, password, email, dataBirth)
+		course := r.FormValue("course")
+		model.UpdateUser(id, name, password, email, dataBirth, course)
 		http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
 	}
 }

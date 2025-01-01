@@ -9,7 +9,7 @@ type Course struct {
 }
 
 // Вывод всех дисциплин
-func AllCoursec() *[]Course {
+func AllCourse() *[]Course {
 	db := connect()
 	query := "SELECT * FROM Course"
 	data, _ := db.Query(query)
