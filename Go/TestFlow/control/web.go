@@ -91,7 +91,7 @@ func getId(url string) int {
 // Функции страниц:
 
 func index(w http.ResponseWriter, r *http.Request) {
-	data := model.AllUsers()
+	data := "Главная"
 	tmpl := tmplFiles("view/index.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
@@ -109,7 +109,7 @@ func author(w http.ResponseWriter, r *http.Request) {
 }
 
 func admin(w http.ResponseWriter, r *http.Request) {
-	data := model.AllUsers()
+	data := model.AllUser()
 	tmpl := tmplFiles("view/admin.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }

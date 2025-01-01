@@ -22,8 +22,7 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		email := r.FormValue("email")
 		dataBirth := r.FormValue("dataBirth")
-		course_id := r.FormValue("course_id")
-		id := model.AddUser(name, password, email, dataBirth, course_id)
+		id := model.AddUser(name, password, email, dataBirth)
 		http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
 	}
 }
@@ -53,8 +52,7 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 		password := r.FormValue("password")
 		email := r.FormValue("email")
 		dataBirth := r.FormValue("dataBirth")
-		course_id, _ := strconv.Atoi(r.FormValue("course_id"))
-		model.UpdateUser(id, course_id, name, password, email, dataBirth)
+		model.UpdateUser(id, name, password, email, dataBirth)
 		http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
 	}
 }

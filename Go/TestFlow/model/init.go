@@ -2,7 +2,6 @@ package model
 
 import (
 	"database/sql"
-	"fmt"
 	"os"
 )
 
@@ -17,35 +16,18 @@ func Init(DBMS, PATH string) {
 
 	_, err := os.Stat(Path)
 	if err != nil && os.IsNotExist(err) {
-		// Создаем таблицы
+		//Таблицы
 		tableCourse()
 		tableUser()
-		// Добавляем данные
+		tableQuestion()
+		tableTesting()
+		//Миграции
 		DataCourse()
+		DataQuestion()
+		DataTesting()
 	} else {
 		backupDB()
 	}
-}
-
-func tableCourse() {
-	db, err := sql.Open(Dbms, Path)
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-	// Нужно добавить иконку и фон по умолчанию
-	query := `CREATE TABLE IF NOT EXISTS Course (
-		Id INTEGER PRIMARY KEY AUTOINCREMENT,
-		Name TEXT NOT NULL,
-		Icon TEXT  DEFAULT '../view/img/course/icon/physics.png',
-		Background TEXT DEFAULT '../view/img/course/background/physics.jpg',
-		Description TEXT
-	)`
-	data, err := db.Exec(query)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(data.RowsAffected())
 }
 
 func tableUser() {
@@ -53,8 +35,6 @@ func tableUser() {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
-
 	query := `CREATE TABLE IF NOT EXISTS User (
 		Id INTEGER PRIMARY KEY AUTOINCREMENT,
 		Name TEXT NOT NULL,
@@ -62,15 +42,66 @@ func tableUser() {
 		Password TEXT NOT NULL,
 		Email TEXT NOT NULL,
 		DataBirth TEXT,
-		Course_id INTEGER DEFAULT 1,
+		Course_id INTEGER DEFAULT 0,
 		DataReg TEXT NOT NULL,
 		Status TEXT DEFAULT "active",
 		Rate INTEGER DEFAULT 0,
-		FOREIGN KEY (Course_id) REFERENCES tableCourse (Id)
+		FOREIGN KEY (Course_id) REFERENCES Course (Id)
 	)`
-	data, err := db.Exec(query)
+	db.Exec(query)
+	db.Close()
+}
+
+func tableCourse() {
+	db, err := sql.Open(Dbms, Path)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(data.RowsAffected())
+	query := `CREATE TABLE IF NOT EXISTS Course (
+		Id INTEGER PRIMARY KEY AUTOINCREMENT,
+		Name TEXT NOT NULL,
+		Icon TEXT,
+		Background TEXT,
+		Description TEXT
+	)`
+	db.Exec(query)
+	db.Close()
+}
+
+func tableTesting() {
+	db, err := sql.Open(Dbms, Path)
+	if err != nil {
+		panic(err)
+	}
+	query := `CREATE TABLE IF NOT EXISTS Testing (
+		Id INTEGER PRIMARY KEY AUTOINCREMENT,
+		Name TEXT NOT NULL,
+		Course_id INTEGER DEFAULT 0,
+		Description TEXT,
+		FOREIGN KEY (Course_id) REFERENCES Course (Id)
+	)`
+	db.Exec(query)
+	db.Close()
+}
+
+func tableQuestion() {
+	db, err := sql.Open(Dbms, Path)
+	if err != nil {
+		panic(err)
+	}
+	query := `CREATE TABLE IF NOT EXISTS Questions (
+		Id INTEGER PRIMARY KEY AUTOINCREMENT,
+		Testing_id INTEGER DEFAULT 0,
+		Question TEXT NOT NULL,
+		Correct INTEGER NOT NULL,
+		Answer_1 TEXT,
+		Answer_2 TEXT,
+		Answer_3 TEXT,
+		Answer_4 TEXT,
+		Answer_5 TEXT,
+		Answer_6 TEXT,
+		FOREIGN KEY (Testing_id) REFERENCES Testing (Id)
+	)`
+	db.Exec(query)
+	db.Close()
 }

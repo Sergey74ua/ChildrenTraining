@@ -2,20 +2,12 @@
 {{template "header"}}
 {{template "menu"}}
 <main>
-    Контент index
-    <p>Цикл</p>
-    {{range .}}
-    <p>
-        {{.Name}}
-        <ul id="login">
-            <li class="button"><a href="/get-user/{{.Id}}"> Пользователь </a></li>
-            <li class="button"><a href="/update-user/{{.Id}}"> Изменить </a> </li>
-            <li class="button"><a href="/delete-user/{{.Id}}"> Удалить </a> </li>
-        </ul>
-    {{else}}
-        список пуст
-    {{end}}
-    </p>
+    <h1>Контент index</h1>
+    <hr>
+    <div>Блок Дисциплин</div>
+    <hr>
+    <div>Блок Тестов</div>
+    {{.}}
 </main>
 {{template "footer"}}
 {{end}}

@@ -8,14 +8,7 @@
         <input type="password" name="password" placeholder="Пароль"><br><br>
         <input type="email" name="email" placeholder="Почта"><br><br>
         <input type="date" name="dataBirth" placeholder="Дата рождения"><br><br>
-        <input type="number" name="course_id" value=1><br><br>
-
-        <button type="submit">Отправить</button>
-    </form>
-</main>
-{{template "footer"}}
-{{end}}
-
+        <input type="number" name="course_id" placeholder="course_id" value=2><br><br>
 <!--
         <select name="course_id">
             {{range .course_id}}
@@ -23,3 +16,8 @@
             {{end}}
         </select>
 -->
+        <button type="submit">Отправить</button>
+    </form>
+</main>
+{{template "footer"}}
+{{end}}

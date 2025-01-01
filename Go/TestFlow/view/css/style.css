@@ -2,24 +2,97 @@ body, html {
   height: 100%;
   font-family: Arial;
   color: #333;
-  background-color: rgb(205, 221, 221);
+  background-color: #808080;
 }
 
-.button{
-  border-color: rgb(227, 226, 224);
-  transition: background-color 1s;
-  display: inline-flex;
+header {
+  height: 50%;
+  color: #fff;
+  display: flex;
   align-items: center;
   justify-content: center;
-  
-  height:	36px;
-  width: 100%;
-  max-width: 100px;
-  
-  border: 1px solid;
-  border-radius: 6px;
-  
-  margin-top: 8px;
+  background-image: url("../img/parallax.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1.25em 0;
+  text-align: center;
+}
+
+#menu {
+  background-color: #292929;
+  padding: 1.5em 1.25em;
+  text-align: center;
+}
+
+.title {
+  color: #333;
+  display: block;
+  font-size: 12em;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif, cursive;
+
+  -webkit-text-shadow: 0.3125em 0.3125em 0.3125em rgba(0, 0, 0, 0.75);
+  -moz-text-shadow: 0.3125em 0.3125em 0.3125em rgba(0, 0, 0, 0.75);
+  text-shadow: 0.1em 0.1em 0.15em rgba(0, 0, 0, 0.75);
+}
+
+h2 {
+  font-size: 1.5em;
+  text-align: center;
+  text-shadow: 0.1em 0.1em 0.15em rgba(0, 0, 0, 0.25);
+}
+
+h3 {
+  text-align: center;
+  font-style: italic;
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+  background-color: #333;
+  width: 8em;
+  color: #fff;
+  border: none;
+  padding: 0.625em;
+  margin: 0.5em;
+  border-radius: 0.3125em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+a:hover {
+  background-color: #e2e2e2;
+  color: #000000;
+}
+
+button {
+  background-color: #333;
+  width: 8em;
+  color: #fff;
+  border: none;
+  padding: 0.625em;
+  border-radius: 0.3125em;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e2e2e2;
+  color: #000000;
 }
 
 #login {
@@ -28,22 +101,20 @@ body, html {
   align-items: center;
 }
 
-.button:hover{
-  background-color: rgb(230, 230, 230);
+#up{
+  position: fixed;
+  width: 2.5em;
+  bottom: 1.25em;
+  right: 1.25em;
+  padding: 0.625em;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
 }
 
-a{
-  color: rgb(34, 36, 38);
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  
-  width: 100%;
-  height:	100%;
-  
-  text-decoration: none;
-  font-size: 14px;
+#up:hover {
+  background-color: #e2e2e2;
+  color: #000000;
 }
 
 .avatar {
@@ -56,3 +127,6 @@ a{
   width: 100%;
   object-fit:cover;
 }
+
+
+

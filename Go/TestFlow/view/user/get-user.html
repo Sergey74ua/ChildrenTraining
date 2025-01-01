@@ -2,7 +2,7 @@
 {{template "header"}}
 {{template "menu"}}
 <main>
-    <p>Пользователь</p>
+    <p>Пользователь {{.Id}}</p>
     <hr>
     <div>
         <p>Имя: {{.Name}}</p>
@@ -11,8 +11,6 @@
         <p>Дата рождения: {{.DataBirth}}</p>
         <p>Дисциплина: {{.Course}}</p>
         <p>Заригистрировался: {{.DataReg}}</p>
-        <p>Пройденные тесты: {{.TestsPassed}}</p>
-        <p>Созданные тесты: {{.TestsCreated}}</p>
         <p>Статус: {{.Status}}</p>
         <p>Рейтинг %: {{.Rate}}</p>
     </div>

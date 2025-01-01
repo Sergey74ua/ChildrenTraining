@@ -3,16 +3,12 @@
 {{template "menu"}}
 <main>
     <h1>Обновление данных пользователя</h1>
-    <p>{{.}}</p>
-    <p>{{.DataBirth}}</p>
-    <p>{{.DataReg}}</p>
-    <p>{{.Сourse}}</p>
     <form method="POST">
         <input type="text" name="name" value="{{.Name}}"><br><br>
         <input type="password" name="password" value="{{.Password}}"><br><br>
         <input type="email" name="email" value="{{.Email}}"><br><br>
         <input type="date" name="dataBirth" value="{{.DataBirth}}"><br><br>
-        <input type="text" name="course_id" value="{{.Сourse}}"><br><br>
+        <input type="number" name="course_id" placeholder="course_id" value=2><br><br>
         <button type="submit">Отправить</button>
     </form>
 </main>
