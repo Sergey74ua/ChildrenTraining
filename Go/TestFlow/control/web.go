@@ -18,7 +18,9 @@ func Web(host, port string) {
 	http.HandleFunc("/author/", author)
 	http.HandleFunc("/admin/", admin)
 	http.HandleFunc("/demo-migration/", demo)
+	http.HandleFunc("/copy-DB/", copyDB)
 
+	http.HandleFunc("/users/", allUser)
 	http.HandleFunc("/create-user/", createUser)
 	http.HandleFunc("/get-user/{id}", getUser)
 	http.HandleFunc("/update-user/{id}", updateUser)
@@ -28,30 +30,12 @@ func Web(host, port string) {
 	http.HandleFunc("/create-course/", createCourse)
 	http.HandleFunc("/get-course/{id}", getCourse)
 	http.HandleFunc("/update-course/{id}", updateCourse)
-	http.HandleFunc("/delelte-course/{id}", deleteCourse)
-	/*
+	http.HandleFunc("/delete-course/{id}", deleteCourse)
 
-		http.HandleFunc("/course/{id}/tests/", courseTests)
-		http.HandleFunc("/course/{id}/users/", courseUsers)
-		http.HandleFunc("/course/{id}/add-user/", courseAddUser)
-		http.HandleFunc("/course/{id}/del-user/", courseDelUser)
-
-		http.HandleFunc("/create-test/", createTest)
-		http.HandleFunc("/test/{id}/", test)
-		http.HandleFunc("/test/{id}/setting/", test)
-		http.HandleFunc("/test/{id}/switch/", testSwitch)
-		http.HandleFunc("/test/{id}/delete/", testDelete)
-
-		http.HandleFunc("/test/{id}/users", testUsers)
-		http.HandleFunc("/test/{id}/user/{id}", testUser)
-
-		http.HandleFunc("/quests/", quests)
-		http.HandleFunc("/create-quest/", createQuest)
-		http.HandleFunc("/quest/{id}/", quest)
-		http.HandleFunc("/quest/{id}/setting/", questsSetting)
-		http.HandleFunc("/quest/{id}/delete/", questDelete)
-
-	*/
+	http.HandleFunc("/create-test/", createTesting)
+	http.HandleFunc("/get-test/{id}", getTesting)
+	http.HandleFunc("/update-test/{id}", updateTesting)
+	http.HandleFunc("/delete-test/{id}", deleteTesting)
 
 	//Сообщение в терминал
 	t := time.Now()
@@ -91,30 +75,59 @@ func getId(url string) int {
 // Функции страниц:
 
 func index(w http.ResponseWriter, r *http.Request) {
-	data := "Главная"
+	data := struct {
+		Title   string
+		Course  *[]model.Course
+		Testing *[]model.Testing
+	}{
+		Title:   "TestFlow",
+		Course:  model.AllCourses(),
+		Testing: model.AllTests(),
+	}
 	tmpl := tmplFiles("view/index.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
 func about(w http.ResponseWriter, r *http.Request) {
-	data := "О проекте"
+	data := struct {
+		Title string
+	}{
+		Title: "О проекте",
+	}
 	tmpl := tmplFiles("view/about.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
 func author(w http.ResponseWriter, r *http.Request) {
-	data := "Об авторе"
+	data := struct {
+		Title string
+	}{
+		Title: "Об авторе",
+	}
 	tmpl := tmplFiles("view/author.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
 func admin(w http.ResponseWriter, r *http.Request) {
-	data := model.AllUser()
+	data := struct {
+		Title  string
+		Users  []model.User
+		Course []model.Course
+	}{
+		Title:  "Админ-панель",
+		Users:  *model.AllUser(),
+		Course: *model.AllCourses(),
+	}
 	tmpl := tmplFiles("view/admin.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
 func demo(w http.ResponseWriter, r *http.Request) {
-	model.DemoUser()
+	model.Demo()
+	http.Redirect(w, r, "/admin/", http.StatusSeeOther)
+}
+
+func copyDB(w http.ResponseWriter, r *http.Request) {
+	model.BackupDB()
 	http.Redirect(w, r, "/admin/", http.StatusSeeOther)
 }

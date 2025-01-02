@@ -6,11 +6,17 @@ import (
 	"strconv"
 )
 
-// Создать пользователя
+// Контролер запроса создания пользователя
 func createUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		// Выводим форму для заполнения
-		data := model.AllCourse()
+		data := struct {
+			Title   string
+			Courses *[]model.Course
+		}{
+			Title:   "Регистрация",
+			Courses: model.AllCourses(),
+		}
 		tmpl := tmplFiles("view/user/create-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
 	} else if r.Method == "POST" {
@@ -28,25 +34,45 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Вывод пользователя
+// Контролер запроса вывода пользователя
 func getUser(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
-	data := model.GetUser(id)
+	data := struct {
+		Title string
+		Users *model.User
+	}{
+		Title: "Профиль пользователя",
+		Users: model.GetUser(id),
+	}
 	tmpl := tmplFiles("view/user/get-user.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
-// Редактировать пользователя
+func allUser(w http.ResponseWriter, r *http.Request) {
+	data := struct {
+		Title string
+		Users []model.User
+	}{
+		Title: "Все пользователи",
+		Users: *model.AllUser(),
+	}
+	tmpl := tmplFiles("view/user/users.html")
+	tmpl.ExecuteTemplate(w, "content", data)
+}
+
+// Контролер запроса изменения пользователя
 func updateUser(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
 	if r.Method == "GET" {
 		// Выводим форму для заполнения
 		data := struct {
+			Title  string
 			User   model.User
 			Course []model.Course
 		}{
+			Title:  "Обновление пользователя",
 			User:   *model.GetUser(id),
-			Course: *model.AllCourse(),
+			Course: *model.AllCourses(),
 		}
 		tmpl := tmplFiles("view/user/update-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
@@ -65,9 +91,9 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Удалить пользователя
+// Контролер запроса удаления пользователя
 func deleteUser(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
 	model.DeleteUser(id)
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/admin", http.StatusSeeOther)
 }

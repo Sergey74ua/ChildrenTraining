@@ -20,29 +20,3 @@ func DataCourse() {
 	db.Exec(query)
 	db.Close()
 }
-
-// Добавление вопросов
-func DataQuestion() {
-	db := connect()
-	query := `INSERT INTO Course(Testing_id, Question, Correct, Answer_1, Answer_2, Answer_3, Answer_4, Answer_5, Answer_6) VALUES
-		(1, 1, "Из чего состоят атомы?", 2, "Куры", "Протоны, нейтроны и электроны", "Картонные коробки", "Кирпичи", "Солома", "Говно и палки"),
-	`
-	_, err := db.Exec(query)
-	if err != nil {
-		panic(err)
-	}
-	db.Close()
-}
-
-// Добавление тестов
-func DataTesting() {
-	db := connect()
-	query := `INSERT INTO Course(Name, Course_id, Description) VALUES
-		('Основы физики', 1, 'Тест по основам физики для студентов 1'),
-	`
-	_, err := db.Exec(query)
-	if err != nil {
-		panic(err)
-	}
-	db.Close()
-}

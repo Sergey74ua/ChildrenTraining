@@ -1,5 +1,6 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
     <h1>Обновление данных пользователя</h1>
@@ -10,15 +11,13 @@
         <input type="date" name="dataBirth" value="{{.User.DataBirth}}"><br><br>
         <select name="course">
         {{range .Course}}
-            <!-- Надо исправить .User.Course -->
-            {{if eq .Name ".User.Course"}}
+            {{if eq .Name $.User.Course}}
                 <option selected value="{{.Id}}">{{.Name}}</option>
             {{else}}
                 <option value="{{.Id}}">{{.Name}}</option>
             {{end}}
         {{end}}
         </select>
-        {{.User.Course}}
         <br>
         <button type="submit">Отправить</button>
     </form>

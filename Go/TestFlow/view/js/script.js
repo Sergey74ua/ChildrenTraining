@@ -20,7 +20,7 @@ function updateScrollPosition() {
     var scrollPosition = window.scrollY;
 
     if ((scrollPosition + windowHeight) >= (footer.offsetTop - footerHeight)) {
-        up.style.bottom = (scrollPosition + windowHeight - footer.offsetTop + footerHeight-20) + "px";
+        up.style.bottom = (scrollPosition + windowHeight - footer.offsetTop + footerHeight-30) + "px";
     } else {
         up.style.bottom = "20px";
     }

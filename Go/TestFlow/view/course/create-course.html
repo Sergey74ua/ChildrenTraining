@@ -1,9 +1,17 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
-    Контент create-courses
-    {{.}}
+    <h1>Создание дисциплины</h1>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Название"><br><br>
+        <textarea name="description" rows="10" cols="72">Описание</textarea><br><br>
+        <input type="file" name="icon">Иконка<br><br>
+        <input type="file" name="background">Фон<br><br>
+        <br>
+        <button type="submit">Отправить</button>
+    </form>
 </main>
 {{template "footer"}}
 {{end}}

@@ -1,9 +1,15 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
-    <h1>{{.}}</h1>
-    <p>Описание проекта(много текста)</p>
+    <section>
+        <div class="container">
+            <h1>О проекте</h1>
+            <p>Описание проекта(много текста)</p>
+        </div>
+    </section>
+    
 </main>
 {{template "footer"}}
 {{end}}

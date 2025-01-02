@@ -1,17 +1,15 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
     <h1>Дисциплины</h1>
-    {{range .}}
+    {{range .Course}}
     <p>
-        <p>{{.Name}}</p>
+        <h2>{{.Name}}</h2>
         <img src="{{.Icon}}" alt="" class="avatar">
-        <ul id="login">
-            <li class="button"><a href="/get-course/{{.Id}}"> Дисциплина </a></li>
-            <li class="button"><a href="/update-course/{{.Id}}"> Изменить </a> </li>
-            <li class="button"><a href="/delete-course/{{.Id}}"> Удалить </a> </li>
-        </ul>
+        <p>{{.Description}}</p>
+        <a href="/get-course/{{.Id}}"> Подробнее </a>
     {{else}}
         список пуст
     {{end}}

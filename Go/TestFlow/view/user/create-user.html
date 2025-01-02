@@ -1,5 +1,6 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
     <h1>Регистрация пользователя</h1>
@@ -9,7 +10,7 @@
         <input type="email" name="email" placeholder="Почта"><br><br>
         <input type="date" name="dataBirth" placeholder="Дата рождения"><br><br>
         <select name="course">
-            {{range .}}
+            {{range .Courses}}
                 <option value="{{.Id}}">{{.Name}}</option>
             {{end}}
         </select>

@@ -1,10 +1,11 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
     <div>
-        <img src="{{.Background}}" alt="" class="bgCourse">
-        <p>{{.Description}}</p>
+        <img src="{{.Course.Background}}" alt="" class="bgCourse">
+        <p>{{.Course.Description}}</p>
     </div>
 </main>
 {{template "footer"}}

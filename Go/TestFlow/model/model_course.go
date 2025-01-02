@@ -9,7 +9,7 @@ type Course struct {
 }
 
 // Вывод всех дисциплин
-func AllCourse() *[]Course {
+func AllCourses() *[]Course {
 	db := connect()
 	query := "SELECT * FROM Course"
 	data, _ := db.Query(query)
@@ -30,8 +30,16 @@ func AllCourse() *[]Course {
 	return &courses
 }
 
-func CreateCourse() int {
-	return 2
+// Создание дисциплины
+func CreateCourse(name, icon, background, description string) int {
+	db := connect()
+	query := `INSERT INTO Course (Name, Icon, Background, Description)
+		VALUES ($1, $2, $3, $4)`
+	result, _ := db.Exec(query, name, icon, background, description)
+	db.Close()
+	id, _ := result.LastInsertId()
+
+	return int(id)
 }
 
 // Получаем дисциплину
@@ -48,12 +56,22 @@ func GetCourse(id int) *Course {
 		&course.Description,
 	)
 	db.Close()
+
 	return &course
 }
-func UpdateCourse() int {
-	return 4
+
+// Измененние дисциплины
+func UpdateCourse(id int, name, icon, background, description string) {
+	db := connect()
+	query := `UPDATE Course SET Name=?, Icon=?, Background=?, Description=? WHERE id = ?`
+	db.Exec(query, name, icon, background, description, id)
+	db.Close()
 }
 
-func DeleteCourse() {
-
+// Удаление дисциплины
+func DeleteCourse(id int) {
+	db := connect()
+	query := `DELETE FROM Course WHERE id = $1`
+	db.Exec(query, id)
+	db.Close()
 }

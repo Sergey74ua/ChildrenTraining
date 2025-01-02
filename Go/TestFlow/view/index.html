@@ -1,13 +1,45 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
-    <h1>Контент index</h1>
+    <h1>Web-проект TestFlow</h1>
     <hr>
-    <div>Блок Дисциплин</div>
-    <hr>
-    <div>Блок Тестов</div>
-    {{.}}
+    <h2>Дисциплины</h2>
+    <section>
+        {{range .Course}}
+            <div class="unit">
+                {{.Name}}
+                <img src="{{.Icon}}" alt="" class="avatar">
+                <a href="/get-course/{{.Id}}"> Подробнее </a>
+            </div>
+        {{else}}
+           <p>список пуст</p>
+        {{end}}
+    </section>
+    <h2>Тесты</h2>
+    <section>
+        {{range .Testing}}
+            {{.Name}}
+            <a href="/get-test/{{.Id}}"> Пройти тест </a>
+            <br><br>
+        {{else}}
+            список пуст
+        {{end}}
+    </section>
 </main>
 {{template "footer"}}
 {{end}}
+
+
+<!--
+<img src="{{.Icon}}" alt="" class="avatar">
+
+
+<div class="product-card">
+    <img src="{{.Icon}}" alt="Название товара" class="product-image">
+    <h2 class="product-title">Название товара</h2>
+    <button class="product-button">Купить</button>
+</div>
+
+-->

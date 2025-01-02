@@ -22,9 +22,7 @@ type User struct {
 // Вывод всех пользователей
 func AllUser() *[]User {
 	db := connect()
-	query := `
-		SELECT * FROM User
-	;`
+	query := "SELECT * FROM User"
 	data, _ := db.Query(query)
 	users := []User{}
 	for data.Next() {
@@ -53,9 +51,9 @@ func GetUser(id int) *User {
 	db := connect()
 	query := `
 		SELECT u.Id, u.Name, u.Avatar, u.Password, u.Email, u.DataBirth,
-			Course.Name, u.DataReg, u.Status, u.Rate
+			c.Name, u.DataReg, u.Status, u.Rate
 		FROM User u
-		LEFT JOIN Course ON u.Course_id = Course.Id
+		LEFT JOIN Course c ON u.Course_id = c.Id
 		WHERE u.Id = $1
 	;`
 	data := db.QueryRow(query, id)
@@ -78,15 +76,12 @@ func GetUser(id int) *User {
 
 // Добавление пользователя
 func AddUser(name, password, email, dataBirth, course string) int {
+	db := connect()
 	dataReg := time.Now().Format("2006-01-02")
 	avatar := "../view/img/avatar.png"
 	course_id, _ := strconv.Atoi(course)
-	db := connect()
-	query := `
-		INSERT INTO User (Name, Avatar, Password, Email, DataBirth,
-			Course_id, DataReg, Status, Rate)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-	;`
+	query := `INSERT INTO User (Name, Avatar, Password, Email, DataBirth, Course_id, DataReg, Status, Rate)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
 	result, _ := db.Exec(query, name, avatar, password, email, dataBirth, course_id, dataReg, "active", 0)
 	db.Close()
 	id, _ := result.LastInsertId()
@@ -94,13 +89,9 @@ func AddUser(name, password, email, dataBirth, course string) int {
 }
 
 // Обновление пользователя
-func UpdateUser(id int, name, password, email, dataBirth, course string) {
-	course_id, _ := strconv.Atoi(course)
+func UpdateUser(id int, name, password, email, dataBirth, course_id string) {
 	db := connect()
-	query := `
-		UPDATE User SET Name=?, Password=?, Email=?, DataBirth=?, Course_id=?
-		WHERE id = ?
-	;`
+	query := `UPDATE User SET Name=?, Password=?, Email=?, DataBirth=?, Course_id=? WHERE id = ?`
 	db.Exec(query, name, password, email, dataBirth, course_id, id)
 	db.Close()
 }

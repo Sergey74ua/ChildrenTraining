@@ -1,18 +1,19 @@
 {{define "content"}}
 {{template "header"}}
+<title>{{.Title}}</title>
 {{template "menu"}}
 <main>
-    <p>Пользователь {{.Id}}</p>
+    <p>Пользователь {{.User.Id}}</p>
     <hr>
     <div>
-        <p>Имя: {{.Name}}</p>
-        <img src="{{.Avatar}}" alt="" class="avatar">
-        <p>Почта: {{.Email}}</p>
-        <p>Дата рождения: {{.DataBirth}}</p>
-        <p>Дисциплина: {{.Course}}</p>
-        <p>Заригистрировался: {{.DataReg}}</p>
-        <p>Статус: {{.Status}}</p>
-        <p>Рейтинг %: {{.Rate}}</p>
+        <p>Имя: {{.User.Name}}</p>
+        <img src="{{.User.Avatar}}" alt="" class="avatar">
+        <p>Почта: {{.User.Email}}</p>
+        <p>Дата рождения: {{.User.DataBirth}}</p>
+        <p>Дисциплина: {{.User.Course}}</p>
+        <p>Заригистрировался: {{.User.DataReg}}</p>
+        <p>Статус: {{.User.Status}}</p>
+        <p>Рейтинг %: {{.User.Rate}}</p>
     </div>
 </main>
 {{template "footer"}}
