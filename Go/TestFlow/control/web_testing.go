@@ -55,11 +55,13 @@ func updateTesting(w http.ResponseWriter, r *http.Request) {
 func getTesting(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
 	data := struct {
-		Title   string
-		Testing model.Testing
+		Title     string
+		Testing   *model.Testing
+		Questions *[]model.Questions
 	}{
-		Title:   "Тестирование",
-		Testing: *model.GetTest(id),
+		Title:     "Тестирование",
+		Testing:   model.GetTest(id),
+		Questions: model.GetQuestions(id),
 	}
 	tmpl := tmplFiles("view/test/get-test.html")
 	tmpl.ExecuteTemplate(w, "content", data)
