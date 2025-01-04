@@ -103,3 +103,7 @@ func DeleteUser(id int) {
 	db.Exec(query, id)
 	db.Close()
 }
+
+func LoginPass(login, pass string) {
+
+}

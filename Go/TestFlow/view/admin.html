@@ -10,7 +10,7 @@
         <a href="/demo-migration/">Демо-миграция</a>
         <a href="/create-course/">Создать курс</a>
         <a href="/copy-DB/">Резервная копия БД</a>
-        <a href="/users/"> Все пользователи </a>
+        <a href="/users/">Все пользователи</a>
     </div>
     <hr>
     <h2>Список Дисциплин</h2>
@@ -30,12 +30,27 @@
     <hr>
 
     <h2>Список пользователей</h2>
-    {{range .Users}}
+    {{range .User}}
         <div>
             {{.Name}}
             <a href="/get-user/{{.Id}}"> Пользователь </a>
             <a href="/update-user/{{.Id}}"> Изменить </a>
             <a href="/delete-user/{{.Id}}"> Удалить </a>
+        </div>
+        <br>
+    {{else}}
+        список пуст
+    {{end}}
+
+    <hr>
+
+    <h2>Список тестов</h2>
+    {{range .Testing}}
+        <div>
+            {{.Name}}
+            <a href="/get-test/{{.Id}}"> Тест </a>
+            <a href="/update-test/{{.Id}}"> Изменить </a>
+            <a href="/delete-test/{{.Id}}"> Удалить </a>
         </div>
         <br>
     {{else}}

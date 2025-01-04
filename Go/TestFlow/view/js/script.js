@@ -30,7 +30,7 @@ function updateScrollPosition() {
 document.addEventListener("DOMContentLoaded", function() {
     var header = document.querySelector('header');
     var headerContent = document.querySelector('.header-content');
-    var speed = 0.45; // Установите скорость прокрутки (чем меньше значение, тем медленнее)
+    var speed = 0.4; // Установите скорость прокрутки (чем меньше значение, тем медленнее)
 
     window.onscroll = function() {
         var yOffset = window.scrollY;

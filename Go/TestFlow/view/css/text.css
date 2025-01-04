@@ -1,0 +1,67 @@
+.title {
+    font-size: 12em;
+    color: yellow;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.75);
+    -webkit-text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.75);
+    -moz-text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.75);
+}
+
+.subtitle {
+    font-size: 2.5em;
+    color: gold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.75);
+}
+
+h1 {
+    font-size: 2em;
+    text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.75);
+}
+
+h2 {
+    font-size: 1.5em;
+    text-align: center;
+    text-shadow: 0.05em 0.05em 0.05em rgba(0, 0, 0, 0.75);
+}
+
+h3 {
+    text-align: center;
+    font-style: italic;
+}
+
+a {
+    text-decoration: none;
+    background-color: #333;
+    width: 8em;
+    color: #fff;
+    border: none;
+    padding: 0.625em;
+    margin: 0 0.5em;
+    border-radius: 0.3125em;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+a:hover {
+    background-color: #e2e2e2;
+    color: #000000;
+}
+
+button {
+    background-color: #333;
+    width: 8em;
+    color: #fff;
+    border: none;
+    padding: 0.625em;
+    border-radius: 0.3125em;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #e2e2e2;
+    color: #000000;
+}

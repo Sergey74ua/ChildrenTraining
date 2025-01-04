@@ -38,7 +38,6 @@ func CreateCourse(name, icon, background, description string) int {
 	result, _ := db.Exec(query, name, icon, background, description)
 	db.Close()
 	id, _ := result.LastInsertId()
-
 	return int(id)
 }
 
@@ -56,7 +55,6 @@ func GetCourse(id int) *Course {
 		&course.Description,
 	)
 	db.Close()
-
 	return &course
 }
 

@@ -39,24 +39,12 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
 	data := struct {
 		Title string
-		Users *model.User
+		User  *model.User
 	}{
 		Title: "Профиль пользователя",
-		Users: model.GetUser(id),
+		User:  model.GetUser(id),
 	}
 	tmpl := tmplFiles("view/user/get-user.html")
-	tmpl.ExecuteTemplate(w, "content", data)
-}
-
-func allUser(w http.ResponseWriter, r *http.Request) {
-	data := struct {
-		Title string
-		Users []model.User
-	}{
-		Title: "Все пользователи",
-		Users: *model.AllUser(),
-	}
-	tmpl := tmplFiles("view/user/users.html")
 	tmpl.ExecuteTemplate(w, "content", data)
 }
 
@@ -67,12 +55,12 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 		// Выводим форму для заполнения
 		data := struct {
 			Title  string
-			User   model.User
-			Course []model.Course
+			User   *model.User
+			Course *[]model.Course
 		}{
 			Title:  "Обновление пользователя",
-			User:   *model.GetUser(id),
-			Course: *model.AllCourses(),
+			User:   model.GetUser(id),
+			Course: model.AllCourses(),
 		}
 		tmpl := tmplFiles("view/user/update-user.html")
 		tmpl.ExecuteTemplate(w, "content", data)
@@ -96,4 +84,17 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 	id := getId(r.RequestURI)
 	model.DeleteUser(id)
 	http.Redirect(w, r, "/admin", http.StatusSeeOther)
+}
+
+// Контролер запроса всех рользователей
+func allUser(w http.ResponseWriter, r *http.Request) {
+	data := struct {
+		Title string
+		Users []model.User
+	}{
+		Title: "Все пользователи",
+		Users: *model.AllUser(),
+	}
+	tmpl := tmplFiles("view/user/users.html")
+	tmpl.ExecuteTemplate(w, "content", data)
 }

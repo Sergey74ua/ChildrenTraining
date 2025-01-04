@@ -2,19 +2,25 @@
 </head>
 <body>
 <header>
-    <div class="header-content">
-        <h1 class="title">TestFlow</h1>
-        <p>Проект на языке Go для проведения тестирования</p>
+    <div class="header-content row">
+        <img src="../view/img/fti.png" alt="" class="logo">
+        <div class="col">
+            <div class="title">TestFlow</div>
+            <p class="subtitle">Web-проект для проведения тестирования</p>
+        </div>
     </div>
 </header>
-
-
-<div id="menu">
-    <a href="/">Главная</a></li>
-    <a href="/about">О проекте</a></li>
-    <a href="/author">Авторы</a></li>
-    <a href="/courses">Дисциплины</a></li>
-    <a href="/create-user">Регистрация</a></li>
-    <a href="/admin">Админ-панель</a></li>
-</div>
+<menu>
+    <a href="/">Главная</a>
+    <a href="/about">О проекте</a>
+    <a href="/author">Авторы</a>
+    <a href="/courses">Дисциплины</a>
+    <a href="/admin">Админ-панель</a>
+    <a href="#" id="entry">Войти</a>
+    <a href="/create-user" id="register">Регистрация</a>
+    <form action="/login-pass">
+        <input type="hidden" name="login" id="login" placeholder="Логин">
+        <input type="hidden" name="pass" id="pass" placeholder="Пароль">
+    </form>
+</menu>
 {{end}}

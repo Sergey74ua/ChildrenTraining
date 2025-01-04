@@ -3,8 +3,22 @@
 <title>{{.Title}}</title>
 {{template "menu"}}
 <main>
-    Контент update-test
-    {{.}}
+    <h1>Редактирование теста</h1>
+    <form method="POST">
+        <input type="text" name="name"value="{{.Testing.Name}}"><br><br>
+        <textarea name="description" rows="10" cols="72">{{.Testing.Description}}</textarea><br><br>
+        <select name="course">
+            {{range .Course}}
+                {{if eq .Name $.Testing.Course}}
+                    <option selected value="{{.Id}}">{{.Name}}</option>
+                {{else}}
+                    <option value="{{.Id}}">{{.Name}}</option>
+                {{end}}
+            {{end}}
+        </select>
+        <br><br>
+        <button type="submit">Отправить</button>
+    </form>
 </main>
 {{template "footer"}}
 {{end}}

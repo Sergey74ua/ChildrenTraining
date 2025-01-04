@@ -2,15 +2,15 @@
 {{template "header"}}
 <title>{{.Title}}</title>
 {{template "menu"}}
-<main>
+<main class="col">
     <h1>Web-проект TestFlow</h1>
     <hr>
     <h2>Дисциплины</h2>
-    <section>
+    <section class="list">
         {{range .Course}}
-            <div class="unit">
-                {{.Name}}
-                <img src="{{.Icon}}" alt="" class="avatar">
+            <div class="product-card">
+                <img src="{{.Icon}}" alt="{{.Name}}" class="product-image">
+                <h2 class="product-title">{{.Name}}</h2>
                 <a href="/get-course/{{.Id}}"> Подробнее </a>
             </div>
         {{else}}
@@ -18,10 +18,10 @@
         {{end}}
     </section>
     <h2>Тесты</h2>
-    <section>
+    <section class="list">
         {{range .Testing}}
             {{.Name}}
-            <a href="/get-test/{{.Id}}"> Пройти тест </a>
+            <a href="/get-test/{{.Id}}"> Пройти тест</a>
             <br><br>
         {{else}}
             список пуст
@@ -30,16 +30,3 @@
 </main>
 {{template "footer"}}
 {{end}}
-
-
-<!--
-<img src="{{.Icon}}" alt="" class="avatar">
-
-
-<div class="product-card">
-    <img src="{{.Icon}}" alt="Название товара" class="product-image">
-    <h2 class="product-title">Название товара</h2>
-    <button class="product-button">Купить</button>
-</div>
-
--->

@@ -3,7 +3,7 @@ package model
 type Questions struct {
 	Id             int
 	NumberQuestion int
-	Question       int
+	Question       string
 	Correct        int
 	Answer_1       string
 	Answer_2       string
@@ -16,12 +16,13 @@ type Questions struct {
 // Получаем список вопросов
 func GetQuestions(id int) *[]Questions {
 	db := connect()
-	// ЭТО НЕ ТО !!! НАДО ЧЕРЕЗ JOIN СВЯЗУЮЩУЮ ТАБЛИЦУ
 	query := `
-		SELECT *
-		FROM Questions
-		WHERE NumberQuestion = $1
-	;`
+    SELECT q.Id, q.NumberQuestion, q.Question, q.Correct,
+      q.Answer_1, q.Answer_2, q.Answer_3, q.Answer_4, q.Answer_5, q.Answer_6
+    FROM TestQuestion tq
+    JOIN Questions q ON q.Id = tq.Question_id
+    WHERE tq.Testing_id = $1
+  ;`
 	data, _ := db.Query(query, id)
 	questions := []Questions{}
 	for data.Next() {

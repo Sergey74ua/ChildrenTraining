@@ -7,6 +7,7 @@ func Demo() {
 	//Пользователи
 	query := `
 	INSERT INTO User(Avatar, Name, Password, Email, DataBirth, Course_id, DataReg, Status, Rate) VALUES
+		('../view/img/avatar.png', 'admin', 'admin', 'admin@admin.admin', '01-01-2001', 5, '01-01-2024', 'admin', 100),
 		('../view/img/avatar.png', 'Вася Нечейный', '123456543211286756', 'vasya2000@gmail.com', '01-01-2001', 1, '01-01-2024', 'active', 0),
 		('../view/img/avatar.png', 'Екатерина Иванова', 'StrongP@$d123', 'katya.i@exale.com', '15-03-1998', 2, '29-12-2024', 'active', 75),
 		('../view/img/avatar.png', 'Александр Петров', 'PasswOrd@12', 'aleks.petrov@mail.ru', '22-04-1990', 3, '25-12-2024', 'active', 92),
