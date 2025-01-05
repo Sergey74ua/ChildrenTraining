@@ -1,5 +1,5 @@
 // Скрипты...
-var up=document.getElementById("up");
+var up = document.getElementById("up");
 var footer = document.querySelector("footer");
 var footerHeight = footer.offsetHeight;
 
@@ -20,7 +20,7 @@ function updateScrollPosition() {
     var scrollPosition = window.scrollY;
 
     if ((scrollPosition + windowHeight) >= (footer.offsetTop - footerHeight)) {
-        up.style.bottom = (scrollPosition + windowHeight - footer.offsetTop + footerHeight-30) + "px";
+        up.style.bottom = (scrollPosition + windowHeight - footer.offsetTop + footerHeight - 80) + "px";
     } else {
         up.style.bottom = "20px";
     }
@@ -42,4 +42,21 @@ document.addEventListener("DOMContentLoaded", function() {
         else
             up.style.visibility = "hidden";
     }
+});
+
+// Сокрытие и открытие полей авторизации
+document.addEventListener('DOMContentLoaded', function() {
+    const entryButton = document.getElementById('entry');
+    const registrationButton = document.getElementById('registration');
+    const loginForm = document.getElementById('login-form');
+  
+    entryButton.addEventListener('click', function(event) {
+      // Скрываем кнопки
+      entryButton.style.display = 'none';
+      document.querySelector('.buttons-container').style.display = 'none'
+      registrationButton.style.display = 'none';
+  
+      // Показываем форму
+      loginForm.style.display = 'flex';
+    });
 });

@@ -3,24 +3,38 @@
 <body>
 <header>
     <div class="header-content row">
-        <img src="../view/img/fti.png" alt="" class="logo">
+        <a href="/"><img src="../view/img/fti.png" alt="Главная" class="logo"></a>
         <div class="col">
-            <div class="title">TestFlow</div>
+            <div class="title">Test Flow</div>
             <p class="subtitle">Web-проект для проведения тестирования</p>
         </div>
     </div>
 </header>
 <menu>
-    <a href="/">Главная</a>
-    <a href="/about">О проекте</a>
-    <a href="/author">Авторы</a>
-    <a href="/courses">Дисциплины</a>
-    <a href="/admin">Админ-панель</a>
-    <a href="#" id="entry">Войти</a>
-    <a href="/create-user" id="register">Регистрация</a>
-    <form action="/login-pass">
-        <input type="hidden" name="login" id="login" placeholder="Логин">
-        <input type="hidden" name="pass" id="pass" placeholder="Пароль">
-    </form>
+    <div class="right">
+        <a href="/"><button class="btn-menu">Главная</button></a>
+        <a href="/courses"><button class="btn-menu">Дисциплины</button></a>
+        <a href="/testing"><button class="btn-menu">Тестирование</button></a>
+        <a href="/about"><button class="btn-menu">О проекте</button></a>
+        <a href="/author"><button class="btn-menu">Авторы</button></a>
+    </div>
+    <div class="left">
+        <div class="buttons-container">
+            <a href="#" id="entry"><button class="btn-menu">Войти</button></a>
+            <a href="/create-user" id="registration"><button class="btn-menu">Регистрация</button></a>
+        </div>
+        
+        <form action="/login-pass" class="row" id="login-form" style="display: none;">
+            <input type="text" name="login" id="login" placeholder="Логин" class="input">
+            <input type="password" name="pass" id="pass" placeholder="Пароль">
+            <button type="submit" class="miniBtn">
+                <img src="../view/img/icon/next.png" class="icon">
+            </button>
+        </form>
+
+        <a href="/admin" title="Админ-панель">
+            <img src="../view/img/icon/option.png" class="icon">
+        </a>
+    </div>
 </menu>
 {{end}}

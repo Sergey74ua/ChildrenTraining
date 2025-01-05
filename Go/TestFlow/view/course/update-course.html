@@ -4,6 +4,7 @@
 {{template "menu"}}
 <main>
     <h1>Обновление данных дисциплнины</h1>
+    <hr>
     <form method="POST">
         <input type="text" name="name" value="{{.Course.Name}}"><br><br>
         <textarea name="description" rows="10" cols="72">{{.Course.Description}}</textarea><br><br>

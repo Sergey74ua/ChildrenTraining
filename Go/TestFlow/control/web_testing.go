@@ -6,6 +6,18 @@ import (
 	"strconv"
 )
 
+func testing(w http.ResponseWriter, r *http.Request) {
+	data := struct {
+		Title string
+		Tests *[]model.Testing
+	}{
+		Title: "Тестирование",
+		Tests: model.AllTests(),
+	}
+	tmpl := tmplFiles("view/test/testings.html")
+	tmpl.ExecuteTemplate(w, "content", data)
+}
+
 // Контролер запроса создания теста
 func createTesting(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -23,7 +35,7 @@ func createTesting(w http.ResponseWriter, r *http.Request) {
 		course := r.FormValue("course")
 		user := User
 		description := r.FormValue("description")
-		id := model.CreateTest(name, course, user, description)
+		id := model.CreateTest(user, name, course, description)
 		http.Redirect(w, r, "/get-test/"+strconv.Itoa(id), http.StatusSeeOther)
 	}
 }
@@ -48,7 +60,7 @@ func updateTesting(w http.ResponseWriter, r *http.Request) {
 		course := r.FormValue("course")
 		user := User
 		description := r.FormValue("description")
-		model.UpdateTest(id, name, course, user, description)
+		model.UpdateTest(id, user, name, course, description)
 		http.Redirect(w, r, "/get-test/"+strconv.Itoa(id), http.StatusSeeOther)
 	}
 }

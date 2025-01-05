@@ -26,17 +26,18 @@ header {
 }
 
 menu {
+    display: flex;
     background-color: #292929;
     margin: 0;
-    padding: 1.5em 1.25em;
+    padding: 1.25em 10% 1em 9%;
     text-align: center;
 }
   
 main {
     width: 80%;
+    margin: auto;
     padding: 1em;
     background-color: #c5c5c5;
-    margin: auto;
 }
 
 section {
@@ -55,7 +56,7 @@ section {
 
 footer {
     display: flex;
-    background-color: #333;
+    background-color: dimgrey;
     color: #fff;
     padding: 1.25em 0;
     align-items: center;
@@ -68,4 +69,14 @@ footer {
 
 .row {
     display: flex;
+}
+
+.right {
+    margin-right: auto;
+    display: inherit;
+}
+
+.left {
+    margin-left: auto;
+    display: inherit;
 }

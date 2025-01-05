@@ -104,6 +104,10 @@ func DeleteUser(id int) {
 	db.Close()
 }
 
-func LoginPass(login, pass string) {
+func LoginPass(login, pass string) int {
+	// Дописать проверку логина / пароля и возврат ID
+	id := 0
+	println(login, pass)
 
+	return id
 }

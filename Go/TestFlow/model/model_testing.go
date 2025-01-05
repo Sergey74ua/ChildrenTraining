@@ -13,7 +13,12 @@ type Testing struct {
 // Вывод всех тестов
 func AllTests() *[]Testing {
 	db := connect()
-	query := "SELECT * FROM Testing"
+	query := `
+		SELECT t.Id, t.Name, c.Name, u.Name, t.Description
+		FROM Testing t
+		LEFT JOIN Course c ON t.Course_id = c.Id
+		LEFT JOIN User u ON t.User_id = u.Id
+	;`
 	data, _ := db.Query(query)
 	tests := []Testing{}
 	for data.Next() {
@@ -28,15 +33,15 @@ func AllTests() *[]Testing {
 		tests = append(tests, test)
 	}
 	db.Close()
-	//Добавить подвязку вопросов
+
 	return &tests
 }
 
 // Создание теста
-func CreateTest(name, course, user, description string) int {
+func CreateTest(user int, name, course, description string) int {
 	db := connect()
 	course_id, _ := strconv.Atoi(course)
-	user_id, _ := strconv.Atoi(user)
+	user_id := user
 	query := `INSERT INTO Testing (Name, Course_id, User_id, Description)
 		VALUES ($1, $2, $3, $4)`
 	result, _ := db.Exec(query, name, course_id, user_id, description)
@@ -50,12 +55,12 @@ func CreateTest(name, course, user, description string) int {
 func GetTest(id int) *Testing {
 	db := connect()
 	query := `
-	SELECT t.Id, t.Name, Course.Name, User.Name, t.Description
-	FROM Testing t
-	LEFT JOIN Course ON t.Course_id = Course.Id
-	LEFT JOIN User ON t.User_id = User.Id
-	WHERE t.Id = $1
-;`
+		SELECT t.Id, t.Name, Course.Name, User.Name, t.Description
+		FROM Testing t
+		LEFT JOIN Course ON t.Course_id = Course.Id
+		LEFT JOIN User ON t.User_id = User.Id
+		WHERE t.Id = $1
+	;`
 	data := db.QueryRow(query, id)
 	testing := Testing{}
 	data.Scan(
@@ -71,7 +76,7 @@ func GetTest(id int) *Testing {
 }
 
 // Измененние теста
-func UpdateTest(id int, name, course, user, description string) {
+func UpdateTest(id, user int, name, course, description string) {
 	db := connect()
 	query := `UPDATE Testing SET Name=?, Course_id=?, User_id=?, Description=? WHERE id = ?`
 	db.Exec(query, name, course, user, description, id)

@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var User string = "1"
+var User int = 1
 
 // Формируем список урлов страниц и функций их обработки
 func Web(host, port string) {
@@ -18,13 +18,15 @@ func Web(host, port string) {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/about/", about)
 	http.HandleFunc("/author/", author)
-	http.HandleFunc("/admin/", admin)
-	http.HandleFunc("/demo-migration/", demo)
-	http.HandleFunc("/copy-DB/", copyDB)
+	http.HandleFunc("/login-pass/", loginPass)
 
+	http.HandleFunc("/admin/", admin)
+	http.HandleFunc("/copy-DB/", copyDB)
+	http.HandleFunc("/demo-migration/", demo)
+
+	http.HandleFunc("/users/", allUser)
 	http.HandleFunc("/create-user/", createUser)
 	http.HandleFunc("/get-user/{id}", getUser)
-	http.HandleFunc("/users/", allUser)
 	http.HandleFunc("/update-user/{id}", updateUser)
 	http.HandleFunc("/delete-user/{id}", deleteUser)
 
@@ -34,12 +36,11 @@ func Web(host, port string) {
 	http.HandleFunc("/update-course/{id}", updateCourse)
 	http.HandleFunc("/delete-course/{id}", deleteCourse)
 
+	http.HandleFunc("/testing/", testing)
 	http.HandleFunc("/create-test/", createTesting)
 	http.HandleFunc("/get-test/{id}", getTesting)
 	http.HandleFunc("/update-test/{id}", updateTesting)
 	http.HandleFunc("/delete-test/{id}", deleteTesting)
-
-	http.HandleFunc("/login-pass", loginPass)
 
 	//Сообщение в терминал
 	t := time.Now()
@@ -138,9 +139,10 @@ func copyDB(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/admin/", http.StatusSeeOther)
 }
 
+// ПРОВЕРИТЬ И/ИЛИ ДОДЕЛАТЬ
 func loginPass(w http.ResponseWriter, r *http.Request) {
 	login := r.FormValue("login")
 	pass := r.FormValue("pass")
-	model.LoginPass(login, pass)
-	//http.Redirect(w, r, "/get-user/"+strconv.Itoa(id), http.StatusSeeOther)
+	User = model.LoginPass(login, pass)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

@@ -1,0 +1,20 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Тестирования</h1>
+    <hr>
+    {{range .Tests}}
+    <p>
+        <h2>{{.Name}}</h2>
+        <p>Дисциплина: <b>{{.Course}}</b>, автор: <b>{{.User}}</b></p>
+        <p><u>Описание:</u> {{.Description}}</p>
+        <a href="/get-test/{{.Id}}"> Подробнее </a>
+    {{else}}
+        список пуст
+    {{end}}
+    </p>
+</main>
+{{template "footer"}}
+{{end}}

@@ -5,57 +5,77 @@
 <main>
     <h1>Админ панель</h1>
     <hr>
-    <h2>Инструментарий</h2>
-    <div>
-        <a href="/demo-migration/">Демо-миграция</a>
-        <a href="/create-course/">Создать курс</a>
-        <a href="/copy-DB/">Резервная копия БД</a>
-        <a href="/users/">Все пользователи</a>
-    </div>
-    <hr>
-    <h2>Список Дисциплин</h2>
-    <hr>
-    {{range .Course}}
+    <section>
+        <h2>Инструментарий</h2>
         <div>
-            {{.Name}}
-            <a href="/get-course/{{.Id}}"> Дисциплина </a>
-            <a href="/update-course/{{.Id}}"> Изменить </a>
-            <a href="/delete-course/{{.Id}}"> Удалить </a>
+            <a href="/demo-migration/"><button>Миграция</button></a>
+            <a href="/create-course/"><button>Создать курс</button></a>
+            <a href="/copy-DB/"><button>Копия БД</button></a>
+            <a href="/users/"><button>Пользователи</button></a>
         </div>
-        <br>
-    {{else}}
-        список пуст
-    {{end}}
-
-    <hr>
-
-    <h2>Список пользователей</h2>
-    {{range .User}}
-        <div>
-            {{.Name}}
-            <a href="/get-user/{{.Id}}"> Пользователь </a>
-            <a href="/update-user/{{.Id}}"> Изменить </a>
-            <a href="/delete-user/{{.Id}}"> Удалить </a>
-        </div>
-        <br>
-    {{else}}
-        список пуст
-    {{end}}
-
-    <hr>
-
-    <h2>Список тестов</h2>
-    {{range .Testing}}
-        <div>
-            {{.Name}}
-            <a href="/get-test/{{.Id}}"> Тест </a>
-            <a href="/update-test/{{.Id}}"> Изменить </a>
-            <a href="/delete-test/{{.Id}}"> Удалить </a>
-        </div>
-        <br>
-    {{else}}
-        список пуст
-    {{end}}
+    </section>
+    <section>
+        <h2>Список Дисциплин</h2>
+        <table>
+        {{range .Course}}
+            <tr class="line">
+                <td>Дисциплина:</td>
+                <td><img src="{{.Icon}}" class="sign"></td>
+                <td><b>{{.Name}}</b><td>
+                <td>(можно вставить краткое описание обрезав длинну текста)</td>
+                <td><a href="/get-course/{{.Id}}" title="Открыть"><img src="../view/img/icon/eye.png" class="sign"></a></td>
+                <td><a href="/update-course/{{.Id}}" title="Изменить"><img src="../view/img/icon/edit.png" class="sign"></a></td>
+                <td><a href="/delete-course/{{.Id}}" title="Удалить"><img src="../view/img/icon/del.png" class="sign"></a></td>
+            </tr>
+        {{else}}
+            <p>список пуст</p>
+        {{end}}
+        </table>
+    </section>
+    <section>
+        <h2>Список пользователей</h2>
+        <table>
+        {{range .User}}
+        <tr class="line">
+            <td>Пользователь:</td>
+            <td><img src="{{.Avatar}}" class="sign"></td>
+            <td><b>{{.Name}}</b><td>
+            <td>{{.DataBirth}}</td>
+            <td><img src="../view/img/icon/mail.png" class="sign"></td>
+            <td>{{.Email}}</td>
+            <td><img src="../view/img/icon/star.png" class="sign"></td>
+            <td>{{.Rate}}</td>
+            <td>{{.Status}}</td>
+            <td><a href="/get-user/{{.Id}}" title="Открыть"><img src="../view/img/icon/eye.png" class="sign"></a></td>
+            <td><a href="/update-user/{{.Id}}" title="Изменить"><img src="../view/img/icon/edit.png" class="sign"></a></td>
+            <td><a href="#" title="Забанить"><img src="../view/img/icon/ban.png" class="sign"></a></td>
+            <td><a href="/delete-user/{{.Id}}" title="Удалить"><img src="../view/img/icon/del.png" class="sign"></a></td>
+        </tr>
+        {{else}}
+            <p>список пуст</p>
+        {{end}}
+        </table>
+    </section>
+    <section>
+        <h2>Список тестов</h2>
+        <table>
+        {{range .Testing}}
+            <tr class="line">
+                <td>Тест:</td>
+                <td><b>{{.Name}}</b><td>
+                <td>дисциплина:</td>
+                <td>{{.Course}}</td>
+                <td>автор:</td>
+                <td>{{.User}}</td>
+                <td><a href="/get-test/{{.Id}}" title="Открыть"><img src="../view/img/icon/eye.png" class="sign"></a></td>
+                <td><a href="/update-test/{{.Id}}" title="Изменить"><img src="../view/img/icon/edit.png" class="sign"></a></td>
+                <td><a href="/delete-test/{{.Id}}" title="Удалить"><img src="../view/img/icon/del.png" class="sign"></a></td>
+            </tr>
+        {{else}}
+            <p>список пуст</p>
+        {{end}}
+        </table>
+    <section>
 </main>
 {{template "footer"}}
 {{end}}
