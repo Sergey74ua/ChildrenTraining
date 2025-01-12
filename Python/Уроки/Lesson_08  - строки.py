@@ -48,4 +48,6 @@ print("в заглавные -", x.upper())
 print("в прописные -", x.lower())
 print("С большой буквы -", x.title())
 
+print(chr(sum(range(ord(min(str(not())))))))
+
 input()
