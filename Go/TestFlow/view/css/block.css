@@ -1,0 +1,371 @@
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logo {
+    width: 16em;
+    margin-top: auto;
+    margin-right: 8em;
+}
+
+.miniLogo {
+    width: 5em;
+    margin: 0 4em 0;
+}
+
+
+.sign {
+    width: 1.5em;
+    margin: 0 0.5em;
+}
+
+.icon {
+    width: 1.5em;
+    margin: 0 0.5em;
+    filter: invert(1);
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 50px;
+}
+
+.unit {
+    position: relative;
+}
+
+/* ЛИШНЕЕ - ? */
+.container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar {
+    height: 100px;
+    width: 100px;
+}
+
+#up{
+    position: fixed;
+    width: 2.5em;
+    bottom: 1.25em;
+    right: 1.25em;
+    padding: 0.625em;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+#up:hover {
+    background-color: #e2e2e2;
+    color: #000000;
+}
+
+.bgCourse {
+    height: 300px;
+    width: 100%;
+    object-fit:cover;
+}
+
+#login {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+}
+
+/*Курсы*/
+
+.p-card {
+    border-radius: 0.75em;
+    border: 2px solid #333;
+    color: #000000;
+    padding: 30px;
+    text-align: center;
+    width: 10em;
+    margin: auto;
+    display: inline-block;
+    transition: 0.3s;
+
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow:hidden;
+}
+
+.p-card:hover {
+    width: 11em;
+    background-color: #e2e2e2;
+    color:#000000;
+    box-shadow: 0.05em 0.05em 0.75em rgb(255, 255, 255);
+    filter: invert(1);
+}
+
+.p-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.p-title {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+td {
+    word-wrap: break-word;
+}
+
+/*Тесты*/
+.test-card {
+    display: grid;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    margin: 1em;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+
+.test-icon {
+    width: 10em;
+}
+
+.test-button {
+    margin-top: auto;
+}
+
+/*ДИСЦИПЛИНЫ*/
+.discipline-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    grid-row-gap: 2em;
+}
+
+.discipline-card {
+    width: 35em;
+    height: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+.discipline-background-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.discipline-background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: blur(3px);
+}
+
+.discipline-content {
+    text-align: center;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2em;
+    margin: 2em;
+    border-radius: 1em;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    width: 45%;
+    max-width: 50em;
+    backdrop-filter: blur(10px);
+}
+
+.discipline-icon {
+    width: 7em;
+    height: 7em;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.discipline-title {
+    font-size: 2em;
+    margin: 0;
+    color: #333;
+}
+
+
+/*ПРОФИЛЬ ПОЛЬЗОАТЕЛЯ*/
+.user-profile {
+    display: block;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.user-profile-page {
+    background-color: #fff;
+    border-radius: 0.5em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 1em;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.user-id {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    margin-right: 3em;
+    object-fit: cover;
+    object-position: center;
+    border: black solid 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #eee;
+}
+
+.username {
+    font-size: 2.5em;
+    margin: 0;
+    color: #333;
+}
+
+.profile-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-details {
+    font-size: 1em;
+    color: #555;
+    width: 40%;
+    padding-right: 20px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    font-weight: bold;
+    width: 10em;
+}
+
+.profile-stats {
+    font-size: 1em;
+    color: #555;
+    width: 60%;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/*Дисциплина*/
+.course-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    padding: 2em;
+    box-sizing: border-box;
+}
+
+.course-background-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.course-background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: blur(4px);
+}
+
+.course-content {
+    text-align: center;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px); /* Добавляем размытие фона контента */
+    padding: 40px;
+    border-radius: 2em;
+    width: 80%;
+    max-width: 40em;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+}
+
+.course-content:hover {
+     transform: scale(1.02);
+}
+
+.course-icon-container {
+    margin-bottom: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-icon {
+     width: 7em;
+     height: 7em;
+     object-fit: contain; /* Сохраняет пропорции иконки */
+}
+
+.course-title {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    margin-left: auto;
+    text-shadow: 1px 1px 2px #000;
+    color: #fff;
+}
+
+.course-description {
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px #000;
+    color: #0f0f0f;
+    opacity: 0.9;
+}

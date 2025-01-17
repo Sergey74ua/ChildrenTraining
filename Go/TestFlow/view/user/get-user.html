@@ -1,0 +1,67 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Профиль пользовалетя</h1>
+    <hr>
+    <div class="user-profile">
+        <div class="user-profile-page">
+            <div class="user-id">ID пользователя: <span id="user-id-value">{{.User.Id}}</span></div>
+            <div class="profile-header">
+                 <img src="{{.User.Avatar}}" alt="Аватар пользователя" class="profile-avatar">
+                 <h1 class="username">{{.User.Name}}</h1>
+            </div>
+             <div class="profile-content">
+                 <div class="profile-details">
+                     <div class="detail-item">
+                         <span class="detail-label">Почта:</span>
+                         <span class="detail-value">{{.User.Email}}</span>
+                     </div>
+                     <div class="detail-item">
+                         <span class="detail-label">Дата рождения:</span>
+                         <span class="detail-value">{{.User.DataBirth}}</span>
+                     </div>
+                      <div class="detail-item">
+                         <span class="detail-label">Дата регистрации:</span>
+                         <span class="detail-value">{{.User.DataReg}}</span>
+                     </div>
+                     <div class="detail-item">
+                         <span class="detail-label">Статус:</span>
+                         <span class="detail-value">{{.User.Status}}</span>
+                     </div>
+                     <div class="detail-item">
+                        <span class="detail-label">Рейтинг:</span>
+                        <span class="detail-value rating">{{.User.Rate}}</span>
+                     </div>
+                     <div class="detail-item">
+                        <span class="detail-label">Дисциплина:</span>
+                        <a href="/get-course/{{.Course_Id}}"><span class="highlight">{{.User.Course}}</span></a>
+                     </div>
+                 </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Пройденные тесты:</span>
+                        <table>
+                            {{range .UserTest}}
+                            <tr class="line">
+                                <td><img src="{{.Icon}}" class="sign"></td>
+                                <td><b>{{.NameC}}</b></td>
+                                <td><b>{{.NameT}}</b></td>
+                                <td><b>{{.Date}}</b></td>
+                                <td><img src="../view/img/icon/star.png" class="sign"></a></td>
+                                <td><b>{{.Result}}</b></td>
+                                <td><a href="/get-test/{{.IdT}}" title="Подробнее"><img src="../view/img/icon/next.png" class="sign"></a></td>
+                            </tr>
+                            {{else}}
+                                <span class="stat-value">Ни один тест не пройден</span>
+                            {{end}}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{{template "footer"}}
+{{end}}

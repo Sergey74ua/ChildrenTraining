@@ -1,0 +1,24 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Дисциплина</h1>
+    <hr>
+    <section>
+        <div class="course-card">
+            <div class="course-background-image-container">
+                <img src="{{.Course.Background}}" alt="Фон" class="course-background-image">
+            </div>
+            <div class="course-content">
+                <div class="course-icon-container">
+                    <img src="{{.Course.Icon}}" alt="Иконка дисциплины" class="course-icon">
+                </div>
+            <h1 class="course-title">{{.Course.Name}}</h1>
+            <p class="course-description">{{.Course.Description}}</p>
+            <a href="/courses/"><button>Назад</button></a>
+        </div>
+    </section>
+</main>
+{{template "footer"}}
+{{end}}

@@ -1,0 +1,31 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Дисциплины</h1>
+    <hr>
+    <section>
+    <h2>Список всех дисциплин</h2>
+    <div class="discipline-list">
+        {{range .Course}}
+            <div class="discipline-card">
+                <div class="discipline-background-image-container">
+                    <img src="{{.Background}}" alt="Фон" class="discipline-background-image">
+                </div>
+                <div class="discipline-content">
+                    <h2 class="discipline-title">{{.Name}}</h2>
+                    <img src="{{.Icon}}" alt="Иконка дисциплины" class="discipline-icon">
+                    <div>
+                        <a href="/get-course/{{.Id}}"><button>Подробнее</button></a><br><br>
+                        <a href="/course-testing/{{.Id}}"><button>Тестирования</button></a>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+        Список пуст
+        {{end}}
+    </div>
+</main>
+{{template "footer"}}
+{{end}}

@@ -1,0 +1,27 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Тестирования</h1>
+    <hr>
+    <section>
+        <h2>Список тестов по дисциплине: {{.Course.Name}}</h2>
+        <div class="list">
+            {{range .Tests}}
+            <div class="test-card">
+                <div><img src="{{.CourseIcon}}" alt="" class="test-icon"></div>
+                <div class="test-content">
+                    <h2 class="p-title">{{.Name}}</h2>
+                    <p>{{.Description}}</p>
+                </div>
+                <div><a href="/get-test/{{.Id}}"><button class="test-button">Пройти тест</button></a></div>
+            </div>
+            {{else}}
+                <p>Список пуст</p>
+            {{end}}
+        </div>
+    </section>
+</main>
+{{template "footer"}}
+{{end}}

@@ -1,0 +1,34 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Список пользователей</h1>
+    <hr>
+    <section>
+        <h2>Список пользователей</h2>
+        <table>
+        {{range .Users}}
+        <tr class="line">
+            <td>Пользователь:</td>
+            <td><img src="{{.Avatar}}" class="sign"></td>
+            <td><b>{{.Name}}</b><td>
+            <td>{{.DataBirth}}</td>
+            <td><img src="../view/img/icon/mail.png" class="sign"></td>
+            <td>{{.Email}}</td>
+            <td><img src="../view/img/icon/star.png" class="sign"></td>
+            <td>{{.Rate}}</td>
+            <td>{{.Status}}</td>
+            <td><a href="/get-user/{{.Id}}" title="Открыть"><img src="../view/img/icon/eye.png" class="sign"></a></td>
+            <td><a href="/update-user/{{.Id}}" title="Изменить"><img src="../view/img/icon/edit.png" class="sign"></a></td>
+            <td><a href="#" title="Забанить"><img src="../view/img/icon/ban.png" class="sign"></a></td>
+            <td><a href="/delete-user/{{.Id}}" title="Удалить"><img src="../view/img/icon/del.png" class="sign"></a></td>
+        </tr>
+        {{else}}
+            <p>Список пуст</p>
+        {{end}}
+        </table>
+    </section>
+</main>
+{{template "footer"}}
+{{end}}

@@ -1,0 +1,32 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Обновление данных пользователя</h1>
+    <hr>
+    <section>
+        <h2>Введите данные</h2>
+        <form method="POST">
+            <div class="register">
+                <input type="text" name="name" value="{{.User.Name}}" placeholder="Имя"><br><br>
+                <input type="password" name="password" value="{{.User.Password}}" placeholder="Пароль"><br><br>
+                <input type="email" name="email" value="{{.User.Email}}" placeholder="Почта"><br><br>
+                <input type="date" name="dataBirth" value="{{.User.DataBirth}}"><br><br>
+                <select name="course">
+                {{range .Course}}
+                    {{if eq .Name $.User.Course}}
+                        <option selected value="{{.Id}}">{{.Name}}</option>
+                    {{else}}
+                        <option value="{{.Id}}">{{.Name}}</option>
+                    {{end}}
+                {{end}}
+                </select>
+                <br>
+                <button type="submit">Сохранить</button>
+            </div>
+        </form>
+    </section>
+</main>
+{{template "footer"}}
+{{end}}

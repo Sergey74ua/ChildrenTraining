@@ -1,0 +1,40 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main class="col">
+    <h1>Web-проект TestFlow</h1>
+    <hr>
+    <section>
+        <h2>Дисциплины</h2>
+        <div class="list">
+            {{range .Course}}
+            <a href="/get-course/{{.Id}}" class="p-card">
+                <img src="{{.Icon}}" alt="{{.Name}}" class="p-image">
+                <h2 class="p-title">{{.Name}}</h2>
+            </a>
+            {{else}}
+                <p>Список пуст</p>
+            {{end}}
+        </div>
+    </section>
+    <section>
+        <h2>Тесты</h2>
+        <div class="list">
+            {{range .Testing}}
+            <div class="test-card">
+                <div><img src="{{.CourseIcon}}" alt="" class="test-icon"></div>
+                <div class="test-content">
+                    <h2 class="p-title">{{.Name}}</h2>
+                    <p>{{.Description}}</p>
+                </div>
+                <div><a href="/get-test/{{.Id}}"><button class="test-button">Пройти тест</button></a></div>
+            </div>
+            {{else}}
+                <p>Список пуст</p>
+            {{end}}
+        </div>
+    </section>
+</main>
+{{template "footer"}}
+{{end}}

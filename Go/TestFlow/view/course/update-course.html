@@ -1,0 +1,24 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Редактирование дисциплнины</h1>
+    <hr>
+    <section>
+        <h2>Введите данные</h2>
+        <form method="POST">
+            <div class="register">
+                <input type="text" name="name" value="{{.Course.Name}}" placeholder="Название дисциплины"><br><br>
+                <textarea name="description" rows="10" cols="72" placeholder="Описание дисциплины">{{.Course.Description}}</textarea><br><br>
+                <img src="{{.Course.Icon}}" alt="" class="avatar"><br><br>
+                <input type="file" name="icon"><br><br>
+                <img src="{{.Course.Background}}" alt="" class="bgCourse"><br><br>
+                <input type="file" name="background"><br><br>
+                <button type="submit">Сохранить</button>
+            </div>
+        </form>
+    <section>
+</main>
+{{template "footer"}}
+{{end}}

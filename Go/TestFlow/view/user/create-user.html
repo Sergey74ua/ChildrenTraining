@@ -1,0 +1,28 @@
+{{define "content"}}
+{{template "header"}}
+<title>{{.Title}}</title>
+{{template "menu"}}
+<main>
+    <h1>Регистрация пользователя</h1>
+    <hr>
+    <section>
+        <h2>Введите данные</h2>
+        <form method="POST">
+            <div class="register">
+                <input type="text" name="name" placeholder="Имя"><br><br>
+                <input type="password" name="password" placeholder="Пароль"><br><br>
+                <input type="email" name="email" placeholder="Почта"><br><br>
+                <input type="date" name="dataBirth" placeholder="Дата рождения"><br><br>
+                <select name="course">
+                    {{range .Courses}}
+                        <option value="{{.Id}}">{{.Name}}</option>
+                    {{end}}
+                </select>
+                <br><br>
+                <button type="submit">Создать</button>
+            </div>
+        </form>
+    </section>
+</main>
+{{template "footer"}}
+{{end}}

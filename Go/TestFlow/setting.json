@@ -1,0 +1,9 @@
+{
+	"HOST": "localhost",
+	"PORT": "8888",
+	"DBMS": "sqlite3",
+	"PATH": "./model/sqlite.db",
+	"STAT": "./view/",
+	"USER": "admin",
+	"PASS": "admin"
+}
