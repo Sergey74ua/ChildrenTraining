@@ -4,7 +4,7 @@ from telebot import types
 import requests
 import json
 
-bot = telebot.TeleBot('6921844320:AAGCwcb378bNPiEGzB_PrCiG0bfonXz5TPU')
+bot = telebot.TeleBot('сюда вставить токен')
 
 user = {}
 params = {}
