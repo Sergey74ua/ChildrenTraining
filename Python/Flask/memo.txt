@@ -14,7 +14,7 @@ pip list - Просмотреть установленные модули
 pip freeze > requirements.txt - Сохраняем список модулей
 pip install -r requirements.txt - Загружаем список модулей
 
-pip install Flask - Установка Flask
+pip install Flask - Установка Flask (дополнительно pip install flask-sqlalchemy)
 
 app.py - Создаем файл приложения (можно по другому)
   from flask import Flask - подкллючаем класс Flask
