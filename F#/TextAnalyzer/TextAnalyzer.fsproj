@@ -8,20 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="MainWindow.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="MainWindow.xaml.fs" />
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="data\icon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="MainWindow.xaml" />
+    <Resource Include="data\MainWindow.xaml" />
+    <Compile Include="data\MainWindow.xaml.fs" />
+	<Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>

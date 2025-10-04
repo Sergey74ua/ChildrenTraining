@@ -7,9 +7,11 @@ open System.Windows
 [<EntryPoint>]
 let main(_) =
     let app = Application()
-    
+
     let window = 
-        Application.LoadComponent(Uri("MainWindow.xaml", UriKind.Relative)) :?> Window
+        Uri("MainWindow.xaml", UriKind.Relative)
+        |> Application.LoadComponent
+        :?> Window
         |> MainWindow.initializeWindow
 
     app.MainWindow <- window

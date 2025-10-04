@@ -1,0 +1,19 @@
+﻿1.  IDE Visual Studio
+2.  Если нет компонета F# - добавляем
+3.  Создаем проект на F#
+4.  Выбираем консольное приложение для Windows
+5.  Версия NET 8.0
+6.  В свойствах проекта настраиваем:
+    - Тип вывода - Приложение Windows
+    - Целевая ОС - Windows
+    - Windows Presentation Foundation (WPF)
+    - Выбираем файл иконки
+7.  В проекте добавляем файлы:
+    - MainWindow.xaml - верстка GUI
+    - MainWindow.xaml.fs - функции GUI
+8.  В свойствах файлов *.xaml настраиваем
+    - Действие при сборке - 
+9.  В файле TextAnalyzer.fsproj добавляем
+    - <Resource Include="data\MainWindow.xaml" />
+    - <Compile Include="data\MainWindow.xaml.fs" />
+10. Добавляем файл ресурсов
