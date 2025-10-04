@@ -2,22 +2,26 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <UseWPF>True</UseWPF>
+    <ApplicationIcon>data\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="data\MainWindow.xaml" />
+    <Page Remove="MainWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="data\fti.jpg" />
-    <EmbeddedResource Include="data\icon.ico" />
+    <Compile Include="MainWindow.xaml.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="data\MainWindow.xaml" />
+    <Content Include="data\icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="MainWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>

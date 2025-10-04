@@ -1,0 +1,15 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Text analyzer"
+    Width="640"
+    Height="480">
+
+    <Grid>
+        <StackPanel>
+            <TextBox x:Name="textBox" Width="500" Height="300"/>
+            <Button x:Name="btnEnter" Width="200" Height="40" Content="Ввод текста"/>
+            <Button x:Name="btnClear" Width="200" Height="40" Content="Очистить текст"/>
+        </StackPanel>
+    </Grid>
+</Window>
