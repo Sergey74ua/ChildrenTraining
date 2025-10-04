@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="functions.fs" />
     <Content Include="data\icon.ico" />
     <Resource Include="data\MainWindow.xaml" />
     <Compile Include="data\MainWindow.xaml.fs" />

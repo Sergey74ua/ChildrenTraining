@@ -1,7 +1,11 @@
 ﻿module MainWindow
 
+open System
 open System.Windows
 open System.Windows.Controls
+
+open functions
+
 
 let initializeWindow (window: Window) =
     let textBox = window.FindName("textBox") :?> TextBox
@@ -13,7 +17,10 @@ let initializeWindow (window: Window) =
     )
 
     btnClear.Click.Add(fun _ ->
-        textBox.Text <- ""
+        let t = textBox.Text
+        textBox.Clear()
+        let n = count t |> sprintf "Символов: %d"
+        textBox.Text <- t + Environment.NewLine + n
     )
 
     window
