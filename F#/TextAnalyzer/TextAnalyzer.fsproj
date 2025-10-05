@@ -5,13 +5,14 @@
     <TargetFramework>net8.0-windows7.0</TargetFramework>
     <UseWPF>True</UseWPF>
     <ApplicationIcon>data\icon.ico</ApplicationIcon>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="functions.fs" />
-    <Content Include="data\icon.ico" />
-    <Resource Include="data\MainWindow.xaml" />
+	<Resource Include="data\MainWindow.xaml" />
     <Compile Include="data\MainWindow.xaml.fs" />
+    <Content Include="data\icon.ico" />
 	<Compile Include="Program.fs" />
   </ItemGroup>
 

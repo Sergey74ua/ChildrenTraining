@@ -12,11 +12,12 @@
         GUI: WPF
         IDE: Visual Studio 2022
     
-    Author: Максим Покидько
-    University: КФУ ФТИ ПИ
+    Author: ...
+    University: ...
     Version: 1.0.0
     Created: 2025-10-05
 *)
+
 
 open System
 open System.Windows
@@ -27,12 +28,11 @@ open System.Windows
 let main(_) =
     let app = Application()
 
-    let window = 
-        Uri("MainWindow.xaml", UriKind.Relative)
+    app.MainWindow <- 
+        Uri("data\MainWindow.xaml", UriKind.Relative)
         |> Application.LoadComponent
         :?> Window
         |> MainWindow.initializeWindow
 
-    app.MainWindow <- window
-    window.Show()
+    app.MainWindow.Show()
     app.Run()
