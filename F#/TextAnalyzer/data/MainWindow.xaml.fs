@@ -19,6 +19,23 @@ let initializeWindow (window: Window) =
     let value1 = window.FindName("value1") :?> TextBlock
     let value2 = window.FindName("value2") :?> TextBlock
     let value3 = window.FindName("value3") :?> TextBlock
+    let itemsListBox = window.FindName("itemsListBox") :?> ListBox
+    let items = [|
+        "Человеческий научный текст";
+        "Человеческий законодательный текст";
+        "Человеческий литературный текст";
+        "Человеческий журналистский текст";
+        "Человеческий текст из соц.сетей";
+        "Нейросеть Grok (xAI)";
+        "Нейросеть ChatGPT (Google)";
+        "Нейросеть DeepSeek AI";
+        "Нейросеть GPT-4 (OpenAI)";
+        "Нейросеть Claude 3 (Anthropic)";
+        "Нейросеть YandexGPT";
+        "Нейросеть Bloom (BigScience)";
+        "Нейросеть LaMDA (Google)";
+        "Аномальный стиль текста";
+        "Неопределенный текст"|]
 
     // Изменение размера шрифта с ограничениями
     let minFontSize = 8.0
@@ -66,5 +83,42 @@ let initializeWindow (window: Window) =
     btnSmall.Click.Add(fun _ ->
         updateFontSize -1.0
     )
+
+    // *********************************************************
+    //         ВСЕ ДОПЕРЕДЕЛАТЬ И ПЕРЕДООПТИМИЗИРОВАТЬ
+    // *********************************************************
+
+    // Заполнение ListBox
+    itemsListBox.ItemsSource <- items
+
+    // Обработчик события выбора элемента
+    itemsListBox.SelectionChanged.AddHandler(fun sender e ->
+        match itemsListBox.SelectedItem with
+        | :? string as selectedItem ->
+            // Используем выбранный элемент
+            printfn "Выбран: %s" selectedItem
+            // Здесь можно добавить вашу логику обработки выбора
+        | _ -> ()
+    )
+
+    // Метод для получения выбранного элемента
+    let getSelectedItem() =
+        match itemsListBox.SelectedItem with
+        | :? string as item -> Some item
+        | _ -> None
+
+    // Метод для установки выбранного элемента по индексу
+    let setSelectedItem index =
+        if index >= 0 && index < itemsListBox.Items.Count then
+            itemsListBox.SelectedIndex <- index
+
+    // Метод для установки выбранного элемента по значению
+    let setSelectedItemByValue (value: string) =
+        let index = Array.tryFindIndex (fun item -> item = value) items
+        match index with
+        | Some i -> itemsListBox.SelectedIndex <- i
+        | None -> ()
+
+    // *********************************************************
 
     window

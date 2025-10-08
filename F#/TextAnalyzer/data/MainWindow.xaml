@@ -3,13 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Text analyzer"
     Width="1200"
-    Height="740">
+    Height="740"
+    MinHeight="160">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="330"/>
             <ColumnDefinition Width="5"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="330"/>
         </Grid.ColumnDefinitions>
 
         <!-- Левая панель -->
@@ -100,21 +101,19 @@
                     </Grid.RowDefinitions>
 
                     <!-- Заголовок -->
-                    <TextBlock Grid.Row="0" Text="Список элементов" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Row="0" Text="Источники текста" FontWeight="Bold" Margin="0,0,0,5"/>
 
                     <!-- Прокручиваемый список -->
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="60">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Text="Элемент 1" Margin="0,2"/>
-                            <TextBlock Text="Элемент 2" Margin="0,2"/>
-                            <TextBlock Text="Элемент 3" Margin="0,2"/>
-                            <TextBlock Text="Элемент 4" Margin="0,2"/>
-                            <TextBlock Text="Элемент 5" Margin="0,2"/>
-                            <TextBlock Text="Элемент 6" Margin="0,2"/>
-                            <TextBlock Text="Элемент 7" Margin="0,2"/>
-                            <TextBlock Text="Элемент 8" Margin="0,2"/>
-                        </StackPanel>
-                    </ScrollViewer>
+                    <ListBox Name="itemsListBox" 
+                         Grid.Row="1" 
+                         MaxHeight="80"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" Margin="0,2"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </Grid>
 
