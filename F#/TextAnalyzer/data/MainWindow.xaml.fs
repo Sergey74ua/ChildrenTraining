@@ -36,6 +36,7 @@ let initializeWindow (window: Window) =
         "Нейросеть LaMDA (Google)";
         "Аномальный стиль текста";
         "Неопределенный текст"|]
+    itemsListBox.ItemsSource <- items
 
     // Изменение размера шрифта с ограничениями
     let minFontSize = 8.0
@@ -87,9 +88,6 @@ let initializeWindow (window: Window) =
     // *********************************************************
     //         ВСЕ ДОПЕРЕДЕЛАТЬ И ПЕРЕДООПТИМИЗИРОВАТЬ
     // *********************************************************
-
-    // Заполнение ListBox
-    itemsListBox.ItemsSource <- items
 
     // Обработчик события выбора элемента
     itemsListBox.SelectionChanged.AddHandler(fun sender e ->
