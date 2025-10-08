@@ -1,15 +1,194 @@
-﻿<Window
+﻿<Window Name="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="Text analyzer"
-    Width="640"
-    Height="480">
+    Width="1200"
+    Height="740">
 
     <Grid>
-        <StackPanel>
-            <TextBox x:Name="textBox" Width="500" Height="300"/>
-            <Button x:Name="btnEnter" Width="200" Height="40" Content="Ввод текста"/>
-            <Button x:Name="btnClear" Width="200" Height="40" Content="Очистить текст"/>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Левая панель -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Панель управления -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                <Button Name="btnInsert" Content="Вставить" Margin="5" Padding="10,5"/>
+                <Button Name="btnScan" Content="Отправить" Margin="5" Padding="10,5"/>
+                <Button Name="btnClear" Content="Стереть" Margin="5" Padding="10,5"/>
+                <Button Name="btnLarge" Content="+" Margin="5" Padding="10,5"/>
+                <Button Name="btnSmall" Content="-" Margin="5" Padding="10,5"/>
+            </StackPanel>
+
+            <!-- Окно для ввода текста -->
+            <TextBox Name="textBox"
+                     Grid.Row="1" 
+                     Margin="5" 
+                     AcceptsReturn="True" 
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     Text="Введите текст здесь..."/>
+        </Grid>
+
+        <!-- Разделитель -->
+        <GridSplitter Grid.Column="1"
+                      Width="5"
+                      HorizontalAlignment="Stretch"
+                      Background="Gray"/>
+
+        <!-- Правая панель -->
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Верхняя часть правой панели - 2 колонки -->
+            <Grid Grid.Row="0" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Левая колонка правой панели - параметры -->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Заголовки -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Результат анализа" FontWeight="Bold" Margin="0,0,10,5"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Значение" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                    <!-- Параметр 1 -->
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Количество символов" Margin="0,5,10,5"/>
+                    <TextBlock Name="value1" Grid.Row="1" Grid.Column="1" Text="50%" Margin="0,5,0,5"/>
+
+                    <!-- Параметр 2 -->
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Количество символов х2" Margin="0,5,10,5"/>
+                    <TextBlock Name="value2" Grid.Row="2" Grid.Column="1" Text="30%" Margin="0,5,0,5"/>
+
+                    <!-- Параметр 3 -->
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="Количество символов х3" Margin="0,5,10,5"/>
+                    <TextBlock Name="value3" Grid.Row="3" Grid.Column="1" Text="20%" Margin="0,5,0,5"/>
+                </Grid>
+
+                <!-- Разделитель между колонками -->
+                <Rectangle Grid.Column="1" Fill="LightGray" Width="1" VerticalAlignment="Stretch" Margin="5,0"/>
+
+                <!-- Правая колонка - прокручиваемый список -->
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Заголовок -->
+                    <TextBlock Grid.Row="0" Text="Список элементов" FontWeight="Bold" Margin="0,0,0,5"/>
+
+                    <!-- Прокручиваемый список -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="60">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Элемент 1" Margin="0,2"/>
+                            <TextBlock Text="Элемент 2" Margin="0,2"/>
+                            <TextBlock Text="Элемент 3" Margin="0,2"/>
+                            <TextBlock Text="Элемент 4" Margin="0,2"/>
+                            <TextBlock Text="Элемент 5" Margin="0,2"/>
+                            <TextBlock Text="Элемент 6" Margin="0,2"/>
+                            <TextBlock Text="Элемент 7" Margin="0,2"/>
+                            <TextBlock Text="Элемент 8" Margin="0,2"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+
+            <!-- Список диаграмм -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10,0,10,10">
+                <StackPanel Orientation="Vertical">
+
+                    <!-- Виджет диаграммы 1 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Диаграмма 1" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Rectangle Grid.Row="1" Height="50" Fill="LightBlue"/>
+                            <TextBlock Grid.Row="1" Text="50%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Виджет диаграммы 2 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Диаграмма 2" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Rectangle Grid.Row="1" Height="50" Fill="LightGreen"/>
+                            <TextBlock Grid.Row="1" Text="30%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Виджет диаграммы 3 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Диаграмма 3" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Rectangle Grid.Row="1" Height="50" Fill="LightCoral"/>
+                            <TextBlock Grid.Row="1" Text="20%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Виджет диаграммы 4 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Диаграмма 4" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Rectangle Grid.Row="1" Height="50" Fill="LightYellow"/>
+                            <TextBlock Grid.Row="1" Text="75%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Виджет диаграммы 5 -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,5" Padding="10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Диаграмма 5" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Rectangle Grid.Row="1" Height="50" Fill="LightPink"/>
+                            <TextBlock Grid.Row="1" Text="45%" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>
