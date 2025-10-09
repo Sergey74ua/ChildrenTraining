@@ -4,6 +4,7 @@
     Title="Text analyzer"
     Width="1200"
     Height="740"
+    MinWidth="665"
     MinHeight="160">
 
     <Grid>
