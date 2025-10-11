@@ -1,0 +1,235 @@
+# Copyright (C) 2024 Your Name
+# This file is distributed under the same license as the Pets Nursery plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pets Nursery 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-15 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/class-litter.php:25
+msgid "Litters"
+msgstr ""
+
+#: includes/class-litter.php:26
+msgid "Litter"
+msgstr ""
+
+#: includes/class-litter.php:27
+msgid "Add Litter"
+msgstr ""
+
+#: includes/class-litter.php:28
+msgid "Add New Litter"
+msgstr ""
+
+#: includes/class-litter.php:29
+msgid "Edit Litter"
+msgstr ""
+
+#: includes/class-litter.php:30
+msgid "New Litter"
+msgstr ""
+
+#: includes/class-litter.php:31
+msgid "View Litter"
+msgstr ""
+
+#: includes/class-litter.php:32
+msgid "Search Litters"
+msgstr ""
+
+#: includes/class-litter.php:33
+msgid "No litters found"
+msgstr ""
+
+#: includes/class-litter.php:34
+msgid "No litters found in Trash"
+msgstr ""
+
+#: includes/class-litter.php:57
+msgid "Litter Information"
+msgstr ""
+
+#: includes/class-litter.php:64
+msgid "Litter birth date:"
+msgstr ""
+
+#: includes/class-litter.php:66
+msgid "This date will automatically become the birth date of all pets in the litter"
+msgstr ""
+
+#: includes/class-litter.php:71
+msgid "Father:"
+msgstr ""
+
+#: includes/class-litter.php:73
+msgid "-- Select father --"
+msgstr ""
+
+#: includes/class-litter.php:85
+msgid "Mother:"
+msgstr ""
+
+#: includes/class-litter.php:87
+msgid "-- Select mother --"
+msgstr ""
+
+#: includes/class-litter.php:99
+msgid "Pets in litter:"
+msgstr ""
+
+#: includes/class-litter.php:124
+msgid "Search pet by nickname..."
+msgstr ""
+
+#: includes/class-litter.php:125
+msgid "Search"
+msgstr ""
+
+#: includes/class-litter.php:131
+msgid "Or create new pet:"
+msgstr ""
+
+#: includes/class-litter.php:132
+msgid "New pet nickname"
+msgstr ""
+
+#: includes/class-litter.php:133
+msgid "Create Pet"
+msgstr ""
+
+#: includes/class-pet.php:25
+msgid "Pets"
+msgstr ""
+
+#: includes/class-pet.php:26
+msgid "Pet"
+msgstr ""
+
+#: includes/class-pet.php:27
+msgid "Add Pet"
+msgstr ""
+
+#: includes/class-pet.php:28
+msgid "Add New Pet"
+msgstr ""
+
+#: includes/class-pet.php:29
+msgid "Edit Pet"
+msgstr ""
+
+#: includes/class-pet.php:30
+msgid "New Pet"
+msgstr ""
+
+#: includes/class-pet.php:31
+msgid "View Pet"
+msgstr ""
+
+#: includes/class-pet.php:32
+msgid "Search Pets"
+msgstr ""
+
+#: includes/class-pet.php:33
+msgid "No pets found"
+msgstr ""
+
+#: includes/class-pet.php:34
+msgid "No pets found in Trash"
+msgstr ""
+
+#: includes/class-pet.php:57
+msgid "Pet Information"
+msgstr ""
+
+#: includes/class-pet.php:68
+msgid "Nickname:"
+msgstr ""
+
+#: includes/class-pet.php:70
+msgid "Nickname automatically becomes the pet title. You can change the title above."
+msgstr ""
+
+#: includes/class-pet.php:75
+msgid "Birth date:"
+msgstr ""
+
+#: includes/class-pet.php:77
+msgid "If pet is linked to a litter, birth date is automatically taken from the litter"
+msgstr ""
+
+#: includes/class-pet.php:82
+msgid "Litter:"
+msgstr ""
+
+#: includes/class-pet.php:84
+msgid "-- Select litter --"
+msgstr ""
+
+#: includes/class-ajax.php:28
+msgid "Pets not found"
+msgstr ""
+
+#: includes/class-ajax.php:40
+msgid "Nickname cannot be empty"
+msgstr ""
+
+#: includes/class-ajax.php:58
+msgid "Error creating pet"
+msgstr ""
+
+#: includes/class-shortcodes.php:29
+msgid "Litter Information"
+msgstr ""
+
+#: includes/class-shortcodes.php:32
+msgid "Birth date:"
+msgstr ""
+
+#: includes/class-shortcodes.php:37
+msgid "Father:"
+msgstr ""
+
+#: includes/class-shortcodes.php:45
+msgid "Mother:"
+msgstr ""
+
+#: includes/class-shortcodes.php:53
+msgid "Pets in litter:"
+msgstr ""
+
+#: includes/class-shortcodes.php:80
+msgid "Pet Information"
+msgstr ""
+
+#: includes/class-shortcodes.php:85
+msgid "Nickname:"
+msgstr ""
+
+#: includes/class-shortcodes.php:90
+msgid "Birth date:"
+msgstr ""
+
+#: includes/class-shortcodes.php:95
+msgid "Litter:"
+msgstr ""
+
+#: includes/class-shortcodes.php:108
+msgid "Parents:"
+msgstr ""
+
+#: includes/class-shortcodes.php:114
+msgid "Father:"
+msgstr ""
+
+#: includes/class-shortcodes.php:124
+msgid "Mother:"
+msgstr ""

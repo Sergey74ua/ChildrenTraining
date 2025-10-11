@@ -1,0 +1,181 @@
+# English translation for Pets Nursery plugin
+# Copyright (C) 2024 Your Name
+# This file is distributed under the same license as the Pets Nursery plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pets Nursery 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-15 12:00+0000\n"
+"PO-Revision-Date: 2024-01-15 12:00+0000\n"
+"Last-Translator: Your Name <your@email.com>\n"
+"Language-Team: English <your@email.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Litters"
+msgstr "Litters"
+
+msgid "Litter"
+msgstr "Litter"
+
+msgid "Add Litter"
+msgstr "Add Litter"
+
+msgid "Add New Litter"
+msgstr "Add New Litter"
+
+msgid "Edit Litter"
+msgstr "Edit Litter"
+
+msgid "New Litter"
+msgstr "New Litter"
+
+msgid "View Litter"
+msgstr "View Litter"
+
+msgid "Search Litters"
+msgstr "Search Litters"
+
+msgid "No litters found"
+msgstr "No litters found"
+
+msgid "No litters found in Trash"
+msgstr "No litters found in Trash"
+
+msgid "Litter Information"
+msgstr "Litter Information"
+
+msgid "Litter birth date:"
+msgstr "Litter birth date:"
+
+msgid "This date will automatically become the birth date of all pets in the litter"
+msgstr "This date will automatically become the birth date of all pets in the litter"
+
+msgid "Father:"
+msgstr "Father:"
+
+msgid "-- Select father --"
+msgstr "-- Select father --"
+
+msgid "Mother:"
+msgstr "Mother:"
+
+msgid "-- Select mother --"
+msgstr "-- Select mother --"
+
+msgid "Pets in litter:"
+msgstr "Pets in litter:"
+
+msgid "Search pet by nickname..."
+msgstr "Search pet by nickname..."
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Or create new pet:"
+msgstr "Or create new pet:"
+
+msgid "New pet nickname"
+msgstr "New pet nickname"
+
+msgid "Create Pet"
+msgstr "Create Pet"
+
+msgid "Pets"
+msgstr "Pets"
+
+msgid "Pet"
+msgstr "Pet"
+
+msgid "Add Pet"
+msgstr "Add Pet"
+
+msgid "Add New Pet"
+msgstr "Add New Pet"
+
+msgid "Edit Pet"
+msgstr "Edit Pet"
+
+msgid "New Pet"
+msgstr "New Pet"
+
+msgid "View Pet"
+msgstr "View Pet"
+
+msgid "Search Pets"
+msgstr "Search Pets"
+
+msgid "No pets found"
+msgstr "No pets found"
+
+msgid "No pets found in Trash"
+msgstr "No pets found in Trash"
+
+msgid "Pet Information"
+msgstr "Pet Information"
+
+msgid "Nickname:"
+msgstr "Nickname:"
+
+msgid "Nickname automatically becomes the pet title. You can change the title above."
+msgstr "Nickname automatically becomes the pet title. You can change the title above."
+
+msgid "Birth date:"
+msgstr "Birth date:"
+
+msgid "If pet is linked to a litter, birth date is automatically taken from the litter"
+msgstr "If pet is linked to a litter, birth date is automatically taken from the litter"
+
+msgid "Litter:"
+msgstr "Litter:"
+
+msgid "-- Select litter --"
+msgstr "-- Select litter --"
+
+msgid "Pets not found"
+msgstr "Pets not found"
+
+msgid "Nickname cannot be empty"
+msgstr "Nickname cannot be empty"
+
+msgid "Error creating pet"
+msgstr "Error creating pet"
+
+msgid "Litter Information"
+msgstr "Litter Information"
+
+msgid "Birth date:"
+msgstr "Birth date:"
+
+msgid "Father:"
+msgstr "Father:"
+
+msgid "Mother:"
+msgstr "Mother:"
+
+msgid "Pets in litter:"
+msgstr "Pets in litter:"
+
+msgid "Pet Information"
+msgstr "Pet Information"
+
+msgid "Nickname:"
+msgstr "Nickname:"
+
+msgid "Birth date:"
+msgstr "Birth date:"
+
+msgid "Litter:"
+msgstr "Litter:"
+
+msgid "Parents:"
+msgstr "Parents:"
+
+msgid "Father:"
+msgstr "Father:"
+
+msgid "Mother:"
+msgstr "Mother:"

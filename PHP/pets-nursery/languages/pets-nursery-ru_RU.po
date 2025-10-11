@@ -1,0 +1,182 @@
+# Russian translation for Pets Nursery plugin
+# Copyright (C) 2024 Your Name
+# This file is distributed under the same license as the Pets Nursery plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Pets Nursery 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-15 12:00+0000\n"
+"PO-Revision-Date: 2024-01-15 12:00+0300\n"
+"Last-Translator: Your Name <your@email.com>\n"
+"Language-Team: Russian <your@email.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+
+msgid "Litters"
+msgstr "Выводки"
+
+msgid "Litter"
+msgstr "Выводок"
+
+msgid "Add Litter"
+msgstr "Добавить выводок"
+
+msgid "Add New Litter"
+msgstr "Добавить новый выводок"
+
+msgid "Edit Litter"
+msgstr "Редактировать выводок"
+
+msgid "New Litter"
+msgstr "Новый выводок"
+
+msgid "View Litter"
+msgstr "Просмотреть выводок"
+
+msgid "Search Litters"
+msgstr "Поиск выводков"
+
+msgid "No litters found"
+msgstr "Выводков не найдено"
+
+msgid "No litters found in Trash"
+msgstr "В корзине выводков не найдено"
+
+msgid "Litter Information"
+msgstr "Информация о выводке"
+
+msgid "Litter birth date:"
+msgstr "Дата рождения выводка:"
+
+msgid "This date will automatically become the birth date of all pets in the litter"
+msgstr "Эта дата автоматически станет датой рождения всех питомцев в выводке"
+
+msgid "Father:"
+msgstr "Отец:"
+
+msgid "-- Select father --"
+msgstr "-- Выберите отца --"
+
+msgid "Mother:"
+msgstr "Мать:"
+
+msgid "-- Select mother --"
+msgstr "-- Выберите мать --"
+
+msgid "Pets in litter:"
+msgstr "Питомцы в выводке:"
+
+msgid "Search pet by nickname..."
+msgstr "Поиск питомца по кличке..."
+
+msgid "Search"
+msgstr "Найти"
+
+msgid "Or create new pet:"
+msgstr "Или создайте нового питомца:"
+
+msgid "New pet nickname"
+msgstr "Кличка нового питомца"
+
+msgid "Create Pet"
+msgstr "Создать питомца"
+
+msgid "Pets"
+msgstr "Питомцы"
+
+msgid "Pet"
+msgstr "Питомец"
+
+msgid "Add Pet"
+msgstr "Добавить питомца"
+
+msgid "Add New Pet"
+msgstr "Добавить нового питомца"
+
+msgid "Edit Pet"
+msgstr "Редактировать питомца"
+
+msgid "New Pet"
+msgstr "Новый питомец"
+
+msgid "View Pet"
+msgstr "Просмотреть питомца"
+
+msgid "Search Pets"
+msgstr "Поиск питомцев"
+
+msgid "No pets found"
+msgstr "Питомцев не найдено"
+
+msgid "No pets found in Trash"
+msgstr "В корзине питомцев не найдено"
+
+msgid "Pet Information"
+msgstr "Информация о питомце"
+
+msgid "Nickname:"
+msgstr "Кличка:"
+
+msgid "Nickname automatically becomes the pet title. You can change the title above."
+msgstr "Кличка автоматически становится заголовком питомца. Вы можете изменить заголовок выше."
+
+msgid "Birth date:"
+msgstr "Дата рождения:"
+
+msgid "If pet is linked to a litter, birth date is automatically taken from the litter"
+msgstr "Если питомец привязан к выводку, дата рождения автоматически берется из выводка"
+
+msgid "Litter:"
+msgstr "Выводок:"
+
+msgid "-- Select litter --"
+msgstr "-- Выберите выводок --"
+
+msgid "Pets not found"
+msgstr "Питомцы не найдены"
+
+msgid "Nickname cannot be empty"
+msgstr "Кличка не может быть пустой"
+
+msgid "Error creating pet"
+msgstr "Ошибка при создании питомца"
+
+msgid "Litter Information"
+msgstr "Информация о выводке"
+
+msgid "Birth date:"
+msgstr "Дата рождения:"
+
+msgid "Father:"
+msgstr "Отец:"
+
+msgid "Mother:"
+msgstr "Мать:"
+
+msgid "Pets in litter:"
+msgstr "Питомцы в выводке:"
+
+msgid "Pet Information"
+msgstr "Информация о питомце"
+
+msgid "Nickname:"
+msgstr "Кличка:"
+
+msgid "Birth date:"
+msgstr "Дата рождения:"
+
+msgid "Litter:"
+msgstr "Выводок:"
+
+msgid "Parents:"
+msgstr "Родители:"
+
+msgid "Father:"
+msgstr "Отец:"
+
+msgid "Mother:"
+msgstr "Мать:"
